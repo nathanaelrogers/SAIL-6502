@@ -1,8 +1,11 @@
 type imm8 = bits(8)
 type imm16 = bits(16)
-
 type regnum = bits(3)
+type instruction_one_byte = bits(8)
+type instruction_two_byte = bits(16)
+type instruction_tri_byte = bits(24)
 
+// functions for reading and writing to registers
 mapping reg : reg_enum <-> regnum = {
 	PC_H <-> 0b000,
 	PC_L <-> 0b001,
@@ -39,10 +42,7 @@ function write_reg(r, word) = {
 	}
 }
 
-type instruction_one_byte = bits(8)
-type instruction_two_byte = bits(16)
-type instruction_tri_byte = bits(24)
-
+// Abstract Syntax Tree for all instructions
 scattered union ast
 
 union clause ast = ADC_IMM : (imm8)
@@ -276,13 +276,10 @@ function clause decode24(0x7E @ op : imm16) = ROR_ABS_X(op)
 // execute functionality for instructions
 val execute : ast -> bool 
 scattered function execute
-/*
-// function clause execute(ADC_IMM(op)) = {}
-// function clause execute(ADC_ZP(op)) = {}
-// function clause execute(ADC_ZP_X(op)) = {}
-// function clause execute(ADC_ABS(op)) = {}
-// function clause execute(ADC_ABS_X(op)) = {}
-// function clause execute(ADC_ABS_Y(op)) = {}
-// function clause execute(ADC_IND_X(op)) = {}
-// function clause execute(ADC_IND_Y(op)) = {}
-*/
+
+function clause execute(AND_IMM(op)) = {
+	let result = read_reg(reg(A)) & op;
+
+	write_reg(reg(A), result);
+	true
+}
