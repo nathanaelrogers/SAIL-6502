@@ -13,5 +13,7 @@ $include "instructions.sail"
 // }
 
 function main(): unit -> unit = {
-	print_int("integer is: ", 5)
+	write_reg(reg(A), 0xFF);
+
+	print_bits("the bits are: ", read_reg(0b010))
 }

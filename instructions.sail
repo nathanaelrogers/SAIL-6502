@@ -1,9 +1,9 @@
 type imm8 = bits(8)
 type imm16 = bits(16)
 
-type regname = bits(3)
+type regnum = bits(3)
 
-mapping reg_name_to_num : reg_enum <-> regname = {
+mapping reg : reg_enum <-> regnum = {
 	PC_H <-> 0b000,
 	PC_L <-> 0b001,
 	A    <-> 0b010,
@@ -13,7 +13,7 @@ mapping reg_name_to_num : reg_enum <-> regname = {
 	SP   <-> 0b110
 }
 
-val read_reg : regname -> word
+val read_reg : regnum -> word
 function read_reg(r) = {
 	match r {
 		0b000 => reg_PC[higher],
@@ -26,7 +26,7 @@ function read_reg(r) = {
 	}
 }
 
-val write_reg : (regname, word) -> unit
+val write_reg : (regnum, word) -> unit
 function write_reg(r, word) = {
 	match r {
 		0b000 => reg_PC[higher] = word,
@@ -277,11 +277,12 @@ function clause decode24(0x7E @ op : imm16) = ROR_ABS_X(op)
 val execute : ast -> bool 
 scattered function execute
 /*
-function clause execute(ADC_IMM(op)) = {}
-function clause execute(ADC_ZP(op)) = {}
-function clause execute(ADC_ZP_X(op)) = {}
-function clause execute(ADC_ABS(op)) = {}
-function clause execute(ADC_ABS_X(op)) = {}
-function clause execute(ADC_ABS_Y(op)) = {}
-function clause execute(ADC_IND_X(op)) = {}
-function clause execute(ADC_IND_Y(op)) = {}*/
+// function clause execute(ADC_IMM(op)) = {}
+// function clause execute(ADC_ZP(op)) = {}
+// function clause execute(ADC_ZP_X(op)) = {}
+// function clause execute(ADC_ABS(op)) = {}
+// function clause execute(ADC_ABS_X(op)) = {}
+// function clause execute(ADC_ABS_Y(op)) = {}
+// function clause execute(ADC_IND_X(op)) = {}
+// function clause execute(ADC_IND_Y(op)) = {}
+*/
