@@ -1,5 +1,6 @@
 type regname = bits(2)
-type imm = bits(8)
+type imm8 = bits(8)
+type imm16 = bits(16)
 
 mapping reg_name : reg_enum <-> regname = {
 	A <-> 0b00,
@@ -30,8 +31,8 @@ function write_reg(r, w) = {
 
 // Set and access flags in different method from normal read/write?
 
-val set_flags : (bits(1), bits(1), bits(1), bits(1), bits(1), bits(1), bits(1)) -> unit
-function set_flags(n, v, b, d, i, z, c) = {
+val set_all_flags : (bits(1), bits(1), bits(1), bits(1), bits(1), bits(1), bits(1)) -> unit
+function set_all_flags(n, v, b, d, i, z, c) = {
 	reg_P->n() = n;
 	reg_P->v() = v;
 	reg_P->b() = b;
@@ -41,6 +42,14 @@ function set_flags(n, v, b, d, i, z, c) = {
 	reg_P->c() = c;
 }
 
+function set_flag_n(value) : bits(1) -> unit = {reg_P->n() = value}
+function set_flag_v(value) : bits(1) -> unit = {reg_P->v() = value}
+function set_flag_b(value) : bits(1) -> unit = {reg_P->b() = value}
+function set_flag_d(value) : bits(1) -> unit = {reg_P->d() = value}
+function set_flag_i(value) : bits(1) -> unit = {reg_P->i() = value}
+function set_flag_z(value) : bits(1) -> unit = {reg_P->z() = value}
+function set_flag_c(value) : bits(1) -> unit = {reg_P->c() = value}
+
 function flag_n() : (unit) -> bits(1) = reg_P.n()
 function flag_v() : (unit) -> bits(1) = reg_P.v()
 function flag_b() : (unit) -> bits(1) = reg_P.b()
@@ -48,8 +57,6 @@ function flag_d() : (unit) -> bits(1) = reg_P.d()
 function flag_i() : (unit) -> bits(1) = reg_P.i()
 function flag_z() : (unit) -> bits(1) = reg_P.z()
 function flag_c() : (unit) -> bits(1) = reg_P.c()
-
-
 
 // ast of all instructions (needs useful return? parameter? type)
 
