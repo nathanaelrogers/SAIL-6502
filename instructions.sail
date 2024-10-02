@@ -1,5 +1,45 @@
+$include "types.sail"
+
 type imm8 = bits(8)
 type imm16 = bits(16)
+
+type regname = bits(3)
+
+mapping reg_name_to_num : reg_enum <-> regname = {
+	PC_H <-> 0b000,
+	PC_L <-> 0b001,
+	A    <-> 0b010,
+	X    <-> 0b011,
+	Y    <-> 0b100,
+	SR   <-> 0b101,
+	SP   <-> 0b110
+}
+
+val read_reg : regname -> word
+function read_reg(r) = {
+	match r {
+		0b000 => reg_PC.higher(),
+		0b001 => reg_PC.lower(),
+		0b010 => reg_A,
+		0b011 => reg_X,
+		0b100 => reg_Y,
+		0b101 => reg_SR,
+		0b110 => reg_SP
+	}
+}
+
+val write_reg : (regname, word) -> unit
+function write_reg(r, word) = {
+	match r {
+		0b000 => reg_PC->higher() = word,
+		0b001 => reg_PC->lower() = word,
+		0b010 => reg_A = word,
+		0b011 => reg_X = word,
+		0b100 => reg_Y = word,
+		0b101 => reg_SR = word,
+		0b110 => reg_SP = word
+	}
+}
 
 type instruction_one_byte = bits(8)
 type instruction_two_byte = bits(16)
@@ -33,16 +73,23 @@ union clause ast = ASL_ABS : (imm16)
 union clause ast = ASL_ABS_X : (imm16)
 
 //union clause ast = BCC : (unit)
+
 //union clause ast = BCS : (unit)
+
 //union clause ast = BEQ : (unit)
+
 //union clause ast = BIT : (unit)
+
 //union clause ast = BMI : (unit)
+
 //union clause ast = BNE : (unit)
+
 //union clause ast = BPL : (unit)
 
 union clause ast = BRK : (unit)
 
 //union clause ast = BVC : (unit)
+
 //union clause ast = BVS : (unit)
 
 union clause ast = CLC : (unit)
@@ -52,24 +99,35 @@ union clause ast = CLD : (unit)
 union clause ast = CLI : (unit)
 
 union clause ast = CLV : (unit)
+
 //union clause ast = CMP : (unit)
+
 //union clause ast = CPX : (unit)
+
 //union clause ast = CPY : (unit)
+
 //union clause ast = DEC : (unit)
 
 union clause ast = DEX : (unit)
 
 union clause ast = DEY : (unit)
+
 //union clause ast = EOR : (unit)
+
 //union clause ast = INC : (unit)
 
 union clause ast = INX : (unit)
 
 union clause ast = INY : (unit)
+
 //union clause ast = JMP : (unit)
+
 //union clause ast = JSR : (unit)
+
 //union clause ast = LDA : (unit)
+
 //union clause ast = LDX : (unit)
+
 //union clause ast = LDY : (unit)
 
 union clause ast = LSR : (unit)
@@ -80,6 +138,7 @@ union clause ast = LSR_ABS_X : (imm16)
 
 
 union clause ast = NOP : (unit)
+
 //union clause ast = ORA : (unit)
 
 union clause ast = PHA : (unit)
@@ -166,7 +225,7 @@ function clause decode08(0xEA) = NOP()
 
 // 2 byte instructions
 val decode16 : instruction_two_byte -> ast
-scattered function decode16
+scattered function decode16	
 
 function clause decode16(0x69 @ op : imm8) = ADC_IMM(op)
 function clause decode16(0x65 @ op : imm8) = ADC_ZP(op)
@@ -215,3 +274,16 @@ function clause decode24(0x3E @ op : imm16) = ROL_ABS_X(op)
 
 function clause decode24(0x6E @ op : imm16) = ROR_ABS(op)
 function clause decode24(0x7E @ op : imm16) = ROR_ABS_X(op)
+
+// execute functionality for instructions
+val execute : ast -> bool 
+scattered function execute
+
+function clause execute(ADC_IMM(op)) = {}
+function clause execute(ADC_ZP(op)) = {}
+function clause execute(ADC_ZP_X(op)) = {}
+function clause execute(ADC_ABS(op)) = {}
+function clause execute(ADC_ABS_X(op)) = {}
+function clause execute(ADC_ABS_Y(op)) = {}
+function clause execute(ADC_IND_X(op)) = {}
+function clause execute(ADC_IND_Y(op)) = {}

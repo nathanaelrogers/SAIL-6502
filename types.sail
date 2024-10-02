@@ -25,13 +25,22 @@ bitfield dreg: dword = {
 }
 
 // Separate programmer accessible registers and non-accessible?
-register PC : dword
+register reg_PC : dword
 register reg_A : word
 register reg_X : word
 register reg_Y : word
 register reg_SR : flags
 register reg_SP : word
 
+enum reg_enum = {
+	PC_H,
+	PC_L,
+	A,
+	X,
+	Y,
+	SR,
+	SP
+}
 
 val NMI : interrupt_line
 val NMI_vec : address = 0xFFFA
