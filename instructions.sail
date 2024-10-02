@@ -174,13 +174,13 @@ function clause decode16(0x16 @ op : imm8) = ASL_ZP_X(op)
 val decode24 : instruction_tri_byte -> ast
 scattered function decode24
 
-function clause decode24(0x6D @ op: imm16) = ADC_ABS(op)
-function clause decode24(0x7D @ op: imm16) = ADC_ABS_X(op)
-function clause decode24(0x79 @ op: imm16) = ADC_ABS_Y(op)
+function clause decode24(0x6D @ op : imm16) = ADC_ABS(op)
+function clause decode24(0x7D @ op : imm16) = ADC_ABS_X(op)
+function clause decode24(0x79 @ op : imm16) = ADC_ABS_Y(op)
 
-function clause decode24(0x2D @ op: imm16) = AND_ABS(op)
-function clause decode24(0x3D @ op: imm16) = AND_ABS_X(op)
-function clause decode24(0x39 @ op: imm16) = AND_ABS_Y(op)
+function clause decode24(0x2D @ op : imm16) = AND_ABS(op)
+function clause decode24(0x3D @ op : imm16) = AND_ABS_X(op)
+function clause decode24(0x39 @ op : imm16) = AND_ABS_Y(op)
 
-function clause decode24(0x0E @ op: imm16) = ASL_ABS(op)
-function clause decode24(0x1E @ op: imm16) = ASL_ABS_X(op)
+function clause decode24(0x0E @ op : imm16) = ASL_ABS(op)
+function clause decode24(0x1E @ op : imm16) = ASL_ABS_X(op)
