@@ -1,3 +1,56 @@
+type regname = bits(2)
+type imm = bits(8)
+
+mapping reg_name : reg_enum <-> regname = {
+	A <-> 0b00,
+	X <-> 0b01,
+	Y <-> 0b10,
+	S <-> 0b11
+}
+
+val read_reg : regname -> word
+function read_reg(r) = {
+	match r {
+		0b00 => reg_A,
+		0b01 => reg_X,
+		0b10 => reg_Y,
+		0b11 => reg_S
+	}
+}
+
+val write_reg : (regname, word) -> unit
+function write_reg(r, w) = {
+	match r {
+		0b00 => reg_A = w,
+		0b01 => reg_X = w,
+		0b10 => reg_Y = w,
+		0b11 => reg_S = w
+	}
+}
+
+// Set and access flags in different method from normal read/write?
+
+val set_flags : (bits(1), bits(1), bits(1), bits(1), bits(1), bits(1), bits(1)) -> unit
+function set_flags(n, v, b, d, i, z, c) = {
+	reg_P->n() = n;
+	reg_P->v() = v;
+	reg_P->b() = b;
+	reg_P->d() = d;
+	reg_P->i() = i;
+	reg_P->z() = z;
+	reg_P->c() = c;
+}
+
+function flag_n() : (unit) -> bits(1) = reg_P.n()
+function flag_v() : (unit) -> bits(1) = reg_P.v()
+function flag_b() : (unit) -> bits(1) = reg_P.b()
+function flag_d() : (unit) -> bits(1) = reg_P.d()
+function flag_i() : (unit) -> bits(1) = reg_P.i()
+function flag_z() : (unit) -> bits(1) = reg_P.z()
+function flag_c() : (unit) -> bits(1) = reg_P.c()
+
+
+
 // ast of all instructions (needs useful return? parameter? type)
 
 scattered union ast

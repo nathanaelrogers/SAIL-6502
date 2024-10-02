@@ -26,18 +26,17 @@ bitfield dreg: dword = {
 
 // Separate programmer accessible registers and non-accessible?
 register PC : dword
+register reg_P : flags
 
 register reg_A : word
 register reg_X : word
 register reg_Y : word
-register reg_P : flags
 register reg_S : word
 
 enum reg_enum = {
 	A,
 	X,
 	Y,
-	P,
 	S
 }
 
