@@ -5,14 +5,13 @@ $include "types.sail"
 $include "instructions.sail"
 
 
-/*function fetch_decode_execute() = {}*/
+// function fetch_decode_execute() = {}
 
-function setup(): unit -> unit = {
-	print_int("integer: ", 4)
-	// PC is read from address provided in reset vector (16 bits at $FFFC).
-	// All other initialization is left to the program loaded.
-}
+// function setup(): unit -> unit = {
+// 	// PC is read from address provided in reset vector (16 bits at $FFFC).
+// 	// All other initialization is left to the program loaded.
+// }
 
 function main(): unit -> unit = {
-	setup();
+	print_int("integer is: ", 5)
 }
