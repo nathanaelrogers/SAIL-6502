@@ -67,8 +67,69 @@ val decode08 : instruction_one_byte -> ast
 val decode16 : instruction_two_byte -> ast
 val decode24 : instruction_tri_byte -> ast
 
-// Implied
+// 1 byte instructions
 scattered function decode08
+
+function clause decode08(0b0000 @ 0b0000) // $00
+	= BRK()
+function clause decode08(0b0100 @ 0b0000) // $40
+	= RTI()
+function clause decode08(0b0110 @ 0b0000) // $60
+	= RTS()
+function clause decode08(0b0000 @ 0b1000) // $08
+	= PHP()
+
+function clause decode08(0b0001 @ 0b1000) // $18
+	= CLC()
+function clause decode08(0b0010 @ 0b1000) // $28
+	= PLP()
+function clause decode08(0b0011 @ 0b1000) // $38
+	= SEC()
+function clause decode08(0b0100 @ 0b1000) // $48
+	= PHA()
+function clause decode08(0b0101 @ 0b1000) // $58
+	= CLI()
+function clause decode08(0b0110 @ 0b1000) // $68
+	= PLA()
+function clause decode08(0b0111 @ 0b1000) // $78
+	= SEI()
+function clause decode08(0b1000 @ 0b1000) // $88
+	= DEY()
+function clause decode08(0b1001 @ 0b1000) // $98
+	= TYA()
+function clause decode08(0b1010 @ 0b1000) // $A8
+	= TAY()
+function clause decode08(0b1011 @ 0b1000) // $B8
+	= CLV()
+function clause decode08(0b1100 @ 0b1000) // $C8
+	= INY()
+function clause decode08(0b1101 @ 0b1000) // $D8
+	= CLD()
+function clause decode08(0b1110 @ 0b1000) // $E8
+	= INX()
+function clause decode08(0b1111 @ 0b1000) // $F8
+	= SED()
+
+function clause decode08(0b0000 @ 0b1010) // $0A
+	= ASL()
+function clause decode08(0b0010 @ 0b1010) // $2A
+	= ROL()
+function clause decode08(0b0100 @ 0b1010) // $4A
+	= LSR()
+function clause decode08(0b0110 @ 0b1010) // $6A
+	= ROR()
+function clause decode08(0b1000 @ 0b1010) // $8A
+	= TXA()
+function clause decode08(0b1001 @ 0b1010) // $9A
+	= TXS()
+function clause decode08(0b1010 @ 0b1010) // $AA
+	= TAX()
+function clause decode08(0b1011 @ 0b1010) // $BA
+	= TSX()
+function clause decode08(0b1100 @ 0b1010) // $CA
+	= DEX()
+function clause decode08(0b1110 @ 0b1010) // $EA
+	= NOP()
 
 // Immediate, Zero-Page, Relative, Indexed (using Zero-Page, X/Y)
 scattered function decode16
