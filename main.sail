@@ -12,8 +12,13 @@ $include "instructions.sail"
 // 	// All other initialization is left to the program loaded.
 // }
 
-function main(): unit -> unit = {
-	write_reg(reg(A), 0xFF);
 
-	print_bits("the bits are: ", read_reg(0b010))
+
+function main(): unit -> unit = {
+	write_reg(reg(A), 0b00001010);
+	print_bits("the bits before are: ", read_reg(reg(A)));
+
+	let result = execute(decode16(0x29 @ 0x08));
+
+	print_bits("the bits after are: ", read_reg(reg(A)));
 }
