@@ -1,5 +1,3 @@
-$include "types.sail"
-
 type imm8 = bits(8)
 type imm16 = bits(16)
 
@@ -18,12 +16,12 @@ mapping reg_name_to_num : reg_enum <-> regname = {
 val read_reg : regname -> word
 function read_reg(r) = {
 	match r {
-		0b000 => reg_PC.higher(),
-		0b001 => reg_PC.lower(),
+		0b000 => reg_PC[higher],
+		0b001 => reg_PC[lower],
 		0b010 => reg_A,
 		0b011 => reg_X,
 		0b100 => reg_Y,
-		0b101 => reg_SR,
+		0b101 => reg_SR[all],
 		0b110 => reg_SP
 	}
 }
@@ -31,12 +29,12 @@ function read_reg(r) = {
 val write_reg : (regname, word) -> unit
 function write_reg(r, word) = {
 	match r {
-		0b000 => reg_PC->higher() = word,
-		0b001 => reg_PC->lower() = word,
+		0b000 => reg_PC[higher] = word,
+		0b001 => reg_PC[lower] = word,
 		0b010 => reg_A = word,
 		0b011 => reg_X = word,
 		0b100 => reg_Y = word,
-		0b101 => reg_SR = word,
+		0b101 => reg_SR[all] = word,
 		0b110 => reg_SP = word
 	}
 }
@@ -278,7 +276,7 @@ function clause decode24(0x7E @ op : imm16) = ROR_ABS_X(op)
 // execute functionality for instructions
 val execute : ast -> bool 
 scattered function execute
-
+/*
 function clause execute(ADC_IMM(op)) = {}
 function clause execute(ADC_ZP(op)) = {}
 function clause execute(ADC_ZP_X(op)) = {}
@@ -286,4 +284,4 @@ function clause execute(ADC_ABS(op)) = {}
 function clause execute(ADC_ABS_X(op)) = {}
 function clause execute(ADC_ABS_Y(op)) = {}
 function clause execute(ADC_IND_X(op)) = {}
-function clause execute(ADC_IND_Y(op)) = {}
+function clause execute(ADC_IND_Y(op)) = {}*/
