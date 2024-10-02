@@ -45,10 +45,10 @@ enum reg_enum = {
 
 // interrupt lines initialised to 1 since they are active LOW not high
 let NMI : interrupt_line = 0b1
-val NMI_vec : address = 0xFFFA
+let NMI_vec : address = 0xFFFA
 
 let RES : interrupt_line = 0b1
-val RES_vec : address = 0xFFFC
+let RES_vec : address = 0xFFFC
 
 let IRQ : interrupt_line = 0b1
-val IRQ_vec : address = 0xFFFE
+let IRQ_vec : address = 0xFFFE
