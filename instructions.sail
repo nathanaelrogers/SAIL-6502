@@ -19,8 +19,8 @@ mapping reg : reg_enum <-> regnum = {
 val read_reg : regnum -> word
 function read_reg(r) = {
 	match r {
-		0b000 => reg_PC[higher],
-		0b001 => reg_PC[lower],
+		0b000 => reg_PC[15..8],
+		0b001 => reg_PC[7..0],
 		0b010 => reg_A,
 		0b011 => reg_X,
 		0b100 => reg_Y,
@@ -32,8 +32,8 @@ function read_reg(r) = {
 val write_reg : (regnum, word) -> unit
 function write_reg(r, word) = {
 	match r {
-		0b000 => reg_PC[higher] = word,
-		0b001 => reg_PC[lower] = word,
+		0b000 => reg_PC[15..8] = word,
+		0b001 => reg_PC[7..0] = word,
 		0b010 => reg_A = word,
 		0b011 => reg_X = word,
 		0b100 => reg_Y = word,

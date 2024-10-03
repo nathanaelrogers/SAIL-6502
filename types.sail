@@ -9,6 +9,12 @@ type interrupt_line = bits(1)
 type address_size : Int = 16
 type address = bits(address_size)
 
+type page_size_word : Int = 256
+type page_256B = vector(page_size_word, word)
+
+type mem_size_page : Int = 256
+type mem_64KB = vector(mem_size_page, page_256B)
+
 bitfield flags : word = {
 	all : 7..0,
 	n : 7,
@@ -20,13 +26,8 @@ bitfield flags : word = {
 	c : 0,
 }
 
-bitfield large_reg : dword = {
-	higher: 15..8,
-	lower: 7..0
-}
-
 // Separate programmer accessible registers and non-accessible?
-register reg_PC : large_reg
+register reg_PC : dword
 register reg_A : word
 register reg_X : word
 register reg_Y : word
