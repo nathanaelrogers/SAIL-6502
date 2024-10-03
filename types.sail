@@ -1,13 +1,10 @@
 type word_size : Int = 8
 type word = bits(word_size)
 
-type dword_size : Int = 16
-type dword = bits(dword_size)
-
-type interrupt_line = bits(1)
-
 type address_size : Int = 16
 type address = bits(address_size)
+
+type interrupt_line = bits(1)
 
 type page_size_word : Int = 256
 type page_256B = vector(page_size_word, word)
@@ -27,7 +24,7 @@ bitfield flags : word = {
 }
 
 // Separate programmer accessible registers and non-accessible?
-register reg_PC : dword
+register reg_PC : address
 register reg_A : word
 register reg_X : word
 register reg_Y : word
