@@ -1,5 +1,6 @@
 default Order dec
 $include <prelude.sail>
+$include <vector.sail>
 $include "prelude.sail"
 $include "types.sail"
 $include "instructions.sail"
@@ -22,4 +23,9 @@ function main(): unit -> unit = {
 	let result = execute(decode16(0x29 @ 0x08));
 
 	print_bits("the bits after are: ", reg(name(A)));
+
+	memory(0x00FF) = 0xEA;
+	print_bits("contents of address 0x00FF is: ", memory(0x00FF));
+	memory(0xFF) = 0x12;
+	print_bits("contents of address 0x00FF is: ", memory(0xFF));
 }
