@@ -1,6 +1,5 @@
 default Order dec
 $include <prelude.sail>
-$include <vector.sail>
 $include "prelude.sail"
 $include "types.sail"
 $include "instructions.sail"
