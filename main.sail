@@ -3,6 +3,7 @@ $include <prelude.sail>
 $include "prelude.sail"
 $include "types.sail"
 $include "instructions.sail"
+// $include "memory.sail"
 
 
 // function fetch_decode_execute() = {}
@@ -15,10 +16,10 @@ $include "instructions.sail"
 
 
 function main(): unit -> unit = {
-	write_reg(reg(A), 0b00001010);
-	print_bits("the bits before are: ", read_reg(reg(A)));
+	reg(name(A)) = 0b00001010;
+	print_bits("the bits before are: ", reg(name(A)));
 
 	let result = execute(decode16(0x29 @ 0x08));
 
-	print_bits("the bits after are: ", read_reg(reg(A)));
+	print_bits("the bits after are: ", reg(name(A)));
 }

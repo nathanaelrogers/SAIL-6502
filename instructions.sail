@@ -6,7 +6,7 @@ type instruction_two_byte = bits(16)
 type instruction_tri_byte = bits(24)
 
 // functions for reading and writing to registers
-mapping reg : reg_enum <-> regnum = {
+mapping name : reg_enum <-> regnum = {
 	PC_H <-> 0b000,
 	PC_L <-> 0b001,
 	A    <-> 0b010,
@@ -16,8 +16,8 @@ mapping reg : reg_enum <-> regnum = {
 	SP   <-> 0b110
 }
 
-val read_reg : regnum -> word
-function read_reg(r) = {
+val read_register : regnum -> word
+function read_register(r) = {
 	match r {
 		0b000 => reg_PC[15..8],
 		0b001 => reg_PC[7..0],
@@ -29,8 +29,8 @@ function read_reg(r) = {
 	}
 }
 
-val write_reg : (regnum, word) -> unit
-function write_reg(r, word) = {
+val write_register : (regnum, word) -> unit
+function write_register(r, word) = {
 	match r {
 		0b000 => reg_PC[15..8] = word,
 		0b001 => reg_PC[7..0] = word,
@@ -41,6 +41,8 @@ function write_reg(r, word) = {
 		0b110 => reg_SP = word
 	}
 }
+
+overload reg = {read_register, write_register}
 
 // Abstract Syntax Tree for all instructions
 scattered union ast
@@ -278,8 +280,8 @@ val execute : ast -> bool
 scattered function execute
 
 function clause execute(AND_IMM(op)) = {
-	let result = read_reg(reg(A)) & op;
+	let result = reg(name(A)) & op;
 
-	write_reg(reg(A), result);
+	reg(name(A)) = result;
 	true
 }
