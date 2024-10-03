@@ -23,23 +23,6 @@ bitfield flags : word = {
 	c : 0,
 }
 
-// register reg_PC : address
-// register reg_A  : word
-// register reg_X  : word
-// register reg_Y  : word
-// register reg_SR : flags
-// register reg_SP : word
-
-// enum reg_enum = {
-// 	PC_H,
-// 	PC_L,
-// 	A,
-// 	X,
-// 	Y,
-// 	SR,
-// 	SP
-// }
-
 // interrupt lines initialised to 1 since they are active LOW not high
 let NMI : interrupt_line = 0b1
 let NMI_vec : address = 0xFFFA
