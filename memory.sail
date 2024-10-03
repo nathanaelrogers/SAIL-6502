@@ -1,5 +1,5 @@
-let empty_page : page_256B = [word * page_size_word]
-let main_mem : mem_64KB = [empty_page * mem_size_page]
+let empty_word : word = 0x00
+let main_mem : mem_64KB = vector_init(256, vector_init(256, empty_word))
 
 val read_memory : address -> word
 // function read_memory(addr) = {}
@@ -7,4 +7,9 @@ val read_memory : address -> word
 val write_memory : (address, word) -> unit
 // function write_memory(addr, data) = {}
 
-overload memory = {read_memory, write_memory}
+val read_memory_zero_page : word -> word
+function read_memory_zero_page(word) = {
+	read_memory(0x00 @ word);
+}
+
+overload memory = {read_memory, write_memory, read_memory_zero_page}

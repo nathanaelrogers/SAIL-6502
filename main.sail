@@ -3,7 +3,7 @@ $include <prelude.sail>
 $include "prelude.sail"
 $include "types.sail"
 $include "instructions.sail"
-// $include "memory.sail"
+$include "memory.sail"
 
 
 // function fetch_decode_execute() = {}

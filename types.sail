@@ -23,11 +23,10 @@ bitfield flags : word = {
 	c : 0,
 }
 
-// Separate programmer accessible registers and non-accessible?
 register reg_PC : address
-register reg_A : word
-register reg_X : word
-register reg_Y : word
+register reg_A  : word
+register reg_X  : word
+register reg_Y  : word
 register reg_SR : flags
 register reg_SP : word
 
