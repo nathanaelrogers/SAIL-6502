@@ -1,46 +1,46 @@
 type imm8 = bits(8)
 type imm16 = bits(16)
-type regnum = bits(3)
+// type regnum = bits(3)
 type instruction_one_byte = bits(8)
 type instruction_two_byte = bits(16)
 type instruction_tri_byte = bits(24)
 
-// functions for reading and writing to registers
-mapping name : reg_enum <-> regnum = {
-	PC_H <-> 0b000,
-	PC_L <-> 0b001,
-	A    <-> 0b010,
-	X    <-> 0b011,
-	Y    <-> 0b100,
-	SR   <-> 0b101,
-	SP   <-> 0b110
-}
+// // functions for reading and writing to registers
+// mapping name : reg_enum <-> regnum = {
+// 	PC_H <-> 0b000,
+// 	PC_L <-> 0b001,
+// 	A    <-> 0b010,
+// 	X    <-> 0b011,
+// 	Y    <-> 0b100,
+// 	SR   <-> 0b101,
+// 	SP   <-> 0b110
+// }
 
-val read_register : regnum -> word
-function read_register(r) = {
-	match r {
-		0b000 => reg_PC[15..8],
-		0b001 => reg_PC[7..0],
-		0b010 => reg_A,
-		0b011 => reg_X,
-		0b100 => reg_Y,
-		0b101 => reg_SR[all],
-		0b110 => reg_SP
-	}
-}
+// val read_register : regnum -> word
+// function read_register(r) = {
+// 	match r {
+// 		0b000 => reg_PC[15..8],
+// 		0b001 => reg_PC[7..0],
+// 		0b010 => reg_A,
+// 		0b011 => reg_X,
+// 		0b100 => reg_Y,
+// 		0b101 => reg_SR[all],
+// 		0b110 => reg_SP
+// 	}
+// }
 
-val write_register : (regnum, word) -> unit
-function write_register(r, word) = {
-	match r {
-		0b000 => reg_PC[15..8] = word,
-		0b001 => reg_PC[7..0] = word,
-		0b010 => reg_A = word,
-		0b011 => reg_X = word,
-		0b100 => reg_Y = word,
-		0b101 => reg_SR[all] = word,
-		0b110 => reg_SP = word
-	}
-}
+// val write_register : (regnum, word) -> unit
+// function write_register(r, word) = {
+// 	match r {
+// 		0b000 => reg_PC[15..8] = word,
+// 		0b001 => reg_PC[7..0] = word,
+// 		0b010 => reg_A = word,
+// 		0b011 => reg_X = word,
+// 		0b100 => reg_Y = word,
+// 		0b101 => reg_SR[all] = word,
+// 		0b110 => reg_SP = word
+// 	}
+// }
 
 overload reg = {read_register, write_register}
 
@@ -333,7 +333,7 @@ function clause execute(AND_IND_X(op)) = {
 function clause execute(AND_IND_Y(op)) = {
 	let pointer = memory(op + 1) @ memory(op);
 	let ea = pointer + EXTZ(16, reg(name(Y)));
-	if (op[15..8] != ea[15..8]) then {print_bits("page boundary crossed, now in page: ", ea[15..8])};
+	//if (op[15..8] != ea[15..8]) then {print_bits("page boundary crossed, now in page: ", ea[15..8])};
 	let result = reg(name(A)) & memory(ea);
 	reg(name(A)) = result;
 	true

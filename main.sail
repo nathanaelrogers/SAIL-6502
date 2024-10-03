@@ -2,6 +2,7 @@ default Order dec
 $include <prelude.sail>
 $include "prelude.sail"
 $include "types.sail"
+$include "registers.sail"
 $include "memory.sail"
 $include "instructions.sail"
 
