@@ -1,5 +1,6 @@
 default Order dec
 $include <prelude.sail>
+$include "prelude.sail"
 $include "types.sail"
 $include "memory.sail"
 $include "instructions.sail"
@@ -15,16 +16,19 @@ $include "instructions.sail"
 
 
 function main(): unit -> unit = {
+	// setup A
 	reg(name(A)) = 0x0A;
-	print_bits("contents of A before instruction are: ", reg(name(A)));
 
+	// data we WANT to use
+	memory(0xBEEF) = 0xFF;
+
+	// pointer to data held at effective address
+	memory(0xAE) = 0xBE;
+	memory(0xAD) = 0xEF;
+
+	// effective address should be 0xAA + 0x03 = 0xAD
 	reg(name(X)) = 0x03;
-	print_bits("contents of X before instruction are: ", reg(name(X)));
-
-	memory(0x02) = 0xFF;
-	print_bits("contents of address 0x0002 is: ", memory(0x02));
-
-	let result = execute(decode16(0x35 @ 0xFF));
+	let result = execute(decode16(0x21 @ 0xAA));
 
 	// should yield 0x0A & 0xFF = 0x0A
 	print_bits("contents of A after instruction are: ", reg(name(A)));
