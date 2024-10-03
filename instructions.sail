@@ -238,7 +238,7 @@ function clause decode24(0x3E @ op : imm16) = ROL_ABS_X(op)
 function clause decode24(0x6E @ op : imm16) = ROR_ABS(op)
 function clause decode24(0x7E @ op : imm16) = ROR_ABS_X(op)
 
-val execute : ast -> bool 
+val execute : ast -> bool
 scattered function execute
 
 /* LOGICAL INSTRUCTIONS */

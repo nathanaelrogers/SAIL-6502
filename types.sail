@@ -22,13 +22,3 @@ bitfield flags : word = {
 	z : 1,
 	c : 0,
 }
-
-// interrupt lines initialised to 1 since they are active LOW not high
-let NMI : interrupt_line = 0b1
-let NMI_vec : address = 0xFFFA
-
-let RES : interrupt_line = 0b1
-let RES_vec : address = 0xFFFC
-
-let IRQ : interrupt_line = 0b1
-let IRQ_vec : address = 0xFFFE
