@@ -296,7 +296,7 @@ function clause execute(AND_IND_X(op)) = {
 function clause execute(AND_IND_Y(op)) = {
 	let pointer = memory(op + 1) @ memory(op);
 	let ea = pointer + EXTZ(16, reg(name(Y)));
-	//if (op[15..8] != ea[15..8]) then {print_bits("page boundary crossed, now in page: ", ea[15..8])};
+	if (pointer[15..8] != ea[15..8]) then {print_bits("page boundary crossed, now in page: ", ea[15..8])};
 	let result = reg(name(A)) & memory(ea);
 	reg(name(A)) = result;
 	true
