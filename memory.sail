@@ -1,5 +1,8 @@
 register main_mem : mem_64KB = vector_init(256, vector_init(256, 0x00))
 
+// TODO : what's the behaviour when FAIL to read/write to stack (page 1)? is it protected or not?
+// TODO : include timing behaviour for memory accesses
+
 val read_memory : address -> word
 function read_memory(addr) = {
 	page_index = unsigned(addr[15..8]);
@@ -13,7 +16,9 @@ function write_memory(addr, data) = {
 	page_index = unsigned(addr[15..8]);
 	word_index = unsigned(addr[7..0]);
 
-	main_mem[page_index][word_index] = data;
+	if (page_index != 1) then {
+		main_mem[page_index][word_index] = data
+	}
 }
 
 val read_memory_zp : word -> word
