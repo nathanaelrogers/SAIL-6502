@@ -281,7 +281,31 @@ scattered function execute
 
 function clause execute(AND_IMM(op)) = {
 	let result = reg(name(A)) & op;
+	reg(name(A)) = result;
+	true
+}
+function clause execute(AND_ZP(op)) = {
+	let result = reg(name(A)) & memory(op);
+	reg(name(A)) = result;
+	true
+}
+function clause execute(AND_ZP_X(op)) = {
+	let ea = op + reg(name(X));
+
+	let result = reg(name(A)) & memory(ea);
+	reg(name(A)) = result;
+	true
+}
+/*
+function clause execute(AND_IND_X(op)) = {
+	let result = reg(name(A)) & memory(op);
 
 	reg(name(A)) = result;
 	true
 }
+function clause execute(AND_IND_Y(op)) = {
+	let result = reg(name(A)) & memory(op);
+
+	reg(name(A)) = result;
+	true
+}*/

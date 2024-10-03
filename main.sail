@@ -1,9 +1,8 @@
 default Order dec
 $include <prelude.sail>
-$include "prelude.sail"
 $include "types.sail"
-$include "instructions.sail"
 $include "memory.sail"
+$include "instructions.sail"
 
 
 // function fetch_decode_execute() = {}
@@ -16,15 +15,17 @@ $include "memory.sail"
 
 
 function main(): unit -> unit = {
-	reg(name(A)) = 0b00001010;
-	print_bits("the bits before are: ", reg(name(A)));
+	reg(name(A)) = 0x0A;
+	print_bits("contents of A before instruction are: ", reg(name(A)));
 
-	let result = execute(decode16(0x29 @ 0x08));
+	reg(name(X)) = 0x03;
+	print_bits("contents of X before instruction are: ", reg(name(X)));
 
-	print_bits("the bits after are: ", reg(name(A)));
+	memory(0x02) = 0xFF;
+	print_bits("contents of address 0x0002 is: ", memory(0x02));
 
-	memory(0x00FF) = 0xEA;
-	print_bits("contents of address 0x00FF is: ", memory(0x00FF));
-	memory(0xFF) = 0x12;
-	print_bits("contents of address 0x00FF is: ", memory(0xFF));
+	let result = execute(decode16(0x35 @ 0xFF));
+
+	// should yield 0x0A & 0xFF = 0x0A
+	print_bits("contents of A after instruction are: ", reg(name(A)));
 }
