@@ -5,9 +5,23 @@ type instruction_one_byte = bits(8)
 type instruction_two_byte = bits(16)
 type instruction_tri_byte = bits(24)
 
-overload reg = {read_register, write_register}
+val decode08 : instruction_one_byte -> ast
+scattered function decode08
 
-// Abstract Syntax Tree for all instructions
+val decode16 : instruction_two_byte -> ast
+scattered function decode16	
+
+val decode24 : instruction_tri_byte -> ast
+scattered function decode24
+
+val execute : ast -> bool
+scattered function execute
+
+val assembly : ast -> string
+scattered function assembly
+
+/* ===== ABSTRACT SYNTAX TREE ===== */
+
 scattered union ast
 
 union clause ast = ADC_IMM : (imm8)
@@ -152,10 +166,9 @@ union clause ast = TXS : (unit)
 
 union clause ast = TYA : (unit)
 
-// 1 byte instructions
-val decode08 : instruction_one_byte -> ast
-scattered function decode08
+/* ===== DECODE ===== */
 
+/* 1 byte instructions */
 function clause decode08(0x00) = BRK()
 function clause decode08(0x40) = RTI()
 function clause decode08(0x60) = RTS()
@@ -186,10 +199,7 @@ function clause decode08(0xBA) = TSX()
 function clause decode08(0xCA) = DEX()
 function clause decode08(0xEA) = NOP()
 
-// 2 byte instructions
-val decode16 : instruction_two_byte -> ast
-scattered function decode16	
-
+/* 2 byte instructions */
 function clause decode16(0x69 @ op : imm8) = ADC_IMM(op)
 function clause decode16(0x65 @ op : imm8) = ADC_ZP(op)
 function clause decode16(0x75 @ op : imm8) = ADC_ZP_X(op)
@@ -214,10 +224,7 @@ function clause decode16(0x36 @ op : imm8) = ROL_ZP_X(op)
 function clause decode16(0x66 @ op : imm8) = ROR_ZP(op)
 function clause decode16(0x76 @ op : imm8) = ROR_ZP_X(op)
 
-// 3 byte instructions
-val decode24 : instruction_tri_byte -> ast
-scattered function decode24
-
+/* 3 byte instructions */
 function clause decode24(0x6D @ op : imm16) = ADC_ABS(op)
 function clause decode24(0x7D @ op : imm16) = ADC_ABS_X(op)
 function clause decode24(0x79 @ op : imm16) = ADC_ABS_Y(op)
@@ -238,13 +245,7 @@ function clause decode24(0x3E @ op : imm16) = ROL_ABS_X(op)
 function clause decode24(0x6E @ op : imm16) = ROR_ABS(op)
 function clause decode24(0x7E @ op : imm16) = ROR_ABS_X(op)
 
-val execute : ast -> bool
-scattered function execute
-
-val assembly : ast -> string
-scattered function assembly
-
-/* LOGICAL INSTRUCTIONS */
+/* ===== LOGICAL INSTRUCTIONS ===== */
 
 // No memory access, AND the A register with immediate value.
 function clause assembly(AND_IMM(op)) = concat_str("AND ", concat_str("#", my_hex_str(op)))
