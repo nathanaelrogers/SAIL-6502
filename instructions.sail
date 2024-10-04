@@ -5,14 +5,18 @@ type instruction_one_byte = bits(8)
 type instruction_two_byte = bits(16)
 type instruction_tri_byte = bits(24)
 
+scattered union ast
+
 val decode08 : instruction_one_byte -> ast
 scattered function decode08
 
 val decode16 : instruction_two_byte -> ast
-scattered function decode16	
+scattered function decode16
 
 val decode24 : instruction_tri_byte -> ast
 scattered function decode24
+
+overload decode = {decode08, decode16, decode24}
 
 val execute : ast -> bool
 scattered function execute
@@ -21,8 +25,6 @@ val assembly : ast -> string
 scattered function assembly
 
 /* ===== ABSTRACT SYNTAX TREE ===== */
-
-scattered union ast
 
 union clause ast = ADC_IMM : (imm8)
 union clause ast = ADC_ZP : (imm8)
@@ -215,15 +217,6 @@ function clause decode16(0x31 @ op : imm8) = AND_IND_Y(op)
 function clause decode16(0x06 @ op : imm8) = ASL_ZP(op)
 function clause decode16(0x16 @ op : imm8) = ASL_ZP_X(op)
 
-function clause decode16(0x46 @ op : imm8) = LSR_ZP(op)
-function clause decode16(0x56 @ op : imm8) = LSR_ZP_X(op)
-
-function clause decode16(0x26 @ op : imm8) = ROL_ZP(op)
-function clause decode16(0x36 @ op : imm8) = ROL_ZP_X(op)
-
-function clause decode16(0x66 @ op : imm8) = ROR_ZP(op)
-function clause decode16(0x76 @ op : imm8) = ROR_ZP_X(op)
-
 /* 3 byte instructions */
 function clause decode24(0x6D @ op : imm16) = ADC_ABS(op)
 function clause decode24(0x7D @ op : imm16) = ADC_ABS_X(op)
@@ -235,15 +228,6 @@ function clause decode24(0x39 @ op : imm16) = AND_ABS_Y(op)
 
 function clause decode24(0x0E @ op : imm16) = ASL_ABS(op)
 function clause decode24(0x1E @ op : imm16) = ASL_ABS_X(op)
-
-function clause decode24(0x4E @ op : imm16) = LSR_ABS(op)
-function clause decode24(0x5E @ op : imm16) = LSR_ABS_X(op)
-
-function clause decode24(0x2E @ op : imm16) = ROL_ABS(op)
-function clause decode24(0x3E @ op : imm16) = ROL_ABS_X(op)
-
-function clause decode24(0x6E @ op : imm16) = ROR_ABS(op)
-function clause decode24(0x7E @ op : imm16) = ROR_ABS_X(op)
 
 /* ===== LOGICAL INSTRUCTIONS ===== */
 

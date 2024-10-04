@@ -29,11 +29,8 @@ function main(): unit -> unit = {
 
 	// effective address should be 0xAA + 0x03 = 0xAD
 	reg(name(X)) = 0x03;
-	let result = execute(decode16(0x21 @ 0xAA));
+	let result = execute(decode(0x21 @ 0xAA));
 
 	// should yield 0x0A & 0xFF = 0x0A
 	print_bits("contents of A after instruction are: ", reg(name(A)));
-
-	print(assembly(decode16(0x31 @ 0xFF)));
-	print("\n");
 }
