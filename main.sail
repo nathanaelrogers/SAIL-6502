@@ -33,4 +33,7 @@ function main(): unit -> unit = {
 
 	// should yield 0x0A & 0xFF = 0x0A
 	print_bits("contents of A after instruction are: ", reg(name(A)));
+
+	print(assembly(decode16(0x31 @ 0xFF)));
+	print("\n");
 }
