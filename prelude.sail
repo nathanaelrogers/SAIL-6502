@@ -1,8 +1,10 @@
 val EXTZ : forall 'n 'm, 'm >= 'n. (implicit('m), bits('n)) -> bits('m)
 function EXTZ(m, v) = sail_zero_extend(v, m)
 
-val nibble_to_hex_char : bits(4) -> string
-function nibble_to_hex_char(bits) = {
+/* some functions for converting hex numbers into the $-prefix string style of 6502 assembly language */
+
+val hex_char_from_bits : bits(4) -> string
+function hex_char_from_bits(bits) = {
 	match bits {
 		0b0000 => "0",
 		0b0001 => "1",
@@ -23,14 +25,14 @@ function nibble_to_hex_char(bits) = {
 	}
 }
 
-val hex_str_6502_imm8 : bits(8) -> string
-function hex_str_6502_imm8(bits) = {
-	concat_str("$", concat_str(nibble_to_hex_char(bits[7..4]), nibble_to_hex_char(bits[3..0])));
+val my_hex_str_imm8 : bits(8) -> string
+function my_hex_str_imm8(bits) = {
+	concat_str("$", concat_str(hex_char_from_bits(bits[7..4]), hex_char_from_bits(bits[3..0])));
 }
 
-val hex_str_6502_imm16 : bits(16) -> string
-function hex_str_6502_imm16(bits) = {
-	concat_str("$", concat_str(concat_str(nibble_to_hex_char(bits[15..12]), nibble_to_hex_char(bits[11..8])), concat_str(nibble_to_hex_char(bits[7..4]), nibble_to_hex_char(bits[3..0]))));
+val my_hex_str_imm16 : bits(16) -> string
+function my_hex_str_imm16(bits) = {
+	concat_str("$", concat_str(concat_str(hex_char_from_bits(bits[15..12]), hex_char_from_bits(bits[11..8])), concat_str(hex_char_from_bits(bits[7..4]), hex_char_from_bits(bits[3..0]))));
 }
 
-overload my_hex_str = {hex_str_6502_imm8, hex_str_6502_imm16}
+overload my_hex_str = {my_hex_str_imm8, my_hex_str_imm16}
