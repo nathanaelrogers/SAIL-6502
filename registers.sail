@@ -57,7 +57,7 @@ function write_register(r, word) = {
 overload reg = {read_register, write_register}
 
 val incr_pc : unit -> unit
-function increment_pc(unit) = {
+function incr_pc(unit) = {
 	reg_PC = reg_PC + 1;
 }
 
