@@ -12,7 +12,7 @@ $include "programs.sail"
 register instructions_done : int = 0
 
 function print_state() : unit -> unit = {
-	print_endline("\nstate after execution");
+	print_endline("\n==state after execution==");
 	print_bits("A: ", reg(name(A)));
 	print_bits("X: ", reg(name(X)));
 	print_bits("Y: ", reg(name(Y)));
