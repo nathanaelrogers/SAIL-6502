@@ -198,8 +198,8 @@ union clause ast = AND_IND_Y : (word)
 // function clause decode08(0xCA) = DEX()
 // function clause decode08(0xEA) = NOP()
 
+// If it's not a valid single byte instruction, read another byte and try decode.
 function clause decode08(this) = {
-	// We need to fetch another byte and increment the PC accordingly.
 	incr_cycles();
 	let PC : address = reg(name(PC_H)) @ reg(name(PC_L));
 	let next_byte : word = read(PC);
@@ -224,6 +224,16 @@ function clause decode16(0x31 @ op : word) = AND_IND_Y(op)
 // function clause decode16(0x06 @ op : word) = ASL_ZP(op)
 // function clause decode16(0x16 @ op : word) = ASL_ZP_X(op)
 
+// If it's not a valid 2 byte instruction, read another byte and try decode.
+function clause decode16(this) = {
+	incr_cycles();
+	let PC : address = reg(name(PC_H)) @ reg(name(PC_L));
+	let next_byte : word = read(PC);
+	incr_pc();
+
+	decode24(EXTZ(this) << 8 | EXTZ(next_byte));
+}
+
 /* 3 byte instructions */
 // function clause decode24(0x6D @ op : address) = ADC_ABS(op)
 // function clause decode24(0x7D @ op : address) = ADC_ABS_X(op)
@@ -235,6 +245,11 @@ function clause decode24(0x39 @ op : address) = AND_ABS_Y(op)
 
 // function clause decode24(0x0E @ op : address) = ASL_ABS(op)
 // function clause decode24(0x1E @ op : address) = ASL_ABS_X(op)
+
+union clause ast = INVALID : (bits(24))
+function clause decode24(instruction) = INVALID(instruction)
+function clause assembly(INVALID(instruction)) = concat_str("Invalid instruction: ", bits_str(instruction))
+function clause execute(INVALID(instruction)) = false
 
 /* ===== LOGICAL INSTRUCTIONS ===== */
 
