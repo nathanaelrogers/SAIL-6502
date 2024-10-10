@@ -79,13 +79,3 @@ function flag_d() : unit -> bits(1) = reg_SR[d]
 function flag_i() : unit -> bits(1) = reg_SR[i]
 function flag_z() : unit -> bits(1) = reg_SR[z]
 function flag_c() : unit -> bits(1) = reg_SR[c]
-
-// interrupt lines initialised to 1 since they are active LOW not high
-register NMI : interrupt_line = 0b1
-let NMI_vec : address = 0xFFFA
-
-register RES : interrupt_line = 0b1
-let RES_vec : address = 0xFFFC
-
-register IRQ : interrupt_line = 0b1
-let IRQ_vec : address = 0xFFFE

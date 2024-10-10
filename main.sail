@@ -1,8 +1,9 @@
 default Order dec
 $include <prelude.sail>
 $include "prelude.sail"
-$include "timing.sail"
 $include "types.sail"
+$include "interrupts.sail"
+$include "timing.sail"
 $include "registers.sail"
 $include "memory.sail"
 $include "instructions.sail"
@@ -16,16 +17,15 @@ function fetch_decode_execute(last_instruction) : bool -> bool = {
 
 	let decoded = decode(instruction);
 	let asm = assembly(decoded);
-	
+
 	let loop = execute(decoded);
 
 	loop
 }
 
-// function setup(): unit -> unit = {
+// function setup(): unit -> unit = {}
 // 	// PC is read from address provided in reset vector (16 bits at $FFFC).
 // 	// All other initialization is left to the program loaded.
-// }
 
 function main(): unit -> unit = {
 	// setup A
