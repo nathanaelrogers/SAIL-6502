@@ -2,12 +2,41 @@ default Order dec
 $include <prelude.sail>
 $include "prelude.sail"
 $include "types.sail"
-$include "interrupts.sail"
-$include "timing.sail"
 $include "registers.sail"
 $include "memory.sail"
+$include "timing.sail"
 $include "instructions.sail"
+$include "interrupts.sail"
 
+register instructions_done : int = 0
+
+function print_state() : unit -> unit = {
+	print_endline("\nstate after execution");
+	print_bits("A: ", reg(name(A)));
+	print_bits("X: ", reg(name(X)));
+	print_bits("Y: ", reg(name(Y)));
+	print_bits("SR: ", reg(name(SR)));
+	print_bits("SP: ", reg(name(SP)));
+	print_bits("PC: ", reg(name(PC_H)) @ reg(name(PC_L)));
+	print_endline(concat_str("Instructions completed: ", dec_str(instructions_done)));
+}
+
+function my_program() : unit -> unit = {
+	/* manual program setup */
+
+	// Write PC 0x0200 to reset vector.
+	write(RES_vec, 0x00);
+	write(RES_vec + 1, 0x02);
+
+	// Setup A with initial value.
+	reg(name(A)) = 0x0A; // 0b0000_1010
+
+	// Write instructions starting at 0x0200.
+
+	// AND #$08
+	write(0x0200, 0x29); // opcode
+	write(0x0201, 0x08); // operand
+}
 
 function fetch_decode_execute(last_instruction) : bool -> bool = {
 	let PC : address = reg(name(PC_H)) @ reg(name(PC_L));
@@ -19,15 +48,29 @@ function fetch_decode_execute(last_instruction) : bool -> bool = {
 	let asm = assembly(decoded);
 
 	let loop = execute(decoded);
+	instructions_done = instructions_done + 1;
+
+	// Print out some information
+	print_endline(concat_str("\nfetch done: ", asm));
+	let state = print_state();
 
 	loop
 }
 
-// function setup(): unit -> unit = {}
-// 	// PC is read from address provided in reset vector (16 bits at $FFFC).
-// 	// All other initialization is left to the program loaded.
+// PC is read from address provided in reset vector (16 bits at $FFFC).
+// All other initialization is left to the program loaded.
+function setup() : unit -> unit = {
+	cycles = 8;
+	PC_start = read(RES_vec + 1) @ read(RES_vec);
+	reg(name(PC_H)) = PC_start[15..8]; reg(name(PC_L)) = PC_start[7..0]
+}
 
-function main(): unit -> unit = {
-	// setup A
-	reg(name(A)) = 0x0A;
+function main() : unit -> unit = {
+	my_program();
+
+	let state = print_state();
+
+	setup();
+
+	while (fetch_decode_execute(true)) do ();
 }
