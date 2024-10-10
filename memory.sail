@@ -31,4 +31,5 @@ function write_memory_zp(addr, data) = {
 	write_memory(0x00 @ addr, data);
 }
 
-overload memory = {read_memory, write_memory, read_memory_zp, write_memory_zp}
+overload read =  {read_memory, read_memory_zp}
+overload write = {write_memory, write_memory_zp}
