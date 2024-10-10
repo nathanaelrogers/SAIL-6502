@@ -56,10 +56,29 @@ function write_register(r, word) = {
 
 overload reg = {read_register, write_register}
 
+// Helper function to increment the PC.
 val incr_pc : unit -> unit
 function incr_pc(unit) = {
 	reg_PC = reg_PC + 1;
 }
+
+// Helper functions to set individual flags.
+function set_flag_n(bit) : bits(1) -> unit = {reg_SR[n] = bit}
+function set_flag_v(bit) : bits(1) -> unit = {reg_SR[v] = bit}
+function set_flag_b(bit) : bits(1) -> unit = {reg_SR[b] = bit}
+function set_flag_d(bit) : bits(1) -> unit = {reg_SR[d] = bit}
+function set_flag_i(bit) : bits(1) -> unit = {reg_SR[i] = bit}
+function set_flag_z(bit) : bits(1) -> unit = {reg_SR[z] = bit}
+function set_flag_c(bit) : bits(1) -> unit = {reg_SR[c] = bit}
+
+// Helper functions to read individual flags.
+function flag_n() : unit -> bits(1) = reg_SR[n]
+function flag_v() : unit -> bits(1) = reg_SR[v]
+function flag_b() : unit -> bits(1) = reg_SR[b]
+function flag_d() : unit -> bits(1) = reg_SR[d]
+function flag_i() : unit -> bits(1) = reg_SR[i]
+function flag_z() : unit -> bits(1) = reg_SR[z]
+function flag_c() : unit -> bits(1) = reg_SR[c]
 
 // interrupt lines initialised to 1 since they are active LOW not high
 register NMI : interrupt_line = 0b1
