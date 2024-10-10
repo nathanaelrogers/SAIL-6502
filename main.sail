@@ -14,6 +14,7 @@ function fetch_decode_execute(last_instruction) : bool -> bool = {
 
 	incr_pc();
 
+	let asm = assembly(decoded);
 	let decoded = decode(instruction);
 
 	let loop = execute(decoded);
