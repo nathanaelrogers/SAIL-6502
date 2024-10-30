@@ -5,9 +5,10 @@ infix 7 >>
 infix 7 <<
 infix 7 >>>
 
-overload operator << = {sail_shiftleft}
-overload operator >> = {sail_shiftright}
+overload operator <<  = {sail_shiftleft}
+overload operator >>  = {sail_shiftright}
 overload operator >>> = {sail_arith_shiftright}
+overload operator ^   = {xor_vec}
 
 
 /* some functions for converting hex numbers into the $-prefix string style of 6502 assembly language */

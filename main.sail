@@ -5,7 +5,7 @@ $include "types.sail"
 $include "registers.sail"
 $include "memory.sail"
 $include "timing.sail"
-$include "instructions.sail"
+$include "instruction-decode.sail"
 $include "interrupts.sail"
 $include "programs.sail"
 
