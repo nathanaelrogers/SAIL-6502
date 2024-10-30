@@ -12,49 +12,49 @@ $include "programs.sail"
 register instructions_done : int = 0
 
 function print_state() : unit -> unit = {
-	print_endline("\n==state after execution==");
+	print_endline("==state after execution==");
 	print_bits("A: ", reg(name(A)));
 	print_bits("X: ", reg(name(X)));
 	print_bits("Y: ", reg(name(Y)));
 	print_bits("SR: ", reg(name(SR)));
 	print_bits("SP: ", reg(name(SP)));
 	print_bits("PC: ", reg(name(PC_H)) @ reg(name(PC_L)));
+	print_endline(concat_str("Cycles passed: ", dec_str(cycles)));
 	print_endline(concat_str("Instructions completed: ", dec_str(instructions_done)));
 }
 
-function fetch_decode_execute(last_instruction) : bool -> bool = {
+function fetch_decode_execute(last_execute) : bool -> unit = {
 	let PC : address = reg(name(PC_H)) @ reg(name(PC_L));
 	let instruction = read(PC);
 
 	incr_pc();
 
-	let decoded = decode(instruction);
+	let decoded = decode(instruction, last_execute);
 	let asm = assembly(decoded);
 
-	let loop = execute(decoded);
-	instructions_done = instructions_done + 1;
+	let last_execute = execute(decoded);
+	if (last_execute) then instructions_done = instructions_done + 1;
 
 	// Print out some information
 	print_endline(concat_str("\nfetch done: ", asm));
 	let state = print_state();
 
-	loop
+	if (last_execute) then fetch_decode_execute(true);
 }
 
 // PC is read from address provided in reset vector (16 bits at $FFFC).
 // All other initialization is left to the program loaded.
 function setup() : unit -> unit = {
-	cycles = 8;
-	PC_start = read(RES_vec + 1) @ read(RES_vec);
-	reg(name(PC_H)) = PC_start[15..8]; reg(name(PC_L)) = PC_start[7..0]
+	cycles = 7;
+	reg(name(PC_H)) = read(RES_vec + 1); reg(name(PC_L)) = read(RES_vec);
 }
 
 function main() : unit -> unit = {
-	my_program();
-
-	let state = print_state();
+	setup_program1();
 
 	setup();
 
-	while (fetch_decode_execute(true)) do ();
+	let state = print_state();
+
+	fetch_decode_execute(false);
 }
