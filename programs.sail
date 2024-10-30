@@ -1,4 +1,4 @@
-function my_program() : unit -> unit = {
+function setup_program1() : unit -> unit = {
 	/* manual program setup */
 
 	// Write PC 0x0200 to reset vector.
@@ -13,4 +13,12 @@ function my_program() : unit -> unit = {
 	// AND #$08
 	write(0x0200, 0x29); // opcode
 	write(0x0201, 0x08); // operand
+
+	// AND #$08
+	write(0x0202, 0x29); // opcode
+	write(0x0203, 0x08); // operand
+
+	// AND #$08
+	write(0x0204, 0x29); // opcode
+	write(0x0205, 0x08); // operand
 }
