@@ -4,7 +4,7 @@ type instruction_tri_byte = bits(24)
 
 scattered union ast
 
-val decode08 : instruction_one_byte -> ast
+val decode08 : (instruction_one_byte, bool) -> ast
 scattered function decode08
 
 val decode16 : instruction_two_byte -> ast
@@ -199,8 +199,8 @@ union clause ast = AND_IND_Y : (word)
 // function clause decode08(0xEA) = NOP()
 
 // If it's not a valid single byte instruction, read another byte and try decode.
-function clause decode08(this) = {
-	incr_cycles();
+function clause decode08(this, last_execute) = {
+	if (last_execute == false) then incr_cycles();
 	let PC : address = reg(name(PC_H)) @ reg(name(PC_L));
 	let next_byte : word = read(PC);
 	incr_pc();
@@ -215,11 +215,11 @@ function clause decode08(this) = {
 // function clause decode16(0x61 @ op : word) = ADC_IND_X(op)
 // function clause decode16(0x71 @ op : word) = ADC_IND_Y(op)
 
-function clause decode16(0x29 @ op : word) = AND_IMM(op)
-function clause decode16(0x25 @ op : word) = AND_ZP(op)
-function clause decode16(0x35 @ op : word) = AND_ZP_X(op)
-function clause decode16(0x21 @ op : word) = AND_IND_X(op)
-function clause decode16(0x31 @ op : word) = AND_IND_Y(op)
+function clause decode16(0x29 @ op : word) = {incr_cycles(); AND_IMM(op)}
+function clause decode16(0x25 @ op : word) = {incr_cycles(); AND_ZP(op)}
+function clause decode16(0x35 @ op : word) = {incr_cycles(); AND_ZP_X(op)}
+function clause decode16(0x21 @ op : word) = {incr_cycles(); AND_IND_X(op)}
+function clause decode16(0x31 @ op : word) = {incr_cycles(); AND_IND_Y(op)}
 
 // function clause decode16(0x06 @ op : word) = ASL_ZP(op)
 // function clause decode16(0x16 @ op : word) = ASL_ZP_X(op)
@@ -239,15 +239,15 @@ function clause decode16(this) = {
 // function clause decode24(0x7D @ op : address) = ADC_ABS_X(op)
 // function clause decode24(0x79 @ op : address) = ADC_ABS_Y(op)
 
-function clause decode24(0x2D @ op : address) = AND_ABS(op)
-function clause decode24(0x3D @ op : address) = AND_ABS_X(op)
-function clause decode24(0x39 @ op : address) = AND_ABS_Y(op)
+function clause decode24(0x2D @ op : address) = {incr_cycles(); AND_ABS(op)}
+function clause decode24(0x3D @ op : address) = {incr_cycles(); AND_ABS_X(op)}
+function clause decode24(0x39 @ op : address) = {incr_cycles(); AND_ABS_Y(op)}
 
 // function clause decode24(0x0E @ op : address) = ASL_ABS(op)
 // function clause decode24(0x1E @ op : address) = ASL_ABS_X(op)
 
 union clause ast = INVALID : (bits(24))
-function clause decode24(instruction) = INVALID(instruction)
+function clause decode24(instruction) = {incr_cycles(); INVALID(instruction)}
 function clause assembly(INVALID(instruction)) = concat_str("Invalid instruction: ", bits_str(instruction))
 function clause execute(INVALID(instruction)) = false
 
@@ -257,6 +257,7 @@ function clause execute(INVALID(instruction)) = false
 function clause assembly(AND_IMM(op)) = concat_str("AND ", concat_str("#", my_hex_str(op)))
 function clause execute(AND_IMM(op)) = {
 	let result = reg(name(A)) & op;
+	incr_cycles();
 	reg(name(A)) = result;
 	true
 }
@@ -264,6 +265,8 @@ function clause execute(AND_IMM(op)) = {
 function clause assembly(AND_ZP(op)) = concat_str("AND ", my_hex_str(op))
 function clause execute(AND_ZP(op)) = {
 	let result = reg(name(A)) & read(op);
+	incr_cycles();
+	incr_cycles();
 	reg(name(A)) = result;
 	true
 }
@@ -272,6 +275,9 @@ function clause assembly(AND_ZP_X(op)) = concat_str("AND ", concat_str(my_hex_st
 function clause execute(AND_ZP_X(op)) = {
 	let ea = op + reg(name(X));
 	let result = reg(name(A)) & read(ea);
+	incr_cycles();
+	incr_cycles();
+	incr_cycles();
 	reg(name(A)) = result;
 	true
 }
@@ -279,6 +285,8 @@ function clause execute(AND_ZP_X(op)) = {
 function clause assembly(AND_ABS(op)) = concat_str("AND ", my_hex_str(op))
 function clause execute(AND_ABS(op)) = {
 	let result = reg(name(A)) & read(op);
+	incr_cycles();
+	incr_cycles();
 	reg(name(A)) = result;
 	true
 }
@@ -287,7 +295,9 @@ function clause assembly(AND_ABS_X(op)) = concat_str("AND ", concat_str(my_hex_s
 function clause execute(AND_ABS_X(op)) = {
 	let ea = op + EXTZ(16, reg(name(X)));
 	let result = reg(name(A)) & read(ea);
-	if (op[15..8] != ea[15..8]) then {print_bits("page boundary crossed, now in page: ", ea[15..8])};
+	if (op[15..8] != ea[15..8]) then {incr_cycles(); print_bits("page boundary crossed, now in page: ", ea[15..8])};
+	incr_cycles();
+	incr_cycles();
 	reg(name(A)) = result;
 	true
 }
@@ -296,7 +306,9 @@ function clause assembly(AND_ABS_Y(op)) = concat_str("AND ", concat_str(my_hex_s
 function clause execute(AND_ABS_Y(op)) = {
 	let ea = op + EXTZ(16, reg(name(Y)));
 	let result = reg(name(A)) & read(ea);
-	if (op[15..8] != ea[15..8]) then {print_bits("page boundary crossed, now in page: ", ea[15..8])};
+	if (op[15..8] != ea[15..8]) then {incr_cycles(); print_bits("page boundary crossed, now in page: ", ea[15..8])};
+	incr_cycles();
+	incr_cycles();
 	reg(name(A)) = result;
 	true
 }
@@ -306,6 +318,11 @@ function clause execute(AND_IND_X(op)) = {
 	let ea = op + reg(name(X));
 	let pointer = read(ea + 1) @ read(ea);
 	let result = reg(name(A)) & read(pointer);
+	incr_cycles();
+	incr_cycles();
+	incr_cycles();
+	incr_cycles();
+	incr_cycles();
 	reg(name(A)) = result;
 	true
 }
@@ -314,8 +331,12 @@ function clause assembly(AND_IND_Y(op)) = concat_str("AND ", concat_str(concat_s
 function clause execute(AND_IND_Y(op)) = {
 	let pointer = read(op + 1) @ read(op);
 	let ea = pointer + EXTZ(16, reg(name(Y)));
-	if (pointer[15..8] != ea[15..8]) then {print_bits("page boundary crossed, now in page: ", ea[15..8])};
+	if (pointer[15..8] != ea[15..8]) then {incr_cycles(); print_bits("page boundary crossed, now in page: ", ea[15..8])};
 	let result = reg(name(A)) & read(ea);
+	incr_cycles();
+	incr_cycles();
+	incr_cycles();
+	incr_cycles();
 	reg(name(A)) = result;
 	true
 }
