@@ -21,7 +21,11 @@ scattered function execute
 val assembly : ast -> string
 scattered function assembly
 
-/* ===== ABSTRACT SYNTAX TREE ===== */
+/* =============== ABSTRACT SYNTAX TREE ============ */
+/*                                                   */
+/*                                                   */
+/*                                                   */
+/* ================================================= */
 
 // union clause ast = ADC_IMM : (word)
 // union clause ast = ADC_ZP : (word)
@@ -182,9 +186,16 @@ $include "./instructions/logical/ORA.sail"
 
 // union clause ast = TYA : (unit)
 
-/* ===== DECODE ===== */
 
-/* 1 byte instructions */
+/* ===================== DECODE ==================== */
+/*                                                   */
+/*                                                   */
+/*                                                   */
+/* ================================================= */
+
+
+/* ============== 1 byte instructions ============== */
+
 // function clause decode08(0x00) = BRK()
 // function clause decode08(0x40) = RTI()
 // function clause decode08(0x60) = RTS()
@@ -225,7 +236,8 @@ function clause decode08(this, last_execute) = {
 	decode16(EXTZ(this) << 8 | EXTZ(next_byte));
 }
 
-/* 2 byte instructions */
+/* ============== 2 byte instructions ============== */
+
 // function clause decode16(0x69 @ op : word) = ADC_IMM(op)
 // function clause decode16(0x65 @ op : word) = ADC_ZP(op)
 // function clause decode16(0x75 @ op : word) = ADC_ZP_X(op)
@@ -252,7 +264,8 @@ function clause decode16(this) = {
 	decode24(EXTZ(this) << 8 | EXTZ(next_byte));
 }
 
-/* 3 byte instructions */
+/* ============== 3 byte instructions ============== */
+
 // function clause decode24(0x6D @ op : address) = ADC_ABS(op)
 // function clause decode24(0x7D @ op : address) = ADC_ABS_X(op)
 // function clause decode24(0x79 @ op : address) = ADC_ABS_Y(op)
