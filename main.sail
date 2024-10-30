@@ -16,9 +16,15 @@ function print_state() : unit -> unit = {
 	print_bits("A: ", reg(name(A)));
 	print_bits("X: ", reg(name(X)));
 	print_bits("Y: ", reg(name(Y)));
-	print_bits("SR: ", reg(name(SR)));
 	print_bits("SP: ", reg(name(SP)));
 	print_bits("PC: ", reg(name(PC_H)) @ reg(name(PC_L)));
+	print_bits("n: ", flag_n());
+	print_bits("v: ", flag_v());
+	print_bits("b: ", flag_b());
+	print_bits("d: ", flag_d());
+	print_bits("i: ", flag_i());
+	print_bits("z: ", flag_z());
+	print_bits("c: ", flag_c());
 	print_endline(concat_str("Cycles passed: ", dec_str(cycles)));
 	print_endline(concat_str("Instructions completed: ", dec_str(instructions_done)));
 }
