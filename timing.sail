@@ -1,6 +1,7 @@
 register cycles : int = 0
 register instructions_done : int = 0
 
-function incr_cycles() : unit -> unit = {
-	cycles = cycles + 1;
+val incr_cycles : int -> unit
+function incr_cycles(n) = {
+	cycles = cycles + n;
 }

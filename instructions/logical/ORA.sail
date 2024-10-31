@@ -1,90 +1,22 @@
-// TODO : modify flags correctly
+val modify_flags_ORA : word -> unit
+function modify_flags_ORA(result) = {
+	if (result == 0x00) then set_flag_z(0b1) else set_flag_z(0b0);
+	if (result[7] == bitone) then set_flag_n(0b1) else set_flag_n(0b0);
+}
 
+val ORA : (word) -> bool
+function ORA(op) = {
+	let result = access(reg(A)) | op;
+	modify_flags_ORA(result);
+	access(reg(A)) = result;
+	true
+}
 
-// No memory access, ORA the A register with immediate value.
-function clause assembly(ORA_IMM(op)) = concat_str("ORA ", concat_str("#", my_hex_str(op)))
-function clause execute(ORA_IMM(op)) = {
-	let result = reg(reg(A)) | op;
-	incr_cycles();
-	reg(reg(A)) = result;
-	true
-}
-// No address calculation needed, zero-page memory access with provided word.
-function clause assembly(ORA_ZP(op)) = concat_str("ORA ", my_hex_str(op))
-function clause execute(ORA_ZP(op)) = {
-	let result = reg(reg(A)) | read(op);
-	incr_cycles();
-	incr_cycles();
-	reg(reg(A)) = result;
-	true
-}
-// Effective address affects the low byte only (overflow wraps around inside zero-page).
-function clause assembly(ORA_ZP_X(op)) = concat_str("ORA ", concat_str(my_hex_str(op), ",X"))
-function clause execute(ORA_ZP_X(op)) = {
-	let ea = op + reg(reg(X));
-	let result = reg(reg(A)) | read(ea);
-	incr_cycles();
-	incr_cycles();
-	incr_cycles();
-	reg(reg(A)) = result;
-	true
-}
-// No address calculation needed, memory access with provided address.
-function clause assembly(ORA_ABS(op)) = concat_str("ORA ", my_hex_str(op))
-function clause execute(ORA_ABS(op)) = {
-	let result = reg(reg(A)) | read(op);
-	incr_cycles();
-	incr_cycles();
-	reg(reg(A)) = result;
-	true
-}
-// Address calculation may affect the high byte (16 bit address plus X).
-function clause assembly(ORA_ABS_X(op)) = concat_str("ORA ", concat_str(my_hex_str(op), ",X"))
-function clause execute(ORA_ABS_X(op)) = {
-	let ea = op + EXTZ(16, reg(reg(X)));
-	let result = reg(reg(A)) | read(ea);
-	if (op[15..8] != ea[15..8]) then {incr_cycles(); print_bits("page boundary crossed, now in page: ", ea[15..8])};
-	incr_cycles();
-	incr_cycles();
-	reg(reg(A)) = result;
-	true
-}
-// Address calculation may affect the high byte (16 bit address plus Y).
-function clause assembly(ORA_ABS_Y(op)) = concat_str("ORA ", concat_str(my_hex_str(op), ",Y"))
-function clause execute(ORA_ABS_Y(op)) = {
-	let ea = op + EXTZ(16, reg(reg(Y)));
-	let result = reg(reg(A)) | read(ea);
-	if (op[15..8] != ea[15..8]) then {incr_cycles(); print_bits("page boundary crossed, now in page: ", ea[15..8])};
-	incr_cycles();
-	incr_cycles();
-	reg(reg(A)) = result;
-	true
-}
-// Address calculation effects the low byte only. Memory at effective address holds a pointer to data (LLHH).
-function clause assembly(ORA_IND_X(op)) = concat_str("ORA ", concat_str(concat_str("(", my_hex_str(op)), ",X)"))
-function clause execute(ORA_IND_X(op)) = {
-	let ea = op + reg(reg(X));
-	let pointer = read(ea + 1) @ read(ea);
-	let result = reg(reg(A)) | read(pointer);
-	incr_cycles();
-	incr_cycles();
-	incr_cycles();
-	incr_cycles();
-	incr_cycles();
-	reg(reg(A)) = result;
-	true
-}
-// Operand gives location (in zero-page) of pointer to data (LLHH). Address calculation comes AFTER and may affect the high byte.
-function clause assembly(ORA_IND_Y(op)) = concat_str("ORA ", concat_str(concat_str("(", my_hex_str(op)), "),Y"))
-function clause execute(ORA_IND_Y(op)) = {
-	let pointer = read(op + 1) @ read(op);
-	let ea = pointer + EXTZ(16, reg(reg(Y)));
-	if (pointer[15..8] != ea[15..8]) then {incr_cycles(); print_bits("page boundary crossed, now in page: ", ea[15..8])};
-	let result = reg(reg(A)) | read(ea);
-	incr_cycles();
-	incr_cycles();
-	incr_cycles();
-	incr_cycles();
-	reg(reg(A)) = result;
-	true
-}
+function clause execute(ORA_IMM(op))   = ORA(calculate_op(mode(imm), op))
+function clause execute(ORA_ZP(op))    = ORA(calculate_op(mode(zp), op))
+function clause execute(ORA_ZP_X(op))  = ORA(calculate_op(mode(zp_x), op))
+function clause execute(ORA_ABS(op))   = ORA(calculate_op(mode(abs), op))
+function clause execute(ORA_ABS_X(op)) = ORA(calculate_op(mode(abs_x), op))
+function clause execute(ORA_ABS_Y(op)) = ORA(calculate_op(mode(abs_y), op))
+function clause execute(ORA_IND_X(op)) = ORA(calculate_op(mode(ind_x), op))
+function clause execute(ORA_IND_Y(op)) = ORA(calculate_op(mode(ind_y), op))
