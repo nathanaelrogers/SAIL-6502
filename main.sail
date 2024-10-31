@@ -13,11 +13,11 @@ $include "programs.sail"
 
 function print_state() : unit -> unit = {
 	print_endline("==state after execution==");
-	print_bits("A: ", access(name(A)));
-	print_bits("X: ", access(name(X)));
-	print_bits("Y: ", access(name(Y)));
-	print_bits("SP: ", access(name(SP)));
-	print_bits("PC: ", access(name(PC_H)) @ access(name(PC_L)));
+	print_bits("A: ", access(reg(A)));
+	print_bits("X: ", access(reg(X)));
+	print_bits("Y: ", access(reg(Y)));
+	print_bits("SP: ", access(reg(SP)));
+	print_bits("PC: ", access(reg(PC_H)) @ access(reg(PC_L)));
 	print_bits("n: ", flag_n());
 	print_bits("v: ", flag_v());
 	print_bits("b: ", flag_b());
@@ -30,7 +30,7 @@ function print_state() : unit -> unit = {
 }
 
 function fetch_decode_execute(last_execute) : bool -> unit = {
-	let PC : address = access(name(PC_H)) @ access(name(PC_L));
+	let PC : address = access(reg(PC_H)) @ access(reg(PC_L));
 	let instruction = read(PC);
 
 	incr_pc();
@@ -53,10 +53,10 @@ function fetch_decode_execute(last_execute) : bool -> unit = {
 function setup() : unit -> unit = {
 	cycles = 7;
 	// Initialise the PC
-	access(name(PC_H)) = read(RES_vec + 1);
-	access(name(PC_L)) = read(RES_vec);
+	access(reg(PC_H)) = read(RES_vec + 1);
+	access(reg(PC_L)) = read(RES_vec);
 
-	access(name(A)) = undefined;
+	access(reg(A)) = undefined;
 	// init some flags, leave EVERYTHING  else undefined...
 }
 

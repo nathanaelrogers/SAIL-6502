@@ -18,7 +18,7 @@ enum reg_enum = {
 }
 
 // functions for reading and writing to registers
-mapping name : reg_enum <-> regnum = {
+mapping reg : reg_enum <-> regnum = {
 	PC_H <-> 0b000,
 	PC_L <-> 0b001,
 	A    <-> 0b010,
@@ -31,26 +31,26 @@ mapping name : reg_enum <-> regnum = {
 val read_register : regnum -> word
 function read_register(r) = {
 	match r {
-		0b000 => reg_PC[15..8],
-		0b001 => reg_PC[7..0],
-		0b010 => reg_A,
-		0b011 => reg_X,
-		0b100 => reg_Y,
-		0b101 => reg_SR[all],
-		0b110 => reg_SP
+		reg(PC_H) => reg_PC[15..8],
+		reg(PC_L) => reg_PC[7..0],
+		reg(A)    => reg_A,
+		reg(X)    => reg_X,
+		reg(Y)    => reg_Y,
+		reg(SR)   => reg_SR[all],
+		reg(SP)   => reg_SP
 	}
 }
 
 val write_register : (regnum, word) -> unit
 function write_register(r, word) = {
 	match r {
-		0b000 => reg_PC[15..8] = word,
-		0b001 => reg_PC[7..0] = word,
-		0b010 => reg_A = word,
-		0b011 => reg_X = word,
-		0b100 => reg_Y = word,
-		0b101 => reg_SR[all] = word,
-		0b110 => reg_SP = word
+		reg(PC_H) => reg_PC[15..8] = word,
+		reg(PC_L) => reg_PC[7..0] = word,
+		reg(A)    => reg_A = word,
+		reg(X)    => reg_X = word,
+		reg(Y)    => reg_Y = word,
+		reg(SR)   => reg_SR[all] = word,
+		reg(SP)   => reg_SP = word
 	}
 }
 

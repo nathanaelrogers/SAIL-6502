@@ -228,7 +228,7 @@ union clause ast = ORA_IND_Y : (word)
 // If it's not a valid single byte instruction, read another byte and try decode.
 function clause decode08(this, last_execute) = {
 	if (last_execute == false) then incr_cycles();
-	let PC : address = access(name(PC_H)) @ access(name(PC_L));
+	let PC : address = access(reg(PC_H)) @ access(reg(PC_L));
 	let next_byte : word = read(PC);
 	incr_pc();
 
@@ -258,7 +258,7 @@ function clause decode16(0x11 @ op : word) = {incr_cycles(); ORA_IND_Y(op)}
 // If it's not a valid 2 byte instruction, read another byte and try decode.
 function clause decode16(this) = {
 	incr_cycles();
-	let PC : address = access(name(PC_H)) @ access(name(PC_L));
+	let PC : address = access(reg(PC_H)) @ access(reg(PC_L));
 	let next_byte : word = read(PC);
 	incr_pc();
 

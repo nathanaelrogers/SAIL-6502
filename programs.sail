@@ -6,7 +6,7 @@ function setup_program1() : unit -> unit = {
 	write(RES_vec + 1, 0x02);
 
 	// Setup A with initial value.
-	access(name(A)) = 0x8A; // 0b1000_1010
+	access(reg(A)) = 0x8A; // 0b1000_1010
 
 	// Write instructions starting at 0x0200.
 
