@@ -1,35 +1,5 @@
 /* ============== 1 byte instructions ============== */
 
-// function clause decode08(0x00) = BRK()
-// function clause decode08(0x40) = RTI()
-// function clause decode08(0x60) = RTS()
-// function clause decode08(0x08) = PHP()
-// function clause decode08(0x18) = CLC()
-// function clause decode08(0x28) = PLP()
-// function clause decode08(0x38) = SEC()
-// function clause decode08(0x48) = PHA()
-// function clause decode08(0x58) = CLI()
-// function clause decode08(0x68) = PLA()
-// function clause decode08(0x78) = SEI()
-// function clause decode08(0x88) = DEY()
-// function clause decode08(0x98) = TYA()
-// function clause decode08(0xA8) = TAY()
-// function clause decode08(0xB8) = CLV()
-// function clause decode08(0xC8) = INY()
-// function clause decode08(0xD8) = CLD()
-// function clause decode08(0xE8) = INX()
-// function clause decode08(0xF8) = SED()
-// function clause decode08(0x0A) = ASL()
-// function clause decode08(0x2A) = ROL()
-// function clause decode08(0x4A) = LSR()
-// function clause decode08(0x6A) = ROR()
-// function clause decode08(0x8A) = TXA()
-// function clause decode08(0x9A) = TXS()
-// function clause decode08(0xAA) = TAX()
-// function clause decode08(0xBA) = TSX()
-// function clause decode08(0xCA) = DEX()
-// function clause decode08(0xEA) = NOP()
-
 // If it's not a valid single byte instruction, read another byte and try decode.
 function clause decode08(this, last_execute) = {
 	if (last_execute == false) then incr_cycles(1);
