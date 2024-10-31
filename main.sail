@@ -5,19 +5,19 @@ $include "types.sail"
 $include "registers.sail"
 $include "memory.sail"
 $include "timing.sail"
+$include "addressing.sail"
 $include "instruction-decode.sail"
+$include "assembly-print.sail"
 $include "interrupts.sail"
 $include "programs.sail"
 
-register instructions_done : int = 0
-
 function print_state() : unit -> unit = {
 	print_endline("==state after execution==");
-	print_bits("A: ", reg(name(A)));
-	print_bits("X: ", reg(name(X)));
-	print_bits("Y: ", reg(name(Y)));
-	print_bits("SP: ", reg(name(SP)));
-	print_bits("PC: ", reg(name(PC_H)) @ reg(name(PC_L)));
+	print_bits("A: ", access(name(A)));
+	print_bits("X: ", access(name(X)));
+	print_bits("Y: ", access(name(Y)));
+	print_bits("SP: ", access(name(SP)));
+	print_bits("PC: ", access(name(PC_H)) @ access(name(PC_L)));
 	print_bits("n: ", flag_n());
 	print_bits("v: ", flag_v());
 	print_bits("b: ", flag_b());
@@ -30,7 +30,7 @@ function print_state() : unit -> unit = {
 }
 
 function fetch_decode_execute(last_execute) : bool -> unit = {
-	let PC : address = reg(name(PC_H)) @ reg(name(PC_L));
+	let PC : address = access(name(PC_H)) @ access(name(PC_L));
 	let instruction = read(PC);
 
 	incr_pc();
@@ -52,7 +52,12 @@ function fetch_decode_execute(last_execute) : bool -> unit = {
 // All other initialization is left to the program loaded.
 function setup() : unit -> unit = {
 	cycles = 7;
-	reg(name(PC_H)) = read(RES_vec + 1); reg(name(PC_L)) = read(RES_vec);
+	// Initialise the PC
+	access(name(PC_H)) = read(RES_vec + 1);
+	access(name(PC_L)) = read(RES_vec);
+
+	access(name(A)) = undefined;
+	// init some flags, leave EVERYTHING  else undefined...
 }
 
 function main() : unit -> unit = {

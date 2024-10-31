@@ -54,7 +54,7 @@ function write_register(r, word) = {
 	}
 }
 
-overload reg = {read_register, write_register}
+overload access = {read_register, write_register}
 
 // Helper function to increment the PC.
 val incr_pc : unit -> unit

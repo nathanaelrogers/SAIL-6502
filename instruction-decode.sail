@@ -18,8 +18,7 @@ overload decode = {decode08, decode16, decode24}
 val execute : ast -> bool
 scattered function execute
 
-val assembly : ast -> string
-scattered function assembly
+
 
 /* =============== ABSTRACT SYNTAX TREE ============ */
 /*                                                   */
@@ -101,7 +100,7 @@ union clause ast = EOR_ABS_X : (address)
 union clause ast = EOR_ABS_Y : (address)
 union clause ast = EOR_IND_X : (word)
 union clause ast = EOR_IND_Y : (word)
-$include "./instructions/logical/EOR.sail"
+// $include "./instructions/logical/EOR.sail"
 
 //union clause ast = INC : (unit)
 
@@ -136,7 +135,7 @@ union clause ast = ORA_ABS_X : (address)
 union clause ast = ORA_ABS_Y : (address)
 union clause ast = ORA_IND_X : (word)
 union clause ast = ORA_IND_Y : (word)
-$include "./instructions/logical/ORA.sail"
+// $include "./instructions/logical/ORA.sail"
 
 // union clause ast = PHA : (unit)
 
@@ -229,7 +228,7 @@ $include "./instructions/logical/ORA.sail"
 // If it's not a valid single byte instruction, read another byte and try decode.
 function clause decode08(this, last_execute) = {
 	if (last_execute == false) then incr_cycles();
-	let PC : address = reg(name(PC_H)) @ reg(name(PC_L));
+	let PC : address = access(name(PC_H)) @ access(name(PC_L));
 	let next_byte : word = read(PC);
 	incr_pc();
 
@@ -259,7 +258,7 @@ function clause decode16(0x11 @ op : word) = {incr_cycles(); ORA_IND_Y(op)}
 // If it's not a valid 2 byte instruction, read another byte and try decode.
 function clause decode16(this) = {
 	incr_cycles();
-	let PC : address = reg(name(PC_H)) @ reg(name(PC_L));
+	let PC : address = access(name(PC_H)) @ access(name(PC_L));
 	let next_byte : word = read(PC);
 	incr_pc();
 
@@ -280,7 +279,7 @@ function clause decode24(0x0D @ op : address) = {incr_cycles(); ORA_ABS(op)}
 function clause decode24(0x1D @ op : address) = {incr_cycles(); ORA_ABS_X(op)}
 function clause decode24(0x19 @ op : address) = {incr_cycles(); ORA_ABS_Y(op)}
 
+// Catch an invalid instruction
 union clause ast = INVALID : (bits(24))
 function clause decode24(instruction) = {incr_cycles(); INVALID(instruction)}
-function clause assembly(INVALID(instruction)) = concat_str("Invalid instruction: ", bits_str(instruction))
 function clause execute(INVALID(instruction)) = false
