@@ -68,7 +68,7 @@ function setup() : unit -> unit = {
 function main() : unit -> unit = {
 	setup();
 
-	setup_program2();
+	setup_program_adc_test();
 
 	let state = print_state();
 

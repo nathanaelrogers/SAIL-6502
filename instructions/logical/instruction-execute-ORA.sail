@@ -1,7 +1,7 @@
 val modify_flags_ORA : word -> unit
 function modify_flags_ORA(result) = {
-	if ([result[7]] == 0b1) then set_flag_n(0b1) else set_flag_n(0b0); // negative
-	if (result == 0x00) then set_flag_z(0b1) else set_flag_z(0b0); // zero
+	if (signed(result) < 0)  then set_flag_n(0b1) else set_flag_n(0b0); // negative
+	if (signed(result) == 0) then set_flag_z(0b1) else set_flag_z(0b0); // zero
 }
 
 val ORA : (word) -> bool

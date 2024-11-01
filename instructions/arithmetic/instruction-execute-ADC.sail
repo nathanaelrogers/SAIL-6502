@@ -1,20 +1,24 @@
-// val modify_flags_ADC : bits(9) -> unit
-// function modify_flags_ADC(result) = {
-// 	if ([result[7]] == 0b1)                 then set_flag_n(0b1) else set_flag_n(0b0); // negative
-// 	if ([result[7]] != [access(reg(A))[7]]) then set_flag_v(0b1) else set_flag_v(0b0); // overflow
-// 	if (result[7..0] == 0x00)               then set_flag_z(0b1) else set_flag_z(0b0); // zero
-// 	if ([result[8]] == 0b1)                 then set_flag_c(0b1) else set_flag_c(0b0); // carry
-// }
+val modify_flags_ADC : (bits(9), word, word) -> unit
+function modify_flags_ADC(result, op1, op2) = {
+	if (signed(result[7..0]) < 0)
+		then set_flag_n(0b1) else set_flag_n(0b0); // negative
 
-// how does sail addition behave? will it do two's complement by default??
+	if ([op1[7]] == [op2[7]] & [result[7]] != [op1[7]])
+		then set_flag_v(0b1) else set_flag_v(0b0); // overflow
+
+	if (signed(result[7..0]) == 0)
+		then set_flag_z(0b1) else set_flag_z(0b0); // zero
+
+	if (unsigned(result) >= 256)
+		then set_flag_c(0b1) else set_flag_c(0b0); // carry
+}
+
 // how to implement decimal mode addition?
-// how to check for overflow correctly?
 val ADC : (word) -> bool
 function ADC(op) = {
-	let result : int = signed(access(reg(A))) + signed(op) + signed(flag_c());
-	print_endline(dec_str(result));
-	// modify_flags_ADC(result);
-	// access(reg(A)) = result;
+	let result : bits(9) = EXTZ(9, access(reg(A))) + EXTZ(9, op) + EXTZ(9, flag_c());
+	modify_flags_ADC(result, access(reg(A)), op);
+	access(reg(A)) = result[7..0];
 	true
 }
 
