@@ -30,16 +30,21 @@ mapping mode : am_enum <-> addrmode = {
 	zp_y  <-> 0xC
 }
 
-val calculate_op_word : (addrmode, word) -> word
-function calculate_op_word(addrmode, op) = {
+val get_op_word : (addrmode, word) -> word
+function get_op_word(addrmode, op) = {
 	match addrmode {
-		mode(imm)   => op,
+		mode(imm)   => {
+			incr_cycles(1);
+			op
+		},
 		mode(ind_x) => {
+			incr_cycles(5);
 			let ea  = op + access(reg(X));
 			let ptr = read(ea + 1) @ read(ea);
 			read(ptr)
 		},
 		mode(ind_y) => {
+			incr_cycles(4);
 			let ptr = read(op + 1) @ read(op);
 			let ea  = ptr + EXTZ(16, access(reg(Y)));
 			if (ptr[15..8] != ea[15..8]) then {
@@ -48,16 +53,26 @@ function calculate_op_word(addrmode, op) = {
 			};
 			read(ptr)
 		},
-		mode(zp)    => read(op),
-		mode(zp_x)  => read(op + access(reg(X)))
+		mode(zp)    => {
+			incr_cycles(2);
+			read(op)
+		},
+		mode(zp_x)  => {
+			incr_cycles(3);
+			read(op + access(reg(X)))
+		}
 	}
 }
 
-val calculate_op_address : (addrmode, address) -> word
-function calculate_op_address(addrmode, op) = {
+val get_op_address : (addrmode, address) -> word
+function get_op_address(addrmode, op) = {
 	match addrmode {
-		mode(abs)   => read(op),
+		mode(abs)   => {
+			incr_cycles(2);
+			read(op)
+		},
 		mode(abs_x) => {
+			incr_cycles(2);
 			let ea = op + EXTZ(16, access(reg(X)));
 			if (op[15..8] != ea[15..8]) then {
 				incr_cycles(1);
@@ -66,6 +81,7 @@ function calculate_op_address(addrmode, op) = {
 			read(ea)
 		},
 		mode(abs_y) => {
+			incr_cycles(2);
 			let ea = op + EXTZ(16, access(reg(Y)));
 			if (op[15..8] != ea[15..8]) then {
 				incr_cycles(1);
@@ -76,4 +92,4 @@ function calculate_op_address(addrmode, op) = {
 	}
 }
 
-overload calculate_op = {calculate_op_address, calculate_op_word}
+overload get_op = {get_op_address, get_op_word}

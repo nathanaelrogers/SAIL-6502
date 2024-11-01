@@ -12,6 +12,12 @@ function clause decode08(this, last_execute) = {
 
 /* ============== 2 byte instructions ============== */
 
+function clause decode16(0x69 @ op : word) = {incr_cycles(1); ADC_IMM(op)}
+function clause decode16(0x65 @ op : word) = {incr_cycles(1); ADC_ZP(op)}
+function clause decode16(0x75 @ op : word) = {incr_cycles(1); ADC_ZP_X(op)}
+function clause decode16(0x61 @ op : word) = {incr_cycles(1); ADC_IND_X(op)}
+function clause decode16(0x71 @ op : word) = {incr_cycles(1); ADC_IND_Y(op)}
+
 function clause decode16(0x29 @ op : word) = {incr_cycles(1); AND_IMM(op)}
 function clause decode16(0x25 @ op : word) = {incr_cycles(1); AND_ZP(op)}
 function clause decode16(0x35 @ op : word) = {incr_cycles(1); AND_ZP_X(op)}
@@ -41,6 +47,10 @@ function clause decode16(this) = {
 }
 
 /* ============== 3 byte instructions ============== */
+
+function clause decode24(0x6D @ op : address) = {incr_cycles(1); ADC_ABS(op)}
+function clause decode24(0x7D @ op : address) = {incr_cycles(1); ADC_ABS_X(op)}
+function clause decode24(0x79 @ op : address) = {incr_cycles(1); ADC_ABS_Y(op)}
 
 function clause decode24(0x2D @ op : address) = {incr_cycles(1); AND_ABS(op)}
 function clause decode24(0x3D @ op : address) = {incr_cycles(1); AND_ABS_X(op)}

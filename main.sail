@@ -52,6 +52,10 @@ function fetch_decode_execute(last_execute) : bool -> unit = {
 // PC is read from address provided in reset vector (16 bits at $FFFC).
 // All other initialization is left to the program loaded.
 function setup() : unit -> unit = {
+	// arbitrary start address for testing purposes
+	write(RES_vec, 0x00);
+	write(RES_vec + 1, 0x02);
+
 	cycles = 7;
 	// Initialise the PC
 	access(reg(PC_H)) = read(RES_vec + 1);
@@ -62,9 +66,9 @@ function setup() : unit -> unit = {
 }
 
 function main() : unit -> unit = {
-	setup_program1();
-
 	setup();
+
+	setup_program2();
 
 	let state = print_state();
 

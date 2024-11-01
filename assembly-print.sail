@@ -15,6 +15,15 @@ function make_str(addrmode, name, op) = {
 	}
 }
 
+function clause assembly(ADC_IMM(op))   = make_str(mode(imm),   "ADC ", my_hex_str(op))
+function clause assembly(ADC_ZP(op))    = make_str(mode(zp),    "ADC ", my_hex_str(op))
+function clause assembly(ADC_ZP_X(op))  = make_str(mode(zp_x),  "ADC ", my_hex_str(op))
+function clause assembly(ADC_ABS(op))   = make_str(mode(abs),   "ADC ", my_hex_str(op))
+function clause assembly(ADC_ABS_X(op)) = make_str(mode(abs_x), "ADC ", my_hex_str(op))
+function clause assembly(ADC_ABS_Y(op)) = make_str(mode(abs_y), "ADC ", my_hex_str(op))
+function clause assembly(ADC_IND_X(op)) = make_str(mode(ind_x), "ADC ", my_hex_str(op))
+function clause assembly(ADC_IND_Y(op)) = make_str(mode(ind_y), "ADC ", my_hex_str(op))
+
 function clause assembly(AND_IMM(op))   = make_str(mode(imm),   "AND ", my_hex_str(op))
 function clause assembly(AND_ZP(op))    = make_str(mode(zp),    "AND ", my_hex_str(op))
 function clause assembly(AND_ZP_X(op))  = make_str(mode(zp_x),  "AND ", my_hex_str(op))

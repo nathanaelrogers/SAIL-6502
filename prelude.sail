@@ -1,6 +1,9 @@
-// Use Sail backend zero extension
+// Use Sail backend zero extension and sign extension
 val EXTZ : forall 'n 'm, 'm >= 'n. (implicit('m), bits('n)) -> bits('m)
 function EXTZ(m, v) = sail_zero_extend(v, m)
+
+val EXTS : forall 'n 'm, 'm >= 'n. (implicit('m), bits('n)) -> bits('m)
+function EXTS(m, v) = sail_sign_extend(v, m)
 
 infix 7 >>
 infix 7 <<
