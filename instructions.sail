@@ -1,3 +1,5 @@
+$include "./instructions/arithmetic/decimal.sail"
+
 scattered union ast
 
 val execute : ast -> bool

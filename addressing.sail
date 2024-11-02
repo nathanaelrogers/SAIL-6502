@@ -49,7 +49,7 @@ function get_op_word(addrmode, op) = {
 			let ea  = ptr + EXTZ(16, access(reg(Y)));
 			if (ptr[15..8] != ea[15..8]) then {
 				incr_cycles(1);
-				print_bits("page boundary crossed, now in page: ", ea[15..8])
+				// print_bits("page boundary crossed, now in page: ", ea[15..8])
 			};
 			read(ptr)
 		},
@@ -76,7 +76,7 @@ function get_op_address(addrmode, op) = {
 			let ea = op + EXTZ(16, access(reg(X)));
 			if (op[15..8] != ea[15..8]) then {
 				incr_cycles(1);
-				print_bits("page boundary crossed, now in page: ", ea[15..8])
+				// print_bits("page boundary crossed, now in page: ", ea[15..8])
 			};
 			read(ea)
 		},
@@ -85,7 +85,7 @@ function get_op_address(addrmode, op) = {
 			let ea = op + EXTZ(16, access(reg(Y)));
 			if (op[15..8] != ea[15..8]) then {
 				incr_cycles(1);
-				print_bits("page boundary crossed, now in page: ", ea[15..8])
+				// print_bits("page boundary crossed, now in page: ", ea[15..8])
 			};
 			read(ea)
 		}
