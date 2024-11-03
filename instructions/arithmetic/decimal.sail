@@ -39,11 +39,16 @@ function word_to_decimal(word) = {
 
 val decimal_to_word : int -> word
 function decimal_to_word(op) = {
-	let n : int = if (op > 99) then op % 100 else op;
+	let n : int = if (op >= 100 | op <= -100) then (op % 100) else op;
 	int_to_nibble(n / 10) @ int_to_nibble(n % 10)
 }
 
 val decimal_add : (word, word) -> int
 function decimal_add(op1, op2) = {
 	word_to_decimal(op1) + word_to_decimal(op2)
+}
+
+val decimal_sub : (word, word) -> int
+function decimal_sub(op1, op2) = {
+	word_to_decimal(op1) - word_to_decimal(op2)
 }

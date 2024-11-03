@@ -1,3 +1,5 @@
+//TODO: spend some time checking out behaviour of V flag in BCD mode for SBC and ADC!!
+
 val modify_flags_ADC : (bits(9), int, word, word) -> unit
 function modify_flags_ADC(result, decimal_result, op1, op2) = {
 	if (signed(result[7..0]) < 0)
@@ -13,7 +15,6 @@ function modify_flags_ADC(result, decimal_result, op1, op2) = {
 		then set_flag_c(0b1) else set_flag_c(0b0); // carry
 }
 
-// TODO: double check modification of flags in BCD mode...
 val ADC : (word) -> bool
 function ADC(op) = {
 	let decimal_result : int = if (flag_d() == 0b0)

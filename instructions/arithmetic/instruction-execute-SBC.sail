@@ -13,22 +13,21 @@ function modify_flags_SBC(result, decimal_result, op1, op2) = {
 		then set_flag_c(0b1) else set_flag_c(0b0); // carry
 }
 
-// TODO: implement BDC mode behaviour...
 // TODO: the docs say overflow is out of range -127 to 127 but shouldn't
-// this be -128 to 127? double check if this is a typo...
+// this be -128 to 127? seems to be a typo...
 val SBC : (word) -> bool
 function SBC(op) = {
 	let decimal_result : int = if (flag_d() == 0b0)
 		then {
 			0
 		} else {
-			0
+			decimal_sub(access(reg(A)), op)
 		};
 	let result : bits(9) = if (flag_d() == 0b0)
 		then {
 			EXTZ(9, access(reg(A))) + EXTZ(9, not_vec(op)) + EXTZ(9, flag_c())
 		} else {
-			0b000000000
+			0b0 @ decimal_to_word(decimal_result)
 		};
 	modify_flags_SBC(result, decimal_result, access(reg(A)), op);
 	access(reg(A)) = result[7..0];
