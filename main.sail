@@ -61,8 +61,12 @@ function setup() : unit -> unit = {
 	access(reg(PC_H)) = read(RES_vec + 1);
 	access(reg(PC_L)) = read(RES_vec);
 
-	access(reg(A)) = undefined;
-	// init some flags, leave EVERYTHING  else undefined...
+	// it seems like everything should be undefined to begin with...
+	access(reg(A))  = undefined;
+	access(reg(X))  = undefined;
+	access(reg(Y))  = undefined;
+	access(reg(SR)) = undefined;
+	access(reg(SP)) = undefined;
 }
 
 function main() : unit -> unit = {

@@ -1,7 +1,4 @@
-register main_mem : mem_64KB = vector_init(256, vector_init(256, 0x00))
-
-// TODO : what's the behaviour when FAIL to read/write to stack (page 1)? is it protected or not?
-// TODO : add push/pop methods
+register main_mem : mem_64KB = vector_init(256, vector_init(256, undefined))
 
 val read_memory : address -> word
 function read_memory(addr) = {
