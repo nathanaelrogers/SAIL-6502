@@ -30,6 +30,12 @@ function clause decode16(0x55 @ op : word) = {incr_cycles(1); EOR_ZP_X(op)}
 function clause decode16(0x41 @ op : word) = {incr_cycles(1); EOR_IND_X(op)}
 function clause decode16(0x51 @ op : word) = {incr_cycles(1); EOR_IND_Y(op)}
 
+function clause decode16(0xA9 @ op : word) = {incr_cycles(1); LDA_IMM(op)}
+function clause decode16(0xA5 @ op : word) = {incr_cycles(1); LDA_ZP(op)}
+function clause decode16(0xB5 @ op : word) = {incr_cycles(1); LDA_ZP_X(op)}
+function clause decode16(0xA1 @ op : word) = {incr_cycles(1); LDA_IND_X(op)}
+function clause decode16(0xB1 @ op : word) = {incr_cycles(1); LDA_IND_Y(op)}
+
 function clause decode16(0x09 @ op : word) = {incr_cycles(1); ORA_IMM(op)}
 function clause decode16(0x05 @ op : word) = {incr_cycles(1); ORA_ZP(op)}
 function clause decode16(0x15 @ op : word) = {incr_cycles(1); ORA_ZP_X(op)}
@@ -65,6 +71,10 @@ function clause decode24(0x39 @ op : address) = {incr_cycles(1); AND_ABS_Y(op)}
 function clause decode24(0x4D @ op : address) = {incr_cycles(1); EOR_ABS(op)}
 function clause decode24(0x5D @ op : address) = {incr_cycles(1); EOR_ABS_X(op)}
 function clause decode24(0x59 @ op : address) = {incr_cycles(1); EOR_ABS_Y(op)}
+
+function clause decode24(0xAD @ op : address) = {incr_cycles(1); LDA_ABS(op)}
+function clause decode24(0xBD @ op : address) = {incr_cycles(1); LDA_ABS_X(op)}
+function clause decode24(0xB9 @ op : address) = {incr_cycles(1); LDA_ABS_Y(op)}
 
 function clause decode24(0x0D @ op : address) = {incr_cycles(1); ORA_ABS(op)}
 function clause decode24(0x1D @ op : address) = {incr_cycles(1); ORA_ABS_X(op)}

@@ -46,6 +46,16 @@ union clause ast = EOR_IND_X : (word)
 union clause ast = EOR_IND_Y : (word)
 $include "./instructions/logical/instruction-execute-EOR.sail"
 
+union clause ast = LDA_IMM   : (word)
+union clause ast = LDA_ZP    : (word)
+union clause ast = LDA_ZP_X  : (word)
+union clause ast = LDA_ABS   : (address)
+union clause ast = LDA_ABS_X : (address)
+union clause ast = LDA_ABS_Y : (address)
+union clause ast = LDA_IND_X : (word)
+union clause ast = LDA_IND_Y : (word)
+$include "./instructions/transfer/instruction-execute-LDA.sail"
+
 union clause ast = ORA_IMM   : (word)
 union clause ast = ORA_ZP    : (word)
 union clause ast = ORA_ZP_X  : (word)
