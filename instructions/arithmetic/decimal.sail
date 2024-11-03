@@ -40,7 +40,7 @@ function word_to_decimal(word) = {
 val decimal_to_word : int -> word
 function decimal_to_word(op) = {
 	let n : int = if (op > 99) then op % 100 else op;
- int_to_nibble(n / 10) @ int_to_nibble(n % 10)
+	int_to_nibble(n / 10) @ int_to_nibble(n % 10)
 }
 
 val decimal_add : (word, word) -> int

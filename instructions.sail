@@ -55,3 +55,13 @@ union clause ast = ORA_ABS_Y : (address)
 union clause ast = ORA_IND_X : (word)
 union clause ast = ORA_IND_Y : (word)
 $include "./instructions/logical/instruction-execute-ORA.sail"
+
+union clause ast = SBC_IMM   : (word)
+union clause ast = SBC_ZP    : (word)
+union clause ast = SBC_ZP_X  : (word)
+union clause ast = SBC_ABS   : (address)
+union clause ast = SBC_ABS_X : (address)
+union clause ast = SBC_ABS_Y : (address)
+union clause ast = SBC_IND_X : (word)
+union clause ast = SBC_IND_Y : (word)
+$include "./instructions/arithmetic/instruction-execute-SBC.sail"

@@ -3,7 +3,7 @@ function modify_flags_ADC(result, decimal_result, op1, op2) = {
 	if (signed(result[7..0]) < 0)
 		then set_flag_n(0b1) else set_flag_n(0b0); // negative
 
-	if ([op1[7]] == [op2[7]] & [result[7]] != [op1[7]])
+	if (signed(result) > 127 | signed(result) < -128)
 		then set_flag_v(0b1) else set_flag_v(0b0); // overflow
 
 	if (signed(result[7..0]) == 0)

@@ -51,5 +51,13 @@ function clause assembly(ORA_ABS_Y(op)) = make_str(mode(abs_y), "ORA ", my_hex_s
 function clause assembly(ORA_IND_X(op)) = make_str(mode(ind_x), "ORA ", my_hex_str(op))
 function clause assembly(ORA_IND_Y(op)) = make_str(mode(ind_y), "ORA ", my_hex_str(op))
 
+function clause assembly(SBC_IMM(op))   = make_str(mode(imm),   "SBC ", my_hex_str(op))
+function clause assembly(SBC_ZP(op))    = make_str(mode(zp),    "SBC ", my_hex_str(op))
+function clause assembly(SBC_ZP_X(op))  = make_str(mode(zp_x),  "SBC ", my_hex_str(op))
+function clause assembly(SBC_ABS(op))   = make_str(mode(abs),   "SBC ", my_hex_str(op))
+function clause assembly(SBC_ABS_X(op)) = make_str(mode(abs_x), "SBC ", my_hex_str(op))
+function clause assembly(SBC_ABS_Y(op)) = make_str(mode(abs_y), "SBC ", my_hex_str(op))
+function clause assembly(SBC_IND_X(op)) = make_str(mode(ind_x), "SBC ", my_hex_str(op))
+function clause assembly(SBC_IND_Y(op)) = make_str(mode(ind_y), "SBC ", my_hex_str(op))
 
 function clause assembly(INVALID(instruction)) = concat_str("Invalid instruction: ", bits_str(instruction))

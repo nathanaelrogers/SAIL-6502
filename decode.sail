@@ -36,6 +36,12 @@ function clause decode16(0x15 @ op : word) = {incr_cycles(1); ORA_ZP_X(op)}
 function clause decode16(0x01 @ op : word) = {incr_cycles(1); ORA_IND_X(op)}
 function clause decode16(0x11 @ op : word) = {incr_cycles(1); ORA_IND_Y(op)}
 
+function clause decode16(0xE9 @ op : word) = {incr_cycles(1); SBC_IMM(op)}
+function clause decode16(0xE5 @ op : word) = {incr_cycles(1); SBC_ZP(op)}
+function clause decode16(0xF5 @ op : word) = {incr_cycles(1); SBC_ZP_X(op)}
+function clause decode16(0xE1 @ op : word) = {incr_cycles(1); SBC_IND_X(op)}
+function clause decode16(0xF1 @ op : word) = {incr_cycles(1); SBC_IND_Y(op)}
+
 // If it's not a valid 2 byte instruction, read another byte and try decode.
 function clause decode16(this) = {
 	incr_cycles(1);
@@ -63,6 +69,10 @@ function clause decode24(0x59 @ op : address) = {incr_cycles(1); EOR_ABS_Y(op)}
 function clause decode24(0x0D @ op : address) = {incr_cycles(1); ORA_ABS(op)}
 function clause decode24(0x1D @ op : address) = {incr_cycles(1); ORA_ABS_X(op)}
 function clause decode24(0x19 @ op : address) = {incr_cycles(1); ORA_ABS_Y(op)}
+
+function clause decode24(0xED @ op : address) = {incr_cycles(1); SBC_ABS(op)}
+function clause decode24(0xFD @ op : address) = {incr_cycles(1); SBC_ABS_X(op)}
+function clause decode24(0xF9 @ op : address) = {incr_cycles(1); SBC_ABS_Y(op)}
 
 // Catch an invalid instruction
 union clause ast = INVALID : (bits(24))
