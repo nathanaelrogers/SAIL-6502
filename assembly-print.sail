@@ -51,6 +51,18 @@ function clause assembly(LDA_ABS_Y(op)) = make_str(mode(abs_y), "LDA ", my_hex_s
 function clause assembly(LDA_IND_X(op)) = make_str(mode(ind_x), "LDA ", my_hex_str(op))
 function clause assembly(LDA_IND_Y(op)) = make_str(mode(ind_y), "LDA ", my_hex_str(op))
 
+function clause assembly(LDX_IMM(op))   = make_str(mode(imm),   "LDX ", my_hex_str(op))
+function clause assembly(LDX_ZP(op))    = make_str(mode(zp),    "LDX ", my_hex_str(op))
+function clause assembly(LDX_ZP_Y(op))  = make_str(mode(zp_y),  "LDX ", my_hex_str(op))
+function clause assembly(LDX_ABS(op))   = make_str(mode(abs),   "LDX ", my_hex_str(op))
+function clause assembly(LDX_ABS_Y(op)) = make_str(mode(abs_y), "LDX ", my_hex_str(op))
+
+function clause assembly(LDY_IMM(op))   = make_str(mode(imm),   "LDY ", my_hex_str(op))
+function clause assembly(LDY_ZP(op))    = make_str(mode(zp),    "LDY ", my_hex_str(op))
+function clause assembly(LDY_ZP_X(op))  = make_str(mode(zp_x),  "LDY ", my_hex_str(op))
+function clause assembly(LDY_ABS(op))   = make_str(mode(abs),   "LDY ", my_hex_str(op))
+function clause assembly(LDY_ABS_X(op)) = make_str(mode(abs_x), "LDY ", my_hex_str(op))
+
 function clause assembly(ORA_IMM(op))   = make_str(mode(imm),   "ORA ", my_hex_str(op))
 function clause assembly(ORA_ZP(op))    = make_str(mode(zp),    "ORA ", my_hex_str(op))
 function clause assembly(ORA_ZP_X(op))  = make_str(mode(zp_x),  "ORA ", my_hex_str(op))

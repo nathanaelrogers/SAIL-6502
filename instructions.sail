@@ -56,6 +56,20 @@ union clause ast = LDA_IND_X : (word)
 union clause ast = LDA_IND_Y : (word)
 $include "./instructions/transfer/instruction-execute-LDA.sail"
 
+union clause ast = LDX_IMM   : (word)
+union clause ast = LDX_ZP    : (word)
+union clause ast = LDX_ZP_Y  : (word)
+union clause ast = LDX_ABS   : (address)
+union clause ast = LDX_ABS_Y : (address)
+$include "./instructions/transfer/instruction-execute-LDX.sail"
+
+union clause ast = LDY_IMM   : (word)
+union clause ast = LDY_ZP    : (word)
+union clause ast = LDY_ZP_X  : (word)
+union clause ast = LDY_ABS   : (address)
+union clause ast = LDY_ABS_X : (address)
+$include "./instructions/transfer/instruction-execute-LDY.sail"
+
 union clause ast = ORA_IMM   : (word)
 union clause ast = ORA_ZP    : (word)
 union clause ast = ORA_ZP_X  : (word)

@@ -60,6 +60,10 @@ function get_op_word(addrmode, op) = {
 		mode(zp_x)  => {
 			incr_cycles(3);
 			read(op + access(reg(X)))
+		},
+		mode(zp_y)  => {
+			incr_cycles(3);
+			read(op + access(reg(Y)))
 		}
 	}
 }
