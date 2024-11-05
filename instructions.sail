@@ -1,6 +1,3 @@
-$include "./instructions/addressing.sail"
-$include "./instructions/arithmetic/decimal-mode.sail"
-
 scattered union ast
 
 val execute : ast -> bool
