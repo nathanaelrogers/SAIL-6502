@@ -1,4 +1,5 @@
-$include "./instructions/arithmetic/decimal.sail"
+$include "./instructions/addressing.sail"
+$include "./instructions/arithmetic/decimal-mode.sail"
 
 scattered union ast
 
@@ -89,3 +90,22 @@ union clause ast = SBC_ABS_Y : (address)
 union clause ast = SBC_IND_X : (word)
 union clause ast = SBC_IND_Y : (word)
 $include "./instructions/arithmetic/instruction-execute-SBC.sail"
+
+union clause ast = STA_ZP    : (word)
+union clause ast = STA_ZP_X  : (word)
+union clause ast = STA_ABS   : (address)
+union clause ast = STA_ABS_X : (address)
+union clause ast = STA_ABS_Y : (address)
+union clause ast = STA_IND_X : (word)
+union clause ast = STA_IND_Y : (word)
+$include "./instructions/transfer/instruction-execute-STA.sail"
+
+union clause ast = STX_ZP    : (word)
+union clause ast = STX_ZP_Y  : (word)
+union clause ast = STX_ABS   : (address)
+$include "./instructions/transfer/instruction-execute-STX.sail"
+
+union clause ast = STY_ZP    : (word)
+union clause ast = STY_ZP_X  : (word)
+union clause ast = STY_ABS   : (address)
+$include "./instructions/transfer/instruction-execute-STY.sail"

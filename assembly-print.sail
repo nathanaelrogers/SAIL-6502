@@ -81,4 +81,20 @@ function clause assembly(SBC_ABS_Y(op)) = make_str(mode(abs_y), "SBC ", my_hex_s
 function clause assembly(SBC_IND_X(op)) = make_str(mode(ind_x), "SBC ", my_hex_str(op))
 function clause assembly(SBC_IND_Y(op)) = make_str(mode(ind_y), "SBC ", my_hex_str(op))
 
+function clause assembly(STA_ZP(op))    = make_str(mode(zp),    "STA ", my_hex_str(op))
+function clause assembly(STA_ZP_X(op))  = make_str(mode(zp_x),  "STA ", my_hex_str(op))
+function clause assembly(STA_ABS(op))   = make_str(mode(abs),   "STA ", my_hex_str(op))
+function clause assembly(STA_ABS_X(op)) = make_str(mode(abs_x), "STA ", my_hex_str(op))
+function clause assembly(STA_ABS_Y(op)) = make_str(mode(abs_y), "STA ", my_hex_str(op))
+function clause assembly(STA_IND_X(op)) = make_str(mode(ind_x), "STA ", my_hex_str(op))
+function clause assembly(STA_IND_Y(op)) = make_str(mode(ind_y), "STA ", my_hex_str(op))
+
+function clause assembly(STX_ZP(op))    = make_str(mode(zp),    "STX ", my_hex_str(op))
+function clause assembly(STX_ZP_Y(op))  = make_str(mode(zp_y),  "STX ", my_hex_str(op))
+function clause assembly(STX_ABS(op))   = make_str(mode(abs),   "STX ", my_hex_str(op))
+
+function clause assembly(STY_ZP(op))    = make_str(mode(zp),    "STY ", my_hex_str(op))
+function clause assembly(STY_ZP_X(op))  = make_str(mode(zp_x),  "STY ", my_hex_str(op))
+function clause assembly(STY_ABS(op))   = make_str(mode(abs),   "STY ", my_hex_str(op))
+
 function clause assembly(INVALID(instruction)) = concat_str("Invalid instruction: ", bits_str(instruction))

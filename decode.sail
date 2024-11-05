@@ -78,6 +78,22 @@ function clause decode24(0xF9 @ op : address) = {incr_cycles(1); SBC_ABS_Y(op)}
 function clause decode16(0xE1 @ op : word)    = {incr_cycles(1); SBC_IND_X(op)}
 function clause decode16(0xF1 @ op : word)    = {incr_cycles(1); SBC_IND_Y(op)}
 
+function clause decode16(0x85 @ op : word)    = {incr_cycles(1); STA_ZP(op)}
+function clause decode16(0x95 @ op : word)    = {incr_cycles(1); STA_ZP_X(op)}
+function clause decode24(0x8D @ op : address) = {incr_cycles(1); STA_ABS(op)}
+function clause decode24(0x9D @ op : address) = {incr_cycles(1); STA_ABS_X(op)}
+function clause decode24(0x99 @ op : address) = {incr_cycles(1); STA_ABS_Y(op)}
+function clause decode16(0x81 @ op : word)    = {incr_cycles(1); STA_IND_X(op)}
+function clause decode16(0x91 @ op : word)    = {incr_cycles(1); STA_IND_Y(op)}
+
+function clause decode16(0x86 @ op : word)    = {incr_cycles(1); STX_ZP(op)}
+function clause decode16(0x96 @ op : word)    = {incr_cycles(1); STX_ZP_Y(op)}
+function clause decode24(0x8E @ op : address) = {incr_cycles(1); STX_ABS(op)}
+
+function clause decode16(0x84 @ op : word)    = {incr_cycles(1); STY_ZP(op)}
+function clause decode16(0x94 @ op : word)    = {incr_cycles(1); STY_ZP_X(op)}
+function clause decode24(0x8C @ op : address) = {incr_cycles(1); STY_ABS(op)}
+
 // If it's not a valid instruction, read another byte and try decode.
 function clause decode16(this) = {
 	incr_cycles(1);
