@@ -106,3 +106,16 @@ union clause ast = STY_ZP    : (word)
 union clause ast = STY_ZP_X  : (word)
 union clause ast = STY_ABS   : (address)
 $include "./instructions/transfer/instruction-execute-STY.sail"
+
+union clause ast = TAX_IMP   : (unit)
+union clause ast = TAY_IMP   : (unit)
+union clause ast = TSX_IMP   : (unit)
+union clause ast = TXA_IMP   : (unit)
+union clause ast = TXS_IMP   : (unit)
+union clause ast = TYA_IMP   : (unit)
+$include "./instructions/transfer/instruction-execute-TAX.sail"
+$include "./instructions/transfer/instruction-execute-TAY.sail"
+$include "./instructions/transfer/instruction-execute-TSX.sail"
+$include "./instructions/transfer/instruction-execute-TXA.sail"
+$include "./instructions/transfer/instruction-execute-TXS.sail"
+$include "./instructions/transfer/instruction-execute-TYA.sail"

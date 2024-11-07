@@ -97,4 +97,11 @@ function clause assembly(STY_ZP(op))    = make_str(mode(zp),    "STY ", my_hex_s
 function clause assembly(STY_ZP_X(op))  = make_str(mode(zp_x),  "STY ", my_hex_str(op))
 function clause assembly(STY_ABS(op))   = make_str(mode(abs),   "STY ", my_hex_str(op))
 
+function clause assembly(TAX_IMP())     = "TAX"
+function clause assembly(TAY_IMP())     = "TAY"
+function clause assembly(TSX_IMP())     = "TSX"
+function clause assembly(TXA_IMP())     = "TXA"
+function clause assembly(TXS_IMP())     = "TXS"
+function clause assembly(TYA_IMP())     = "TYA"
+
 function clause assembly(INVALID(instruction)) = concat_str("Invalid instruction: ", bits_str(instruction))
