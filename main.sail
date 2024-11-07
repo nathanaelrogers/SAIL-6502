@@ -19,7 +19,7 @@ function print_state() : unit -> unit = {
 	print_bits("X: ", access(reg(X)));
 	print_bits("Y: ", access(reg(Y)));
 	print_bits("SP: ", access(reg(SP)));
-	print_bits("PC: ", access(reg(PC_H)) @ access(reg(PC_L)));
+	print_bits("PC: ", access(reg(PCH)) @ access(reg(PCL)));
 	print_bits("n: ", flag_n());
 	print_bits("v: ", flag_v());
 	print_bits("b: ", flag_b());
@@ -32,7 +32,7 @@ function print_state() : unit -> unit = {
 }
 
 function fetch_decode_execute(last_execute) : bool -> unit = {
-	let PC : address = access(reg(PC_H)) @ access(reg(PC_L));
+	let PC : address = access(reg(PCH)) @ access(reg(PCL));
 	let instruction = read(PC);
 
 	incr_pc();
@@ -59,8 +59,8 @@ function setup() : unit -> unit = {
 
 	cycles = 7;
 	// Initialise the PC
-	access(reg(PC_H)) = read(RES_vec + 1);
-	access(reg(PC_L)) = read(RES_vec);
+	access(reg(PCH)) = read(RES_vec + 1);
+	access(reg(PCL)) = read(RES_vec);
 
 	// it seems like everything should be undefined to begin with...
 	access(reg(A))  = undefined;
