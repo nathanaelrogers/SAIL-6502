@@ -12,11 +12,35 @@ function AND(op) = {
 	true
 }
 
-function clause execute(AND_IMM(op))   = AND(get_op(mode(imm), op))
-function clause execute(AND_ZP(op))    = AND(get_op(mode(zp), op))
-function clause execute(AND_ZP_X(op))  = AND(get_op(mode(zp_x), op))
-function clause execute(AND_ABS(op))   = AND(get_op(true, mode(abs), op))
-function clause execute(AND_ABS_X(op)) = AND(get_op(true, mode(abs_x), op))
-function clause execute(AND_ABS_Y(op)) = AND(get_op(true, mode(abs_y), op))
-function clause execute(AND_IND_X(op)) = AND(get_op(mode(ind_x), op))
-function clause execute(AND_IND_Y(op)) = AND(get_op(true, mode(ind_y), op))
+function clause execute(AND_IMM(op))   = {
+	let word = calc_from_word(mode(imm), op);
+	AND(word)
+}
+function clause execute(AND_ZP(op))    = {
+	let word = calc_from_word(mode(zp), op);
+	AND(read_zp(word))
+}
+function clause execute(AND_ZP_X(op))  = {
+	let word = calc_from_word(mode(zp_x), op);
+	AND(read_zp(word))
+}
+function clause execute(AND_ABS(op))   = {
+	let addr = calc_from_addr(true, mode(abs), op);
+	AND(read(addr))
+}
+function clause execute(AND_ABS_X(op)) = {
+	let addr = calc_from_addr(true, mode(abs_x), op);
+	AND(read(addr))
+}
+function clause execute(AND_ABS_Y(op)) = {
+	let addr = calc_from_addr(true, mode(abs_y), op);
+	AND(read(addr))
+}
+function clause execute(AND_IND_X(op)) = {
+	let addr = calc_from_word(true, mode(ind_x), op);
+	AND(read(addr))
+}
+function clause execute(AND_IND_Y(op)) = {
+	let addr = calc_from_word(true, mode(ind_y), op);
+	AND(read(addr))
+}

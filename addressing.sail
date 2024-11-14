@@ -32,8 +32,8 @@ mapping mode : am_enum <-> addrmode = {
 	zp_y  <-> 0xC
 }
 
-val get_op_word : (addrmode, word) -> word
-function get_op_word(addrmode, op) = {
+val calc_from_word_to_word : (addrmode, word) -> word
+function calc_from_word_to_word(addrmode, op) = {
 	match addrmode {
 		mode(imm)   => {
 			incr_cycles(1);
@@ -41,73 +41,70 @@ function get_op_word(addrmode, op) = {
 		},
 		mode(zp)    => {
 			incr_cycles(2);
-			read(op)
+			op
 		},
 		mode(zp_x)  => {
 			incr_cycles(3);
-			read(op + access(reg(X)))
+			op + access(reg(X))
 		},
 		mode(zp_y)  => {
 			incr_cycles(3);
-			read(op + access(reg(Y)))
-		},
-		mode(ind_x) => {
-			incr_cycles(5);
-			let ea  = op + access(reg(X));
-			let ptr = read(ea + 1) @ read(ea);
-			read(ptr)
+			op + access(reg(Y))
 		}
 	}
 }
 
-val get_op_word_with_boundary : (bool, addrmode, word) -> word
-function get_op_word_with_boundary(page_boundary_check, addrmode, op) = {
+val calc_from_word_to_addr : (bool, addrmode, word) -> address
+function calc_from_word_to_addr(page_boundary_check, addrmode, op) = {
 	match addrmode {
+		mode(ind_x) => {
+			incr_cycles(5);
+			let ea  = op + access(reg(X));
+			let ptr = read_zp(ea + 1) @ read_zp(ea);
+			ptr
+		},
 		mode(ind_y) => {
 			incr_cycles(4);
-			let ptr = read(op + 1) @ read(op);
+			let ptr = read_zp(op + 1) @ read_zp(op);
 			let ea  = ptr + EXTZ(16, access(reg(Y)));
+			// CHECK HOW PAGE BOUNDARY CROSSING WORKS
 			if (ptr[15..8] != ea[15..8] & page_boundary_check) then {
 				incr_cycles(1);
 				// print_bits("page boundary crossed, now in page: ", ea[15..8])
 			};
-			read(ptr)
+			ptr
 		}
 	}
 }
 
-val get_op_address : (addrmode, address) -> word
-function get_op_address(addrmode, op) = {
+overload calc_from_word = {calc_from_word_to_word, calc_from_word_to_addr}
+
+val calc_from_addr : (bool, addrmode, address) -> address
+function calc_from_addr(page_boundary_check, addrmode, op) = {
 	match addrmode {
 		mode(abs)   => {
 			incr_cycles(2);
-			read(op)
-		}
-	}
-}
-
-val get_op_address_with_boundary : (bool, addrmode, address) -> word
-function get_op_address_with_boundary(page_boundary_check, addrmode, op) = {
-	match addrmode {
+			op
+		},
 		mode(abs_x) => {
 			incr_cycles(2);
 			let ea = op + EXTZ(16, access(reg(X)));
+			// CHECK HOW PAGE BOUNDARY CROSSING WORKS
 			if (op[15..8] != ea[15..8] & page_boundary_check) then {
 				incr_cycles(1);
 				// print_bits("page boundary crossed, now in page: ", ea[15..8])
 			};
-			read(ea)
+			ea
 		},
 		mode(abs_y) => {
 			incr_cycles(2);
 			let ea = op + EXTZ(16, access(reg(Y)));
+			// CHECK HOW PAGE BOUNDARY CROSSING WORKS
 			if (op[15..8] != ea[15..8] & page_boundary_check) then {
 				incr_cycles(1);
 				// print_bits("page boundary crossed, now in page: ", ea[15..8])
 			};
-			read(ea)
+			ea
 		}
 	}
 }
-
-overload get_op = {get_op_address, get_op_word, get_op_word_with_boundary, get_op_address_with_boundary}

@@ -12,11 +12,35 @@ function ORA(op) = {
 	true
 }
 
-function clause execute(ORA_IMM(op))   = ORA(get_op(mode(imm), op))
-function clause execute(ORA_ZP(op))    = ORA(get_op(mode(zp), op))
-function clause execute(ORA_ZP_X(op))  = ORA(get_op(mode(zp_x), op))
-function clause execute(ORA_ABS(op))   = ORA(get_op(true, mode(abs), op))
-function clause execute(ORA_ABS_X(op)) = ORA(get_op(true, mode(abs_x), op))
-function clause execute(ORA_ABS_Y(op)) = ORA(get_op(true, mode(abs_y), op))
-function clause execute(ORA_IND_X(op)) = ORA(get_op(mode(ind_x), op))
-function clause execute(ORA_IND_Y(op)) = ORA(get_op(true, mode(ind_y), op))
+function clause execute(ORA_IMM(op))   = {
+	let word = calc_from_word(mode(imm), op);
+	ORA(word)
+}
+function clause execute(ORA_ZP(op))    = {
+	let word = calc_from_word(mode(zp), op);
+	ORA(read_zp(word))
+}
+function clause execute(ORA_ZP_X(op))  = {
+	let word = calc_from_word(mode(zp_x), op);
+	ORA(read_zp(word))
+}
+function clause execute(ORA_ABS(op))   = {
+	let addr = calc_from_addr(true, mode(abs), op);
+	ORA(read(addr))
+}
+function clause execute(ORA_ABS_X(op)) = {
+	let addr = calc_from_addr(true, mode(abs_x), op);
+	ORA(read(addr))
+}
+function clause execute(ORA_ABS_Y(op)) = {
+	let addr = calc_from_addr(true, mode(abs_y), op);
+	ORA(read(addr))
+}
+function clause execute(ORA_IND_X(op)) = {
+	let addr = calc_from_word(true, mode(ind_x), op);
+	ORA(read(addr))
+}
+function clause execute(ORA_IND_Y(op)) = {
+	let addr = calc_from_word(true, mode(ind_y), op);
+	ORA(read(addr))
+}

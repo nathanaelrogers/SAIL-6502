@@ -1,11 +1,16 @@
 // TODO : can we directly use to write in the stack??
-
-val STY : (word) -> bool
-function STY(op) = {
-	write(op, access(reg(Y)));
+function clause execute(STY_ZP(op))    = {
+	let word = calc_from_word(mode(zp), op);
+	write_zp(word, access(reg(Y)));
 	true
 }
-
-function clause execute(STY_ZP(op))    = STY(get_op(mode(zp), op))
-function clause execute(STY_ZP_X(op))  = STY(get_op(mode(zp_x), op))
-function clause execute(STY_ABS(op))   = STY(get_op(mode(abs), op))
+function clause execute(STY_ZP_X(op))  = {
+	let word = calc_from_word(mode(zp_x), op);
+	write_zp(word, access(reg(Y)));
+	true
+}
+function clause execute(STY_ABS(op))   = {
+	let addr = calc_from_addr(true, mode(abs), op);
+	write(addr, access(reg(Y)));
+	true
+}

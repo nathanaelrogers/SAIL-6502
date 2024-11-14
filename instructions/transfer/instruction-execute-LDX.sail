@@ -11,8 +11,23 @@ function LDX(op) = {
 	true
 }
 
-function clause execute(LDX_IMM(op))   = LDX(get_op(mode(imm), op))
-function clause execute(LDX_ZP(op))    = LDX(get_op(mode(zp), op))
-function clause execute(LDX_ZP_Y(op))  = LDX(get_op(mode(zp_y), op))
-function clause execute(LDX_ABS(op))   = LDX(get_op(true, mode(abs), op))
-function clause execute(LDX_ABS_Y(op)) = LDX(get_op(true, mode(abs_y), op))
+function clause execute(LDX_IMM(op))   = {
+	let word = calc_from_word(mode(imm), op);
+	LDX(word)
+}
+function clause execute(LDX_ZP(op))    = {
+	let word = calc_from_word(mode(zp), op);
+	LDX(read_zp(word))
+}
+function clause execute(LDX_ZP_Y(op))  = {
+	let word = calc_from_word(mode(zp_y), op);
+	LDX(read_zp(word))
+}
+function clause execute(LDX_ABS(op))   = {
+	let addr = calc_from_addr(true, mode(abs), op);
+	LDX(read(addr))
+}
+function clause execute(LDX_ABS_Y(op)) = {
+	let addr = calc_from_addr(true, mode(abs_y), op);
+	LDX(read(addr))
+}
