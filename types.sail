@@ -4,8 +4,6 @@ type word = bits(word_size)
 type address_size : Int = 16
 type address = bits(address_size)
 
-type interrupt_line = bits(1)
-
 type page_size_word : Int = 256
 type page_256B = vector(page_size_word, word)
 
@@ -22,3 +20,8 @@ bitfield flags : word = {
 	z : 1,
 	c : 0,
 }
+
+
+
+
+type interrupt_line = bits(1)
