@@ -11,7 +11,6 @@ $include "instructions.sail"
 $include "decode.sail"
 $include "assembly-print.sail"
 $include "interrupts.sail"
-$include "programs.sail"
 
 function print_state() : unit -> unit = {
 	print_endline("==state after execution==");
@@ -27,8 +26,8 @@ function print_state() : unit -> unit = {
 	print_bits("i: ", flag_i());
 	print_bits("z: ", flag_z());
 	print_bits("c: ", flag_c());
-	print_endline(concat_str("Cycles passed: ", dec_str(cycles)));
-	print_endline(concat_str("Instructions completed: ", dec_str(instructions_done)));
+	print_endline(concat_str("cycles: ", dec_str(cycles)));
+	print_endline(concat_str("instructions: ", dec_str(instructions_done)));
 }
 
 function fetch_decode_execute(last_execute) : bool -> unit = {
@@ -53,7 +52,7 @@ function fetch_decode_execute(last_execute) : bool -> unit = {
 // PC is read from address provided in reset vector (16 bits at $FFFC).
 // All other initialization is left to the program loaded.
 function setup() : unit -> unit = {
-	// arbitrary start address for testing purposes
+	// arbitrary start address (0x0200) for testing purposes
 	write(RES_vec, 0x00);
 	write(RES_vec + 1, 0x02);
 
@@ -72,10 +71,6 @@ function setup() : unit -> unit = {
 
 function main() : unit -> unit = {
 	setup();
-
-	setup_program_adc_test();
-
 	let state = print_state();
-
 	fetch_decode_execute(false);
 }
