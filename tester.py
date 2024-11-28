@@ -2,24 +2,25 @@ import subprocess
 import os
 
 # CURRENTLY ONLY WORKS ON PAGE ALIGNED START ADDRESSES
-def create(start_address, filepath):
+def create(start_address, filepath, extra_commands=[]):
 	# Create hi and lo bytes from the start address passed in
-	address_hi_byte = f'{start_address[:4]}'
-	address_lo_byte = f'0x{start_address[4:]}'
+	address_hi_byte = start_address >> 8
+	address_lo_byte = start_address & 0xFF
 
 	# Generate list of SAIL REPL commands to store binary at start address
 	commands = []
 
 	# Store the reset vector with the given start address
-	commands.append(f'write(0xFFFC, {address_lo_byte})')
+	commands.append(f'write(0xFFFC, {address_lo_byte:#0{4}x})')
 	commands.append(':run')
-	commands.append(f'write(0xFFFD, {address_hi_byte})')
+	commands.append(f'write(0xFFFD, {address_hi_byte:#0{4}x})')
 	commands.append(':run')
 
 	# Write from a binary file some program data at the given start address
 	with open(f'{filepath}', 'rb') as file:
 		data = file.read()
-		i = int(address_hi_byte, 16)
+		# i = int(address_hi_byte, 16)
+		i = address_hi_byte
 		while (data):
 			for j, byte in enumerate(data[:256]):
 				commands.append(f'write({i:#0{4}x}{j:#0{2}}, {byte:#0{4}x})')
@@ -30,6 +31,9 @@ def create(start_address, filepath):
 	# Commands to run model main loop and exit
 	commands.append('main()')
 	commands.append(':run')
+	for command in extra_commands:
+		commands.append(command)
+		commands.append(':run')
 	commands.append(':quit')
 
 	# Write SAIL interpreter commands to file
@@ -48,7 +52,7 @@ def create(start_address, filepath):
 
 class TestADC:
 	def test_adc_imm(self):
-		results = create(start_address='0x0200', filepath='tests/ADC/imm.bin')
+		results = create(0x0200, 'tests/ADC/imm.bin')
 		print(results)
 
 		expected = [
