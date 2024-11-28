@@ -1,7 +1,6 @@
 import subprocess
 import os
 
-# CURRENTLY ONLY WORKS ON PAGE ALIGNED START ADDRESSES
 def create(start_address, filepath, extra_commands=[]):
 	# Create hi and lo bytes from the start address passed in
 	address_hi_byte = start_address >> 8
@@ -19,14 +18,17 @@ def create(start_address, filepath, extra_commands=[]):
 	# Write from a binary file some program data at the given start address
 	with open(f'{filepath}', 'rb') as file:
 		data = file.read()
-		# i = int(address_hi_byte, 16)
 		i = address_hi_byte
 		while (data):
-			for j, byte in enumerate(data[:256]):
-				commands.append(f'write({i:#0{4}x}{j:#0{2}}, {byte:#0{4}x})')
+			j = 0
+			for byte in data[:256]:
+				index = (j + address_lo_byte) % 256
+				commands.append(f'write({((i << 8) + index):#0{6}x}, {byte:#0{4}x})')
 				commands.append(':run')
+				j += 1
+				if (index == 255):
+					i += 1
 			data = data[256:]
-			i += 1
 
 	# Commands to run model main loop and exit
 	commands.append('main()')
@@ -44,7 +46,7 @@ def create(start_address, filepath, extra_commands=[]):
 	result = subprocess.run(['sail', '-is', 'commands.txt','main.sail'], capture_output=True)
 
 	# Cleanup commands file
-	os.remove('commands.txt')
+	# os.remove('commands.txt')
 
 	# Get the results
 	return result.stdout.decode('UTF-8')
@@ -52,7 +54,7 @@ def create(start_address, filepath, extra_commands=[]):
 
 class TestADC:
 	def test_adc_imm(self):
-		results = create(0x0200, 'tests/ADC/imm.bin')
+		results = create(0x02FF, 'tests/ADC/imm.bin')
 		print(results)
 
 		expected = [
