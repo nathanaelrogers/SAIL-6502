@@ -45,11 +45,11 @@ function calc_from_word_to_word(addrmode, op) = {
 		},
 		mode(zp_x)  => {
 			incr_cycles(3);
-			op + access(reg(X))
+			op + reg_X
 		},
 		mode(zp_y)  => {
 			incr_cycles(3);
-			op + access(reg(Y))
+			op + reg_Y
 		}
 	}
 }
@@ -59,14 +59,14 @@ function calc_from_word_to_addr(page_boundary_check, addrmode, op) = {
 	match addrmode {
 		mode(ind_x) => {
 			incr_cycles(5);
-			let ea  = op + access(reg(X));
+			let ea  = op + reg_X;
 			let ptr = read_zp(ea + 1) @ read_zp(ea);
 			ptr
 		},
 		mode(ind_y) => {
 			incr_cycles(4);
 			let ptr = read_zp(op + 1) @ read_zp(op);
-			let ea  = ptr + EXTZ(16, access(reg(Y)));
+			let ea  = ptr + EXTZ(16, reg_Y);
 			// CHECK HOW PAGE BOUNDARY CROSSING WORKS
 			if (ptr[15..8] != ea[15..8] & page_boundary_check) then {
 				incr_cycles(1);
@@ -88,7 +88,7 @@ function calc_from_addr(page_boundary_check, addrmode, op) = {
 		},
 		mode(abs_x) => {
 			incr_cycles(2);
-			let ea = op + EXTZ(16, access(reg(X)));
+			let ea = op + EXTZ(16, reg_X);
 			// CHECK HOW PAGE BOUNDARY CROSSING WORKS
 			if (op[15..8] != ea[15..8] & page_boundary_check) then {
 				incr_cycles(1);
@@ -98,7 +98,7 @@ function calc_from_addr(page_boundary_check, addrmode, op) = {
 		},
 		mode(abs_y) => {
 			incr_cycles(2);
-			let ea = op + EXTZ(16, access(reg(Y)));
+			let ea = op + EXTZ(16, reg_Y);
 			// CHECK HOW PAGE BOUNDARY CROSSING WORKS
 			if (op[15..8] != ea[15..8] & page_boundary_check) then {
 				incr_cycles(1);

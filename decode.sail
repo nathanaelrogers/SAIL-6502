@@ -10,7 +10,7 @@ function clause decode08(0x98, last_execute)  = {if (last_execute == false) then
 // If it's not a valid single byte instruction, read another byte and try decode.
 function clause decode08(this, last_execute) = {
 	if (last_execute == false) then incr_cycles(1);
-	let PC : address = access(reg(PCH)) @ access(reg(PCL));
+	let PC : address = reg_PC[15..8] @ reg_PC[7..0];
 	let next_byte : word = read(PC);
 	incr_pc();
 
@@ -104,7 +104,7 @@ function clause decode24(0x8C @ op : address) = {incr_cycles(1); STY_ABS(op)}
 // If it's not a valid instruction, read another byte and try decode.
 function clause decode16(this) = {
 	incr_cycles(1);
-	let PC : address = access(reg(PCH)) @ access(reg(PCL));
+	let PC : address = reg_PC[15..8] @ reg_PC[7..0];
 	let next_byte : word = read(PC);
 	incr_pc();
 

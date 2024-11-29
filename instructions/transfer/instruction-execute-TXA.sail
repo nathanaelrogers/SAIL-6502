@@ -7,10 +7,10 @@ function modify_flags_TXA(result) = {
 val TXA : (unit) -> bool
 function TXA() = {
 	incr_cycles(2);
-	let op = access(reg(X));
+	let op = reg_X;
 
 	modify_flags_TXA(op);
-	access(reg(A)) = op;
+	reg_A = op;
 	true
 }
 

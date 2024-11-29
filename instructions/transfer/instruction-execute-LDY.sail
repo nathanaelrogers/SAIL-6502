@@ -7,7 +7,7 @@ function modify_flags_LDY(result) = {
 val LDY : (word) -> bool
 function LDY(op) = {
 	modify_flags_LDY(op);
-	access(reg(Y)) = op;
+	reg_Y = op;
 	true
 }
 

@@ -13,25 +13,27 @@ $include "assembly-print.sail"
 $include "interrupts.sail"
 
 function print_state() : unit -> unit = {
-	print_endline("==state after execution==");
-	print_bits("A: ", access(reg(A)));
-	print_bits("X: ", access(reg(X)));
-	print_bits("Y: ", access(reg(Y)));
-	print_bits("SP: ", access(reg(SP)));
-	print_bits("PC: ", access(reg(PCH)) @ access(reg(PCL)));
-	print_bits("n: ", flag_n());
-	print_bits("v: ", flag_v());
-	print_bits("b: ", flag_b());
-	print_bits("d: ", flag_d());
-	print_bits("i: ", flag_i());
-	print_bits("z: ", flag_z());
-	print_bits("c: ", flag_c());
+	print_bits("A: ", reg_A);
+	print_bits("X: ", reg_X);
+	print_bits("Y: ", reg_Y);
+	print_bits("SP: ", reg_SP);
+	print_bits("PC: ", reg_PC[15..8] @ reg_PC[7..0]);
+	print_bits("n: ", reg_SR[n]);
+	print_bits("v: ", reg_SR[v]);
+	print_bits("b: ", reg_SR[b]);
+	print_bits("d: ", reg_SR[d]);
+	print_bits("i: ", reg_SR[i]);
+	print_bits("z: ", reg_SR[z]);
+	print_bits("c: ", reg_SR[c]);
 	print_endline(concat_str("cycles: ", dec_str(cycles)));
 	print_endline(concat_str("instructions: ", dec_str(instructions_done)));
+	print_bits("NMI: ", NMI);
+	print_bits("RST: ", RST);
+	print_bits("IRQ: ", IRQ);
 }
 
 function fetch_decode_execute(last_execute) : bool -> unit = {
-	let PC : address = access(reg(PCH)) @ access(reg(PCL));
+	let PC : address = reg_PC[15..8] @ reg_PC[7..0];
 	let instruction = read(PC);
 
 	incr_pc();
@@ -42,7 +44,6 @@ function fetch_decode_execute(last_execute) : bool -> unit = {
 	let last_execute = execute(decoded);
 	if (last_execute) then instructions_done = instructions_done + 1;
 
-	// Print out some information
 	print_endline(concat_str("\nfetch done: ", asm));
 	let state = print_state();
 
@@ -54,15 +55,15 @@ function fetch_decode_execute(last_execute) : bool -> unit = {
 function setup() : unit -> unit = {
 	cycles = 7;
 	// Initialise the PC
-	access(reg(PCH)) = read(RES_vec + 1);
-	access(reg(PCL)) = read(RES_vec);
+	reg_PC[15..8] = read(RST_vec + 1);
+	reg_PC[7..0]  = read(RST_vec);
 
 	// it seems like everything should be undefined to begin with...
-	access(reg(A))  = undefined;
-	access(reg(X))  = undefined;
-	access(reg(Y))  = undefined;
-	access(reg(SR)) = undefined;
-	access(reg(SP)) = undefined;
+	reg_A  = undefined;
+	reg_X  = undefined;
+	reg_Y  = undefined;
+	reg_SR = undefined;
+	reg_SP = undefined;
 }
 
 function main() : unit -> unit = {

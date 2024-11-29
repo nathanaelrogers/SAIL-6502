@@ -7,7 +7,7 @@ function modify_flags_LDA(result) = {
 val LDA : (word) -> bool
 function LDA(op) = {
 	modify_flags_LDA(op);
-	access(reg(A)) = op;
+	reg_A = op;
 	true
 }
 

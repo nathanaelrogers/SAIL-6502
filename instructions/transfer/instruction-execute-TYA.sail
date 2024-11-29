@@ -7,10 +7,10 @@ function modify_flags_TYA(result) = {
 val TYA : (unit) -> bool
 function TYA() = {
 	incr_cycles(2);
-	let op = access(reg(Y));
+	let op = reg_Y;
 
 	modify_flags_TYA(op);
-	access(reg(A)) = op;
+	reg_A = op;
 	true
 }
 

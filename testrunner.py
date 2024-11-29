@@ -1,7 +1,8 @@
 import subprocess
 import os
+import re
 
-def create(start_address, filepath, extra_commands=[]):
+def create(start_address, filepath, store_data_loc=0x0100, store_data=[]):
 	# Create hi and lo bytes from the start address passed in
 	address_hi_byte = start_address >> 8
 	address_lo_byte = start_address & 0xFF
@@ -18,24 +19,22 @@ def create(start_address, filepath, extra_commands=[]):
 	# Write from a binary file some program data at the given start address
 	with open(f'{filepath}', 'rb') as file:
 		data = file.read()
-		i = address_hi_byte
-		while (data):
-			j = 0
-			for byte in data[:256]:
-				index = (j + address_lo_byte) % 256
-				commands.append(f'write({((i << 8) + index):#0{6}x}, {byte:#0{4}x})')
-				commands.append(':run')
-				j += 1
-				if (index == 255):
-					i += 1
-			data = data[256:]
+		i = start_address
+		for byte in data:
+			commands.append(f'write({i:#0{6}x}, {byte:#0{4}x})')
+			commands.append(':run')
+			i += 1
 
-	# Commands to run model main loop and exit
+	# Put any extra data needed for test into memory
+	i = store_data_loc
+	for byte in store_data:
+		commands.append(f'write({i:#0{6}x}, {byte:#0{4}x})')
+		commands.append(':run')
+		i += 1
+
+	# Commands to run model main loop
 	commands.append('main()')
 	commands.append(':run')
-	for command in extra_commands:
-		commands.append(command)
-		commands.append(':run')
 	commands.append(':quit')
 
 	# Write SAIL interpreter commands to file
@@ -46,7 +45,7 @@ def create(start_address, filepath, extra_commands=[]):
 	result = subprocess.run(['sail', '-is', 'commands.txt','main.sail'], capture_output=True)
 
 	# Cleanup commands file
-	# os.remove('commands.txt')
+	os.remove('commands.txt')
 
 	# Get the results
 	return result.stdout.decode('UTF-8')
@@ -54,13 +53,11 @@ def create(start_address, filepath, extra_commands=[]):
 
 class TestADC:
 	def test_adc_imm(self):
-		results = create(0x02FF, 'tests/ADC/imm.bin')
+		results = create(0x0200, 'tests/ADC/imm.bin')
 		print(results)
 
-		expected = [
-			'djgkndfkjbndjk'
-		]
+		# This is a regex on the printed output... any better way to directly check these values??
+		expected = r'(.*ADC #\$14\n)(A: 0x14\n)(.*\n)*(n: 0b0\n)(v: 0b0)(.*\n)*(z: 0b0\n)(c: 0b0\n)'
 
 		# Check the results
-		for item in expected:
-			assert item in results
+		assert re.search(expected, results)

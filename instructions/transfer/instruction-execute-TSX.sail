@@ -7,10 +7,10 @@ function modify_flags_TSX(result) = {
 val TSX : (unit) -> bool
 function TSX() = {
 	incr_cycles(2);
-	let op = access(reg(SP));
+	let op = reg_SP;
 
 	modify_flags_TSX(op);
-	access(reg(X)) = op;
+	reg_X = op;
 	true
 }
 

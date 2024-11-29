@@ -21,16 +21,16 @@ function SBC(op) = {
 		then {
 			0
 		} else {
-			decimal_sub(access(reg(A)), op)
+			decimal_sub(reg_A, op)
 		};
 	let result : bits(9) = if (flag_d() == 0b0)
 		then {
-			EXTZ(9, access(reg(A))) + EXTZ(9, not_vec(op)) + EXTZ(9, flag_c())
+			EXTZ(9, reg_A) + EXTZ(9, not_vec(op)) + EXTZ(9, flag_c())
 		} else {
 			0b0 @ decimal_to_word(decimal_result)
 		};
-	modify_flags_SBC(result, decimal_result, access(reg(A)), op);
-	access(reg(A)) = result[7..0];
+	modify_flags_SBC(result, decimal_result,reg_A, op);
+	reg_A = result[7..0];
 	true
 }
 

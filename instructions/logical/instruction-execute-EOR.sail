@@ -6,9 +6,9 @@ function modify_flags_EOR(result) = {
 
 val EOR : (word) -> bool
 function EOR(op) = {
-	let result = access(reg(A)) ^ op;
+	let result = reg_A ^ op;
 	modify_flags_EOR(result);
-	access(reg(A)) = result;
+	reg_A = result;
 	true
 }
 

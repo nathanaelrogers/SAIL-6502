@@ -7,7 +7,7 @@ function modify_flags_LDX(result) = {
 val LDX : (word) -> bool
 function LDX(op) = {
 	modify_flags_LDX(op);
-	access(reg(X)) = op;
+	reg_X = op;
 	true
 }
 

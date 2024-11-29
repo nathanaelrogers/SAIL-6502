@@ -1,9 +1,9 @@
 val TXS : (unit) -> bool
 function TXS() = {
 	incr_cycles(2);
-	let op = access(reg(X));
+	let op = reg_X;
 
-	access(reg(SP)) = op;
+	reg_SP = op;
 	true
 }
 

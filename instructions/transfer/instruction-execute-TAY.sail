@@ -7,10 +7,10 @@ function modify_flags_TAY(result) = {
 val TAY : (unit) -> bool
 function TAY() = {
 	incr_cycles(2);
-	let op = access(reg(A));
+	let op = reg_A;
 
 	modify_flags_TAY(op);
-	access(reg(Y)) = op;
+	reg_Y = op;
 	true
 }
 

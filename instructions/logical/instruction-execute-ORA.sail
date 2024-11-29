@@ -6,9 +6,9 @@ function modify_flags_ORA(result) = {
 
 val ORA : (word) -> bool
 function ORA(op) = {
-	let result = access(reg(A)) | op;
+	let result = reg_A | op;
 	modify_flags_ORA(result);
-	access(reg(A)) = result;
+	reg_A = result;
 	true
 }
 
