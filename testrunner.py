@@ -114,7 +114,7 @@ class TestADC:
 			assert re.search(expected, results)
 
 	def test_ind_x_mode(self):
-		# Place a real address of $00F0 at read location $0042 (calculated by 0x32 + X). Store byte 0xFF at real address (hence the padding)
+		# Place a real address of $0100 at read location $0042 (calculated by 0x32 + X). Store byte 0xFF at real address (hence the padding)
 		results = create(0x0800, 'tests/ADC/ind-x-mode.bin', store_data_loc=0x0042, store_data=([0x00, 0x01] + 188 * [0xEA] + [0xFF]))
 
 		expected = r'(.*ADC \(\$32,X\)\n)(A: 0xFF\n)(.*\n){4}(.*\n){7}(cycles: 6)'
@@ -125,6 +125,7 @@ class TestADC:
 		# Place address of $00F0 at read location $0032. Store byte 0xFF at real address $0100 (calculated by $00F0 + Y)
 		results = create(0x0800, 'tests/ADC/ind-y-mode.bin', store_data_loc=0x0032, store_data=([0xF0, 0x00] + 204 * [0xEA] + [0xFF]))
 		print(results)
-		expected = r'(.*ADC \(\$32\),Y\n)(A: 0xFF\n)(.*\n){4}(.*\n){7}(cycles: 5)'
+		# ADD CASE WITH 5 CYCLE COUNT CHECK
+		expected = r'(.*ADC \(\$32\),Y\n)(A: 0xFF\n)(.*\n){4}(.*\n){7}(cycles: 6)'
 
 		assert re.search(expected, results)

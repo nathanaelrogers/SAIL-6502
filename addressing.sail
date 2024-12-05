@@ -72,7 +72,7 @@ function calc_from_word_to_addr(page_boundary_check, addrmode, op) = {
 				incr_cycles(1);
 				// print_bits("page boundary crossed, now in page: ", ea[15..8])
 			};
-			ptr
+			ea
 		}
 	}
 }
