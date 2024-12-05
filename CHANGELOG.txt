@@ -11,5 +11,7 @@
 > implemented first suite of tests for ADC instruction
 > TODO implement final case for ind,y addressing
 > TODO implement tests for BCD mode. INVESTIGATE how it behaves in an online emulator?
-> TODO change test creation to use dictionary to store program data
-> TODO change test creation to use local assembler
+
+> changed test creation to automatically call local 6502 assembler (acme) which generates program code in a binary file to load into the model
+
+> changed test creation to store data at arbitrary addresses in the model memory by iterating over a dictionary of {address:list[bytes]}

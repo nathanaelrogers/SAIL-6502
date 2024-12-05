@@ -2,12 +2,12 @@ import subprocess
 import os
 import re
 
-def create(start_address, filepath, store_data_loc=0x0000, store_data=[]):
+def create(start_address, source_file, store_data={}, generate_binary=True):
 	# Create hi and lo bytes from the start address passed in
 	address_hi_byte = start_address >> 8
 	address_lo_byte = start_address & 0xFF
 
-	# Generate list of SAIL REPL commands to store binary at start address
+	# Generate list of SAIL REPL commands to store sary at start address
 	commands = []
 
 	# Store the reset vector with the given start address
@@ -16,8 +16,12 @@ def create(start_address, filepath, store_data_loc=0x0000, store_data=[]):
 	commands.append(f'write(0xFFFD, {address_hi_byte:#0{4}x})')
 	commands.append(':run')
 
-	# Write from a binary file some program data at the given start address
-	with open(f'{filepath}', 'rb') as file:
+	# Generate a binary file from the source code
+	if generate_binary:
+		subprocess.run(['acme', '-o', 'code.bin', '-f', 'plain', '--cpu', '6502', '--setpc', '0000', source_file])
+
+	# Write from the binary file the program data at the given start address
+	with open(f'{"code.bin" if generate_binary else source_file}', 'rb') as file:
 		data = file.read()
 		i = start_address
 		for byte in data:
@@ -26,11 +30,10 @@ def create(start_address, filepath, store_data_loc=0x0000, store_data=[]):
 			i += 1
 
 	# Put any extra data needed for test into memory
-	i = store_data_loc
-	for byte in store_data:
-		commands.append(f'write({i:#0{6}x}, {byte:#0{4}x})')
-		commands.append(':run')
-		i += 1
+	for location in store_data:
+		for i, byte in enumerate(store_data[location]):
+			commands.append(f'write({location+i:#0{6}x}, {byte:#0{4}x})')
+			commands.append(':run')
 
 	# Commands to run model main loop
 	commands.append('main()')
@@ -46,6 +49,8 @@ def create(start_address, filepath, store_data_loc=0x0000, store_data=[]):
 
 	# Cleanup commands file
 	os.remove('commands.txt')
+	if generate_binary:
+		os.remove('code.bin')
 
 	# Get the results
 	return result.stdout.decode('UTF-8')
@@ -53,7 +58,8 @@ def create(start_address, filepath, store_data_loc=0x0000, store_data=[]):
 # ADD A BCD MODE TEST OF SOME KIND
 class TestADC:
 	def test_flags_normal(self):
-		results = create(0x0800, 'tests/ADC/flags-normal.bin')
+		results = create(0x0800, 'tests/ADC/flags-normal.s')
+
 		expected_results = []
 		expected_results.append(r'(.*ADC #\$42\n)(A: 0x42)')
 		expected_results.append(r'(.*ADC #\$FF\n)(A: 0x41\n)(.*\n){4}(n: 0b0\n)(v: 0b0\n)(.*\n){3}(z: 0b0\n)(c: 0b1\n)')
@@ -64,28 +70,28 @@ class TestADC:
 			assert re.search(expected, results)
 
 	def test_imm_mode(self):
-		results = create(0x0800, 'tests/ADC/imm-mode.bin')
+		results = create(0x0800, 'tests/ADC/imm-mode.s')
 		print(results)
 		expected = r'(.*ADC #\$42\n)(A: 0x42\n)(.*\n){4}(.*\n){7}(cycles: 2)'
 
 		assert re.search(expected, results)
 
 	def test_zp_mode(self):
-		results = create(0x0800, 'tests/ADC/zp-mode.bin', store_data_loc=0x0042, store_data=[0x42])
+		results = create(0x0800, 'tests/ADC/zp-mode.s', store_data={0x0042:[0x42]})
 
 		expected = r'(.*ADC \$42\n)(A: 0x42\n)(.*\n){4}(.*\n){7}(cycles: 3)'
 
 		assert re.search(expected, results)
 
 	def test_zp_x_mode(self):
-		results = create(0x0800, 'tests/ADC/zp-x-mode.bin', store_data_loc=0x0042, store_data=[0x42])
+		results = create(0x0800, 'tests/ADC/zp-x-mode.s', store_data={0x0042:[0x42]})
 
 		expected = r'(.*ADC \$32,X\n)(A: 0x42\n)(.*\n){4}(.*\n){7}(cycles: 4)'
 
 		assert re.search(expected, results)
 
 	def test_abs_mode(self):
-		results = create(0x0800, 'tests/ADC/abs-mode.bin', store_data_loc=0x0042, store_data=[0x42])
+		results = create(0x0800, 'tests/ADC/abs-mode.s', store_data={0x0042:[0x42]})
 
 		expected = r'(.*ADC \$0042\n)(A: 0x42\n)(.*\n){4}(.*\n){7}(cycles: 4)'
 
@@ -93,7 +99,7 @@ class TestADC:
 
 	def test_abs_x_mode(self):
 		# Place a 0x42 byte at each location $0042 and $0100 for using in addition. (X contains 0x10 offset)
-		results = create(0x0800, 'tests/ADC/abs-x-mode.bin', store_data_loc=0x0042, store_data=([0x42] + 189 * [0xEA] + [0x42]))
+		results = create(0x0800, 'tests/ADC/abs-x-mode.s', store_data={0x0042:[0x42], 0x0100:[0x42]})
 
 		expected_results = []
 		expected_results.append(r'(.*ADC \$0032,X\n)(A: 0x42\n)(.*\n){4}(.*\n){7}(cycles: 4)')
@@ -104,7 +110,7 @@ class TestADC:
 
 	def test_abs_y_mode(self):
 		# Place a 0x42 byte at each location $0042 and $0100 for using in addition. (Y contains 0x10 offset)
-		results = create(0x0800, 'tests/ADC/abs-y-mode.bin', store_data_loc=0x0042, store_data=([0x42] + 189 * [0xEA] + [0x42]))
+		results = create(0x0800, 'tests/ADC/abs-y-mode.s', store_data={0x0042:[0x42], 0x0100:[0x42]})
 
 		expected_results = []
 		expected_results.append(r'(.*ADC \$0032,Y\n)(A: 0x42\n)(.*\n){4}(.*\n){7}(cycles: 4)')
@@ -115,17 +121,19 @@ class TestADC:
 
 	def test_ind_x_mode(self):
 		# Place a real address of $0100 at read location $0042 (calculated by 0x32 + X). Store byte 0xFF at real address (hence the padding)
-		results = create(0x0800, 'tests/ADC/ind-x-mode.bin', store_data_loc=0x0042, store_data=([0x00, 0x01] + 188 * [0xEA] + [0xFF]))
+		results = create(0x0800, 'tests/ADC/ind-x-mode.s', store_data={0x0042:[0x00, 0x01], 0x0100:[0xFF]})
 
 		expected = r'(.*ADC \(\$32,X\)\n)(A: 0xFF\n)(.*\n){4}(.*\n){7}(cycles: 6)'
 
 		assert re.search(expected, results)
 
 	def test_ind_y_mode(self):
-		# Place address of $00F0 at read location $0032. Store byte 0xFF at real address $0100 (calculated by $00F0 + Y)
-		results = create(0x0800, 'tests/ADC/ind-y-mode.bin', store_data_loc=0x0032, store_data=([0xF0, 0x00] + 204 * [0xEA] + [0xFF]))
-		print(results)
-		# ADD CASE WITH 5 CYCLE COUNT CHECK
-		expected = r'(.*ADC \(\$32\),Y\n)(A: 0xFF\n)(.*\n){4}(.*\n){7}(cycles: 6)'
+		# Place address of $00F0 at read location $0032. Store byte 0xFF at real addresses $00FF and $0100 (calculated by $00F0 + Y)
+		results = create(0x0800, 'tests/ADC/ind-y-mode.s', store_data={0x0032:[0xF0, 0x00], 0x00FF:[0xFF, 0xFF]})
 
-		assert re.search(expected, results)
+		expected_results = []
+		expected_results.append(r'(.*ADC \(\$32\),Y\n)(A: 0xFF\n)(.*\n){4}(.*\n){7}(cycles: 5)')
+		expected_results.append(r'(.*ADC \(\$32\),Y\n)(A: 0xFE\n)(.*\n){4}(.*\n){7}(cycles: 6)')
+
+		for expected in expected_results:
+			assert re.search(expected, results)
