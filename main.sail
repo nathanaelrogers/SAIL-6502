@@ -42,7 +42,7 @@ function fetch_decode_execute(last_execute) : bool -> unit = {
 
 	incr_pc();
 
-	let decoded = decode(instruction, last_execute);
+	let decoded = decode(instruction);
 	let asm = assembly(decoded);
 
 	let last_execute = execute(decoded);

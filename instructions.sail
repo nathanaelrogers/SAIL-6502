@@ -3,7 +3,7 @@ scattered union ast
 val execute : ast -> bool
 scattered function execute
 
-val decode08 : (bits(8), bool) -> ast
+val decode08 : bits(8) -> ast
 scattered function decode08
 
 val decode16 : bits(16) -> ast

@@ -1,15 +1,14 @@
 /* ============== 1 byte instructions ============== */
 
-function clause decode08(0xAA, last_execute)  = {if (last_execute == false) then incr_cycles(1); TAX_IMP()}
-function clause decode08(0xA8, last_execute)  = {if (last_execute == false) then incr_cycles(1); TAY_IMP()}
-function clause decode08(0xBA, last_execute)  = {if (last_execute == false) then incr_cycles(1); TSX_IMP()}
-function clause decode08(0x8A, last_execute)  = {if (last_execute == false) then incr_cycles(1); TXA_IMP()}
-function clause decode08(0x9A, last_execute)  = {if (last_execute == false) then incr_cycles(1); TXS_IMP()}
-function clause decode08(0x98, last_execute)  = {if (last_execute == false) then incr_cycles(1); TYA_IMP()}
+function clause decode08(0xAA)  = {TAX_IMP()}
+function clause decode08(0xA8)  = {TAY_IMP()}
+function clause decode08(0xBA)  = {TSX_IMP()}
+function clause decode08(0x8A)  = {TXA_IMP()}
+function clause decode08(0x9A)  = {TXS_IMP()}
+function clause decode08(0x98)  = {TYA_IMP()}
 
 // If it's not a valid single byte instruction, read another byte and try decode.
-function clause decode08(this, last_execute) = {
-	if (last_execute == false) then incr_cycles(1);
+function clause decode08(this) = {
 	let PC : address = reg_PC[15..8] @ reg_PC[7..0];
 	let next_byte : word = read(PC);
 	incr_pc();
