@@ -2,7 +2,7 @@ import subprocess
 import os
 import re
 
-def create(start_address, filepath, store_data_loc=0x0100, store_data=[]):
+def create(start_address, filepath, store_data_loc=0x0000, store_data=[]):
 	# Create hi and lo bytes from the start address passed in
 	address_hi_byte = start_address >> 8
 	address_lo_byte = start_address & 0xFF
@@ -50,14 +50,76 @@ def create(start_address, filepath, store_data_loc=0x0100, store_data=[]):
 	# Get the results
 	return result.stdout.decode('UTF-8')
 
-
+# ADD CYCLE COUNT CHECKS TO THIS CLASS OF TESTS
 class TestADC:
-	def test_adc_imm(self):
-		results = create(0x0200, 'tests/ADC/imm.bin')
-		print(results)
+	def test_flags_normal(self):
+		results = create(0x0800, 'tests/ADC/flags-normal.bin')
 
-		# This is a regex on the printed output... any better way to directly check these values??
-		expected = r'(.*ADC #\$14\n)(A: 0x14\n)(.*\n)*(n: 0b0\n)(v: 0b0)(.*\n)*(z: 0b0\n)(c: 0b0\n)'
+		expected_results = []
+		expected_results.append(r'(.*ADC #\$42\n)(A: 0x42)')
+		expected_results.append(r'(.*ADC #\$FF\n)(A: 0x41\n)(.*\n){4}(n: 0b0\n)(v: 0b0\n)(.*\n){3}(z: 0b0\n)(c: 0b1\n)')
+		expected_results.append(r'(.*ADC #\$40\n)(A: 0x82\n)(.*\n){4}(n: 0b1\n)(v: 0b1\n)(.*\n){3}(z: 0b0\n)(c: 0b0\n)')
+		expected_results.append(r'(.*ADC #\$7E\n)(A: 0x00\n)(.*\n){4}(n: 0b0\n)(v: 0b0\n)(.*\n){3}(z: 0b1\n)(c: 0b1\n)')
 
-		# Check the results
+		for expected in expected_results:
+			assert re.search(expected, results)
+
+	def test_imm_mode(self):
+		results = create(0x0800, 'tests/ADC/imm-mode.bin')
+
+		expected = r'(.*ADC #\$42\n)(A: 0x42)'
+		# should take 2 cycles
+
 		assert re.search(expected, results)
+
+	def test_zp_mode(self):
+		results = create(0x0800, 'tests/ADC/zp-mode.bin', store_data=(66 * [0x00] + [0x42]))
+
+		expected = r'(.*ADC \$42\n)(A: 0x42)'
+		# should take 3 cycles
+
+		assert re.search(expected, results)
+
+	def test_zp_x_mode(self):
+		results = create(0x0800, 'tests/ADC/zp-x-mode.bin', store_data=(66 *[0x00] + [0x42]))
+
+		expected = r'(.*ADC \$32,X\n)(A: 0x42)'
+		# should take 4 cycles
+
+		assert re.search(expected, results)
+
+	def test_abs_mode(self):
+		results = create(0x0800, 'tests/ADC/abs-mode.bin', store_data=(66 * [0x00] + [0x42]))
+		print(results)
+		expected = r'(.*ADC \$0042\n)(A: 0x42)'
+		# should take 4 cycles
+
+		assert re.search(expected, results)
+
+	# def test_abs_x_mode(self):
+	# 	results = create(0x0800, 'tests/ADC/abs-x-mode.bin', store_data=[])
+
+	# 	expected = r'(.*ADC \$00\n)(A: 0x42)'
+
+	# 	assert re.search(expected, results)
+
+	# def test_abs_y_mode(self):
+	# 	results = create(0x0800, 'tests/ADC/abs-y-mode.bin', store_data=[])
+
+	# 	expected = r'(.*ADC \$00\n)(A: 0x42)'
+
+	# 	assert re.search(expected, results)
+
+	# def test_ind_x_mode(self):
+	# 	results = create(0x0800, 'tests/ADC/ind-x-mode.bin', store_data=[])
+
+	# 	expected = r'(.*ADC \$00\n)(A: 0x42)'
+
+	# 	assert re.search(expected, results)
+
+	# def test_ind_y_mode(self):
+	# 	results = create(0x0800, 'tests/ADC/ind-y-mode.bin', store_data=[])
+
+	# 	expected = r'(.*ADC \$00\n)(A: 0x42)'
+
+	# 	assert re.search(expected, results)

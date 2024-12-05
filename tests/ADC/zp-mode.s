@@ -1,0 +1,1 @@
+ADC $42 ; A = 0x42 (0x42 stored at $0042)
