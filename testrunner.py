@@ -50,7 +50,7 @@ def create(start_address, filepath, store_data_loc=0x0000, store_data=[]):
 	# Get the results
 	return result.stdout.decode('UTF-8')
 
-# ADD CYCLE COUNT CHECKS TO THIS CLASS OF TESTS
+# ADD A BCD MODE TEST OF SOME KIND
 class TestADC:
 	def test_flags_normal(self):
 		results = create(0x0800, 'tests/ADC/flags-normal.bin')
@@ -71,28 +71,29 @@ class TestADC:
 		assert re.search(expected, results)
 
 	def test_zp_mode(self):
-		results = create(0x0800, 'tests/ADC/zp-mode.bin', store_data=(66 * [0x00] + [0x42]))
+		results = create(0x0800, 'tests/ADC/zp-mode.bin', store_data_loc=0x0042, store_data=[0x42])
 
 		expected = r'(.*ADC \$42\n)(A: 0x42\n)(.*\n){4}(.*\n){7}(cycles: 3)'
 
 		assert re.search(expected, results)
 
 	def test_zp_x_mode(self):
-		results = create(0x0800, 'tests/ADC/zp-x-mode.bin', store_data=(66 *[0x00] + [0x42]))
+		results = create(0x0800, 'tests/ADC/zp-x-mode.bin', store_data_loc=0x0042, store_data=[0x42])
 
 		expected = r'(.*ADC \$32,X\n)(A: 0x42\n)(.*\n){4}(.*\n){7}(cycles: 4)'
 
 		assert re.search(expected, results)
 
 	def test_abs_mode(self):
-		results = create(0x0800, 'tests/ADC/abs-mode.bin', store_data=(66 * [0x00] + [0x42]))
+		results = create(0x0800, 'tests/ADC/abs-mode.bin', store_data_loc=0x0042, store_data=[0x42])
 
 		expected = r'(.*ADC \$0042\n)(A: 0x42\n)(.*\n){4}(.*\n){7}(cycles: 4)'
 
 		assert re.search(expected, results)
 
 	def test_abs_x_mode(self):
-		results = create(0x0800, 'tests/ADC/abs-x-mode.bin', store_data=(66 * [0x00] + [0x42] + 189 * [0x00] + [0x42]))
+		# Place a 0x42 byte at each location $0042 and $0100 for using in addition. (X contains 0x10 offset)
+		results = create(0x0800, 'tests/ADC/abs-x-mode.bin', store_data_loc=0x0042, store_data=([0x42] + 189 * [0xEA] + [0x42]))
 
 		expected_results = []
 		expected_results.append(r'(.*ADC \$0032,X\n)(A: 0x42\n)(.*\n){4}(.*\n){7}(cycles: 4)')
@@ -102,7 +103,8 @@ class TestADC:
 			assert re.search(expected, results)
 
 	def test_abs_y_mode(self):
-		results = create(0x0800, 'tests/ADC/abs-y-mode.bin', store_data=(66 * [0x00] + [0x42] + 189 * [0x00] + [0x42]))
+		# Place a 0x42 byte at each location $0042 and $0100 for using in addition. (Y contains 0x10 offset)
+		results = create(0x0800, 'tests/ADC/abs-y-mode.bin', store_data_loc=0x0042, store_data=([0x42] + 189 * [0xEA] + [0x42]))
 
 		expected_results = []
 		expected_results.append(r'(.*ADC \$0032,Y\n)(A: 0x42\n)(.*\n){4}(.*\n){7}(cycles: 4)')
@@ -111,16 +113,18 @@ class TestADC:
 		for expected in expected_results:
 			assert re.search(expected, results)
 
-	# def test_ind_x_mode(self):
-	# 	results = create(0x0800, 'tests/ADC/ind-x-mode.bin', store_data=[])
+	def test_ind_x_mode(self):
+		# Place a real address of $00F0 at read location $0042 (calculated by 0x32 + X). Store byte 0xFF at real address (hence the padding)
+		results = create(0x0800, 'tests/ADC/ind-x-mode.bin', store_data_loc=0x0042, store_data=([0x00, 0x01] + 188 * [0xEA] + [0xFF]))
 
-	# 	expected = r'(.*ADC \$00\n)(A: 0x42)'
+		expected = r'(.*ADC \(\$32,X\)\n)(A: 0xFF\n)(.*\n){4}(.*\n){7}(cycles: 6)'
 
-	# 	assert re.search(expected, results)
+		assert re.search(expected, results)
 
-	# def test_ind_y_mode(self):
-	# 	results = create(0x0800, 'tests/ADC/ind-y-mode.bin', store_data=[])
+	def test_ind_y_mode(self):
+		# Place address of $00F0 at read location $0032. Store byte 0xFF at real address $0100 (calculated by $00F0 + Y)
+		results = create(0x0800, 'tests/ADC/ind-y-mode.bin', store_data_loc=0x0032, store_data=([0xF0, 0x00] + 204 * [0xEA] + [0xFF]))
+		print(results)
+		expected = r'(.*ADC \(\$32\),Y\n)(A: 0xFF\n)(.*\n){4}(.*\n){7}(cycles: 5)'
 
-	# 	expected = r'(.*ADC \$00\n)(A: 0x42)'
-
-	# 	assert re.search(expected, results)
+		assert re.search(expected, results)
