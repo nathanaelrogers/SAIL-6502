@@ -15,3 +15,8 @@
 > changed test creation to automatically call local 6502 assembler (acme) which generates program code in a binary file to load into the model
 
 > changed test creation to store data at arbitrary addresses in the model memory by iterating over a dictionary of {address:list[bytes]}
+
+> corrected logic for setting carry flag in BCD/binary mode for ADC and SBC
+> TODO ensure correct logic for flags in BCD mode. refer to tutorial on 6502 org
+
+> implemented SBC wraparound for BCD mode

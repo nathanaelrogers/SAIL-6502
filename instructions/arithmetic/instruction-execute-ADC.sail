@@ -11,8 +11,20 @@ function modify_flags_ADC(result, decimal_result, accumulator, operand) = {
 	if (signed(result[7..0]) == 0)
 		then set_flag_z(0b1) else set_flag_z(0b0); // zero
 
-	if (unsigned(result) >= 256 | decimal_result >= 100)
-		then set_flag_c(0b1) else set_flag_c(0b0); // carry
+	// carry
+	if (flag_d() == 0b0) then {
+		if (unsigned(result) >= 256) then
+			set_flag_c(0b1)
+		else
+			set_flag_c(0b0)
+	}
+	// BCD carry
+	else {
+		if (decimal_result >= 100) then
+			set_flag_c(0b1)
+		else
+			set_flag_c(0b0)
+	};
 }
 
 val ADC : (word) -> bool
@@ -21,13 +33,13 @@ function ADC(op) = {
 		then {
 			0
 		} else {
-			decimal_add(reg_A, op)
+			let carry : int = if (flag_c() == 0b1) then 1 else 0;
+			decimal_add(reg_A, op) + carry
 		};
 	let result : bits(9) = if (flag_d() == 0b0)
 		then {
 			EXTZ(9, reg_A) + EXTZ(9, op) + EXTZ(9, flag_c())
 		} else {
-			// SHOULD THIS USE CARRY??
 			EXTZ(9, decimal_to_word(decimal_result))
 		};
 	modify_flags_ADC(result, decimal_result, reg_A, op);

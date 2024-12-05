@@ -9,25 +9,36 @@ function modify_flags_SBC(result, decimal_result, op1, op2) = {
 	if (signed(result[7..0]) == 0)
 		then set_flag_z(0b1) else set_flag_z(0b0); // zero
 
-	if (signed(result) >= 0)
-		then set_flag_c(0b1) else set_flag_c(0b0); // carry
+	// carry
+	if (flag_d() == 0b0) then {
+		if (signed(result) >= 0) then
+			set_flag_c(0b1)
+		else
+			set_flag_c(0b0)
+	}
+	// BCD carry
+	else {
+		if (decimal_result >= 0) then
+			set_flag_c(0b1)
+		else
+			set_flag_c(0b0)
+	};
 }
 
-// TODO: the docs say overflow is out of range -127 to 127 but shouldn't
-// this be -128 to 127? seems to be a typo...
 val SBC : (word) -> bool
 function SBC(op) = {
 	let decimal_result : int = if (flag_d() == 0b0)
 		then {
-			0
+			-1 // should not set carry by default!
 		} else {
-			decimal_sub(reg_A, op)
+			let carry : int = if (flag_c() == 0b1) then 1 else 0;
+			decimal_sub(reg_A, op) - carry
 		};
 	let result : bits(9) = if (flag_d() == 0b0)
 		then {
 			EXTZ(9, reg_A) + EXTZ(9, not_vec(op)) + EXTZ(9, flag_c())
 		} else {
-			0b0 @ decimal_to_word(decimal_result)
+			EXTZ(9, decimal_to_word(decimal_result))
 		};
 	modify_flags_SBC(result, decimal_result,reg_A, op);
 	reg_A = result[7..0];

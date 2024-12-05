@@ -37,10 +37,22 @@ function word_to_decimal(word) = {
 	(nibble_to_int(word[7..4]) * 10) + nibble_to_int(word[3..0])
 }
 
+/*
+	NOTE:
+	This will never capture the "carry" in a decimal number, but this is
+	not an issue because BCD mode instructions use the integer value of
+	addition/subtraction in logic for setting/clearing the carry. This
+	method simply preserves the lower 8 bits worth of information to store
+	in the accumulator
+*/
 val decimal_to_word : int -> word
 function decimal_to_word(op) = {
-	let n : int = if (op >= 100 | op <= -100) then (op % 100) else op;
-	int_to_nibble(n / 10) @ int_to_nibble(n % 10)
+	let n : int = op % 100;
+	if (n >= 0) then {
+		int_to_nibble(n / 10) @ int_to_nibble(n % 10)
+	} else {
+		int_to_nibble((100 - n) / 10) @ int_to_nibble((100 - n) % 10)
+	};
 }
 
 val decimal_add : (word, word) -> int
