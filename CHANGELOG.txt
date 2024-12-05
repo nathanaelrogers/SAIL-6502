@@ -1,0 +1,15 @@
+05/12/2024: 
+> modified the behaviour of setting V flag in the ADC instruction
+> TODO change SBC to match
+
+> fixed order of bytes in decode for absolute addresses
+
+> deleted additional cycle increments on first instruction
+
+> fixed ind,y addressing mode returning unincremented address ptr instead of ea
+
+> implemented first suite of tests for ADC instruction
+> TODO implement final case for ind,y addressing
+> TODO implement tests for BCD mode. INVESTIGATE how it behaves in an online emulator?
+> TODO change test creation to use dictionary to store program data
+> TODO change test creation to use local assembler

@@ -27,7 +27,8 @@ function ADC(op) = {
 		then {
 			EXTZ(9, reg_A) + EXTZ(9, op) + EXTZ(9, flag_c())
 		} else {
-			0b0 @ decimal_to_word(decimal_result)
+			// SHOULD THIS USE CARRY??
+			EXTZ(9, decimal_to_word(decimal_result))
 		};
 	modify_flags_ADC(result, decimal_result, reg_A, op);
 	reg_A = result[7..0];

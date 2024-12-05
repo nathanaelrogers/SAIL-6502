@@ -6,6 +6,4 @@ out
 
 *.c
 
-*.txt
-
 __pycache__/
