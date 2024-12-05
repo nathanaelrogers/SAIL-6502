@@ -66,7 +66,7 @@ class TestADC:
 
 	def test_imm_mode(self):
 		results = create(0x0800, 'tests/ADC/imm-mode.bin')
-
+		print(results)
 		expected = r'(.*ADC #\$42\n)(A: 0x42)'
 		# should take 2 cycles
 
@@ -96,12 +96,17 @@ class TestADC:
 
 		assert re.search(expected, results)
 
-	# def test_abs_x_mode(self):
-	# 	results = create(0x0800, 'tests/ADC/abs-x-mode.bin', store_data=[])
+	def test_abs_x_mode(self):
+		results = create(0x0800, 'tests/ADC/abs-x-mode.bin', store_data=(66 * [0x00] + [0x42] + 189 * [0x00] + [0x42]))
 
-	# 	expected = r'(.*ADC \$00\n)(A: 0x42)'
-
-	# 	assert re.search(expected, results)
+		expected_results = []
+		expected_results.append(r'(.*ADC \$0032,X\n)(A: 0x42)')
+		# should take 4 cycles
+		expected_results.append(r'(.*ADC \$00F0,X\n)(A: 0x84)')
+		# should take 5 cycles
+		print(results)
+		for expected in expected_results:
+			assert re.search(expected, results)
 
 	# def test_abs_y_mode(self):
 	# 	results = create(0x0800, 'tests/ADC/abs-y-mode.bin', store_data=[])

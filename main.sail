@@ -12,7 +12,8 @@ $include "decode.sail"
 $include "assembly-print.sail"
 $include "interrupts.sail"
 
-function print_state() : unit -> unit = {
+val print_state : (int) -> unit
+function print_state(cycles_taken) = {
 	print_bits("A: ", reg_A);
 	print_bits("X: ", reg_X);
 	print_bits("Y: ", reg_Y);
@@ -25,14 +26,17 @@ function print_state() : unit -> unit = {
 	print_bits("i: ", reg_SR[i]);
 	print_bits("z: ", reg_SR[z]);
 	print_bits("c: ", reg_SR[c]);
-	print_endline(concat_str("cycles: ", dec_str(cycles)));
-	print_endline(concat_str("instructions: ", dec_str(instructions_done)));
+	print_endline(concat_str("cycles: ", dec_str(cycles_taken)));
 	print_bits("NMI: ", NMI);
 	print_bits("RST: ", RST);
 	print_bits("IRQ: ", IRQ);
+	print_endline(concat_str("total cycles: ", dec_str(cycles)));
+	print_endline(concat_str("total instructions: ", dec_str(instructions_done)));
 }
 
 function fetch_decode_execute(last_execute) : bool -> unit = {
+	let cycles_before : int = cycles;
+
 	let PC : address = reg_PC[15..8] @ reg_PC[7..0];
 	let instruction = read(PC);
 
@@ -45,7 +49,7 @@ function fetch_decode_execute(last_execute) : bool -> unit = {
 	if (last_execute) then instructions_done = instructions_done + 1;
 
 	print_endline(concat_str("\nfetch done: ", asm));
-	let state = print_state();
+	let state = print_state(cycles - cycles_before);
 
 	if (last_execute) then fetch_decode_execute(true);
 }
@@ -68,6 +72,6 @@ function setup() : unit -> unit = {
 
 function main() : unit -> unit = {
 	setup();
-	let state = print_state();
+	let state = print_state(cycles);
 	fetch_decode_execute(false);
 }
