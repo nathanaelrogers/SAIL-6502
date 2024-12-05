@@ -3,13 +3,26 @@
 val modify_flags_ADC : (bits(9), int, word, word) -> unit
 function modify_flags_ADC(result, decimal_result, accumulator, operand) = {
 	if (signed(result[7..0]) < 0)
-		then set_flag_n(0b1) else set_flag_n(0b0); // negative
+		then set_flag_n(0b1) else set_flag_n(0b0); // negative + BCD negative
 
-	if (([accumulator[7]] == [operand[7]]) & ([accumulator[7]] != [result[7]]))
-			then set_flag_v(0b1) else set_flag_v(0b0); // overflow
+	// overflow
+	if (flag_d() == 0b1) then {
+		if (([accumulator[7]] == [operand[7]]) & ([accumulator[7]] != [result[7]])) then
+			set_flag_v(0b1)
+		else
+			set_flag_v(0b0);
+	}
+	// BCD overflow (this is UNDOCUMENTED behaviour? see appendix A of 6502.org BCD tutorial)
+	else {
+		if (decimal_result > 127 | decimal_result < -128) then
+			set_flag_v(0b1)
+		else
+			set_flag_v(0b0)
+	};
+
 	
-	if (signed(result[7..0]) == 0)
-		then set_flag_z(0b1) else set_flag_z(0b0); // zero
+	if (result[7..0] == 0)
+		then set_flag_z(0b1) else set_flag_z(0b0); // zero + BCD zero
 
 	// carry
 	if (flag_d() == 0b0) then {
