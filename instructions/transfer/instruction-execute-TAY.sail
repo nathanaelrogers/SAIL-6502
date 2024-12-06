@@ -1,7 +1,16 @@
 val modify_flags_TAY : (word) -> unit
 function modify_flags_TAY(result) = {
-	if (signed(result) < 0)  then set_flag_n(0b1) else set_flag_n(0b0); // negative
-	if (signed(result) == 0) then set_flag_z(0b1) else set_flag_z(0b0); // zero
+	 // negative
+	if (signed(result[7..0]) < 0) then
+		set_flag_n(0b1)
+	else
+		set_flag_n(0b0);
+
+	// zero
+	if (unsigned(result[7..0]) == 0) then
+		set_flag_z(0b1)
+	else
+		set_flag_z(0b0);
 }
 
 val TAY : (unit) -> bool

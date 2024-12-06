@@ -1,13 +1,20 @@
 val modify_flags_SBC : (bits(9), int, word, word) -> unit
 function modify_flags_SBC(result, decimal_result, op1, op2) = {
-	if (signed(result[7..0]) < 0)
-		then set_flag_n(0b1) else set_flag_n(0b0); // negative + BCD negative
+	// negative + BCD negative
+	if (signed(result[7..0]) < 0) then
+		set_flag_n(0b1)
+	else
+		set_flag_n(0b0);
 
-	if (signed(result) > 127 | signed(result) < -128)
-		then set_flag_v(0b1) else set_flag_v(0b0); // overflow
+	// overflow + BCD overflow
+	if (signed(result) > 127 | signed(result) < -128) then
+		set_flag_v(0b1)
+	else
+		set_flag_v(0b0);
 
-	if (result[7..0] == 0)
-		then set_flag_z(0b1) else set_flag_z(0b0); // zero + BCD zero
+	// zero + BCD zero
+	if (unsigned(result[7..0]) == 0)
+		then set_flag_z(0b1) else set_flag_z(0b0);
 
 	// carry
 	if (flag_d() == 0b0) then {
@@ -32,7 +39,7 @@ function SBC(op) = {
 			-1 // should not set carry by default!
 		} else {
 			let carry : int = if (flag_c() == 0b1) then 1 else 0;
-			decimal_sub(reg_A, op) - carry
+			decimal_sub(reg_A, op) + (carry - 1)
 		};
 	let result : bits(9) = if (flag_d() == 0b0)
 		then {

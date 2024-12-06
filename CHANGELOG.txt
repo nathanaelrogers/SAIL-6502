@@ -20,3 +20,13 @@
 > TODO ensure correct logic for flags in BCD mode. refer to tutorial on 6502 org
 
 > implemented SBC wraparound for BCD mode
+
+06/12/24:
+> changed the way instructions modify flags to make them coherent with changes to arithmetic instruction
+
+> finished? the implementation of BCD mode for arithmetic instructions
+
+> added option to test creation to view memory locations after done (for viewing in-memory test results)
+
+> got Brian Clark's full BCD test program assembled and into the model
+> TODO begin implementing instructions so it can be run in full

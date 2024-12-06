@@ -1,9 +1,10 @@
-//TODO: spend some time checking out behaviour of V flag in BCD mode for SBC and ADC!!
-
 val modify_flags_ADC : (bits(9), int, word, word) -> unit
 function modify_flags_ADC(result, decimal_result, accumulator, operand) = {
-	if (signed(result[7..0]) < 0)
-		then set_flag_n(0b1) else set_flag_n(0b0); // negative + BCD negative
+	 // negative + BCD negative
+	if (signed(result[7..0]) < 0) then
+		set_flag_n(0b1)
+	else
+		set_flag_n(0b0);
 
 	// overflow
 	if (flag_d() == 0b1) then {
@@ -20,9 +21,11 @@ function modify_flags_ADC(result, decimal_result, accumulator, operand) = {
 			set_flag_v(0b0)
 	};
 
-	
-	if (result[7..0] == 0)
-		then set_flag_z(0b1) else set_flag_z(0b0); // zero + BCD zero
+	// zero + BCD zero
+	if (unsigned(result[7..0]) == 0) then
+		set_flag_z(0b1)
+	else
+		set_flag_z(0b0);
 
 	// carry
 	if (flag_d() == 0b0) then {
