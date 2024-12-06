@@ -34,6 +34,11 @@ union clause ast = AND_IND_X : (word)
 union clause ast = AND_IND_Y : (word)
 $include "./instructions/logical/instruction-execute-AND.sail"
 
+union clause ast = CLC_IMP   : (unit)
+union clause ast = CLD_IMP   : (unit)
+$include "./instructions/flag/instruction-execute-CLC.sail"
+$include "./instructions/flag/instruction-execute-CLD.sail"
+
 union clause ast = CMP_IMM   : (word)
 union clause ast = CMP_ZP    : (word)
 union clause ast = CMP_ZP_X  : (word)
@@ -42,12 +47,7 @@ union clause ast = CMP_ABS_X : (address)
 union clause ast = CMP_ABS_Y : (address)
 union clause ast = CMP_IND_X : (word)
 union clause ast = CMP_IND_Y : (word)
-$include "./instructions/logical/instruction-execute-CMP.sail"
-
-union clause ast = CLC_IMP   : (unit)
-union clause ast = CLD_IMP   : (unit)
-$include "./instructions/flag/instruction-execute-CLC.sail"
-$include "./instructions/flag/instruction-execute-CLD.sail"
+$include "./instructions/comparison/instruction-execute-CMP.sail"
 
 union clause ast = CPY_IMM   : (word)
 union clause ast = CPY_ZP    : (word)
