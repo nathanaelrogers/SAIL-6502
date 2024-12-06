@@ -38,3 +38,5 @@
 > set SP register to initialize to 0xFF in main
 
 > implemented flag instructions for setting/clearing the C/D flags (support BCD mode testing)
+
+> implemented stack instructions for pushing/pulling into and out of A register and P (a.k.a. SR) register

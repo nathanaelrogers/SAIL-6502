@@ -2,9 +2,17 @@
 
 function clause decode08(0x18)  = {incr_cycles(1); CLC_IMP()}
 function clause decode08(0xD8)  = {incr_cycles(1); CLD_IMP()}
+
+function clause decode08(0x48)  = {incr_cycles(1); PHA_IMP()}
+function clause decode08(0x08)  = {incr_cycles(1); PHP_IMP()}
+function clause decode08(0x68)  = {incr_cycles(1); PLA_IMP()}
+function clause decode08(0x28)  = {incr_cycles(1); PLP_IMP()}
+
 function clause decode08(0x60)  = {incr_cycles(1); RTS_IMP()}
+
 function clause decode08(0x38)  = {incr_cycles(1); SEC_IMP()}
 function clause decode08(0xF8)  = {incr_cycles(1); SED_IMP()}
+
 function clause decode08(0xAA)  = {incr_cycles(1); TAX_IMP()}
 function clause decode08(0xA8)  = {incr_cycles(1); TAY_IMP()}
 function clause decode08(0xBA)  = {incr_cycles(1); TSX_IMP()}

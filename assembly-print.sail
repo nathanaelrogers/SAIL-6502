@@ -78,6 +78,11 @@ function clause assembly(ORA_ABS_Y(op)) = make_str(mode(abs_y), "ORA ", my_hex_s
 function clause assembly(ORA_IND_X(op)) = make_str(mode(ind_x), "ORA ", my_hex_str(op))
 function clause assembly(ORA_IND_Y(op)) = make_str(mode(ind_y), "ORA ", my_hex_str(op))
 
+function clause assembly(PHA_IMP())     = make_str(mode(imp),   "PHA ", "")
+function clause assembly(PHP_IMP())     = make_str(mode(imp),   "PHP ", "")
+function clause assembly(PLA_IMP())     = make_str(mode(imp),   "PLA ", "")
+function clause assembly(PLP_IMP())     = make_str(mode(imp),   "PLP ", "")
+
 function clause assembly(RTS_IMP())     = make_str(mode(imp),   "RTS" , "")
 
 function clause assembly(SBC_IMM(op))   = make_str(mode(imm),   "SBC ", my_hex_str(op))

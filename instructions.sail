@@ -86,6 +86,15 @@ union clause ast = ORA_IND_X : (word)
 union clause ast = ORA_IND_Y : (word)
 $include "./instructions/logical/instruction-execute-ORA.sail"
 
+union clause ast = PHA_IMP   : (unit)
+union clause ast = PHP_IMP   : (unit)
+union clause ast = PLA_IMP   : (unit)
+union clause ast = PLP_IMP   : (unit)
+$include "./instructions/stack/instruction-execute-PHA.sail"
+$include "./instructions/stack/instruction-execute-PHP.sail"
+$include "./instructions/stack/instruction-execute-PLA.sail"
+$include "./instructions/stack/instruction-execute-PLP.sail"
+
 union clause ast = RTS_IMP   : (unit)
 $include "./instructions/subroutines/instruction-execute-RTS.sail"
 
