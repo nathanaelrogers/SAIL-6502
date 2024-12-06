@@ -37,6 +37,10 @@ function clause assembly(AND_IND_Y(op)) = make_str(mode(ind_y), "AND ", my_hex_s
 function clause assembly(CLC_IMP())     = make_str(mode(imp),   "CLC ", "")
 function clause assembly(CLD_IMP())     = make_str(mode(imp),   "CLD ", "")
 
+function clause assembly(CPX_IMM(op))   = make_str(mode(imm),   "CPX ", my_hex_str(op))
+function clause assembly(CPX_ZP(op))    = make_str(mode(zp),    "CPX ", my_hex_str(op))
+function clause assembly(CPX_ABS(op))   = make_str(mode(abs),   "CPX ", my_hex_str(op))
+
 function clause assembly(CPY_IMM(op))   = make_str(mode(imm),   "CPY ", my_hex_str(op))
 function clause assembly(CPY_ZP(op))    = make_str(mode(zp),    "CPY ", my_hex_str(op))
 function clause assembly(CPY_ABS(op))   = make_str(mode(abs),   "CPY ", my_hex_str(op))

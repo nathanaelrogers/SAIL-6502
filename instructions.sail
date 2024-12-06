@@ -44,6 +44,11 @@ union clause ast = CPY_ZP    : (word)
 union clause ast = CPY_ABS   : (address)
 $include "./instructions/comparison/instruction-execute-CPY.sail"
 
+union clause ast = CPX_IMM   : (word)
+union clause ast = CPX_ZP    : (word)
+union clause ast = CPX_ABS   : (address)
+$include "./instructions/comparison/instruction-execute-CPX.sail"
+
 union clause ast = EOR_IMM   : (word)
 union clause ast = EOR_ZP    : (word)
 union clause ast = EOR_ZP_X  : (word)
