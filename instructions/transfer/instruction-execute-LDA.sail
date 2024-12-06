@@ -21,34 +21,36 @@ function LDA(op) = {
 }
 
 function clause execute(LDA_IMM(op))   = {
-	let word = calc_from_word(mode(imm), op);
+	let word = calc_word(mode(imm), op);
 	LDA(word)
 }
 function clause execute(LDA_ZP(op))    = {
-	let word = calc_from_word(mode(zp), op);
+	let word = calc_word(mode(zp), op);
 	LDA(read_zp(word))
 }
 function clause execute(LDA_ZP_X(op))  = {
-	let word = calc_from_word(mode(zp_x), op);
+	let word = calc_word(mode(zp_x), op);
 	LDA(read_zp(word))
 }
 function clause execute(LDA_ABS(op))   = {
-	let addr = calc_from_addr(true, mode(abs), op);
+	let addr = calc_addr(mode(abs), op);
 	LDA(read(addr))
 }
 function clause execute(LDA_ABS_X(op)) = {
-	let addr = calc_from_addr(true, mode(abs_x), op);
+	let addr = calc_addr(mode(abs_x), op);
+	if (op[15..8] != addr[15..8]) then incr_cycles(1);
 	LDA(read(addr))
 }
 function clause execute(LDA_ABS_Y(op)) = {
-	let addr = calc_from_addr(true, mode(abs_y), op);
+	let addr = calc_addr(mode(abs_y), op);
+	if (op[15..8] != addr[15..8]) then incr_cycles(1);
 	LDA(read(addr))
 }
 function clause execute(LDA_IND_X(op)) = {
-	let addr = calc_from_word(true, mode(ind_x), op);
+	let addr = calc_addr(mode(ind_x), op);
 	LDA(read(addr))
 }
 function clause execute(LDA_IND_Y(op)) = {
-	let addr = calc_from_word(true, mode(ind_y), op);
+	let addr = calc_addr(mode(ind_y), op);
 	LDA(read(addr))
 }

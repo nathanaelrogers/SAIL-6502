@@ -32,8 +32,8 @@ mapping mode : am_enum <-> addrmode = {
 	zp_y  <-> 0xC
 }
 
-val calc_from_word_to_word : (addrmode, word) -> word
-function calc_from_word_to_word(addrmode, op) = {
+val calc_word : (addrmode, word) -> word
+function calc_word(addrmode, op) = {
 	match addrmode {
 		mode(imm)   => {
 			incr_cycles(1);
@@ -54,33 +54,27 @@ function calc_from_word_to_word(addrmode, op) = {
 	}
 }
 
-val calc_from_word_to_addr : (bool, addrmode, word) -> address
-function calc_from_word_to_addr(page_boundary_check, addrmode, op) = {
+val calc_from_word_to_addr : (addrmode, word) -> address
+function calc_from_word_to_addr(addrmode, op) = {
 	match addrmode {
 		mode(ind_x) => {
 			incr_cycles(5);
-			let ea  = op + reg_X;
-			let ptr = read_zp(ea + 1) @ read_zp(ea);
-			ptr
+			let ptr  = op + reg_X;
+			let ea = read_zp(ptr + 1) @ read_zp(ptr);
+			ea
 		},
 		mode(ind_y) => {
 			incr_cycles(4);
 			let ptr = read_zp(op + 1) @ read_zp(op);
 			let ea  = ptr + EXTZ(16, reg_Y);
-			// CHECK HOW PAGE BOUNDARY CROSSING WORKS
-			if (ptr[15..8] != ea[15..8] & page_boundary_check) then {
-				incr_cycles(1);
-				// print_bits("page boundary crossed, now in page: ", ea[15..8])
-			};
+			if (ptr[15..8] != ea[15..8]) then incr_cycles(1);
 			ea
 		}
 	}
 }
 
-overload calc_from_word = {calc_from_word_to_word, calc_from_word_to_addr}
-
-val calc_from_addr : (bool, addrmode, address) -> address
-function calc_from_addr(page_boundary_check, addrmode, op) = {
+val calc_from_addr_to_addr : (addrmode, address) -> address
+function calc_from_addr_to_addr(addrmode, op) = {
 	match addrmode {
 		mode(abs)   => {
 			incr_cycles(2);
@@ -89,22 +83,14 @@ function calc_from_addr(page_boundary_check, addrmode, op) = {
 		mode(abs_x) => {
 			incr_cycles(2);
 			let ea = op + EXTZ(16, reg_X);
-			// CHECK HOW PAGE BOUNDARY CROSSING WORKS
-			if (op[15..8] != ea[15..8] & page_boundary_check) then {
-				incr_cycles(1);
-				// print_bits("page boundary crossed, now in page: ", ea[15..8])
-			};
 			ea
 		},
 		mode(abs_y) => {
 			incr_cycles(2);
 			let ea = op + EXTZ(16, reg_Y);
-			// CHECK HOW PAGE BOUNDARY CROSSING WORKS
-			if (op[15..8] != ea[15..8] & page_boundary_check) then {
-				incr_cycles(1);
-				// print_bits("page boundary crossed, now in page: ", ea[15..8])
-			};
 			ea
 		}
 	}
 }
+
+overload calc_addr = {calc_from_addr_to_addr, calc_from_word_to_addr}

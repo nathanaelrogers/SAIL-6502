@@ -53,34 +53,36 @@ function SBC(op) = {
 }
 
 function clause execute(SBC_IMM(op))   = {
-	let word = calc_from_word(mode(imm), op);
+	let word = calc_word(mode(imm), op);
 	SBC(word)
 }
 function clause execute(SBC_ZP(op))    = {
-	let word = calc_from_word(mode(zp), op);
+	let word = calc_word(mode(zp), op);
 	SBC(read_zp(word))
 }
 function clause execute(SBC_ZP_X(op))  = {
-	let word = calc_from_word(mode(zp_x), op);
+	let word = calc_word(mode(zp_x), op);
 	SBC(read_zp(word))
 }
 function clause execute(SBC_ABS(op))   = {
-	let addr = calc_from_addr(true, mode(abs), op);
+	let addr = calc_addr(mode(abs), op);
 	SBC(read(addr))
 }
 function clause execute(SBC_ABS_X(op)) = {
-	let addr = calc_from_addr(true, mode(abs_x), op);
+	let addr = calc_addr(mode(abs_x), op);
+	if (op[15..8] != addr[15..8]) then incr_cycles(1);
 	SBC(read(addr))
 }
 function clause execute(SBC_ABS_Y(op)) = {
-	let addr = calc_from_addr(true, mode(abs_y), op);
+	let addr = calc_addr(mode(abs_y), op);
+	if (op[15..8] != addr[15..8]) then incr_cycles(1);
 	SBC(read(addr))
 }
 function clause execute(SBC_IND_X(op)) = {
-	let addr = calc_from_word(true, mode(ind_x), op);
+	let addr = calc_addr(mode(ind_x), op);
 	SBC(read(addr))
 }
 function clause execute(SBC_IND_Y(op)) = {
-	let addr = calc_from_word(true, mode(ind_y), op);
+	let addr = calc_addr(mode(ind_y), op);
 	SBC(read(addr))
 }

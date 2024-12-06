@@ -22,34 +22,36 @@ function EOR(op) = {
 }
 
 function clause execute(EOR_IMM(op))   = {
-	let word = calc_from_word(mode(imm), op);
+	let word = calc_word(mode(imm), op);
 	EOR(word)
 }
 function clause execute(EOR_ZP(op))    = {
-	let word = calc_from_word(mode(zp), op);
+	let word = calc_word(mode(zp), op);
 	EOR(read_zp(word))
 }
 function clause execute(EOR_ZP_X(op))  = {
-	let word = calc_from_word(mode(zp_x), op);
+	let word = calc_word(mode(zp_x), op);
 	EOR(read_zp(word))
 }
 function clause execute(EOR_ABS(op))   = {
-	let addr = calc_from_addr(true, mode(abs), op);
+	let addr = calc_addr(mode(abs), op);
 	EOR(read(addr))
 }
 function clause execute(EOR_ABS_X(op)) = {
-	let addr = calc_from_addr(true, mode(abs_x), op);
+	let addr = calc_addr(mode(abs_x), op);
+	if (op[15..8] != addr[15..8]) then incr_cycles(1);
 	EOR(read(addr))
 }
 function clause execute(EOR_ABS_Y(op)) = {
-	let addr = calc_from_addr(true, mode(abs_y), op);
+	let addr = calc_addr(mode(abs_y), op);
+	if (op[15..8] != addr[15..8]) then incr_cycles(1);
 	EOR(read(addr))
 }
 function clause execute(EOR_IND_X(op)) = {
-	let addr = calc_from_word(true, mode(ind_x), op);
+	let addr = calc_addr(mode(ind_x), op);
 	EOR(read(addr))
 }
 function clause execute(EOR_IND_Y(op)) = {
-	let addr = calc_from_word(true, mode(ind_y), op);
+	let addr = calc_addr(mode(ind_y), op);
 	EOR(read(addr))
 }
