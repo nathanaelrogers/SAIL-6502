@@ -36,8 +36,13 @@ $include "./instructions/logical/instruction-execute-AND.sail"
 
 union clause ast = CLC_IMP   : (unit)
 union clause ast = CLD_IMP   : (unit)
-$include "./instructions/flags/instruction-execute-CLC.sail"
-$include "./instructions/flags/instruction-execute-CLD.sail"
+$include "./instructions/flag/instruction-execute-CLC.sail"
+$include "./instructions/flag/instruction-execute-CLD.sail"
+
+union clause ast = CPY_IMM   : (word)
+union clause ast = CPY_ZP    : (word)
+union clause ast = CPY_ABS   : (address)
+$include "./instructions/comparison/instruction-execute-CPY.sail"
 
 union clause ast = EOR_IMM   : (word)
 union clause ast = EOR_ZP    : (word)
@@ -50,7 +55,7 @@ union clause ast = EOR_IND_Y : (word)
 $include "./instructions/logical/instruction-execute-EOR.sail"
 
 union clause ast = JSR_ABS   : (address)
-$include "./instructions/subroutines/instruction-execute-JSR.sail"
+$include "./instructions/subroutine/instruction-execute-JSR.sail"
 
 union clause ast = LDA_IMM   : (word)
 union clause ast = LDA_ZP    : (word)
@@ -96,7 +101,7 @@ $include "./instructions/stack/instruction-execute-PLA.sail"
 $include "./instructions/stack/instruction-execute-PLP.sail"
 
 union clause ast = RTS_IMP   : (unit)
-$include "./instructions/subroutines/instruction-execute-RTS.sail"
+$include "./instructions/subroutine/instruction-execute-RTS.sail"
 
 union clause ast = SBC_IMM   : (word)
 union clause ast = SBC_ZP    : (word)
@@ -110,8 +115,8 @@ $include "./instructions/arithmetic/instruction-execute-SBC.sail"
 
 union clause ast = SEC_IMP   : (unit)
 union clause ast = SED_IMP   : (unit)
-$include "./instructions/flags/instruction-execute-SEC.sail"
-$include "./instructions/flags/instruction-execute-SED.sail"
+$include "./instructions/flag/instruction-execute-SEC.sail"
+$include "./instructions/flag/instruction-execute-SED.sail"
 
 union clause ast = STA_ZP    : (word)
 union clause ast = STA_ZP_X  : (word)

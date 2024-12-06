@@ -1,5 +1,5 @@
-val modify_flags_SBC : (bits(9), int, word, word) -> unit
-function modify_flags_SBC(result, decimal_result, op1, op2) = {
+val modify_flags_SBC : (bits(9), int) -> unit
+function modify_flags_SBC(result, decimal_result) = {
 	// negative + BCD negative
 	if (signed(result[7..0]) < 0) then
 		set_flag_n(0b1)
@@ -13,8 +13,10 @@ function modify_flags_SBC(result, decimal_result, op1, op2) = {
 		set_flag_v(0b0);
 
 	// zero + BCD zero
-	if (unsigned(result[7..0]) == 0)
-		then set_flag_z(0b1) else set_flag_z(0b0);
+	if (unsigned(result[7..0]) == 0) then
+		set_flag_z(0b1)
+	else
+		set_flag_z(0b0);
 
 	// carry
 	if (flag_d() == 0b0) then {
@@ -47,7 +49,7 @@ function SBC(op) = {
 		} else {
 			EXTZ(9, decimal_to_word(decimal_result))
 		};
-	modify_flags_SBC(result, decimal_result,reg_A, op);
+	modify_flags_SBC(result, decimal_result);
 	reg_A = result[7..0];
 	true
 }

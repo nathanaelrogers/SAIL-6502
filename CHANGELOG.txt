@@ -40,3 +40,5 @@
 > implemented flag instructions for setting/clearing the C/D flags (support BCD mode testing)
 
 > implemented stack instructions for pushing/pulling into and out of A register and P (a.k.a. SR) register
+
+> implemented CPY instruction with cleanup to SBC
