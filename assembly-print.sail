@@ -8,6 +8,7 @@ function make_str(addrmode, name, op) = {
 		mode(abs_x) => concat_str(name, concat_str(op, ",X")),
 		mode(abs_y) => concat_str(name, concat_str(op, ",Y")),
 		mode(imm)   => concat_str(name, concat_str("#", op)),
+		mode(imp)   => concat_str(name, ""),
 		mode(ind_x) => concat_str(name, concat_str(concat_str("(", op), ",X)")),
 		mode(ind_y) => concat_str(name, concat_str(concat_str("(", op), "),Y")),
 		mode(zp)    => concat_str(name, op),
@@ -42,6 +43,8 @@ function clause assembly(EOR_ABS_Y(op)) = make_str(mode(abs_y), "EOR ", my_hex_s
 function clause assembly(EOR_IND_X(op)) = make_str(mode(ind_x), "EOR ", my_hex_str(op))
 function clause assembly(EOR_IND_Y(op)) = make_str(mode(ind_y), "EOR ", my_hex_str(op))
 
+function clause assembly(JSR_ABS(op))   = make_str(mode(abs),   "JSR ", my_hex_str(op))
+
 function clause assembly(LDA_IMM(op))   = make_str(mode(imm),   "LDA ", my_hex_str(op))
 function clause assembly(LDA_ZP(op))    = make_str(mode(zp),    "LDA ", my_hex_str(op))
 function clause assembly(LDA_ZP_X(op))  = make_str(mode(zp_x),  "LDA ", my_hex_str(op))
@@ -71,6 +74,8 @@ function clause assembly(ORA_ABS_X(op)) = make_str(mode(abs_x), "ORA ", my_hex_s
 function clause assembly(ORA_ABS_Y(op)) = make_str(mode(abs_y), "ORA ", my_hex_str(op))
 function clause assembly(ORA_IND_X(op)) = make_str(mode(ind_x), "ORA ", my_hex_str(op))
 function clause assembly(ORA_IND_Y(op)) = make_str(mode(ind_y), "ORA ", my_hex_str(op))
+
+function clause assembly(RTS_IMP())     = make_str(mode(imp),   "RTS" , "")
 
 function clause assembly(SBC_IMM(op))   = make_str(mode(imm),   "SBC ", my_hex_str(op))
 function clause assembly(SBC_ZP(op))    = make_str(mode(zp),    "SBC ", my_hex_str(op))

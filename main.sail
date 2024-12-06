@@ -1,10 +1,10 @@
 default Order dec
 $include <prelude.sail>
 $include "prelude.sail"
+$include "timing.sail"
 $include "types.sail"
 $include "registers.sail"
 $include "memory.sail"
-$include "timing.sail"
 $include "addressing.sail"
 $include "decimal-mode.sail"
 $include "instructions.sail"
@@ -67,7 +67,7 @@ function setup() : unit -> unit = {
 	reg_X  = undefined;
 	reg_Y  = undefined;
 	reg_SR = undefined;
-	reg_SP = undefined;
+	reg_SP = 0xFF;
 }
 
 function main() : unit -> unit = {

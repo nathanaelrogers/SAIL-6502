@@ -7,8 +7,18 @@ register reg_SP : word
 
 // Helper function to increment the PC.
 val incr_pc : unit -> unit
-function incr_pc(unit) = {
-	reg_PC = reg_PC + 1;
+function incr_pc() = {
+	reg_PC = reg_PC + 1
+}
+
+val incr_sp : unit -> unit
+function incr_sp() = {
+	reg_SP = reg_SP + 1
+}
+
+val decr_sp : unit -> unit
+function decr_sp() = {
+	reg_SP = reg_SP + (-1)
 }
 
 // Helper functions to set individual flags.

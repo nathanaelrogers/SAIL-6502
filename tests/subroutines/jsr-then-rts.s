@@ -1,0 +1,7 @@
+SUB		JSR ADD
+		SBC #$FF
+		BRK
+		BRK
+		BRK
+ADD		ADC #$FF
+		RTS

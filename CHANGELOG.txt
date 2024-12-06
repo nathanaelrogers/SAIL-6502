@@ -30,3 +30,5 @@
 
 > got Brian Clark's full BCD test program assembled and into the model
 > TODO begin implementing instructions so it can be run in full
+
+> Implemented JSR/RTS instructions so we can use subroutines

@@ -1,17 +1,19 @@
 /* ============== 1 byte instructions ============== */
 
-function clause decode08(0xAA)  = {TAX_IMP()}
-function clause decode08(0xA8)  = {TAY_IMP()}
-function clause decode08(0xBA)  = {TSX_IMP()}
-function clause decode08(0x8A)  = {TXA_IMP()}
-function clause decode08(0x9A)  = {TXS_IMP()}
-function clause decode08(0x98)  = {TYA_IMP()}
+function clause decode08(0x60)  = {incr_cycles(1); RTS_IMP()}
+function clause decode08(0xAA)  = {incr_cycles(1); TAX_IMP()}
+function clause decode08(0xA8)  = {incr_cycles(1); TAY_IMP()}
+function clause decode08(0xBA)  = {incr_cycles(1); TSX_IMP()}
+function clause decode08(0x8A)  = {incr_cycles(1); TXA_IMP()}
+function clause decode08(0x9A)  = {incr_cycles(1); TXS_IMP()}
+function clause decode08(0x98)  = {incr_cycles(1); TYA_IMP()}
 
 // If it's not a valid single byte instruction, read another byte and try decode.
 function clause decode08(this) = {
 	let PC : address = reg_PC[15..8] @ reg_PC[7..0];
 	let next_byte : word = read(PC);
 	incr_pc();
+	incr_cycles(1);
 
 	decode16(EXTZ(this) << 8 | EXTZ(next_byte));
 }
@@ -44,6 +46,8 @@ function clause decode24(0x5D @ op : address) = {incr_cycles(1); EOR_ABS_X(op[7.
 function clause decode24(0x59 @ op : address) = {incr_cycles(1); EOR_ABS_Y(op[7..0] @ op[15..8])}
 function clause decode16(0x41 @ op : word)    = {incr_cycles(1); EOR_IND_X(op)}
 function clause decode16(0x51 @ op : word)    = {incr_cycles(1); EOR_IND_Y(op)}
+
+function clause decode24(0x20 @ op : address) = {incr_cycles(1); JSR_ABS(op[7..0] @ op[15..8])}
 
 function clause decode16(0xA9 @ op : word)    = {incr_cycles(1); LDA_IMM(op)}
 function clause decode16(0xA5 @ op : word)    = {incr_cycles(1); LDA_ZP(op)}

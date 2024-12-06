@@ -2,7 +2,7 @@ import subprocess
 import os
 import re
 
-def create(start_address, source_file, store_data={}, generate_binary=True):
+def create(start_address, source_file, store_data={}, generate_binary=True, view_memory=[]):
 	# Create hi and lo bytes from the start address passed in
 	address_hi_byte = start_address >> 8
 	address_lo_byte = start_address & 0xFF
@@ -18,7 +18,7 @@ def create(start_address, source_file, store_data={}, generate_binary=True):
 
 	# Generate a binary file from the source code
 	if generate_binary:
-		subprocess.run(['acme', '-o', 'code.bin', '-f', 'plain', '--cpu', '6502', '--setpc', '0000', source_file])
+		subprocess.run(['acme', '-o', 'code.bin', '-f', 'plain', '--cpu', '6502', '--setpc', f'{start_address:#0{6}x}', source_file])
 
 	# Write from the binary file the program data at the given start address
 	with open(f'{"code.bin" if generate_binary else source_file}', 'rb') as file:
@@ -38,6 +38,15 @@ def create(start_address, source_file, store_data={}, generate_binary=True):
 	# Commands to run model main loop
 	commands.append('main()')
 	commands.append(':run')
+
+	# Look at contents of memory after we're done
+	for location in view_memory:
+		hi_byte = location >> 8
+		lo_byte = location & 0xFF
+		commands.append(f'main_mem[{hi_byte}][{lo_byte}]')
+		commands.append(':run')
+
+	# Quit the interpreter at the end
 	commands.append(':quit')
 
 	# Write SAIL interpreter commands to file
@@ -55,10 +64,27 @@ def create(start_address, source_file, store_data={}, generate_binary=True):
 	# Get the results
 	return result.stdout.decode('UTF-8')
 
+class TestBCD:
+	def test_bcd_full(self):
+		results = create(0x0800, 'tests/BCD/full.s', view_memory=[0x00FF])
+		print(results)
+
+		expected = r'.*access\(main_mem, 0\), 255\)\nResult = 0x00'
+
+		assert re.search(expected, results)
+
+class TestSubroutine:
+	def test_jsr_then_rts(self):
+		results = create(0x0800, 'tests/subroutines/jsr-then-rts.s')
+		print(results)
+
+		assert False
+
 # ADD A BCD MODE TEST OF SOME KIND
 class TestADC:
 	def test_flags_normal(self):
 		results = create(0x0800, 'tests/ADC/flags-normal.s')
+		print(results)
 
 		expected_results = []
 		expected_results.append(r'(.*ADC #\$42\n)(A: 0x42)')
@@ -72,12 +98,14 @@ class TestADC:
 	def test_imm_mode(self):
 		results = create(0x0800, 'tests/ADC/imm-mode.s')
 		print(results)
+
 		expected = r'(.*ADC #\$42\n)(A: 0x42\n)(.*\n){4}(.*\n){7}(cycles: 2)'
 
 		assert re.search(expected, results)
 
 	def test_zp_mode(self):
 		results = create(0x0800, 'tests/ADC/zp-mode.s', store_data={0x0042:[0x42]})
+		print(results)
 
 		expected = r'(.*ADC \$42\n)(A: 0x42\n)(.*\n){4}(.*\n){7}(cycles: 3)'
 
@@ -85,6 +113,7 @@ class TestADC:
 
 	def test_zp_x_mode(self):
 		results = create(0x0800, 'tests/ADC/zp-x-mode.s', store_data={0x0042:[0x42]})
+		print(results)
 
 		expected = r'(.*ADC \$32,X\n)(A: 0x42\n)(.*\n){4}(.*\n){7}(cycles: 4)'
 
@@ -92,6 +121,7 @@ class TestADC:
 
 	def test_abs_mode(self):
 		results = create(0x0800, 'tests/ADC/abs-mode.s', store_data={0x0042:[0x42]})
+		print(results)
 
 		expected = r'(.*ADC \$0042\n)(A: 0x42\n)(.*\n){4}(.*\n){7}(cycles: 4)'
 
@@ -100,6 +130,7 @@ class TestADC:
 	def test_abs_x_mode(self):
 		# Place a 0x42 byte at each location $0042 and $0100 for using in addition. (X contains 0x10 offset)
 		results = create(0x0800, 'tests/ADC/abs-x-mode.s', store_data={0x0042:[0x42], 0x0100:[0x42]})
+		print(results)
 
 		expected_results = []
 		expected_results.append(r'(.*ADC \$0032,X\n)(A: 0x42\n)(.*\n){4}(.*\n){7}(cycles: 4)')
@@ -111,6 +142,7 @@ class TestADC:
 	def test_abs_y_mode(self):
 		# Place a 0x42 byte at each location $0042 and $0100 for using in addition. (Y contains 0x10 offset)
 		results = create(0x0800, 'tests/ADC/abs-y-mode.s', store_data={0x0042:[0x42], 0x0100:[0x42]})
+		print(results)
 
 		expected_results = []
 		expected_results.append(r'(.*ADC \$0032,Y\n)(A: 0x42\n)(.*\n){4}(.*\n){7}(cycles: 4)')
@@ -122,6 +154,7 @@ class TestADC:
 	def test_ind_x_mode(self):
 		# Place a real address of $0100 at read location $0042 (calculated by 0x32 + X). Store byte 0xFF at real address (hence the padding)
 		results = create(0x0800, 'tests/ADC/ind-x-mode.s', store_data={0x0042:[0x00, 0x01], 0x0100:[0xFF]})
+		print(results)
 
 		expected = r'(.*ADC \(\$32,X\)\n)(A: 0xFF\n)(.*\n){4}(.*\n){7}(cycles: 6)'
 
@@ -130,6 +163,7 @@ class TestADC:
 	def test_ind_y_mode(self):
 		# Place address of $00F0 at read location $0032. Store byte 0xFF at real addresses $00FF and $0100 (calculated by $00F0 + Y)
 		results = create(0x0800, 'tests/ADC/ind-y-mode.s', store_data={0x0032:[0xF0, 0x00], 0x00FF:[0xFF, 0xFF]})
+		print(results)
 
 		expected_results = []
 		expected_results.append(r'(.*ADC \(\$32\),Y\n)(A: 0xFF\n)(.*\n){4}(.*\n){7}(cycles: 5)')

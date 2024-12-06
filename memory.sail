@@ -29,12 +29,28 @@ function write_zp(addr, data) = {
 	write_memory(0x00 @ addr, data);
 }
 
-val read_sp : word -> word
-function read_sp(addr) = {
-	read_memory(0x01 @ addr);
+val push : word -> unit
+function push(data) = {
+	incr_cycles(1);
+
+	write_memory(0x01 @ reg_SP, data);
+
+	if (unsigned(reg_SP) >= 0) then {
+		decr_sp()
+	} else {
+		reg_SP = 0xFF
+	}
 }
 
-val write_sp : (word, word) -> unit
-function write_sp(addr, data) = {
-	write_memory(0x01 @ addr, data);
+val pull : unit -> word
+function pull() = {
+	incr_cycles(1);
+
+	if (unsigned(reg_SP) <= 255) then {
+		incr_sp()
+	} else {
+		reg_SP = 0x00
+	};
+
+	read_memory(0x01 @ reg_SP);
 }
