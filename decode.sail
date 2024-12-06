@@ -50,6 +50,15 @@ function clause decode24(0x39 @ op : address) = {incr_cycles(1); AND_ABS_Y(op[7.
 function clause decode16(0x21 @ op : word)    = {incr_cycles(1); AND_IND_X(op)}
 function clause decode16(0x31 @ op : word)    = {incr_cycles(1); AND_IND_Y(op)}
 
+function clause decode16(0xC9 @ op : word)    = {incr_cycles(1); CMP_IMM(op)}
+function clause decode16(0xC5 @ op : word)    = {incr_cycles(1); CMP_ZP(op)}
+function clause decode16(0xD5 @ op : word)    = {incr_cycles(1); CMP_ZP_X(op)}
+function clause decode24(0xCD @ op : address) = {incr_cycles(1); CMP_ABS(op[7..0] @ op[15..8])}
+function clause decode24(0xDD @ op : address) = {incr_cycles(1); CMP_ABS_X(op[7..0] @ op[15..8])}
+function clause decode24(0xD9 @ op : address) = {incr_cycles(1); CMP_ABS_Y(op[7..0] @ op[15..8])}
+function clause decode16(0xC1 @ op : word)    = {incr_cycles(1); CMP_IND_X(op)}
+function clause decode16(0xD1 @ op : word)    = {incr_cycles(1); CMP_IND_Y(op)}
+
 function clause decode16(0xC0 @ op : word)    = {incr_cycles(1); CPY_IMM(op)}
 function clause decode16(0xC4 @ op : word)    = {incr_cycles(1); CPY_ZP(op)}
 function clause decode24(0xCC @ op : address) = {incr_cycles(1); CPY_ABS(op[7..0] @ op[15..8])}
