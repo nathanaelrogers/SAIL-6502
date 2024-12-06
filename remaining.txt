@@ -1,0 +1,36 @@
+Decrements & Increments
+DEC
+DEX
+DEY
+INC
+INX
+INY
+
+Shift & Rotate Instructions
+ASL
+LSR
+ROL
+ROR
+
+Flag Instructions
+CLI
+CLV
+SEI
+
+Conditional Branch Instructions
+BCC
+BCS
+BEQ
+BMI
+BNE
+BPL
+BVC
+BVS
+
+Interrupts
+BRK
+RTI
+
+Other
+BIT
+NOP

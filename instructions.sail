@@ -69,6 +69,10 @@ union clause ast = EOR_IND_X : (word)
 union clause ast = EOR_IND_Y : (word)
 $include "./instructions/logical/instruction-execute-EOR.sail"
 
+union clause ast = JMP_ABS   : (address)
+union clause ast = JMP_IND   : (address)
+$include "./instructions/subroutine/instruction-execute-JMP.sail"
+
 union clause ast = JSR_ABS   : (address)
 $include "./instructions/subroutine/instruction-execute-JSR.sail"
 

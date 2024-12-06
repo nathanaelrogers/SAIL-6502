@@ -88,6 +88,11 @@ function calc_from_addr_to_addr(addrmode, op) = {
 			incr_cycles(1);
 			let ea = op + EXTZ(16, reg_Y);
 			ea
+		},
+				mode(ind)   => {
+			incr_cycles(2);
+			let ea = read(op + 1) @ read(op);
+			ea
 		}
 	}
 }

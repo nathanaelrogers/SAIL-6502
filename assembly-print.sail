@@ -9,6 +9,7 @@ function make_str(addrmode, name, op) = {
 		mode(abs_y) => concat_str(name, concat_str(op, ",Y")),
 		mode(imm)   => concat_str(name, concat_str("#", op)),
 		mode(imp)   => concat_str(name, ""),
+		mode(ind)   => concat_str(name, concat_str(concat_str("(", op), ")")),
 		mode(ind_x) => concat_str(name, concat_str(concat_str("(", op), ",X)")),
 		mode(ind_y) => concat_str(name, concat_str(concat_str("(", op), "),Y")),
 		mode(zp)    => concat_str(name, op),
@@ -62,6 +63,9 @@ function clause assembly(EOR_ABS_X(op)) = make_str(mode(abs_x), "EOR ", my_hex_s
 function clause assembly(EOR_ABS_Y(op)) = make_str(mode(abs_y), "EOR ", my_hex_str(op))
 function clause assembly(EOR_IND_X(op)) = make_str(mode(ind_x), "EOR ", my_hex_str(op))
 function clause assembly(EOR_IND_Y(op)) = make_str(mode(ind_y), "EOR ", my_hex_str(op))
+
+function clause assembly(JMP_ABS(op))   = make_str(mode(abs),   "JMP ", my_hex_str(op))
+function clause assembly(JMP_IND(op))   = make_str(mode(ind),   "JMP ", my_hex_str(op))
 
 function clause assembly(JSR_ABS(op))   = make_str(mode(abs),   "JSR ", my_hex_str(op))
 
