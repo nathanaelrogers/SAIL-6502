@@ -16,6 +16,9 @@ function write_memory(addr, data) = {
 	main_mem[page_index][word_index] = data
 }
 
+overload read  = {read_memory}
+overload write = {write_memory}
+
 val read_zp : word -> word
 function read_zp(addr) = {
 	read_memory(0x00 @ addr);
@@ -26,15 +29,12 @@ function write_zp(addr, data) = {
 	write_memory(0x00 @ addr, data);
 }
 
-val read_memory_sp : word -> word
-function read_memory_sp(addr) = {
+val read_sp : word -> word
+function read_sp(addr) = {
 	read_memory(0x01 @ addr);
 }
 
-val write_memory_sp : (word, word) -> unit
-function write_memory_sp(addr, data) = {
+val write_sp : (word, word) -> unit
+function write_sp(addr, data) = {
 	write_memory(0x01 @ addr, data);
 }
-
-overload read =  {read_memory}
-overload write = {write_memory}

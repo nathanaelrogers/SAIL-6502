@@ -7,7 +7,7 @@ function modify_flags_ADC(result, decimal_result, accumulator, operand) = {
 		set_flag_n(0b0);
 
 	// overflow
-	if (flag_d() == 0b1) then {
+	if (flag_d() == 0b0) then {
 		if (([accumulator[7]] == [operand[7]]) & ([accumulator[7]] != [result[7]])) then
 			set_flag_v(0b1)
 		else
