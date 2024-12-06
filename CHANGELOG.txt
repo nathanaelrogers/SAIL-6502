@@ -32,3 +32,9 @@
 > TODO begin implementing instructions so it can be run in full
 
 > Implemented JSR/RTS instructions so we can use subroutines
+
+> implemented helper functions for pushing and popping the stack
+
+> set SP register to initialize to 0xFF in main
+
+> implemented flag instructions for setting/clearing the C/D flags (support BCD mode testing)

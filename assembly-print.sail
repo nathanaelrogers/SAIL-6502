@@ -34,6 +34,9 @@ function clause assembly(AND_ABS_Y(op)) = make_str(mode(abs_y), "AND ", my_hex_s
 function clause assembly(AND_IND_X(op)) = make_str(mode(ind_x), "AND ", my_hex_str(op))
 function clause assembly(AND_IND_Y(op)) = make_str(mode(ind_y), "AND ", my_hex_str(op))
 
+function clause assembly(CLC_IMP())     = make_str(mode(imp),   "CLC ", "")
+function clause assembly(CLD_IMP())     = make_str(mode(imp),   "CLD ", "")
+
 function clause assembly(EOR_IMM(op))   = make_str(mode(imm),   "EOR ", my_hex_str(op))
 function clause assembly(EOR_ZP(op))    = make_str(mode(zp),    "EOR ", my_hex_str(op))
 function clause assembly(EOR_ZP_X(op))  = make_str(mode(zp_x),  "EOR ", my_hex_str(op))
@@ -85,6 +88,9 @@ function clause assembly(SBC_ABS_X(op)) = make_str(mode(abs_x), "SBC ", my_hex_s
 function clause assembly(SBC_ABS_Y(op)) = make_str(mode(abs_y), "SBC ", my_hex_str(op))
 function clause assembly(SBC_IND_X(op)) = make_str(mode(ind_x), "SBC ", my_hex_str(op))
 function clause assembly(SBC_IND_Y(op)) = make_str(mode(ind_y), "SBC ", my_hex_str(op))
+
+function clause assembly(SEC_IMP())     = make_str(mode(imp),   "SEC ", "")
+function clause assembly(SED_IMP())     = make_str(mode(imp),   "SED ", "")
 
 function clause assembly(STA_ZP(op))    = make_str(mode(zp),    "STA ", my_hex_str(op))
 function clause assembly(STA_ZP_X(op))  = make_str(mode(zp_x),  "STA ", my_hex_str(op))

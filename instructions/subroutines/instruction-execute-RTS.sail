@@ -11,6 +11,4 @@ function RTS() = {
 	true
 }
 
-function clause execute(RTS_IMP()) = {
-	RTS()
-}
+function clause execute(RTS_IMP()) = RTS()

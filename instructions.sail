@@ -34,6 +34,11 @@ union clause ast = AND_IND_X : (word)
 union clause ast = AND_IND_Y : (word)
 $include "./instructions/logical/instruction-execute-AND.sail"
 
+union clause ast = CLC_IMP   : (unit)
+union clause ast = CLD_IMP   : (unit)
+$include "./instructions/flags/instruction-execute-CLC.sail"
+$include "./instructions/flags/instruction-execute-CLD.sail"
+
 union clause ast = EOR_IMM   : (word)
 union clause ast = EOR_ZP    : (word)
 union clause ast = EOR_ZP_X  : (word)
@@ -93,6 +98,11 @@ union clause ast = SBC_ABS_Y : (address)
 union clause ast = SBC_IND_X : (word)
 union clause ast = SBC_IND_Y : (word)
 $include "./instructions/arithmetic/instruction-execute-SBC.sail"
+
+union clause ast = SEC_IMP   : (unit)
+union clause ast = SED_IMP   : (unit)
+$include "./instructions/flags/instruction-execute-SEC.sail"
+$include "./instructions/flags/instruction-execute-SED.sail"
 
 union clause ast = STA_ZP    : (word)
 union clause ast = STA_ZP_X  : (word)
