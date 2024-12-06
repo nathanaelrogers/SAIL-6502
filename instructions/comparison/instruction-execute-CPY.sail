@@ -23,7 +23,6 @@ val CPY : (word) -> bool
 function CPY(op) = {
 	let result : bits(9) = EXTZ(9, reg_Y) + (EXTZ(9, not_vec(op)) + EXTZ(9, 0b1));
 	modify_flags_CPY(result);
-	reg_A = result[7..0];
 	true
 }
 
