@@ -89,7 +89,7 @@ function calc_from_addr_to_addr(addrmode, op) = {
 			let ea = op + EXTZ(16, reg_Y);
 			ea
 		},
-				mode(ind)   => {
+		mode(ind)   => {
 			incr_cycles(2);
 			let ea = read(op + 1) @ read(op);
 			ea
