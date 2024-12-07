@@ -48,7 +48,7 @@ function fetch_decode_execute(last_execute) : bool -> unit = {
 	let last_execute = execute(decoded);
 	if (last_execute) then instructions_done = instructions_done + 1;
 
-	print_endline(concat_str("\ncompleted: ", asm));
+	print_endline(concat_str("\n", concat_str(bits_str(PC), concat_str(" ", asm))));
 	let state = print_state(cycles - cycles_before);
 
 	if (last_execute) then fetch_decode_execute(true);

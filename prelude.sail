@@ -16,6 +16,7 @@ overload operator >>> = {sail_arith_shiftright}
 overload operator ^   = {xor_vec}
 overload operator /   = {fdiv_int}
 overload operator %   = {fmod_int}
+overload operator -   = {sub_bits}
 
 
 /* some functions for converting hex numbers into the $-prefix string style of 6502 assembly language */

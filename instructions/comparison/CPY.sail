@@ -19,9 +19,10 @@ function modify_flags_CPY(result) = {
 		set_flag_c(0b0)
 }
 
+// THERE IS A BUG HERE...
 val CPY : (word) -> bool
 function CPY(op) = {
-	let result : bits(9) = EXTZ(9, reg_Y) + (EXTZ(9, not_vec(op)) + EXTZ(9, 0b1));
+	let result : bits(9) = EXTZ(9, reg_Y) - EXTZ(9, op);
 	modify_flags_CPY(result);
 	true
 }
