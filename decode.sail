@@ -4,6 +4,7 @@ function clause decode08(0x18) = {incr_cycles(1); CLC_IMP()}
 function clause decode08(0xD8) = {incr_cycles(1); CLD_IMP()}
 
 function clause decode08(0xE8) = {incr_cycles(1); INX_IMP()}
+function clause decode08(0xC8) = {incr_cycles(1); INY_IMP()}
 
 function clause decode08(0x48) = {incr_cycles(1); PHA_IMP()}
 function clause decode08(0x08) = {incr_cycles(1); PHP_IMP()}

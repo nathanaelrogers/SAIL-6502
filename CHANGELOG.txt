@@ -47,4 +47,4 @@
 > implemented conditional branch instructions
 > flattened branch instruction implementation into a single file
 
-> implemented INX, INC
+> implemented INX, INC, INY, DEY

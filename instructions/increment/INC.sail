@@ -16,16 +16,20 @@ function modify_flags_INC(result) = {
 val INC_word : (word) -> bool
 function INC_word(op) = {
 	let result = read_zp(op) + 1;
+
 	modify_flags_INC(result);
 	write_zp(op, result);
+
 	true
 }
 
 val INC_addr : (address) -> bool
 function INC_addr(op) = {
 	let result = read(op) + 1;
+
 	modify_flags_INC(result);
 	write(op, result);
+
 	true
 }
 

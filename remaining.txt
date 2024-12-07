@@ -2,8 +2,6 @@ Decrements & Increments
 DEC
 DEX
 DEY
-INC
-INY
 
 Shift & Rotate Instructions
 ASL

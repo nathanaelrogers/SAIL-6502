@@ -79,6 +79,7 @@ function clause assembly(INC_ABS(op))   = make_str(mode(abs),   "INC ", my_hex_s
 function clause assembly(INC_ABS_X(op)) = make_str(mode(abs_x), "INC ", my_hex_str(op))
 
 function clause assembly(INX_IMP())     = "INX"
+function clause assembly(INY_IMP())     = "INY"
 
 function clause assembly(JMP_ABS(op))   = make_str(mode(abs),   "JMP ", my_hex_str(op))
 function clause assembly(JMP_IND(op))   = make_str(mode(ind),   "JMP ", my_hex_str(op))

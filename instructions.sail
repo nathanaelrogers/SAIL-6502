@@ -87,6 +87,8 @@ $include "./instructions/increment/INC.sail"
 
 union clause ast = INX_IMP   : (unit)
 $include "./instructions/increment/INX.sail"
+union clause ast = INY_IMP   : (unit)
+$include "./instructions/increment/INY.sail"
 
 union clause ast = JMP_ABS   : (address)
 union clause ast = JMP_IND   : (address)
