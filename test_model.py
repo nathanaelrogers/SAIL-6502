@@ -91,6 +91,27 @@ class TestBCD:
 
 		assert re.search(expected, results)
 
+	# def test_bcd_full_against_mwerk(self):
+	# 	results = create(0x0000, 'tests/BCD/all.s', view_memory=[0x0FFF])
+	# 	# print(results)
+		
+	# 	# groups: 1=PC, 2=mnemonic, 3=A, 4=X, 5=Y, 6=SP, 7..12=nvdizc, 13=cycles for instruction
+	# 	result_extract_pattern = r'0x(\w{4}) ([\w\s$#]*)\nA: 0x(\w{2})\nX: 0x(\w{2})\nY: 0x(\w{2})\nSP: 0x(\w{2})\n.*\nn: 0b(\d)\nv: 0b(\d)\n.*\nd: 0b(\d)\ni: 0b(\d)\nz: 0b(\d)\nc: 0b(\d)\ncycles: (\d).*'
+	# 	result_values = []
+	# 	for result in results.split('\n\n'):
+	# 		result_values.append(re.match(result_extract_pattern, result))
+
+	# 	with open('tests/BCD/all-mwerk-results.txt') as file:
+	# 		samples = file.readlines()
+
+	# 	# groups: 1=PC, 2=mnemonic, 3=A, 4=X, 5=Y, 6=SP, 7..12=nvdizc, 13=cycles for instruction
+	# 	sample_extract_pattern = r'(\w{4})\s(?:\w{2}\s\w{2})\s*(\w*\s[\w#$]*)\s*\|(\w{2})\s(\w{2})\s(\w{2})\s(\w{2})\|(\d)(\d)(\d)(\d)(\d)(\d)\|(\d{1})'
+	# 	sample_values = []
+	# 	for sample in samples:
+	# 		sample_values.append(re.match(sample_extract_pattern, sample))
+
+	# 	assert False
+
 class TestSubroutine:
 	def test_jsr_then_rts(self):
 		results = create(0x0800, 'tests/subroutines/jsr-then-rts.s')

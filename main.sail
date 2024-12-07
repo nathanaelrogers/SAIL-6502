@@ -66,7 +66,13 @@ function setup() : unit -> unit = {
 	reg_A  = undefined;
 	reg_X  = undefined;
 	reg_Y  = undefined;
-	reg_SR = undefined;
+	reg_SR[n] = undefined;
+	reg_SR[v] = undefined;
+	reg_SR[b] = undefined;
+	reg_SR[d] = undefined;
+	reg_SR[i] = 0b1;
+	reg_SR[z] = undefined;
+	reg_SR[c] = undefined;
 	reg_SP = 0xFF;
 }
 
