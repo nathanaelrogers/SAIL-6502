@@ -49,6 +49,9 @@ function calc_word(addrmode, op) = {
 		mode(zp_y)  => {
 			incr_cycles(2);
 			op + reg_Y
+		},
+		mode(rel) => {
+			op
 		}
 	}
 }

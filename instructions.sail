@@ -34,6 +34,9 @@ union clause ast = AND_IND_X : (word)
 union clause ast = AND_IND_Y : (word)
 $include "./instructions/logical/instruction-execute-AND.sail"
 
+union clause ast = BCC_REL   : (word)
+$include "./instructions/branch/instruction-execute-BCC.sail"
+
 union clause ast = CLC_IMP   : (unit)
 union clause ast = CLD_IMP   : (unit)
 $include "./instructions/flag/instruction-execute-CLC.sail"

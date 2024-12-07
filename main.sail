@@ -40,7 +40,7 @@ function fetch_decode_execute(last_execute) : bool -> unit = {
 	let PC : address = reg_PC[15..8] @ reg_PC[7..0];
 	let instruction = read(PC);
 
-	incr_pc();
+	incr_pc(1);
 
 	let decoded = decode(instruction);
 	let asm = assembly(decoded);
@@ -48,7 +48,7 @@ function fetch_decode_execute(last_execute) : bool -> unit = {
 	let last_execute = execute(decoded);
 	if (last_execute) then instructions_done = instructions_done + 1;
 
-	print_endline(concat_str("\nfetch done: ", asm));
+	print_endline(concat_str("\ncompleted: ", asm));
 	let state = print_state(cycles - cycles_before);
 
 	if (last_execute) then fetch_decode_execute(true);

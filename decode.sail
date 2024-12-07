@@ -24,7 +24,7 @@ function clause decode08(0x98)  = {incr_cycles(1); TYA_IMP()}
 function clause decode08(this) = {
 	let PC : address = reg_PC[15..8] @ reg_PC[7..0];
 	let next_byte : word = read(PC);
-	incr_pc();
+	incr_pc(1);
 	incr_cycles(1);
 
 	decode16(EXTZ(this) << 8 | EXTZ(next_byte));
@@ -49,6 +49,8 @@ function clause decode24(0x3D @ op : address) = {incr_cycles(1); AND_ABS_X(op[7.
 function clause decode24(0x39 @ op : address) = {incr_cycles(1); AND_ABS_Y(op[7..0] @ op[15..8])}
 function clause decode16(0x21 @ op : word)    = {incr_cycles(1); AND_IND_X(op)}
 function clause decode16(0x31 @ op : word)    = {incr_cycles(1); AND_IND_Y(op)}
+
+function clause decode16(0x90 @ op : word)    = {incr_cycles(1); BCC_REL(op)}
 
 function clause decode16(0xC9 @ op : word)    = {incr_cycles(1); CMP_IMM(op)}
 function clause decode16(0xC5 @ op : word)    = {incr_cycles(1); CMP_ZP(op)}
@@ -141,7 +143,7 @@ function clause decode16(this) = {
 	incr_cycles(1);
 	let PC : address = reg_PC[15..8] @ reg_PC[7..0];
 	let next_byte : word = read(PC);
-	incr_pc();
+	incr_pc(1);
 
 	decode24(EXTZ(this) << 8 | EXTZ(next_byte));
 }

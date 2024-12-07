@@ -8,6 +8,7 @@ function make_str(addrmode, name, op) = {
 		mode(abs_x) => concat_str(name, concat_str(op, ",X")),
 		mode(abs_y) => concat_str(name, concat_str(op, ",Y")),
 		mode(imm)   => concat_str(name, concat_str("#", op)),
+		mode(rel)   => concat_str(name, op),
 		mode(imp)   => concat_str(name, ""),
 		mode(ind)   => concat_str(name, concat_str(concat_str("(", op), ")")),
 		mode(ind_x) => concat_str(name, concat_str(concat_str("(", op), ",X)")),
@@ -34,6 +35,8 @@ function clause assembly(AND_ABS_X(op)) = make_str(mode(abs_x), "AND ", my_hex_s
 function clause assembly(AND_ABS_Y(op)) = make_str(mode(abs_y), "AND ", my_hex_str(op))
 function clause assembly(AND_IND_X(op)) = make_str(mode(ind_x), "AND ", my_hex_str(op))
 function clause assembly(AND_IND_Y(op)) = make_str(mode(ind_y), "AND ", my_hex_str(op))
+
+function clause assembly(BCC_REL(op))   = make_str(mode(rel),   "BCC ", my_hex_str(op))
 
 function clause assembly(CLC_IMP())     = make_str(mode(imp),   "CLC ", "")
 function clause assembly(CLD_IMP())     = make_str(mode(imp),   "CLD ", "")

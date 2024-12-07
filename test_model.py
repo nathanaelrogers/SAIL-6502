@@ -64,6 +64,24 @@ def create(start_address, source_file, store_data={}, generate_binary=True, view
 	# Get the results
 	return result.stdout.decode('UTF-8')
 
+class TestBranch:
+	def test_bcc(self):
+		results = create(0x0800, 'tests/branch/bcc.s')
+		print(results)
+
+		expected_results = []
+		expected_results.append(r'(.*ADC #\$42\n)(A: 0x42)')
+		expected_results.append(r'(.*ADC #\$FF\n)(A: 0x41\n)(.*\n){4}(n: 0b0\n)(v: 0b0\n)(.*\n){3}(z: 0b0\n)(c: 0b1\n)')
+
+		banned_results = []
+		banned_results.append(r'(.*SBC #\$41\n)(A: 0x00)')
+
+		for expected in expected_results:
+			assert re.search(expected, results)
+
+		for banned in banned_results:
+			assert not re.search(banned, results)
+
 class TestBCD:
 	def test_bcd_full(self):
 		results = create(0x0800, 'tests/BCD/full.s', view_memory=[0x00FF])

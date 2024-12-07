@@ -6,7 +6,7 @@ function RTS() = {
 	let PCH = pull();
 
 	reg_PC = PCH @ PCL;
-	incr_pc();
+	incr_pc(1);
 
 	true
 }

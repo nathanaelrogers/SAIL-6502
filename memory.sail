@@ -36,7 +36,7 @@ function push(data) = {
 	write_memory(0x01 @ reg_SP, data);
 
 	if (unsigned(reg_SP) >= 0) then {
-		decr_sp()
+		incr_sp(-1)
 	} else {
 		reg_SP = 0xFF
 	}
@@ -47,7 +47,7 @@ function pull() = {
 	incr_cycles(1);
 
 	if (unsigned(reg_SP) <= 255) then {
-		incr_sp()
+		incr_sp(1)
 	} else {
 		reg_SP = 0x00
 	};
