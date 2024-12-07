@@ -79,6 +79,12 @@ union clause ast = EOR_IND_X : (word)
 union clause ast = EOR_IND_Y : (word)
 $include "./instructions/logical/EOR.sail"
 
+union clause ast = INC_ZP    : (word)
+union clause ast = INC_ZP_X  : (word)
+union clause ast = INC_ABS   : (address)
+union clause ast = INC_ABS_X : (address)
+$include "./instructions/increment/INC.sail"
+
 union clause ast = INX_IMP   : (unit)
 $include "./instructions/increment/INX.sail"
 

@@ -84,7 +84,7 @@ class TestBranch:
 
 class TestBCD:
 	def test_bcd_full(self):
-		results = create(0x0800, 'tests/BCD/full.s', view_memory=[0x00FF])
+		results = create(0x0800, 'tests/BCD/all.s', view_memory=[0x0FFF])
 		print(results)
 
 		expected = r'.*access\(main_mem, 0\), 255\)\nResult = 0x00'

@@ -87,6 +87,11 @@ function clause decode24(0x59 @ op : address) = {incr_cycles(1); EOR_ABS_Y(op[7.
 function clause decode16(0x41 @ op : word)    = {incr_cycles(1); EOR_IND_X(op)}
 function clause decode16(0x51 @ op : word)    = {incr_cycles(1); EOR_IND_Y(op)}
 
+function clause decode16(0xE6 @ op : word)    = {incr_cycles(1); INC_ZP(op)}
+function clause decode16(0xF6 @ op : word)    = {incr_cycles(1); INC_ZP_X(op)}
+function clause decode24(0xEE @ op : address) = {incr_cycles(1); INC_ABS(op[7..0] @ op[15..8])}
+function clause decode24(0xFE @ op : address) = {incr_cycles(1); INC_ABS_X(op[7..0] @ op[15..8])}
+
 function clause decode24(0x4C @ op : address) = {incr_cycles(0); JMP_ABS(op[7..0] @ op[15..8])}
 function clause decode24(0x6C @ op : address) = {incr_cycles(1); JMP_IND(op[7..0] @ op[15..8])}
 

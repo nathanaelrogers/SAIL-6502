@@ -45,3 +45,6 @@
 
 07/12/2024:
 > implemented conditional branch instructions
+> flattened branch instruction implementation into a single file
+
+> implemented INX, INC

@@ -73,6 +73,11 @@ function clause assembly(EOR_ABS_Y(op)) = make_str(mode(abs_y), "EOR ", my_hex_s
 function clause assembly(EOR_IND_X(op)) = make_str(mode(ind_x), "EOR ", my_hex_str(op))
 function clause assembly(EOR_IND_Y(op)) = make_str(mode(ind_y), "EOR ", my_hex_str(op))
 
+function clause assembly(INC_ZP(op))    = make_str(mode(zp),    "INC ", my_hex_str(op))
+function clause assembly(INC_ZP_X(op))  = make_str(mode(zp_x),  "INC ", my_hex_str(op))
+function clause assembly(INC_ABS(op))   = make_str(mode(abs),   "INC ", my_hex_str(op))
+function clause assembly(INC_ABS_X(op)) = make_str(mode(abs_x), "INC ", my_hex_str(op))
+
 function clause assembly(INX_IMP())     = "INX"
 
 function clause assembly(JMP_ABS(op))   = make_str(mode(abs),   "JMP ", my_hex_str(op))

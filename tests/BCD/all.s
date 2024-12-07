@@ -23,22 +23,22 @@
 ;
 
 ; added these lines to define variables. -NR 06/12/24
-AR    = $0000
-CF    = $0001
-DA    = $0002
-DNVZC = $0003
-HA    = $0004
-HNVZC = $0005
-N1    = $0006
-N1H   = $0007
-N1L   = $0008
-N2    = $0009
-N2L   = $000A
-NF    = $000B
-VF    = $000C
-ZF    = $000D
-N2H   = $000E
-ERROR = $00FF
+AR    = $0F00
+CF    = $0F01
+DA    = $0F02
+DNVZC = $0F03
+HA    = $0F04
+HNVZC = $0F05
+N1    = $0F06
+N1H   = $0F07
+N1L   = $0F08
+N2    = $0F09
+N2L   = $0F0A
+NF    = $0F0B
+VF    = $0F0C
+ZF    = $0F0D
+N2H   = $0F0E
+ERROR = $0FFF
 
 TEST    LDY #1    ; initialize Y (used to loop through carry flag values)
         STY ERROR ; store 1 in ERROR until the test passes
