@@ -42,14 +42,7 @@ union clause ast = BNE_REL   : (word)
 union clause ast = BPL_REL   : (word)
 union clause ast = BVC_REL   : (word)
 union clause ast = BVS_REL   : (word)
-$include "./instructions/branch/BCC.sail"
-$include "./instructions/branch/BCS.sail"
-$include "./instructions/branch/BEQ.sail"
-$include "./instructions/branch/BMI.sail"
-$include "./instructions/branch/BNE.sail"
-$include "./instructions/branch/BPL.sail"
-$include "./instructions/branch/BVC.sail"
-$include "./instructions/branch/BVS.sail"
+$include "./instructions/branch.sail"
 
 union clause ast = CLC_IMP   : (unit)
 union clause ast = CLD_IMP   : (unit)
