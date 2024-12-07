@@ -9,7 +9,6 @@ function make_str(addrmode, name, op) = {
 		mode(abs_y) => concat_str(name, concat_str(op, ",Y")),
 		mode(imm)   => concat_str(name, concat_str("#", op)),
 		mode(rel)   => concat_str(name, op),
-		mode(imp)   => concat_str(name, ""),
 		mode(ind)   => concat_str(name, concat_str(concat_str("(", op), ")")),
 		mode(ind_x) => concat_str(name, concat_str(concat_str("(", op), ",X)")),
 		mode(ind_y) => concat_str(name, concat_str(concat_str("(", op), "),Y")),
@@ -42,11 +41,11 @@ function clause assembly(BEQ_REL(op))   = make_str(mode(rel),   "BEQ ", my_hex_s
 function clause assembly(BMI_REL(op))   = make_str(mode(rel),   "BMI ", my_hex_str(op))
 function clause assembly(BNE_REL(op))   = make_str(mode(rel),   "BNE ", my_hex_str(op))
 function clause assembly(BPL_REL(op))   = make_str(mode(rel),   "BPL ", my_hex_str(op))
-function clause assembly(BVC_REL(op))   = make_str(mode(rel),   "BVC", my_hex_str(op))
+function clause assembly(BVC_REL(op))   = make_str(mode(rel),   "BVC ", my_hex_str(op))
 function clause assembly(BVS_REL(op))   = make_str(mode(rel),   "BVS ", my_hex_str(op))
 
-function clause assembly(CLC_IMP())     = make_str(mode(imp),   "CLC ", "")
-function clause assembly(CLD_IMP())     = make_str(mode(imp),   "CLD ", "")
+function clause assembly(CLC_IMP())     = "CLC"
+function clause assembly(CLD_IMP())     = "CLD"
 
 function clause assembly(CMP_IMM(op))   = make_str(mode(imm),   "CMP ", my_hex_str(op))
 function clause assembly(CMP_ZP(op))    = make_str(mode(zp),    "CMP ", my_hex_str(op))
@@ -73,6 +72,8 @@ function clause assembly(EOR_ABS_X(op)) = make_str(mode(abs_x), "EOR ", my_hex_s
 function clause assembly(EOR_ABS_Y(op)) = make_str(mode(abs_y), "EOR ", my_hex_str(op))
 function clause assembly(EOR_IND_X(op)) = make_str(mode(ind_x), "EOR ", my_hex_str(op))
 function clause assembly(EOR_IND_Y(op)) = make_str(mode(ind_y), "EOR ", my_hex_str(op))
+
+function clause assembly(INX_IMP())     = "INX"
 
 function clause assembly(JMP_ABS(op))   = make_str(mode(abs),   "JMP ", my_hex_str(op))
 function clause assembly(JMP_IND(op))   = make_str(mode(ind),   "JMP ", my_hex_str(op))
@@ -109,12 +110,12 @@ function clause assembly(ORA_ABS_Y(op)) = make_str(mode(abs_y), "ORA ", my_hex_s
 function clause assembly(ORA_IND_X(op)) = make_str(mode(ind_x), "ORA ", my_hex_str(op))
 function clause assembly(ORA_IND_Y(op)) = make_str(mode(ind_y), "ORA ", my_hex_str(op))
 
-function clause assembly(PHA_IMP())     = make_str(mode(imp),   "PHA ", "")
-function clause assembly(PHP_IMP())     = make_str(mode(imp),   "PHP ", "")
-function clause assembly(PLA_IMP())     = make_str(mode(imp),   "PLA ", "")
-function clause assembly(PLP_IMP())     = make_str(mode(imp),   "PLP ", "")
+function clause assembly(PHA_IMP())     = "PHA"
+function clause assembly(PHP_IMP())     = "PHP"
+function clause assembly(PLA_IMP())     = "PLA"
+function clause assembly(PLP_IMP())     = "PLP"
 
-function clause assembly(RTS_IMP())     = make_str(mode(imp),   "RTS" , "")
+function clause assembly(RTS_IMP())     = "RTS"
 
 function clause assembly(SBC_IMM(op))   = make_str(mode(imm),   "SBC ", my_hex_str(op))
 function clause assembly(SBC_ZP(op))    = make_str(mode(zp),    "SBC ", my_hex_str(op))
@@ -125,9 +126,8 @@ function clause assembly(SBC_ABS_Y(op)) = make_str(mode(abs_y), "SBC ", my_hex_s
 function clause assembly(SBC_IND_X(op)) = make_str(mode(ind_x), "SBC ", my_hex_str(op))
 function clause assembly(SBC_IND_Y(op)) = make_str(mode(ind_y), "SBC ", my_hex_str(op))
 
-function clause assembly(SEC_IMP())     = make_str(mode(imp),   "SEC ", "")
-function clause assembly(SED_IMP())     = make_str(mode(imp),   "SED ", "")
-
+function clause assembly(SEC_IMP())     = "SEC"
+function clause assembly(SED_IMP())     = "SED"
 function clause assembly(STA_ZP(op))    = make_str(mode(zp),    "STA ", my_hex_str(op))
 function clause assembly(STA_ZP_X(op))  = make_str(mode(zp_x),  "STA ", my_hex_str(op))
 function clause assembly(STA_ABS(op))   = make_str(mode(abs),   "STA ", my_hex_str(op))
