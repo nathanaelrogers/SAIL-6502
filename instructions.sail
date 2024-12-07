@@ -35,7 +35,21 @@ union clause ast = AND_IND_Y : (word)
 $include "./instructions/logical/instruction-execute-AND.sail"
 
 union clause ast = BCC_REL   : (word)
+union clause ast = BCS_REL   : (word)
+union clause ast = BEQ_REL   : (word)
+union clause ast = BMI_REL   : (word)
+union clause ast = BNE_REL   : (word)
+union clause ast = BPL_REL   : (word)
+union clause ast = BVC_REL   : (word)
+union clause ast = BVS_REL   : (word)
 $include "./instructions/branch/instruction-execute-BCC.sail"
+$include "./instructions/branch/instruction-execute-BCS.sail"
+$include "./instructions/branch/instruction-execute-BEQ.sail"
+$include "./instructions/branch/instruction-execute-BMI.sail"
+$include "./instructions/branch/instruction-execute-BNE.sail"
+$include "./instructions/branch/instruction-execute-BPL.sail"
+$include "./instructions/branch/instruction-execute-BVC.sail"
+$include "./instructions/branch/instruction-execute-BVS.sail"
 
 union clause ast = CLC_IMP   : (unit)
 union clause ast = CLD_IMP   : (unit)

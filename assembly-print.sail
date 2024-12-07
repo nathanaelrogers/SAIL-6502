@@ -37,6 +37,13 @@ function clause assembly(AND_IND_X(op)) = make_str(mode(ind_x), "AND ", my_hex_s
 function clause assembly(AND_IND_Y(op)) = make_str(mode(ind_y), "AND ", my_hex_str(op))
 
 function clause assembly(BCC_REL(op))   = make_str(mode(rel),   "BCC ", my_hex_str(op))
+function clause assembly(BCS_REL(op))   = make_str(mode(rel),   "BCS ", my_hex_str(op))
+function clause assembly(BEQ_REL(op))   = make_str(mode(rel),   "BEQ ", my_hex_str(op))
+function clause assembly(BMI_REL(op))   = make_str(mode(rel),   "BMI ", my_hex_str(op))
+function clause assembly(BNE_REL(op))   = make_str(mode(rel),   "BNE ", my_hex_str(op))
+function clause assembly(BPL_REL(op))   = make_str(mode(rel),   "BPL ", my_hex_str(op))
+function clause assembly(BVC_REL(op))   = make_str(mode(rel),   "BVC", my_hex_str(op))
+function clause assembly(BVS_REL(op))   = make_str(mode(rel),   "BVS ", my_hex_str(op))
 
 function clause assembly(CLC_IMP())     = make_str(mode(imp),   "CLC ", "")
 function clause assembly(CLD_IMP())     = make_str(mode(imp),   "CLD ", "")

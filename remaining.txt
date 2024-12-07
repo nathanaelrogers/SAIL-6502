@@ -17,16 +17,6 @@ CLI
 CLV
 SEI
 
-Conditional Branch Instructions
-BCC
-BCS
-BEQ
-BMI
-BNE
-BPL
-BVC
-BVS
-
 Interrupts
 BRK
 RTI

@@ -51,6 +51,13 @@ function clause decode16(0x21 @ op : word)    = {incr_cycles(1); AND_IND_X(op)}
 function clause decode16(0x31 @ op : word)    = {incr_cycles(1); AND_IND_Y(op)}
 
 function clause decode16(0x90 @ op : word)    = {incr_cycles(1); BCC_REL(op)}
+function clause decode16(0xB0 @ op : word)    = {incr_cycles(1); BCS_REL(op)}
+function clause decode16(0xF0 @ op : word)    = {incr_cycles(1); BEQ_REL(op)}
+function clause decode16(0x30 @ op : word)    = {incr_cycles(1); BMI_REL(op)}
+function clause decode16(0xD0 @ op : word)    = {incr_cycles(1); BNE_REL(op)}
+function clause decode16(0x10 @ op : word)    = {incr_cycles(1); BPL_REL(op)}
+function clause decode16(0x50 @ op : word)    = {incr_cycles(1); BVC_REL(op)}
+function clause decode16(0x70 @ op : word)    = {incr_cycles(1); BVS_REL(op)}
 
 function clause decode16(0xC9 @ op : word)    = {incr_cycles(1); CMP_IMM(op)}
 function clause decode16(0xC5 @ op : word)    = {incr_cycles(1); CMP_ZP(op)}
