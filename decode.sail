@@ -3,6 +3,9 @@
 function clause decode08(0x18) = {incr_cycles(1); CLC_IMP()}
 function clause decode08(0xD8) = {incr_cycles(1); CLD_IMP()}
 
+function clause decode08(0xCA) = {incr_cycles(1); DEX_IMP()}
+function clause decode08(0x88) = {incr_cycles(1); DEY_IMP()}
+
 function clause decode08(0xE8) = {incr_cycles(1); INX_IMP()}
 function clause decode08(0xC8) = {incr_cycles(1); INY_IMP()}
 

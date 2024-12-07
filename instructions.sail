@@ -69,6 +69,11 @@ union clause ast = CPX_ZP    : (word)
 union clause ast = CPX_ABS   : (address)
 $include "./instructions/comparison/CPX.sail"
 
+union clause ast = DEX_IMP   : (unit)
+union clause ast = DEY_IMP   : (unit)
+$include "./instructions/increment/DEX.sail"
+$include "./instructions/increment/DEY.sail"
+
 union clause ast = EOR_IMM   : (word)
 union clause ast = EOR_ZP    : (word)
 union clause ast = EOR_ZP_X  : (word)
@@ -86,8 +91,8 @@ union clause ast = INC_ABS_X : (address)
 $include "./instructions/increment/INC.sail"
 
 union clause ast = INX_IMP   : (unit)
-$include "./instructions/increment/INX.sail"
 union clause ast = INY_IMP   : (unit)
+$include "./instructions/increment/INX.sail"
 $include "./instructions/increment/INY.sail"
 
 union clause ast = JMP_ABS   : (address)

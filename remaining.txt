@@ -1,7 +1,5 @@
 Decrements & Increments
 DEC
-DEX
-DEY
 
 Shift & Rotate Instructions
 ASL
