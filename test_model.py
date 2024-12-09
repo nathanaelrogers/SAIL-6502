@@ -2,6 +2,8 @@ import subprocess
 import os
 import re
 
+RESULT_PATTERN = r'A: (0x\d\d)\n(?:.*\n){4}n: (0b\d)\nv: (0b\d)\n(?:.*\n){3}z: (0b\d)\nc: (0b\d)\ncycles: (\d+)\n(?:.*\n){4}.*'
+
 def create(start_address, source_file, store_data={}, generate_binary=True, view_memory=[]):
 	# Create hi and lo bytes from the start address passed in
 	address_hi_byte = start_address >> 8
@@ -69,48 +71,28 @@ class TestBranch:
 		results = create(0x0800, 'tests/branch/bcc.s')
 		print(results)
 
-		expected_results = []
-		expected_results.append(r'(.*ADC #\$42\n)(A: 0x42)')
-		expected_results.append(r'(.*ADC #\$FF\n)(A: 0x41\n)(.*\n){4}(n: 0b0\n)(v: 0b0\n)(.*\n){3}(z: 0b0\n)(c: 0b1\n)')
+		result = re.search(RESULT_PATTERN + '2', results)
+		assert result
+		assert int(result.group(1), 16) == 0x42
+		assert int(result.group(5), 2) == 0b0
 
-		banned_results = []
-		banned_results.append(r'(.*SBC #\$41\n)(A: 0x00)')
+		result = re.search(RESULT_PATTERN + '3', results)
+		assert result
+		assert int(result.group(1), 16) == 0x41
+		assert int(result.group(5), 2) == 0b1
 
-		for expected in expected_results:
-			assert re.search(expected, results)
-
-		for banned in banned_results:
-			assert not re.search(banned, results)
+		result = re.search(RESULT_PATTERN + '4', results)
+		assert result
+		assert int(result.group(1), 16) == 0x41
 
 class TestBCD:
 	def test_bcd_full(self):
 		results = create(0x0800, 'tests/BCD/all.s', view_memory=[0x00FF])
 		print(results)
 
-		expected = r'.*access\(main_mem, 0\), 255\)\nResult = 0x00'
-
-		assert re.search(expected, results)
-
-	# def test_bcd_full_against_mwerk(self):
-	# 	results = create(0x0000, 'tests/BCD/all.s', view_memory=[0x0FFF])
-	# 	# print(results)
-		
-	# 	# groups: 1=PC, 2=mnemonic, 3=A, 4=X, 5=Y, 6=SP, 7..12=nvdizc, 13=cycles for instruction
-	# 	result_extract_pattern = r'0x(\w{4}) ([\w\s$#]*)\nA: 0x(\w{2})\nX: 0x(\w{2})\nY: 0x(\w{2})\nSP: 0x(\w{2})\n.*\nn: 0b(\d)\nv: 0b(\d)\n.*\nd: 0b(\d)\ni: 0b(\d)\nz: 0b(\d)\nc: 0b(\d)\ncycles: (\d).*'
-	# 	result_values = []
-	# 	for result in results.split('\n\n'):
-	# 		result_values.append(re.match(result_extract_pattern, result))
-
-	# 	with open('tests/BCD/all-mwerk-results.txt') as file:
-	# 		samples = file.readlines()
-
-	# 	# groups: 1=PC, 2=mnemonic, 3=A, 4=X, 5=Y, 6=SP, 7..12=nvdizc, 13=cycles for instruction
-	# 	sample_extract_pattern = r'(\w{4})\s(?:\w{2}\s\w{2})\s*(\w*\s[\w#$]*)\s*\|(\w{2})\s(\w{2})\s(\w{2})\s(\w{2})\|(\d)(\d)(\d)(\d)(\d)(\d)\|(\d{1})'
-	# 	sample_values = []
-	# 	for sample in samples:
-	# 		sample_values.append(re.match(sample_extract_pattern, sample))
-
-	# 	assert False
+		result  = re.search(r'.*access\(main_mem, 0\), 255\)\nResult = (0x\d\d)', results)
+		assert result
+		assert int(result.group(1), 16) == 0x00
 
 class TestSubroutine:
 	def test_jsr_then_rts(self):
@@ -125,88 +107,125 @@ class TestADC:
 		results = create(0x0800, 'tests/ADC/flags-normal.s')
 		print(results)
 
-		expected_results = []
-		expected_results.append(r'(.*ADC #\$42\n)(A: 0x42)')
-		expected_results.append(r'(.*ADC #\$FF\n)(A: 0x41\n)(.*\n){4}(n: 0b0\n)(v: 0b0\n)(.*\n){3}(z: 0b0\n)(c: 0b1\n)')
-		expected_results.append(r'(.*ADC #\$40\n)(A: 0x82\n)(.*\n){4}(n: 0b1\n)(v: 0b1\n)(.*\n){3}(z: 0b0\n)(c: 0b0\n)')
-		expected_results.append(r'(.*ADC #\$7E\n)(A: 0x00\n)(.*\n){4}(n: 0b0\n)(v: 0b0\n)(.*\n){3}(z: 0b1\n)(c: 0b1\n)')
+		result = re.search(RESULT_PATTERN + '1', results)
+		assert result
+		assert int(result.group(1), 16) == 0x42
+		assert int(result.group(2), 2) == 0b0
+		assert int(result.group(3), 2) == 0b0
+		assert int(result.group(4), 2) == 0b0
+		assert int(result.group(5), 2) == 0b0
 
-		for expected in expected_results:
-			assert re.search(expected, results)
+		result = re.search(RESULT_PATTERN + '2', results)
+		assert result
+		assert int(result.group(1), 16) == 0x41
+		assert int(result.group(2), 2) == 0b0
+		assert int(result.group(3), 2) == 0b0
+		assert int(result.group(4), 2) == 0b0
+		assert int(result.group(5), 2) == 0b1
+
+		result = re.search(RESULT_PATTERN + '3', results)
+		assert result
+		assert int(result.group(1), 16) == 0x82
+		assert int(result.group(2), 2) == 0b1
+		assert int(result.group(3), 2) == 0b1
+		assert int(result.group(4), 2) == 0b0
+		assert int(result.group(5), 2) == 0b0
+
+		result = re.search(RESULT_PATTERN + '4', results)
+		assert result
+		assert int(result.group(1), 16) == 0x00
+		assert int(result.group(2), 2) == 0b0
+		assert int(result.group(3), 2) == 0b0
+		assert int(result.group(4), 2) == 0b1
+		assert int(result.group(5), 2) == 0b1
 
 	def test_imm_mode(self):
 		results = create(0x0800, 'tests/ADC/imm-mode.s')
 		print(results)
 
-		expected = r'(.*ADC #\$42\n)(A: 0x42\n)(.*\n){4}(.*\n){7}(cycles: 2)'
-
-		assert re.search(expected, results)
+		result = re.search(RESULT_PATTERN + '1', results)
+		assert result
+		assert int(result.group(1), 16) == 0x42
+		assert int(result.group(6)) == 2
 
 	def test_zp_mode(self):
 		results = create(0x0800, 'tests/ADC/zp-mode.s', store_data={0x0042:[0x42]})
 		print(results)
 
-		expected = r'(.*ADC \$42\n)(A: 0x42\n)(.*\n){4}(.*\n){7}(cycles: 3)'
-
-		assert re.search(expected, results)
+		result = re.search(RESULT_PATTERN + '1', results)
+		assert result
+		assert int(result.group(1), 16) == 0x42
+		assert int(result.group(6)) == 3
 
 	def test_zp_x_mode(self):
 		results = create(0x0800, 'tests/ADC/zp-x-mode.s', store_data={0x0042:[0x42]})
 		print(results)
 
-		expected = r'(.*ADC \$32,X\n)(A: 0x42\n)(.*\n){4}(.*\n){7}(cycles: 4)'
-
-		assert re.search(expected, results)
+		result = re.search(RESULT_PATTERN + '2', results)
+		assert result
+		assert int(result.group(1), 16) == 0x42
+		assert int(result.group(6)) == 4
 
 	def test_abs_mode(self):
 		results = create(0x0800, 'tests/ADC/abs-mode.s', store_data={0x0042:[0x42]})
 		print(results)
 
-		expected = r'(.*ADC \$0042\n)(A: 0x42\n)(.*\n){4}(.*\n){7}(cycles: 4)'
-
-		assert re.search(expected, results)
+		result = re.search(RESULT_PATTERN + '1', results)
+		assert result
+		assert int(result.group(1), 16) == 0x42
+		assert int(result.group(6)) == 4
 
 	def test_abs_x_mode(self):
 		# Place a 0x42 byte at each location $0042 and $0100 for using in addition. (X contains 0x10 offset)
 		results = create(0x0800, 'tests/ADC/abs-x-mode.s', store_data={0x0042:[0x42], 0x0100:[0x42]})
 		print(results)
 
-		expected_results = []
-		expected_results.append(r'(.*ADC \$0032,X\n)(A: 0x42\n)(.*\n){4}(.*\n){7}(cycles: 4)')
-		expected_results.append(r'(.*ADC \$00F0,X\n)(A: 0x84\n)(.*\n){4}(.*\n){7}(cycles: 5)')
+		result = re.search(RESULT_PATTERN + '2', results)
+		assert result
+		assert int(result.group(1), 16) == 0x42
+		assert int(result.group(6)) == 4
 
-		for expected in expected_results:
-			assert re.search(expected, results)
+		result = re.search(RESULT_PATTERN + '3', results)
+		assert result
+		assert int(result.group(1), 16) == 0x84
+		assert int(result.group(6)) == 5
 
 	def test_abs_y_mode(self):
 		# Place a 0x42 byte at each location $0042 and $0100 for using in addition. (Y contains 0x10 offset)
 		results = create(0x0800, 'tests/ADC/abs-y-mode.s', store_data={0x0042:[0x42], 0x0100:[0x42]})
 		print(results)
 
-		expected_results = []
-		expected_results.append(r'(.*ADC \$0032,Y\n)(A: 0x42\n)(.*\n){4}(.*\n){7}(cycles: 4)')
-		expected_results.append(r'(.*ADC \$00F0,Y\n)(A: 0x84\n)(.*\n){4}(.*\n){7}(cycles: 5)')
+		result = re.search(RESULT_PATTERN + '2', results)
+		assert result
+		assert int(result.group(1), 16) == 0x42
+		assert int(result.group(6)) == 4
 
-		for expected in expected_results:
-			assert re.search(expected, results)
+		result = re.search(RESULT_PATTERN + '3', results)
+		assert result
+		assert int(result.group(1), 16) == 0x84
+		assert int(result.group(6)) == 5
 
 	def test_ind_x_mode(self):
 		# Place a real address of $0100 at read location $0042 (calculated by 0x32 + X). Store byte 0xFF at real address (hence the padding)
 		results = create(0x0800, 'tests/ADC/ind-x-mode.s', store_data={0x0042:[0x00, 0x01], 0x0100:[0xFF]})
 		print(results)
 
-		expected = r'(.*ADC \(\$32,X\)\n)(A: 0xFF\n)(.*\n){4}(.*\n){7}(cycles: 6)'
-
-		assert re.search(expected, results)
+		result = re.search(RESULT_PATTERN + '2', results)
+		assert result
+		assert int(result.group(1), 16) == 0xFF
+		assert int(result.group(6)) == 6
 
 	def test_ind_y_mode(self):
 		# Place address of $00F0 at read location $0032. Store byte 0xFF at real addresses $00FF and $0100 (calculated by $00F0 + Y)
 		results = create(0x0800, 'tests/ADC/ind-y-mode.s', store_data={0x0032:[0xF0, 0x00], 0x00FF:[0xFF, 0xFF]})
 		print(results)
 
-		expected_results = []
-		expected_results.append(r'(.*ADC \(\$32\),Y\n)(A: 0xFF\n)(.*\n){4}(.*\n){7}(cycles: 5)')
-		expected_results.append(r'(.*ADC \(\$32\),Y\n)(A: 0xFE\n)(.*\n){4}(.*\n){7}(cycles: 6)')
+		result = re.search(RESULT_PATTERN + '2', results)
+		assert result
+		assert int(result.group(1), 16) == 0xFF
+		assert int(result.group(6)) == 5
 
-		for expected in expected_results:
-			assert re.search(expected, results)
+		result = re.search(RESULT_PATTERN + '4', results)
+		assert result
+		assert int(result.group(1), 16) == 0xFE
+		assert int(result.group(6)) == 6
