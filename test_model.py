@@ -2,7 +2,7 @@ import subprocess
 import os
 import re
 
-RESULT_PATTERN = r'A: (0x\d\d)\n(?:.*\n){4}n: (0b\d)\nv: (0b\d)\n(?:.*\n){3}z: (0b\d)\nc: (0b\d)\ncycles: (\d+)\n(?:.*\n){4}.*'
+NORMAL_PATTERN = r'A: (0x\d\d)\n(?:.*\n){4}n: (0b\d)\nv: (0b\d)\n(?:.*\n){3}z: (0b\d)\nc: (0b\d)\ncycles: (\d+)\n(?:.*\n){4}.*'
 
 def create(start_address, source_file, store_data={}, generate_binary=True, view_memory=[]):
 	# Create hi and lo bytes from the start address passed in
@@ -71,17 +71,17 @@ class TestBranch:
 		results = create(0x0800, 'tests/branch/bcc.s')
 		print(results)
 
-		result = re.search(RESULT_PATTERN + '2', results)
+		result = re.search(NORMAL_PATTERN + '2', results)
 		assert result
 		assert int(result.group(1), 16) == 0x42
 		assert int(result.group(5), 2) == 0b0
 
-		result = re.search(RESULT_PATTERN + '3', results)
+		result = re.search(NORMAL_PATTERN + '3', results)
 		assert result
 		assert int(result.group(1), 16) == 0x41
 		assert int(result.group(5), 2) == 0b1
 
-		result = re.search(RESULT_PATTERN + '4', results)
+		result = re.search(NORMAL_PATTERN + '4', results)
 		assert result
 		assert int(result.group(1), 16) == 0x41
 
@@ -107,7 +107,7 @@ class TestADC:
 		results = create(0x0800, 'tests/ADC/flags-normal.s')
 		print(results)
 
-		result = re.search(RESULT_PATTERN + '1', results)
+		result = re.search(NORMAL_PATTERN + '1', results)
 		assert result
 		assert int(result.group(1), 16) == 0x42
 		assert int(result.group(2), 2) == 0b0
@@ -115,7 +115,7 @@ class TestADC:
 		assert int(result.group(4), 2) == 0b0
 		assert int(result.group(5), 2) == 0b0
 
-		result = re.search(RESULT_PATTERN + '2', results)
+		result = re.search(NORMAL_PATTERN + '2', results)
 		assert result
 		assert int(result.group(1), 16) == 0x41
 		assert int(result.group(2), 2) == 0b0
@@ -123,7 +123,7 @@ class TestADC:
 		assert int(result.group(4), 2) == 0b0
 		assert int(result.group(5), 2) == 0b1
 
-		result = re.search(RESULT_PATTERN + '3', results)
+		result = re.search(NORMAL_PATTERN + '3', results)
 		assert result
 		assert int(result.group(1), 16) == 0x82
 		assert int(result.group(2), 2) == 0b1
@@ -131,7 +131,7 @@ class TestADC:
 		assert int(result.group(4), 2) == 0b0
 		assert int(result.group(5), 2) == 0b0
 
-		result = re.search(RESULT_PATTERN + '4', results)
+		result = re.search(NORMAL_PATTERN + '4', results)
 		assert result
 		assert int(result.group(1), 16) == 0x00
 		assert int(result.group(2), 2) == 0b0
@@ -143,7 +143,7 @@ class TestADC:
 		results = create(0x0800, 'tests/ADC/imm-mode.s')
 		print(results)
 
-		result = re.search(RESULT_PATTERN + '1', results)
+		result = re.search(NORMAL_PATTERN + '1', results)
 		assert result
 		assert int(result.group(1), 16) == 0x42
 		assert int(result.group(6)) == 2
@@ -152,7 +152,7 @@ class TestADC:
 		results = create(0x0800, 'tests/ADC/zp-mode.s', store_data={0x0042:[0x42]})
 		print(results)
 
-		result = re.search(RESULT_PATTERN + '1', results)
+		result = re.search(NORMAL_PATTERN + '1', results)
 		assert result
 		assert int(result.group(1), 16) == 0x42
 		assert int(result.group(6)) == 3
@@ -161,7 +161,7 @@ class TestADC:
 		results = create(0x0800, 'tests/ADC/zp-x-mode.s', store_data={0x0042:[0x42]})
 		print(results)
 
-		result = re.search(RESULT_PATTERN + '2', results)
+		result = re.search(NORMAL_PATTERN + '2', results)
 		assert result
 		assert int(result.group(1), 16) == 0x42
 		assert int(result.group(6)) == 4
@@ -170,7 +170,7 @@ class TestADC:
 		results = create(0x0800, 'tests/ADC/abs-mode.s', store_data={0x0042:[0x42]})
 		print(results)
 
-		result = re.search(RESULT_PATTERN + '1', results)
+		result = re.search(NORMAL_PATTERN + '1', results)
 		assert result
 		assert int(result.group(1), 16) == 0x42
 		assert int(result.group(6)) == 4
@@ -180,12 +180,12 @@ class TestADC:
 		results = create(0x0800, 'tests/ADC/abs-x-mode.s', store_data={0x0042:[0x42], 0x0100:[0x42]})
 		print(results)
 
-		result = re.search(RESULT_PATTERN + '2', results)
+		result = re.search(NORMAL_PATTERN + '2', results)
 		assert result
 		assert int(result.group(1), 16) == 0x42
 		assert int(result.group(6)) == 4
 
-		result = re.search(RESULT_PATTERN + '3', results)
+		result = re.search(NORMAL_PATTERN + '3', results)
 		assert result
 		assert int(result.group(1), 16) == 0x84
 		assert int(result.group(6)) == 5
@@ -195,12 +195,12 @@ class TestADC:
 		results = create(0x0800, 'tests/ADC/abs-y-mode.s', store_data={0x0042:[0x42], 0x0100:[0x42]})
 		print(results)
 
-		result = re.search(RESULT_PATTERN + '2', results)
+		result = re.search(NORMAL_PATTERN + '2', results)
 		assert result
 		assert int(result.group(1), 16) == 0x42
 		assert int(result.group(6)) == 4
 
-		result = re.search(RESULT_PATTERN + '3', results)
+		result = re.search(NORMAL_PATTERN + '3', results)
 		assert result
 		assert int(result.group(1), 16) == 0x84
 		assert int(result.group(6)) == 5
@@ -210,7 +210,7 @@ class TestADC:
 		results = create(0x0800, 'tests/ADC/ind-x-mode.s', store_data={0x0042:[0x00, 0x01], 0x0100:[0xFF]})
 		print(results)
 
-		result = re.search(RESULT_PATTERN + '2', results)
+		result = re.search(NORMAL_PATTERN + '2', results)
 		assert result
 		assert int(result.group(1), 16) == 0xFF
 		assert int(result.group(6)) == 6
@@ -220,12 +220,12 @@ class TestADC:
 		results = create(0x0800, 'tests/ADC/ind-y-mode.s', store_data={0x0032:[0xF0, 0x00], 0x00FF:[0xFF, 0xFF]})
 		print(results)
 
-		result = re.search(RESULT_PATTERN + '2', results)
+		result = re.search(NORMAL_PATTERN + '2', results)
 		assert result
 		assert int(result.group(1), 16) == 0xFF
 		assert int(result.group(6)) == 5
 
-		result = re.search(RESULT_PATTERN + '4', results)
+		result = re.search(NORMAL_PATTERN + '4', results)
 		assert result
 		assert int(result.group(1), 16) == 0xFE
 		assert int(result.group(6)) == 6
