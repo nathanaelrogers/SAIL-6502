@@ -1,6 +1,6 @@
 val modify_flags_ADC : (bits(9), int, word, word) -> unit
 function modify_flags_ADC(result, decimal_result, accumulator, operand) = {
-	 // negative + BCD negative
+	// negative + BCD negative
 	if (signed(result[7..0]) < 0) then
 		reg_SR[n] = 0b1
 	else
