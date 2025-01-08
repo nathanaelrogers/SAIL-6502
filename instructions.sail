@@ -32,7 +32,23 @@ union clause ast = AND_ABS_X : (address)
 union clause ast = AND_ABS_Y : (address)
 union clause ast = AND_IND_X : (word)
 union clause ast = AND_IND_Y : (word)
-$include "./instructions/logical/AND.sail"
+union clause ast = EOR_IMM   : (word)
+union clause ast = EOR_ZP    : (word)
+union clause ast = EOR_ZP_X  : (word)
+union clause ast = EOR_ABS   : (address)
+union clause ast = EOR_ABS_X : (address)
+union clause ast = EOR_ABS_Y : (address)
+union clause ast = EOR_IND_X : (word)
+union clause ast = EOR_IND_Y : (word)
+union clause ast = ORA_IMM   : (word)
+union clause ast = ORA_ZP    : (word)
+union clause ast = ORA_ZP_X  : (word)
+union clause ast = ORA_ABS   : (address)
+union clause ast = ORA_ABS_X : (address)
+union clause ast = ORA_ABS_Y : (address)
+union clause ast = ORA_IND_X : (word)
+union clause ast = ORA_IND_Y : (word)
+$include "./instructions/logical.sail"
 
 union clause ast = ASL_ACC   : (unit)
 union clause ast = ASL_ZP    : (word)
@@ -94,16 +110,6 @@ union clause ast = INX_IMP   : (unit)
 union clause ast = INY_IMP   : (unit)
 $include "./instructions/increment.sail"
 
-union clause ast = EOR_IMM   : (word)
-union clause ast = EOR_ZP    : (word)
-union clause ast = EOR_ZP_X  : (word)
-union clause ast = EOR_ABS   : (address)
-union clause ast = EOR_ABS_X : (address)
-union clause ast = EOR_ABS_Y : (address)
-union clause ast = EOR_IND_X : (word)
-union clause ast = EOR_IND_Y : (word)
-$include "./instructions/logical/EOR.sail"
-
 union clause ast = JMP_ABS   : (address)
 union clause ast = JMP_IND   : (address)
 $include "./instructions/subroutine/JMP.sail"
@@ -141,16 +147,6 @@ union clause ast = LSR_ZP_X  : (word)
 union clause ast = LSR_ABS   : (address)
 union clause ast = LSR_ABS_X : (address)
 $include "./instructions/shift/LSR.sail"
-
-union clause ast = ORA_IMM   : (word)
-union clause ast = ORA_ZP    : (word)
-union clause ast = ORA_ZP_X  : (word)
-union clause ast = ORA_ABS   : (address)
-union clause ast = ORA_ABS_X : (address)
-union clause ast = ORA_ABS_Y : (address)
-union clause ast = ORA_IND_X : (word)
-union clause ast = ORA_IND_Y : (word)
-$include "./instructions/logical/ORA.sail"
 
 union clause ast = PHA_IMP   : (unit)
 union clause ast = PHP_IMP   : (unit)

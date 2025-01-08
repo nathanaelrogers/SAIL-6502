@@ -1,7 +1,3 @@
-Shift & Rotate Instructions
-ROL
-ROR
-
 Interrupts
 BRK
 RTI
