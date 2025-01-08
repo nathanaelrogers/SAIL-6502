@@ -4,4 +4,3 @@ RTI
 
 Other
 BIT
-NOP

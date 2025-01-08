@@ -15,6 +15,8 @@ function clause decode08(0xC8) = {incr_cycles(1); INY_IMP()}
 
 function clause decode08(0x4A) = {incr_cycles(1); LSR_ACC()}
 
+function clause decode08(0xEA) = {incr_cycles(1); NOP()}
+
 function clause decode08(0x48) = {incr_cycles(1); PHA_IMP()}
 function clause decode08(0x08) = {incr_cycles(1); PHP_IMP()}
 function clause decode08(0x68) = {incr_cycles(1); PLA_IMP()}
@@ -79,6 +81,9 @@ function clause decode16(0xD0 @ op : word)    = {incr_cycles(1); BNE_REL(op)}
 function clause decode16(0x10 @ op : word)    = {incr_cycles(1); BPL_REL(op)}
 function clause decode16(0x50 @ op : word)    = {incr_cycles(1); BVC_REL(op)}
 function clause decode16(0x70 @ op : word)    = {incr_cycles(1); BVS_REL(op)}
+
+function clause decode16(0x24 @ op : word)    = {incr_cycles(1); BIT_ZP(op)}
+function clause decode24(0x2C @ op : address) = {incr_cycles(1); BIT_ABS(op[7..0] @ op[15..8])}
 
 function clause decode16(0xC9 @ op : word)    = {incr_cycles(1); CMP_IMM(op)}
 function clause decode16(0xC5 @ op : word)    = {incr_cycles(1); CMP_ZP(op)}

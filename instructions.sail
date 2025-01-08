@@ -67,6 +67,10 @@ union clause ast = BVC_REL   : (word)
 union clause ast = BVS_REL   : (word)
 $include "./instructions/branch.sail"
 
+union clause ast = BIT_ZP    : (word)
+union clause ast = BIT_ABS   : (address)
+$include "./instructions/misc/BIT.sail"
+
 union clause ast = CLC_IMP   : (unit)
 union clause ast = CLD_IMP   : (unit)
 union clause ast = CLI_IMP   : (unit)
@@ -147,6 +151,9 @@ union clause ast = LSR_ZP_X  : (word)
 union clause ast = LSR_ABS   : (address)
 union clause ast = LSR_ABS_X : (address)
 $include "./instructions/shift/LSR.sail"
+
+union clause ast = NOP       : (unit)
+$include "./instructions/misc/NOP.sail"
 
 union clause ast = PHA_IMP   : (unit)
 union clause ast = PHP_IMP   : (unit)
