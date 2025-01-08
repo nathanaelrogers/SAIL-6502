@@ -161,6 +161,20 @@ $include "./instructions/stack/PHP.sail"
 $include "./instructions/stack/PLA.sail"
 $include "./instructions/stack/PLP.sail"
 
+union clause ast = ROL_ACC   : (unit)
+union clause ast = ROL_ZP    : (word)
+union clause ast = ROL_ZP_X  : (word)
+union clause ast = ROL_ABS   : (address)
+union clause ast = ROL_ABS_X : (address)
+$include "./instructions/shift/ROL.sail"
+
+union clause ast = ROR_ACC   : (unit)
+union clause ast = ROR_ZP    : (word)
+union clause ast = ROR_ZP_X  : (word)
+union clause ast = ROR_ABS   : (address)
+union clause ast = ROR_ABS_X : (address)
+$include "./instructions/shift/ROR.sail"
+
 union clause ast = RTS_IMP   : (unit)
 $include "./instructions/subroutine/RTS.sail"
 

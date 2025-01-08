@@ -20,6 +20,9 @@ function clause decode08(0x08) = {incr_cycles(1); PHP_IMP()}
 function clause decode08(0x68) = {incr_cycles(1); PLA_IMP()}
 function clause decode08(0x28) = {incr_cycles(1); PLP_IMP()}
 
+function clause decode08(0x2A) = {incr_cycles(1); ROL_ACC()}
+function clause decode08(0x6A) = {incr_cycles(1); ROR_ACC()}
+
 function clause decode08(0x60) = {incr_cycles(1); RTS_IMP()}
 
 function clause decode08(0x38) = {incr_cycles(1); SEC_IMP()}
@@ -152,6 +155,16 @@ function clause decode24(0x1D @ op : address) = {incr_cycles(1); ORA_ABS_X(op[7.
 function clause decode24(0x19 @ op : address) = {incr_cycles(1); ORA_ABS_Y(op[7..0] @ op[15..8])}
 function clause decode16(0x01 @ op : word)    = {incr_cycles(1); ORA_IND_X(op)}
 function clause decode16(0x11 @ op : word)    = {incr_cycles(1); ORA_IND_Y(op)}
+
+function clause decode16(0x26 @ op : word)    = {incr_cycles(1); ROL_ZP(op)}
+function clause decode16(0x36 @ op : word)    = {incr_cycles(1); ROL_ZP_X(op)}
+function clause decode24(0x2E @ op : address) = {incr_cycles(1); ROL_ABS(op[7..0] @ op[15..8])}
+function clause decode24(0x3E @ op : address) = {incr_cycles(1); ROL_ABS_X(op[7..0] @ op[15..8])}
+
+function clause decode16(0x66 @ op : word)    = {incr_cycles(1); ROR_ZP(op)}
+function clause decode16(0x76 @ op : word)    = {incr_cycles(1); ROR_ZP_X(op)}
+function clause decode24(0x6E @ op : address) = {incr_cycles(1); ROR_ABS(op[7..0] @ op[15..8])}
+function clause decode24(0x7E @ op : address) = {incr_cycles(1); ROR_ABS_X(op[7..0] @ op[15..8])}
 
 function clause decode16(0xE9 @ op : word)    = {incr_cycles(1); SBC_IMM(op)}
 function clause decode16(0xE5 @ op : word)    = {incr_cycles(1); SBC_ZP(op)}

@@ -143,6 +143,18 @@ function clause assembly(PHP_IMP())     = "PHP"
 function clause assembly(PLA_IMP())     = "PLA"
 function clause assembly(PLP_IMP())     = "PLP"
 
+function clause assembly(ROL_ACC(op))   = "ROL A"
+function clause assembly(ROL_ZP(op))    = make_str(mode(zp),    "ROL ", my_hex_str(op))
+function clause assembly(ROL_ZP_X(op))  = make_str(mode(zp_x),  "ROL ", my_hex_str(op))
+function clause assembly(ROL_ABS(op))   = make_str(mode(abs),   "ROL ", my_hex_str(op))
+function clause assembly(ROL_ABS_X(op)) = make_str(mode(abs_x), "ROL ", my_hex_str(op))
+
+function clause assembly(ROR_ACC(op))   = "ROR A"
+function clause assembly(ROR_ZP(op))    = make_str(mode(zp),    "ROR ", my_hex_str(op))
+function clause assembly(ROR_ZP_X(op))  = make_str(mode(zp_x),  "ROR ", my_hex_str(op))
+function clause assembly(ROR_ABS(op))   = make_str(mode(abs),   "ROR ", my_hex_str(op))
+function clause assembly(ROR_ABS_X(op)) = make_str(mode(abs_x), "ROR ", my_hex_str(op))
+
 function clause assembly(RTS_IMP())     = "RTS"
 
 function clause assembly(SBC_IMM(op))   = make_str(mode(imm),   "SBC ", my_hex_str(op))
