@@ -64,6 +64,11 @@ function clause assembly(CPY_IMM(op))   = make_str(mode(imm),   "CPY ", my_hex_s
 function clause assembly(CPY_ZP(op))    = make_str(mode(zp),    "CPY ", my_hex_str(op))
 function clause assembly(CPY_ABS(op))   = make_str(mode(abs),   "CPY ", my_hex_str(op))
 
+function clause assembly(DEC_ZP(op))    = make_str(mode(zp),    "DEC ", my_hex_str(op))
+function clause assembly(DEC_ZP_X(op))  = make_str(mode(zp_x),  "DEC ", my_hex_str(op))
+function clause assembly(DEC_ABS(op))   = make_str(mode(abs),   "DEC ", my_hex_str(op))
+function clause assembly(DEC_ABS_X(op)) = make_str(mode(abs_x), "DEC ", my_hex_str(op))
+
 function clause assembly(DEX_IMP())     = "DEX"
 function clause assembly(DEY_IMP())     = "DEY"
 

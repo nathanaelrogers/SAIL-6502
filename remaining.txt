@@ -1,6 +1,3 @@
-Decrements & Increments
-DEC
-
 Shift & Rotate Instructions
 ASL
 LSR
