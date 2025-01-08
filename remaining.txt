@@ -1,5 +1,4 @@
 Shift & Rotate Instructions
-LSR
 ROL
 ROR
 

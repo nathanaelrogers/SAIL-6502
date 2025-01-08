@@ -123,6 +123,12 @@ function clause assembly(LDY_ZP_X(op))  = make_str(mode(zp_x),  "LDY ", my_hex_s
 function clause assembly(LDY_ABS(op))   = make_str(mode(abs),   "LDY ", my_hex_str(op))
 function clause assembly(LDY_ABS_X(op)) = make_str(mode(abs_x), "LDY ", my_hex_str(op))
 
+function clause assembly(LSR_ACC(op))   = "LSR A"
+function clause assembly(LSR_ZP(op))    = make_str(mode(zp),    "LSR ", my_hex_str(op))
+function clause assembly(LSR_ZP_X(op))  = make_str(mode(zp_x),  "LSR ", my_hex_str(op))
+function clause assembly(LSR_ABS(op))   = make_str(mode(abs),   "LSR ", my_hex_str(op))
+function clause assembly(LSR_ABS_X(op)) = make_str(mode(abs_x), "LSR ", my_hex_str(op))
+
 function clause assembly(ORA_IMM(op))   = make_str(mode(imm),   "ORA ", my_hex_str(op))
 function clause assembly(ORA_ZP(op))    = make_str(mode(zp),    "ORA ", my_hex_str(op))
 function clause assembly(ORA_ZP_X(op))  = make_str(mode(zp_x),  "ORA ", my_hex_str(op))

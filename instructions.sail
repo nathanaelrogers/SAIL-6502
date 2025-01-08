@@ -135,6 +135,13 @@ union clause ast = LDY_ABS   : (address)
 union clause ast = LDY_ABS_X : (address)
 $include "./instructions/transfer/LDY.sail"
 
+union clause ast = LSR_ACC   : (unit)
+union clause ast = LSR_ZP    : (word)
+union clause ast = LSR_ZP_X  : (word)
+union clause ast = LSR_ABS   : (address)
+union clause ast = LSR_ABS_X : (address)
+$include "./instructions/shift/LSR.sail"
+
 union clause ast = ORA_IMM   : (word)
 union clause ast = ORA_ZP    : (word)
 union clause ast = ORA_ZP_X  : (word)

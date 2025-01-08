@@ -13,6 +13,8 @@ function clause decode08(0x88) = {incr_cycles(1); DEY_IMP()}
 function clause decode08(0xE8) = {incr_cycles(1); INX_IMP()}
 function clause decode08(0xC8) = {incr_cycles(1); INY_IMP()}
 
+function clause decode08(0x4A) = {incr_cycles(1); LSR_ACC()}
+
 function clause decode08(0x48) = {incr_cycles(1); PHA_IMP()}
 function clause decode08(0x08) = {incr_cycles(1); PHP_IMP()}
 function clause decode08(0x68) = {incr_cycles(1); PLA_IMP()}
@@ -136,6 +138,11 @@ function clause decode16(0xA4 @ op : word)    = {incr_cycles(1); LDY_ZP(op)}
 function clause decode16(0xB4 @ op : word)    = {incr_cycles(1); LDY_ZP_X(op)}
 function clause decode24(0xAC @ op : address) = {incr_cycles(1); LDY_ABS(op[7..0] @ op[15..8])}
 function clause decode24(0xBC @ op : address) = {incr_cycles(1); LDY_ABS_X(op[7..0] @ op[15..8])}
+
+function clause decode16(0x46 @ op : word)    = {incr_cycles(1); LSR_ZP(op)}
+function clause decode16(0x56 @ op : word)    = {incr_cycles(1); LSR_ZP_X(op)}
+function clause decode24(0x4E @ op : address) = {incr_cycles(1); LSR_ABS(op[7..0] @ op[15..8])}
+function clause decode24(0x5E @ op : address) = {incr_cycles(1); LSR_ABS_X(op[7..0] @ op[15..8])}
 
 function clause decode16(0x09 @ op : word)    = {incr_cycles(1); ORA_IMM(op)}
 function clause decode16(0x05 @ op : word)    = {incr_cycles(1); ORA_ZP(op)}
