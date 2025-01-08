@@ -46,8 +46,12 @@ $include "./instructions/branch.sail"
 
 union clause ast = CLC_IMP   : (unit)
 union clause ast = CLD_IMP   : (unit)
-$include "./instructions/flag/CLC.sail"
-$include "./instructions/flag/CLD.sail"
+union clause ast = CLI_IMP   : (unit)
+union clause ast = CLV_IMP   : (unit)
+union clause ast = SEC_IMP   : (unit)
+union clause ast = SED_IMP   : (unit)
+union clause ast = SEI_IMP   : (unit)
+$include "./instructions/flag.sail"
 
 union clause ast = CMP_IMM   : (word)
 union clause ast = CMP_ZP    : (word)
@@ -155,11 +159,6 @@ union clause ast = SBC_ABS_Y : (address)
 union clause ast = SBC_IND_X : (word)
 union clause ast = SBC_IND_Y : (word)
 $include "./instructions/arithmetic/SBC.sail"
-
-union clause ast = SEC_IMP   : (unit)
-union clause ast = SED_IMP   : (unit)
-$include "./instructions/flag/SEC.sail"
-$include "./instructions/flag/SED.sail"
 
 union clause ast = STA_ZP    : (word)
 union clause ast = STA_ZP_X  : (word)

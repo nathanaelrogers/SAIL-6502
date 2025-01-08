@@ -46,6 +46,8 @@ function clause assembly(BVS_REL(op))   = make_str(mode(rel),   "BVS ", my_hex_s
 
 function clause assembly(CLC_IMP())     = "CLC"
 function clause assembly(CLD_IMP())     = "CLD"
+function clause assembly(CLI_IMP())     = "CLI"
+function clause assembly(CLV_IMP())     = "CLV"
 
 function clause assembly(CMP_IMM(op))   = make_str(mode(imm),   "CMP ", my_hex_str(op))
 function clause assembly(CMP_ZP(op))    = make_str(mode(zp),    "CMP ", my_hex_str(op))
@@ -142,6 +144,7 @@ function clause assembly(SBC_IND_Y(op)) = make_str(mode(ind_y), "SBC ", my_hex_s
 
 function clause assembly(SEC_IMP())     = "SEC"
 function clause assembly(SED_IMP())     = "SED"
+function clause assembly(SEI_IMP())     = "SEI"
 function clause assembly(STA_ZP(op))    = make_str(mode(zp),    "STA ", my_hex_str(op))
 function clause assembly(STA_ZP_X(op))  = make_str(mode(zp_x),  "STA ", my_hex_str(op))
 function clause assembly(STA_ABS(op))   = make_str(mode(abs),   "STA ", my_hex_str(op))

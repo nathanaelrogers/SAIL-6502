@@ -4,11 +4,6 @@ LSR
 ROL
 ROR
 
-Flag Instructions
-CLI
-CLV
-SEI
-
 Interrupts
 BRK
 RTI
