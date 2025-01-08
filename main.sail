@@ -3,6 +3,7 @@ $include <prelude.sail>
 $include "prelude.sail"
 $include "timing.sail"
 $include "types.sail"
+$include "interrupts.sail"
 $include "registers.sail"
 $include "memory.sail"
 $include "addressing.sail"
@@ -10,7 +11,6 @@ $include "decimal-mode.sail"
 $include "instructions.sail"
 $include "decode.sail"
 $include "assembly-print.sail"
-$include "interrupts.sail"
 
 val print_state : (int) -> unit
 function print_state(cycles_taken) = {

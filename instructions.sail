@@ -71,6 +71,9 @@ union clause ast = BIT_ZP    : (word)
 union clause ast = BIT_ABS   : (address)
 $include "./instructions/misc/BIT.sail"
 
+union clause ast = BRK_IMP   : (unit)
+$include "./instructions/interrupt/BRK.sail"
+
 union clause ast = CLC_IMP   : (unit)
 union clause ast = CLD_IMP   : (unit)
 union clause ast = CLI_IMP   : (unit)
@@ -177,6 +180,9 @@ union clause ast = ROR_ZP_X  : (word)
 union clause ast = ROR_ABS   : (address)
 union clause ast = ROR_ABS_X : (address)
 $include "./instructions/shift/ROR.sail"
+
+union clause ast = RTI_IMP   : (unit)
+$include "./instructions/interrupt/RTI.sail"
 
 union clause ast = RTS_IMP   : (unit)
 $include "./instructions/subroutine/RTS.sail"

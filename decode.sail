@@ -2,6 +2,8 @@
 
 function clause decode08(0x0A) = {incr_cycles(1); ASL_ACC()}
 
+function clause decode08(0x00) = {incr_cycles(1); BRK_IMP()}
+
 function clause decode08(0x18) = {incr_cycles(1); CLC_IMP()}
 function clause decode08(0xD8) = {incr_cycles(1); CLD_IMP()}
 function clause decode08(0x58) = {incr_cycles(1); CLI_IMP()}
@@ -24,6 +26,8 @@ function clause decode08(0x28) = {incr_cycles(1); PLP_IMP()}
 
 function clause decode08(0x2A) = {incr_cycles(1); ROL_ACC()}
 function clause decode08(0x6A) = {incr_cycles(1); ROR_ACC()}
+
+function clause decode08(0x40) = {incr_cycles(1); RTI_IMP()}
 
 function clause decode08(0x60) = {incr_cycles(1); RTS_IMP()}
 

@@ -1,6 +1,5 @@
-val RTS : (unit) -> bool
-function RTS() = {
-	incr_cycles(3);
+function clause execute(RTS_IMP()) = {
+	incr_cycles(4);
 
 	let PCL = pull();
 	let PCH = pull();
@@ -10,5 +9,3 @@ function RTS() = {
 
 	true
 }
-
-function clause execute(RTS_IMP()) = RTS()

@@ -53,6 +53,8 @@ function clause assembly(BVS_REL(op))   = make_str(mode(rel),   "BVS ", my_hex_s
 function clause assembly(BIT_ZP(op))    = make_str(mode(zp),    "BIT ", my_hex_str(op))
 function clause assembly(BIT_ABS(op))   = make_str(mode(abs),   "BIT ", my_hex_str(op))
 
+function clause assembly(BRK_IMP())     = "BRK"
+
 function clause assembly(CLC_IMP())     = "CLC"
 function clause assembly(CLD_IMP())     = "CLD"
 function clause assembly(CLI_IMP())     = "CLI"
@@ -159,6 +161,8 @@ function clause assembly(ROR_ZP(op))    = make_str(mode(zp),    "ROR ", my_hex_s
 function clause assembly(ROR_ZP_X(op))  = make_str(mode(zp_x),  "ROR ", my_hex_str(op))
 function clause assembly(ROR_ABS(op))   = make_str(mode(abs),   "ROR ", my_hex_str(op))
 function clause assembly(ROR_ABS_X(op)) = make_str(mode(abs_x), "ROR ", my_hex_str(op))
+
+function clause assembly(RTI_IMP())     = "RTI"
 
 function clause assembly(RTS_IMP())     = "RTS"
 

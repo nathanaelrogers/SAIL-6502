@@ -1,6 +1,0 @@
-Interrupts
-BRK
-RTI
-
-Other
-BIT
