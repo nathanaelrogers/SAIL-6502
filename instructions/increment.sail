@@ -13,6 +13,8 @@ function modify_flags_increment(result) = {
 		reg_SR[z] = 0b0;
 }
 
+// =======================================
+
 val increment_word : (word, int) -> bool
 function increment_word(op, n) = {
 	let result = read_zp(op) + n;
@@ -55,6 +57,8 @@ function increment_reg_Y(n) = {
 	true
 }
 
+// =======================================
+
 function clause execute(DEC_ZP(op))    = {
 	incr_cycles(2);
 	increment_word(calc_word(mode(zp), op), -1)
@@ -71,8 +75,14 @@ function clause execute(DEC_ABS_X(op)) = {
 	incr_cycles(3);
 	increment_addr(calc_addr(mode(abs_x), op), -1)
 }
-function clause execute(DEX_IMP()) = increment_reg_X(-1)
-function clause execute(DEY_IMP()) = increment_reg_Y(-1)
+function clause execute(DEX_IMP()) = {
+	increment_reg_X(-1)
+}
+function clause execute(DEY_IMP()) = {
+	increment_reg_Y(-1)
+}
+
+// =======================================
 
 function clause execute(INC_ZP(op))    = {
 	incr_cycles(2);
@@ -90,5 +100,9 @@ function clause execute(INC_ABS_X(op)) = {
 	incr_cycles(3);
 	increment_addr(calc_addr(mode(abs_x), op), 1)
 }
-function clause execute(INX_IMP()) = increment_reg_X(1)
-function clause execute(INY_IMP()) = increment_reg_Y(1)
+function clause execute(INX_IMP()) = {
+	increment_reg_X(1)
+}
+function clause execute(INY_IMP()) = {
+	increment_reg_Y(1)
+}

@@ -14,6 +14,8 @@ function branch(op, branch_condition) = {
 	true
 }
 
+// ===============================================================
+
 function clause execute(BCC_REL(op)) = branch(op, reg_SR[c] == 0b0)
 function clause execute(BCS_REL(op)) = branch(op, reg_SR[c] == 0b1)
 function clause execute(BEQ_REL(op)) = branch(op, reg_SR[z] == 0b1)

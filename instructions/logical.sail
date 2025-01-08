@@ -13,6 +13,8 @@ function modify_flags_logical(result) = {
 		reg_SR[z] = 0b0;
 }
 
+// =======================================
+
 val perform_logical_instr : (word) -> bool
 function perform_logical_instr(result) = {
 	modify_flags_logical(result);
