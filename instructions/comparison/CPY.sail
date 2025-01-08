@@ -2,21 +2,21 @@ val modify_flags_CPY : (bits(9)) -> unit
 function modify_flags_CPY(result) = {
 	// negative
 	if (signed(result[7..0]) < 0) then
-		set_flag_n(0b1)
+		reg_SR[n] = 0b1
 	else
-		set_flag_n(0b0);
+		reg_SR[n] = 0b0;
 
 	// zero
 	if (unsigned(result[7..0]) == 0) then
-		set_flag_z(0b1)
+		reg_SR[z] = 0b1
 	else
-		set_flag_z(0b0);
+		reg_SR[z] = 0b0;
 
 	// carry
 	if (signed(result) >= 0) then
-		set_flag_c(0b1)
+		reg_SR[c] = 0b1
 	else
-		set_flag_c(0b0)
+		reg_SR[c] = 0b0
 }
 
 // THERE IS A BUG HERE...

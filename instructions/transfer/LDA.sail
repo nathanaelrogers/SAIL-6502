@@ -2,15 +2,15 @@ val modify_flags_LDA : word -> unit
 function modify_flags_LDA(result) = {
 	 // negative
 	if (signed(result[7..0]) < 0) then
-		set_flag_n(0b1)
+		reg_SR[n] = 0b1
 	else
-		set_flag_n(0b0);
+		reg_SR[n] = 0b0;
 
 	// zero
 	if (unsigned(result[7..0]) == 0) then
-		set_flag_z(0b1)
+		reg_SR[z] = 0b1
 	else
-		set_flag_z(0b0);
+		reg_SR[z] = 0b0;
 }
 
 val LDA : (word) -> bool

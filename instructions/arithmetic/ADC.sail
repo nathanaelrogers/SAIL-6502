@@ -2,59 +2,59 @@ val modify_flags_ADC : (bits(9), int, word, word) -> unit
 function modify_flags_ADC(result, decimal_result, accumulator, operand) = {
 	 // negative + BCD negative
 	if (signed(result[7..0]) < 0) then
-		set_flag_n(0b1)
+		reg_SR[n] = 0b1
 	else
-		set_flag_n(0b0);
+		reg_SR[n] = 0b0;
 
 	// overflow
-	if (flag_d() == 0b0) then {
+	if (reg_SR[d] == 0b0) then {
 		if (([accumulator[7]] == [operand[7]]) & ([accumulator[7]] != [result[7]])) then
-			set_flag_v(0b1)
+			reg_SR[v] = 0b1
 		else
-			set_flag_v(0b0);
+			reg_SR[v] = 0b0;
 	}
 	// BCD overflow (this is UNDOCUMENTED behaviour? see appendix A of 6502.org BCD tutorial)
 	else {
 		if (decimal_result > 127 | decimal_result < -128) then
-			set_flag_v(0b1)
+			reg_SR[v] = 0b1
 		else
-			set_flag_v(0b0)
+			reg_SR[v] = 0b0
 	};
 
 	// zero + BCD zero
 	if (unsigned(result[7..0]) == 0) then
-		set_flag_z(0b1)
+		reg_SR[z] = 0b1
 	else
-		set_flag_z(0b0);
+		reg_SR[z] = 0b0;
 
 	// carry
-	if (flag_d() == 0b0) then {
+	if (reg_SR[d] == 0b0) then {
 		if (unsigned(result) >= 256) then
-			set_flag_c(0b1)
+			reg_SR[c] = 0b1
 		else
-			set_flag_c(0b0)
+			reg_SR[c] = 0b0
 	}
 	// BCD carry
 	else {
 		if (decimal_result >= 100) then
-			set_flag_c(0b1)
+			reg_SR[c] = 0b1
 		else
-			set_flag_c(0b0)
+			reg_SR[c] = 0b0
 	};
 }
 
 val ADC : (word) -> bool
 function ADC(op) = {
-	let decimal_result : int = if (flag_d() == 0b0)
+	let decimal_result : int = if (reg_SR[d] == 0b0)
 		then {
 			0
 		} else {
-			let carry : int = if (flag_c() == 0b1) then 1 else 0;
+			let carry : int = if (reg_SR[c] == 0b1) then 1 else 0;
 			decimal_add(reg_A, op) + carry
 		};
-	let result : bits(9) = if (flag_d() == 0b0)
+	let result : bits(9) = if (reg_SR[d] == 0b0)
 		then {
-			EXTZ(9, reg_A) + EXTZ(9, op) + EXTZ(9, flag_c())
+			EXTZ(9, reg_A) + EXTZ(9, op) + EXTZ(9, reg_SR[c])
 		} else {
 			EXTZ(9, decimal_to_word(decimal_result))
 		};

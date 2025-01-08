@@ -2,50 +2,50 @@ val modify_flags_SBC : (bits(9), int) -> unit
 function modify_flags_SBC(result, decimal_result) = {
 	// negative + BCD negative
 	if (signed(result[7..0]) < 0) then
-		set_flag_n(0b1)
+		reg_SR[n] = 0b1
 	else
-		set_flag_n(0b0);
+		reg_SR[n] = 0b0;
 
 	// overflow + BCD overflow
 	if (signed(result) > 127 | signed(result) < -128) then
-		set_flag_v(0b1)
+		reg_SR[v] = 0b1
 	else
-		set_flag_v(0b0);
+		reg_SR[v] = 0b0;
 
 	// zero + BCD zero
 	if (unsigned(result[7..0]) == 0) then
-		set_flag_z(0b1)
+		reg_SR[z] = 0b1
 	else
-		set_flag_z(0b0);
+		reg_SR[z] = 0b0;
 
 	// carry
-	if (flag_d() == 0b0) then {
+	if (reg_SR[d] == 0b0) then {
 		if (signed(result) >= 0) then
-			set_flag_c(0b1)
+			reg_SR[c] = 0b1
 		else
-			set_flag_c(0b0)
+			reg_SR[c] = 0b0
 	}
 	// BCD carry
 	else {
 		if (decimal_result >= 0) then
-			set_flag_c(0b1)
+			reg_SR[c] = 0b1
 		else
-			set_flag_c(0b0)
+			reg_SR[c] = 0b0
 	};
 }
 
 val SBC : (word) -> bool
 function SBC(op) = {
-	let decimal_result : int = if (flag_d() == 0b0)
+	let decimal_result : int = if (reg_SR[d] == 0b0)
 		then {
 			-1 // should not set carry by default!
 		} else {
-			let carry : int = if (flag_c() == 0b1) then 1 else 0;
+			let carry : int = if (reg_SR[c] == 0b1) then 1 else 0;
 			decimal_sub(reg_A, op) + (carry - 1)
 		};
-	let result : bits(9) = if (flag_d() == 0b0)
+	let result : bits(9) = if (reg_SR[d] == 0b0)
 		then {
-			EXTZ(9, reg_A) + EXTZ(9, not_vec(op)) + EXTZ(9, flag_c())
+			EXTZ(9, reg_A) + EXTZ(9, not_vec(op)) + EXTZ(9, reg_SR[c])
 		} else {
 			EXTZ(9, decimal_to_word(decimal_result))
 		};
