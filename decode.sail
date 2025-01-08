@@ -1,5 +1,7 @@
 /* ============== 1 byte instructions ============== */
 
+function clause decode08(0x0A) = {incr_cycles(1); ASL_ACC()}
+
 function clause decode08(0x18) = {incr_cycles(1); CLC_IMP()}
 function clause decode08(0xD8) = {incr_cycles(1); CLD_IMP()}
 function clause decode08(0x58) = {incr_cycles(1); CLI_IMP()}
@@ -58,6 +60,11 @@ function clause decode24(0x3D @ op : address) = {incr_cycles(1); AND_ABS_X(op[7.
 function clause decode24(0x39 @ op : address) = {incr_cycles(1); AND_ABS_Y(op[7..0] @ op[15..8])}
 function clause decode16(0x21 @ op : word)    = {incr_cycles(1); AND_IND_X(op)}
 function clause decode16(0x31 @ op : word)    = {incr_cycles(1); AND_IND_Y(op)}
+
+function clause decode16(0x06 @ op : word)    = {incr_cycles(1); ASL_ZP(op)}
+function clause decode16(0x16 @ op : word)    = {incr_cycles(1); ASL_ZP_X(op)}
+function clause decode24(0x0E @ op : address) = {incr_cycles(1); ASL_ABS(op[7..0] @ op[15..8])}
+function clause decode24(0x1E @ op : address) = {incr_cycles(1); ASL_ABS_X(op[7..0] @ op[15..8])}
 
 function clause decode16(0x90 @ op : word)    = {incr_cycles(1); BCC_REL(op)}
 function clause decode16(0xB0 @ op : word)    = {incr_cycles(1); BCS_REL(op)}

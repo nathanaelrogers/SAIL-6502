@@ -1,5 +1,4 @@
 Shift & Rotate Instructions
-ASL
 LSR
 ROL
 ROR

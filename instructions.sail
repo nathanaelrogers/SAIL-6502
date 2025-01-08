@@ -34,6 +34,13 @@ union clause ast = AND_IND_X : (word)
 union clause ast = AND_IND_Y : (word)
 $include "./instructions/logical/AND.sail"
 
+union clause ast = ASL_ACC   : (unit)
+union clause ast = ASL_ZP    : (word)
+union clause ast = ASL_ZP_X  : (word)
+union clause ast = ASL_ABS   : (address)
+union clause ast = ASL_ABS_X : (address)
+$include "./instructions/shift/ASL.sail"
+
 union clause ast = BCC_REL   : (word)
 union clause ast = BCS_REL   : (word)
 union clause ast = BEQ_REL   : (word)

@@ -35,6 +35,12 @@ function clause assembly(AND_ABS_Y(op)) = make_str(mode(abs_y), "AND ", my_hex_s
 function clause assembly(AND_IND_X(op)) = make_str(mode(ind_x), "AND ", my_hex_str(op))
 function clause assembly(AND_IND_Y(op)) = make_str(mode(ind_y), "AND ", my_hex_str(op))
 
+function clause assembly(ASL_ACC(op))   = "ASL A"
+function clause assembly(ASL_ZP(op))    = make_str(mode(zp),    "ASL ", my_hex_str(op))
+function clause assembly(ASL_ZP_X(op))  = make_str(mode(zp_x),  "ASL ", my_hex_str(op))
+function clause assembly(ASL_ABS(op))   = make_str(mode(abs),   "ASL ", my_hex_str(op))
+function clause assembly(ASL_ABS_X(op)) = make_str(mode(abs_x), "ASL ", my_hex_str(op))
+
 function clause assembly(BCC_REL(op))   = make_str(mode(rel),   "BCC ", my_hex_str(op))
 function clause assembly(BCS_REL(op))   = make_str(mode(rel),   "BCS ", my_hex_str(op))
 function clause assembly(BEQ_REL(op))   = make_str(mode(rel),   "BEQ ", my_hex_str(op))
