@@ -1,7 +1,7 @@
 // TODO : inspect precise behaviour of BRK instruction and make sure it is accurate
 // TODO : also look at PLP and PHP for same reasons...
 
-function clause execute(BRK_IMP()) = {
+function clause execute(BRK()) = {
 	/*
 		By the time this is executed, reg_PC = instruction PC + 1 (size of BRK instruction).
 		So to preserve instruction PC + 2, calculate reg_PC + 1.
@@ -24,5 +24,5 @@ function clause execute(BRK_IMP()) = {
 	reg_PC = PCH @ PCL;
 
 	incr_cycles(6);
-	true
+	false
 }

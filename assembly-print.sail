@@ -53,7 +53,7 @@ function clause assembly(BVS_REL(op))   = make_str(mode(rel),   "BVS ", my_hex_s
 function clause assembly(BIT_ZP(op))    = make_str(mode(zp),    "BIT ", my_hex_str(op))
 function clause assembly(BIT_ABS(op))   = make_str(mode(abs),   "BIT ", my_hex_str(op))
 
-function clause assembly(BRK_IMP())     = "BRK"
+function clause assembly(BRK())     = "BRK"
 
 function clause assembly(CLC_IMP())     = "CLC"
 function clause assembly(CLD_IMP())     = "CLD"

@@ -2,7 +2,7 @@
 
 function clause decode08(0x0A) = {incr_cycles(1); ASL_ACC()}
 
-function clause decode08(0x00) = {incr_cycles(1); BRK_IMP()}
+function clause decode08(0x00) = {incr_cycles(1); BRK()}
 
 function clause decode08(0x18) = {incr_cycles(1); CLC_IMP()}
 function clause decode08(0xD8) = {incr_cycles(1); CLD_IMP()}

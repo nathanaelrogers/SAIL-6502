@@ -71,7 +71,7 @@ union clause ast = BIT_ZP    : (word)
 union clause ast = BIT_ABS   : (address)
 $include "./instructions/misc/BIT.sail"
 
-union clause ast = BRK_IMP   : (unit)
+union clause ast = BRK       : (unit)
 $include "./instructions/interrupt/BRK.sail"
 
 union clause ast = CLC_IMP   : (unit)
