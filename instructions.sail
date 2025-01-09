@@ -132,21 +132,36 @@ union clause ast = LDA_ABS_X : (address)
 union clause ast = LDA_ABS_Y : (address)
 union clause ast = LDA_IND_X : (word)
 union clause ast = LDA_IND_Y : (word)
-$include "./instructions/transfer/LDA.sail"
-
 union clause ast = LDX_IMM   : (word)
 union clause ast = LDX_ZP    : (word)
 union clause ast = LDX_ZP_Y  : (word)
 union clause ast = LDX_ABS   : (address)
 union clause ast = LDX_ABS_Y : (address)
-$include "./instructions/transfer/LDX.sail"
-
 union clause ast = LDY_IMM   : (word)
 union clause ast = LDY_ZP    : (word)
 union clause ast = LDY_ZP_X  : (word)
 union clause ast = LDY_ABS   : (address)
 union clause ast = LDY_ABS_X : (address)
-$include "./instructions/transfer/LDY.sail"
+union clause ast = STA_ZP    : (word)
+union clause ast = STA_ZP_X  : (word)
+union clause ast = STA_ABS   : (address)
+union clause ast = STA_ABS_X : (address)
+union clause ast = STA_ABS_Y : (address)
+union clause ast = STA_IND_X : (word)
+union clause ast = STA_IND_Y : (word)
+union clause ast = STX_ZP    : (word)
+union clause ast = STX_ZP_Y  : (word)
+union clause ast = STX_ABS   : (address)
+union clause ast = STY_ZP    : (word)
+union clause ast = STY_ZP_X  : (word)
+union clause ast = STY_ABS   : (address)
+union clause ast = TAX       : (unit)
+union clause ast = TAY       : (unit)
+union clause ast = TSX       : (unit)
+union clause ast = TXA       : (unit)
+union clause ast = TXS       : (unit)
+union clause ast = TYA       : (unit)
+$include "./instructions/transfer.sail"
 
 union clause ast = LSR_ACC   : (unit)
 union clause ast = LSR_ZP    : (word)
@@ -196,35 +211,3 @@ union clause ast = SBC_ABS_Y : (address)
 union clause ast = SBC_IND_X : (word)
 union clause ast = SBC_IND_Y : (word)
 $include "./instructions/arithmetic/SBC.sail"
-
-union clause ast = STA_ZP    : (word)
-union clause ast = STA_ZP_X  : (word)
-union clause ast = STA_ABS   : (address)
-union clause ast = STA_ABS_X : (address)
-union clause ast = STA_ABS_Y : (address)
-union clause ast = STA_IND_X : (word)
-union clause ast = STA_IND_Y : (word)
-$include "./instructions/transfer/STA.sail"
-
-union clause ast = STX_ZP    : (word)
-union clause ast = STX_ZP_Y  : (word)
-union clause ast = STX_ABS   : (address)
-$include "./instructions/transfer/STX.sail"
-
-union clause ast = STY_ZP    : (word)
-union clause ast = STY_ZP_X  : (word)
-union clause ast = STY_ABS   : (address)
-$include "./instructions/transfer/STY.sail"
-
-union clause ast = TAX_IMP   : (unit)
-union clause ast = TAY_IMP   : (unit)
-union clause ast = TSX_IMP   : (unit)
-union clause ast = TXA_IMP   : (unit)
-union clause ast = TXS_IMP   : (unit)
-union clause ast = TYA_IMP   : (unit)
-$include "./instructions/transfer/TAX.sail"
-$include "./instructions/transfer/TAY.sail"
-$include "./instructions/transfer/TSX.sail"
-$include "./instructions/transfer/TXA.sail"
-$include "./instructions/transfer/TXS.sail"
-$include "./instructions/transfer/TYA.sail"

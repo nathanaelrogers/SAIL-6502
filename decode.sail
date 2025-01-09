@@ -35,12 +35,12 @@ function clause decode08(0x38) = {incr_cycles(1); SEC_IMP()}
 function clause decode08(0xF8) = {incr_cycles(1); SED_IMP()}
 function clause decode08(0x78) = {incr_cycles(1); SEI_IMP()}
 
-function clause decode08(0xAA) = {incr_cycles(1); TAX_IMP()}
-function clause decode08(0xA8) = {incr_cycles(1); TAY_IMP()}
-function clause decode08(0xBA) = {incr_cycles(1); TSX_IMP()}
-function clause decode08(0x8A) = {incr_cycles(1); TXA_IMP()}
-function clause decode08(0x9A) = {incr_cycles(1); TXS_IMP()}
-function clause decode08(0x98) = {incr_cycles(1); TYA_IMP()}
+function clause decode08(0xAA) = {incr_cycles(1); TAX()}
+function clause decode08(0xA8) = {incr_cycles(1); TAY()}
+function clause decode08(0xBA) = {incr_cycles(1); TSX()}
+function clause decode08(0x8A) = {incr_cycles(1); TXA()}
+function clause decode08(0x9A) = {incr_cycles(1); TXS()}
+function clause decode08(0x98) = {incr_cycles(1); TYA()}
 
 // If it's not a valid single byte instruction, read another byte and try decode.
 function clause decode08(this) = {

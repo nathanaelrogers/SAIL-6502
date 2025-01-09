@@ -115,18 +115,35 @@ function clause assembly(LDA_ABS_X(op)) = make_str(mode(abs_x), "LDA ", my_hex_s
 function clause assembly(LDA_ABS_Y(op)) = make_str(mode(abs_y), "LDA ", my_hex_str(op))
 function clause assembly(LDA_IND_X(op)) = make_str(mode(ind_x), "LDA ", my_hex_str(op))
 function clause assembly(LDA_IND_Y(op)) = make_str(mode(ind_y), "LDA ", my_hex_str(op))
-
 function clause assembly(LDX_IMM(op))   = make_str(mode(imm),   "LDX ", my_hex_str(op))
 function clause assembly(LDX_ZP(op))    = make_str(mode(zp),    "LDX ", my_hex_str(op))
 function clause assembly(LDX_ZP_Y(op))  = make_str(mode(zp_y),  "LDX ", my_hex_str(op))
 function clause assembly(LDX_ABS(op))   = make_str(mode(abs),   "LDX ", my_hex_str(op))
 function clause assembly(LDX_ABS_Y(op)) = make_str(mode(abs_y), "LDX ", my_hex_str(op))
-
 function clause assembly(LDY_IMM(op))   = make_str(mode(imm),   "LDY ", my_hex_str(op))
 function clause assembly(LDY_ZP(op))    = make_str(mode(zp),    "LDY ", my_hex_str(op))
 function clause assembly(LDY_ZP_X(op))  = make_str(mode(zp_x),  "LDY ", my_hex_str(op))
 function clause assembly(LDY_ABS(op))   = make_str(mode(abs),   "LDY ", my_hex_str(op))
 function clause assembly(LDY_ABS_X(op)) = make_str(mode(abs_x), "LDY ", my_hex_str(op))
+function clause assembly(STA_ZP(op))    = make_str(mode(zp),    "STA ", my_hex_str(op))
+function clause assembly(STA_ZP_X(op))  = make_str(mode(zp_x),  "STA ", my_hex_str(op))
+function clause assembly(STA_ABS(op))   = make_str(mode(abs),   "STA ", my_hex_str(op))
+function clause assembly(STA_ABS_X(op)) = make_str(mode(abs_x), "STA ", my_hex_str(op))
+function clause assembly(STA_ABS_Y(op)) = make_str(mode(abs_y), "STA ", my_hex_str(op))
+function clause assembly(STA_IND_X(op)) = make_str(mode(ind_x), "STA ", my_hex_str(op))
+function clause assembly(STA_IND_Y(op)) = make_str(mode(ind_y), "STA ", my_hex_str(op))
+function clause assembly(STX_ZP(op))    = make_str(mode(zp),    "STX ", my_hex_str(op))
+function clause assembly(STX_ZP_Y(op))  = make_str(mode(zp_y),  "STX ", my_hex_str(op))
+function clause assembly(STX_ABS(op))   = make_str(mode(abs),   "STX ", my_hex_str(op))
+function clause assembly(STY_ZP(op))    = make_str(mode(zp),    "STY ", my_hex_str(op))
+function clause assembly(STY_ZP_X(op))  = make_str(mode(zp_x),  "STY ", my_hex_str(op))
+function clause assembly(STY_ABS(op))   = make_str(mode(abs),   "STY ", my_hex_str(op))
+function clause assembly(TAX())     = "TAX"
+function clause assembly(TAY())     = "TAY"
+function clause assembly(TSX())     = "TSX"
+function clause assembly(TXA())     = "TXA"
+function clause assembly(TXS())     = "TXS"
+function clause assembly(TYA())     = "TYA"
 
 function clause assembly(LSR_ACC(op))   = "LSR A"
 function clause assembly(LSR_ZP(op))    = make_str(mode(zp),    "LSR ", my_hex_str(op))
@@ -178,27 +195,5 @@ function clause assembly(SBC_IND_Y(op)) = make_str(mode(ind_y), "SBC ", my_hex_s
 function clause assembly(SEC_IMP())     = "SEC"
 function clause assembly(SED_IMP())     = "SED"
 function clause assembly(SEI_IMP())     = "SEI"
-function clause assembly(STA_ZP(op))    = make_str(mode(zp),    "STA ", my_hex_str(op))
-function clause assembly(STA_ZP_X(op))  = make_str(mode(zp_x),  "STA ", my_hex_str(op))
-function clause assembly(STA_ABS(op))   = make_str(mode(abs),   "STA ", my_hex_str(op))
-function clause assembly(STA_ABS_X(op)) = make_str(mode(abs_x), "STA ", my_hex_str(op))
-function clause assembly(STA_ABS_Y(op)) = make_str(mode(abs_y), "STA ", my_hex_str(op))
-function clause assembly(STA_IND_X(op)) = make_str(mode(ind_x), "STA ", my_hex_str(op))
-function clause assembly(STA_IND_Y(op)) = make_str(mode(ind_y), "STA ", my_hex_str(op))
-
-function clause assembly(STX_ZP(op))    = make_str(mode(zp),    "STX ", my_hex_str(op))
-function clause assembly(STX_ZP_Y(op))  = make_str(mode(zp_y),  "STX ", my_hex_str(op))
-function clause assembly(STX_ABS(op))   = make_str(mode(abs),   "STX ", my_hex_str(op))
-
-function clause assembly(STY_ZP(op))    = make_str(mode(zp),    "STY ", my_hex_str(op))
-function clause assembly(STY_ZP_X(op))  = make_str(mode(zp_x),  "STY ", my_hex_str(op))
-function clause assembly(STY_ABS(op))   = make_str(mode(abs),   "STY ", my_hex_str(op))
-
-function clause assembly(TAX_IMP())     = "TAX"
-function clause assembly(TAY_IMP())     = "TAY"
-function clause assembly(TSX_IMP())     = "TSX"
-function clause assembly(TXA_IMP())     = "TXA"
-function clause assembly(TXS_IMP())     = "TXS"
-function clause assembly(TYA_IMP())     = "TYA"
 
 function clause assembly(INVALID(instruction)) = concat_str("Invalid instruction: ", bits_str(instruction))
