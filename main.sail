@@ -10,6 +10,7 @@ $include "addressing.sail"
 $include "decimal-mode.sail"
 $include "instructions.sail"
 $include "decode.sail"
+$include "program.sail"
 $include "assembly-print.sail"
 
 val print_state : (int) -> unit
@@ -74,10 +75,13 @@ function setup() : unit -> unit = {
 	reg_SR[z] = undefined;
 	reg_SR[c] = undefined;
 	reg_SP = 0xFF;
+
+	load_program();
 }
 
 function main() : unit -> unit = {
 	setup();
 	let state = print_state(cycles);
 	fetch_decode_execute(false);
+	print_memory();
 }

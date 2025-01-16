@@ -3,7 +3,7 @@ import re
 
 class TestBranch:
 	def test_bcc(self):
-		results = util.create(0x0800, 'test/sourcefiles/branch/bcc.s')
+		results = util.create_script(0x0800, 'test/sourcefiles/branch/bcc.s')
 		print(results)
 
 		result = re.search(util.NORMAL_PATTERN + '1', results)
