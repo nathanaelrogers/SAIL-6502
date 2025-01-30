@@ -19,7 +19,6 @@ function modify_flags_CMP(result) = {
 		reg_SR[c] = 0b0
 }
 
-// THERE IS A BUG HERE...
 val CMP : (word) -> bool
 function CMP(op) = {
 	incr_cycles(1);
