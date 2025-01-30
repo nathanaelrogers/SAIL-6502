@@ -1,11 +1,11 @@
 import subprocess
-import os
 import time
+import re
 
 # GROUPS: 1=PC (THIS), 2=A, 3=X, 4=Y, 5=SP, 6=PC (NEXT), 7=n, 8=v, 9=b, 10=d, 11=i, 12=z, 13=c, 14=cycles, 15=NMI, 16=RST, 17=IRQ, 18=total cycles
 DUMP_PATTERN = r'(0x\w{4}).*\nA: (0x\w\w)\nX: (0x\w\w)\nY: (0x\w\w)\nSP: (0x\w\w)\nPC: (0x\w{4})\nn: (0b\d)\nv: (0b\d)\nb: (0b\d)\nd: (0b\d)\ni: (0b\d)\nz: (0b\d)\nc: (0b\d)\ncycles: (\d+)\nNMI: (0b\d)\nRST: (0b\d)\nIRQ: (0b\d)\n.*cycles: (\d+)\n.*instructions: '
 
-def create(start_binary=0x0000, source_file=None, start_pc=None, store_data={}, generate_binary=True, view_memory=[], enable_print_dump=False, enable_load_program=False) -> str:
+def create(start_binary=0x0200, source_file=None, start_pc=None, store_data={}, generate_binary=True, view_memory=[], enable_print_dump=False, enable_load_program=False) -> str:
 	# Create hi and lo bytes from the start pc passed in (default start of binary)
 	if start_pc:
 		pc_hi_byte = start_pc >> 8
@@ -125,7 +125,10 @@ def create(start_binary=0x0000, source_file=None, start_pc=None, store_data={}, 
 		print('execution time of C program', end - start)
 	else:
 		# Run the model using the REPL
+		start = time.time()
 		result = subprocess.run(['sail', '-is', 'commands.txt','main.sail'], capture_output=True)
+		end = time.time()
+		print('execution time of REPL', end - start)
 
 	# Get the results
 	return result.stdout.decode('UTF-8')
