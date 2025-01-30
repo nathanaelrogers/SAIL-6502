@@ -1,28 +1,3 @@
-// If it's not a valid single byte instruction, read another byte and try decode.
-function clause decode08(this) = {
-	let PC : address = reg_PC[15..8] @ reg_PC[7..0];
-	let next_byte : word = read(PC);
-	incr_pc(1);
-	incr_cycles(1);
-
-	decode16(EXTZ(this) << 8 | EXTZ(next_byte));
-}
-
-// If it's not a valid instruction, read another byte and try decode.
-function clause decode16(this) = {
-	incr_cycles(1);
-	let PC : address = reg_PC[15..8] @ reg_PC[7..0];
-	let next_byte : word = read(PC);
-	incr_pc(1);
-
-	decode24(EXTZ(this) << 8 | EXTZ(next_byte));
-}
-
-// Catch an invalid instruction
-union clause ast = INVALID : (bits(24))
-function clause decode24(instruction) = {incr_cycles(1); INVALID(instruction)}
-function clause execute(INVALID(instruction)) = false
-
 /* ============== 1 byte instructions ============== */
 function clause decode08(0x00) = BRK()
 function clause decode08(0xEA) = NOP()
@@ -195,3 +170,28 @@ function clause decode24(0x8E @ op : address) = STX_ABS(op[7..0] @ op[15..8])
 function clause decode16(0x84 @ op : word)    = STY_ZP(op)
 function clause decode16(0x94 @ op : word)    = STY_ZP_X(op)
 function clause decode24(0x8C @ op : address) = STY_ABS(op[7..0] @ op[15..8])
+
+// If it's not a valid single byte instruction, read another byte and try decode.
+function clause decode08(this) = {
+	let PC : address = reg_PC[15..8] @ reg_PC[7..0];
+	let next_byte : word = read(PC);
+	incr_pc(1);
+	incr_cycles(1);
+
+	decode16(EXTZ(this) << 8 | EXTZ(next_byte));
+}
+
+// If it's not a valid instruction, read another byte and try decode.
+function clause decode16(this) = {
+	incr_cycles(1);
+	let PC : address = reg_PC[15..8] @ reg_PC[7..0];
+	let next_byte : word = read(PC);
+	incr_pc(1);
+
+	decode24(EXTZ(this) << 8 | EXTZ(next_byte));
+}
+
+// Catch an invalid instruction
+union clause ast = INVALID : (bits(24))
+function clause decode24(instruction) = {incr_cycles(1); INVALID(instruction)}
+function clause execute(INVALID(instruction)) = false
