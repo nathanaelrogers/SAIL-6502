@@ -49,8 +49,12 @@ function fetch_decode_execute(last_execute) : bool -> unit = {
 	let last_execute = execute(decoded);
 	if (last_execute) then instructions_done = instructions_done + 1;
 
-	print_endline(concat_str("\n", concat_str(bits_str(PC), concat_str(" ", asm))));
-	if (last_execute) then print_state(cycles - cycles_before);
+	if enable_print_dump then {
+		print_endline(concat_str("\n", concat_str(bits_str(PC), concat_str(" ", asm))));
+
+		if (last_execute) then
+			print_state(cycles - cycles_before);
+	};
 
 	if (last_execute) then fetch_decode_execute(true);
 }
@@ -75,13 +79,21 @@ function setup() : unit -> unit = {
 	reg_SR[z] = undefined;
 	reg_SR[c] = undefined;
 	reg_SP = 0xFF;
-
-	load_program();
 }
 
 function main() : unit -> unit = {
 	setup();
-	let state = print_state(cycles);
+
+	if enable_load_program then
+		load_program();
+
+	if enable_print_dump then
+		print_state(cycles);
+
 	fetch_decode_execute(false);
-	print_memory();
+
+	if enable_print_mem then
+		print_memory();
+
+	print_endline(concat_str("total instructions: ", dec_str(instructions_done)));
 }
