@@ -60,8 +60,8 @@ function fetch_decode_execute(last_execute) : bool -> unit = {
 
 // PC is read from address provided in reset vector (16 bits at $FFFC).
 // All other initialization is left to the program loaded.
-function regular_setup() : unit -> unit = {
-	cycles = 7;
+function model_init() : unit -> unit = {
+	cycles = 0;
 	// Initialise the PC
 	reg_PC[15..8] = read(RST_vec + 1);
 	reg_PC[7..0]  = read(RST_vec);
@@ -84,7 +84,7 @@ function main() : unit -> unit = {
 	if enable_load_program then
 		load_program();
 
-	regular_setup();
+	model_init();
 
 	if enable_print_dump then
 		print_state(cycles);

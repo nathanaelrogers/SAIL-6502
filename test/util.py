@@ -4,25 +4,25 @@ import re
 
 # GROUPS: 1=PC (THIS), 2=A, 3=X, 4=Y, 5=SP, 6=PC (NEXT), 7=n, 8=v, 9=b, 10=d, 11=i, 12=z, 13=c, 14=cycles, 15=NMI, 16=RST, 17=IRQ, 18=total cycles
 DUMP_PATTERN = r'''
-	(0x\w{4}).*\n
-	A: (0x\w\w)\n
-	X: (0x\w\w)\n
-	Y: (0x\w\w)\n
-	SP: (0x\w\w)\n
-	PC: (0x\w{4})\n
-	n: (0b\d)\n
-	v: (0b\d)\n
-	b: (0b\d)\n
-	d: (0b\d)\n
-	i: (0b\d)\n
-	z: (0b\d)\n
-	c: (0b\d)\n
-	cycles: (\d+)\n
-	NMI: (0b\d)\n
-	RST: (0b\d)\n
-	IRQ: (0b\d)\n
-	.*cycles: (\d+)\n
-	.*instructions: '''
+(0x\w{4}).*
+A: (0x\w\w)
+X: (0x\w\w)
+Y: (0x\w\w)
+SP: (0x\w\w)
+PC: (0x\w{4})
+n: (0b\d)
+v: (0b\d)
+b: (0b\d)
+d: (0b\d)
+i: (0b\d)
+z: (0b\d)
+c: (0b\d)
+cycles: (\d+)
+NMI: (0b\d)
+RST: (0b\d)
+IRQ: (0b\d)
+.*cycles: (\d+)
+.*instructions: '''
 
 def create(start_binary=0x0200, source_file=None, start_pc=None, store_data={}, generate_binary=True, view_memory=[], enable_print_dump=False, enable_load_program=False) -> str:
 	# Create hi and lo bytes from the start pc passed in (default start of binary)
