@@ -3,5 +3,6 @@ import re
 
 class TestBCD:
 	def test_clark_valid_only(self):
-		results = util.create_inside_model(0x0000, 'test/sourcefiles/BCD/valid-only.s', view_memory=[0x08FF])
+		results = util.create(start_binary=0x0000, source_file='test/sourcefiles/BCD/valid-only.s', view_memory=[0x08FF], enable_load_program=True)
+		print(results)
 		assert False
