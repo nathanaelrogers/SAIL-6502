@@ -22,6 +22,7 @@ function modify_flags_CPX(result) = {
 // THERE IS A BUG HERE...
 val CPX : (word) -> bool
 function CPX(op) = {
+	incr_cycles(1);
 	let result : bits(9) = EXTZ(9, reg_X) - EXTZ(9, op);
 	modify_flags_CPX(result);
 	true

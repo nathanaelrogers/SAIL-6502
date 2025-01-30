@@ -1,4 +1,5 @@
 function clause execute(JSR_ABS(op)) = {
+	incr_cycles(1);
 	let addr = calc_addr(mode(abs), op);
 	/*
 		By the time we execute this, reg_PC = instruction PC + 3 (size of JSR instruction).

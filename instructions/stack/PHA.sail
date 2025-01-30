@@ -1,6 +1,6 @@
 val PHA : (unit) -> bool
 function PHA() = {
-	incr_cycles(2);
+	incr_cycles(3);
 	push(reg_A);
 	true
 }

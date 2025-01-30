@@ -22,6 +22,7 @@ function modify_flags_CMP(result) = {
 // THERE IS A BUG HERE...
 val CMP : (word) -> bool
 function CMP(op) = {
+	incr_cycles(1);
 	let result : bits(9) = EXTZ(9, reg_A) - EXTZ(9, op);
 	modify_flags_CMP(result);
 	true

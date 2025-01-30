@@ -23,6 +23,6 @@ function clause execute(BRK()) = {
 	let PCL = read(IRQ_vec);
 	reg_PC = PCH @ PCL;
 
-	incr_cycles(6);
+	incr_cycles(7);
 	false
 }

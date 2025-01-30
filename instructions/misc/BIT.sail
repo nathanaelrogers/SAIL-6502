@@ -15,6 +15,7 @@ function modify_flags_bit(input, result) = {
 
 val BIT : (word) -> bool
 function BIT(input) = {
+	incr_cycles(1);
 	let result = reg_A & input;
 	modify_flags_bit(input, result);
 	true

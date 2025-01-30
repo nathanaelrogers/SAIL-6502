@@ -9,7 +9,7 @@ function clause execute(RTI_IMP()) = {
 	reg_SR[all] = stored_sr;
 	reg_SR[b] = 0b0;
 	reg_PC = stored_pc;
-	incr_pc(1);
+	incr_pc(2);
 
 	true
 }

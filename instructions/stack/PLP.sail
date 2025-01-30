@@ -1,6 +1,6 @@
 val PLP : (unit) -> bool
 function PLP() = {
-	incr_cycles(2);
+	incr_cycles(3);
 
 	let stored_sr = pull();
 	reg_SR[all] = stored_sr;

@@ -1,6 +1,6 @@
 val PLA : (unit) -> bool
 function PLA() = {
-	incr_cycles(2);
+	incr_cycles(3);
 	reg_A = pull();
 	true
 }

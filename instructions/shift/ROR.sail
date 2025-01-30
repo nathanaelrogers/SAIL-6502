@@ -23,7 +23,7 @@ function clause execute(ROR_ACC()) = {
 	reg_A = result;
 	modify_flags_ROR(input, result);
 
-	incr_cycles(1);
+	incr_cycles(2);
 	true
 }
 function clause execute(ROR_ZP(op)) = {
@@ -34,7 +34,7 @@ function clause execute(ROR_ZP(op)) = {
 	write_zp(addr, result);
 	modify_flags_ROR(input, result);
 
-	incr_cycles(2);
+	incr_cycles(3);
 	true
 }
 function clause execute(ROR_ZP_X(op)) = {
@@ -45,7 +45,7 @@ function clause execute(ROR_ZP_X(op)) = {
 	write_zp(addr, result);
 	modify_flags_ROR(input, result);
 
-	incr_cycles(2);
+	incr_cycles(3);
 	true
 }
 function clause execute(ROR_ABS(op)) = {
@@ -56,7 +56,7 @@ function clause execute(ROR_ABS(op)) = {
 	write(addr, result);
 	modify_flags_ROR(input, result);
 
-	incr_cycles(2);
+	incr_cycles(3);
 	true
 }
 function clause execute(ROR_ABS_X(op)) = {
@@ -67,6 +67,6 @@ function clause execute(ROR_ABS_X(op)) = {
 	write(addr, result);
 	modify_flags_ROR(input, result);
 
-	incr_cycles(4);
+	incr_cycles(5);
 	true
 }

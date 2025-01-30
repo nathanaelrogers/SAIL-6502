@@ -1,5 +1,6 @@
 val branch : (word, bool) -> bool
 function branch(op, branch_condition) = {
+	incr_cycles(1);
 	let word = calc_word(mode(rel), op);
 	let new_pc = reg_PC + unsigned(word);
 
