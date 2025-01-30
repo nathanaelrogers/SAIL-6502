@@ -45,7 +45,7 @@ function SBC(op) = {
 		};
 	let result : bits(9) = if (reg_SR[d] == 0b0)
 		then {
-			EXTZ(9, reg_A) + EXTZ(9, not_vec(op)) + EXTZ(9, reg_SR[c])
+			EXTZ(9, reg_A) - EXTZ(9, op) - EXTZ(9, not_vec(reg_SR[c]))
 		} else {
 			EXTZ(9, decimal_to_word(decimal_result))
 		};

@@ -1,5 +1,5 @@
 function clause execute(PHP_IMP()) = {
-	incr_cycles(3);
+	incr_cycles(2);
 
 	reg_SR[unused] = 0b1;
 	reg_SR[b] = 0b1;

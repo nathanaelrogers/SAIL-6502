@@ -44,14 +44,13 @@ function fetch_decode_execute(last_execute) : bool -> unit = {
 	incr_pc(1);
 
 	let decoded = decode(instruction);
-	let asm = assembly(decoded);
 
 	let last_execute = execute(decoded);
 	if (last_execute) then instructions_done = instructions_done + 1;
 
 	if enable_print_dump then {
+		let asm = assembly(PC, decoded);
 		print_endline(concat_str("\n", concat_str(bits_str(PC), concat_str(" ", asm))));
-
 		if (last_execute) then
 			print_state(cycles - cycles_before);
 	};
@@ -61,7 +60,7 @@ function fetch_decode_execute(last_execute) : bool -> unit = {
 
 // PC is read from address provided in reset vector (16 bits at $FFFC).
 // All other initialization is left to the program loaded.
-function setup() : unit -> unit = {
+function regular_setup() : unit -> unit = {
 	cycles = 7;
 	// Initialise the PC
 	reg_PC[15..8] = read(RST_vec + 1);
@@ -82,10 +81,10 @@ function setup() : unit -> unit = {
 }
 
 function main() : unit -> unit = {
-	setup();
-
 	if enable_load_program then
 		load_program();
+
+	regular_setup();
 
 	if enable_print_dump then
 		print_state(cycles);

@@ -3,7 +3,26 @@ import time
 import re
 
 # GROUPS: 1=PC (THIS), 2=A, 3=X, 4=Y, 5=SP, 6=PC (NEXT), 7=n, 8=v, 9=b, 10=d, 11=i, 12=z, 13=c, 14=cycles, 15=NMI, 16=RST, 17=IRQ, 18=total cycles
-DUMP_PATTERN = r'(0x\w{4}).*\nA: (0x\w\w)\nX: (0x\w\w)\nY: (0x\w\w)\nSP: (0x\w\w)\nPC: (0x\w{4})\nn: (0b\d)\nv: (0b\d)\nb: (0b\d)\nd: (0b\d)\ni: (0b\d)\nz: (0b\d)\nc: (0b\d)\ncycles: (\d+)\nNMI: (0b\d)\nRST: (0b\d)\nIRQ: (0b\d)\n.*cycles: (\d+)\n.*instructions: '
+DUMP_PATTERN = r'''
+	(0x\w{4}).*\n
+	A: (0x\w\w)\n
+	X: (0x\w\w)\n
+	Y: (0x\w\w)\n
+	SP: (0x\w\w)\n
+	PC: (0x\w{4})\n
+	n: (0b\d)\n
+	v: (0b\d)\n
+	b: (0b\d)\n
+	d: (0b\d)\n
+	i: (0b\d)\n
+	z: (0b\d)\n
+	c: (0b\d)\n
+	cycles: (\d+)\n
+	NMI: (0b\d)\n
+	RST: (0b\d)\n
+	IRQ: (0b\d)\n
+	.*cycles: (\d+)\n
+	.*instructions: '''
 
 def create(start_binary=0x0200, source_file=None, start_pc=None, store_data={}, generate_binary=True, view_memory=[], enable_print_dump=False, enable_load_program=False) -> str:
 	# Create hi and lo bytes from the start pc passed in (default start of binary)
@@ -87,7 +106,7 @@ def create(start_binary=0x0200, source_file=None, start_pc=None, store_data={}, 
 		else:
 			file.write('register enable_print_mem    : bool = false\n')
 		if enable_load_program:
-			file.write('register enable_load_program : bool = true\n')
+			file.write('register enable_load_program : bool = true\n\n')
 			file.write('val print_memory : (unit) -> unit\n')
 			file.write('function print_memory() = {\n')
 			if read_commands:
@@ -102,7 +121,7 @@ def create(start_binary=0x0200, source_file=None, start_pc=None, store_data={}, 
 			file.write('\n}')
 		else:
 			# Replace Sail function to load the program with a dummy
-			file.write('register enable_load_program : bool = false\n')
+			file.write('register enable_load_program : bool = false\n\n')
 			file.write('val print_memory : (unit) -> unit\n')
 			file.write('function print_memory() = {\n')
 			file.write('print_endline("");')
