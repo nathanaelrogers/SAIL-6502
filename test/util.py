@@ -118,24 +118,14 @@ def create(start_binary=0x0000, source_file=None, start_pc=None, store_data={}, 
 	if enable_load_program:
 		# Compile and run the model
 		subprocess.run(['make', 'clean'])
-		subprocess.run([
-			'sail', '-c', 'main.sail', '-o', 'out',
-			'--variable', f'enable_print_dump={"true" if enable_print_dump else "false"}',
-			'--variable', f'enable_print_mem={"true" if view_memory else "false"}',
-			'--variable', f'enable_load_program={"true" if enable_load_program else "false"}',])
-		subprocess.run(['make', 'compile-only'])
+		subprocess.run(['make'])
 		start = time.time()
 		result = subprocess.run(['./out'], capture_output=True)
 		end= time.time()
 		print('execution time of C program', end - start)
 	else:
 		# Run the model using the REPL
-		result = subprocess.run([
-			'sail', '-is', 'commands.txt','main.sail',
-			'--variable', f'enable_print_dump={"true" if enable_print_dump else "false"}',
-			'--variable', f'enable_print_mem={"true" if view_memory else "false"}',
-			'--variable', f'enable_load_program={"true" if enable_load_program else "false"}',
-			], capture_output=True)
+		result = subprocess.run(['sail', '-is', 'commands.txt','main.sail'], capture_output=True)
 
 	# Get the results
 	return result.stdout.decode('UTF-8')
