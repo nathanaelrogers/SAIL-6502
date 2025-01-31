@@ -1,5 +1,14 @@
+union clause ast = INVALID : (bits(24))
+
 /* ============== 1 byte instructions ============== */
-function clause decode08(0x00) = BRK()
+
+// This seems to inappropriately make the constraint that we can't have multiple BRK instructions one after another...
+function clause decode08(0x00) = {
+	if (read(reg_PC) == 0x00) & (read(reg_PC + 1) == 0x00) then
+		INVALID(0x000000)
+	else
+		BRK();
+}
 function clause decode08(0xEA) = NOP()
 
 function clause decode08(0x18) = CLC_IMP()
@@ -192,6 +201,5 @@ function clause decode16(this) = {
 }
 
 // Catch an invalid instruction
-union clause ast = INVALID : (bits(24))
 function clause decode24(instruction) = {incr_cycles(1); INVALID(instruction)}
 function clause execute(INVALID(instruction)) = false

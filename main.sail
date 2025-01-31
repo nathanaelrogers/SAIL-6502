@@ -35,7 +35,7 @@ function print_state(cycles_taken) = {
 	print_endline(concat_str("total instructions: ", dec_str(instructions_done)));
 }
 
-function fetch_decode_execute(last_execute) : bool -> unit = {
+function fetch_decode_execute() : unit -> bool = {
 	let cycles_before : int = cycles;
 
 	let PC : address = reg_PC;
@@ -46,27 +46,26 @@ function fetch_decode_execute(last_execute) : bool -> unit = {
 
 	let decoded = decode(instruction);
 
-	let last_execute = execute(decoded);
+	let execute_success = execute(decoded);
 
-	if (last_execute) then
+	if (execute_success) then
 		instructions_done = instructions_done + 1;
 
 	if enable_print_dump then {
 		let asm = assembly(PC, decoded);
 		print_endline(concat_str("\n", concat_str(bits_str(PC), concat_str(" ", asm))));
 
-		if (last_execute) then
+		if (execute_success) then
 			print_state(cycles - cycles_before);
 	};
 
-	if (instructions_done % 1000 == 0) then {
-		print_endline(concat_str("instructions completed so far: ", dec_str(instructions_done)));
-		print_bits("current PC: ", reg_PC);
-		print_endline("");
-	};
+	// if (instructions_done % 1000 == 0) then {
+	// 	print_endline(concat_str("instructions completed so far: ", dec_str(instructions_done)));
+	// 	print_bits("current PC: ", reg_PC);
+	// 	print_endline("");
+	// };
 
-	if (last_execute) then
-		fetch_decode_execute(true);
+	return execute_success;
 }
 
 // PC is read from address provided in reset vector (16 bits at $FFFC).
@@ -91,7 +90,7 @@ function main() : unit -> unit = {
 	if enable_print_dump then
 		print_state(cycles);
 
-	fetch_decode_execute(false);
+	while (fetch_decode_execute()) do {()};
 
 	if enable_print_mem then
 		print_memory();

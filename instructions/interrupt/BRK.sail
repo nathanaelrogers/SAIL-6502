@@ -1,5 +1,4 @@
-// TODO : inspect precise behaviour of BRK instruction and make sure it is accurate
-// TODO : also look at PLP and PHP for same reasons...
+// TODO : BRK should evaluate to true to allow for software interrupt handling, but the BRK opcode is null byte and this is what memory is filled with...
 
 function clause execute(BRK()) = {
 	/*
@@ -24,5 +23,5 @@ function clause execute(BRK()) = {
 	reg_PC = PCH @ PCL;
 
 	incr_cycles(7);
-	false
+	true
 }
