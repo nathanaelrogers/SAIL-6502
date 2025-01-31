@@ -19,7 +19,6 @@ function print_state(cycles_taken) = {
 	print_bits("X: ", reg_X);
 	print_bits("Y: ", reg_Y);
 	print_bits("SP: ", reg_SP);
-	// print_bits("PC: ", reg_PC[15..8] @ reg_PC[7..0]);
 	print_bits("PC: ", reg_PC);
 	print_bits("n: ", reg_SR[n]);
 	print_bits("v: ", reg_SR[v]);
@@ -39,7 +38,6 @@ function print_state(cycles_taken) = {
 function fetch_decode_execute(last_execute) : bool -> unit = {
 	let cycles_before : int = cycles;
 
-	// let PC : address = reg_PC[15..8] @ reg_PC[7..0];
 	let PC : address = reg_PC;
 
 	let instruction = read(PC);
@@ -63,7 +61,8 @@ function fetch_decode_execute(last_execute) : bool -> unit = {
 
 	if (instructions_done % 1000 == 0) then {
 		print_endline(concat_str("instructions completed so far: ", dec_str(instructions_done)));
-		print_endline(concat_str(print_bits("current PC: ", reg_PC), "\n"));
+		print_bits("current PC: ", reg_PC);
+		print_endline("");
 	};
 
 	if (last_execute) then

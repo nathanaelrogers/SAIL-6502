@@ -107,8 +107,8 @@ def create(start_binary=0x0200, source_file=None, overrided_start_pc=None, start
 		print('execution time of C program', end - start)
 	else:
 		with open('commands.txt', 'w') as file:
-			file.write('main()')
-			file.write(':run')
+			file.write('main()\n')
+			file.write(':run\n')
 
 		# Run the model using the REPL
 		start = time.time()
