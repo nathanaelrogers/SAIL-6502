@@ -59,11 +59,12 @@ function fetch_decode_execute() : unit -> bool = {
 			print_state(cycles - cycles_before);
 	};
 
-	// if (instructions_done % 1000 == 0) then {
-	// 	print_endline(concat_str("instructions completed so far: ", dec_str(instructions_done)));
-	// 	print_bits("current PC: ", reg_PC);
-	// 	print_endline("");
-	// };
+	if enable_print_at_interval then
+		if (instructions_done % 1000 == 0) then {
+			print_endline(concat_str("instructions completed so far: ", dec_str(instructions_done)));
+			print_bits("current PC: ", reg_PC);
+			print_endline("");
+		};
 
 	return execute_success;
 }

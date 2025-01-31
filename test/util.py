@@ -24,7 +24,7 @@ IRQ: (0b\d)
 .*cycles: (\d+)
 .*instructions: '''
 
-def create(start_binary=0x0200, source_file=None, overrided_start_pc=None, start_sp=0xFF, start_sr=0x06, store_data={}, view_memory=[], generate_binary=True, enable_print_dump=False, compile_c_target=False) -> str:
+def create(start_binary=0x0200, source_file=None, overrided_start_pc=None, start_sp=0xFF, start_sr=0x06, store_data={}, view_memory=[], generate_binary=True, enable_print_dump=False, enable_print_at_interval=False, compile_c_target=False) -> str:
 	# Generate list of SAIL REPL commands to store sary at start address
 	commands = []
 	read_commands = []
@@ -73,6 +73,10 @@ def create(start_binary=0x0200, source_file=None, overrided_start_pc=None, start
 
 	# Make a Sail function to load the program when the compiled model is launched
 	with open('config.sail', 'w') as file:
+		if enable_print_at_interval:
+			file.write('register enable_print_at_interval : bool = true\n')
+		else:
+			file.write('register enable_print_at_interval : bool = false\n')
 		if enable_print_dump:
 			file.write('register enable_print_dump   : bool = true\n')
 		else:
