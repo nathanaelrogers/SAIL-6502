@@ -1,8 +1,7 @@
 z3_problems
 
 out
-
-*.c
+out.c
 
 __pycache__/
 .pytest_cache/
