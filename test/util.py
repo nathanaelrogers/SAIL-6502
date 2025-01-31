@@ -24,28 +24,25 @@ IRQ: (0b\d)
 .*cycles: (\d+)
 .*instructions: '''
 
-def create(start_binary=0x0200, source_file=None, start_pc=None, store_data={}, generate_binary=True, view_memory=[], enable_print_dump=False, enable_load_program=False) -> str:
-	# Create hi and lo bytes from the start pc passed in (default start of binary)
-	if start_pc:
-		pc_hi_byte = start_pc >> 8
-		pc_lo_byte = start_pc & 0xFF
-	else:
-		pc_hi_byte = start_binary >> 8
-		pc_lo_byte = start_binary & 0xFF
-
+def create(start_binary=0x0200, source_file=None, overrided_start_pc=None, start_sp=0xFF, start_sr=0x06, store_data={}, view_memory=[], generate_binary=True, enable_print_dump=False, compile_c_target=False) -> str:
 	# Generate list of SAIL REPL commands to store sary at start address
 	commands = []
 	read_commands = []
 
-	# Create commands to store the reset vector with the given start address
-	if enable_load_program:
-		commands.append(f'write(0xFFFC, {pc_lo_byte:#0{4}x});')
-		commands.append(f'write(0xFFFD, {pc_hi_byte:#0{4}x});')
-	else:
-		commands.append(f'write(0xFFFC, {pc_lo_byte:#0{4}x})')
-		commands.append(':run')
-		commands.append(f'write(0xFFFD, {pc_hi_byte:#0{4}x})')
-		commands.append(':run')
+	# Create commands to put any extra data needed for test into memory
+	for location in store_data:
+		for i, byte in enumerate(store_data[location]):
+			commands.append(f'write({location+i:#0{6}x}, {byte:#0{4}x});')
+
+	# Commands to look at contents of memory after we're done
+	for location in view_memory:
+		hi_byte = location >> 8
+		lo_byte = location & 0xFF
+		read_commands.append(f'print_bits(\"{location:#0{6}x}: \", main_mem[{hi_byte}][{lo_byte}]);')
+
+	# Commands to initialise registers
+	commands.append(f'reg_SR[all] = {start_sr:#0{4}x};')
+	commands.append(f'reg_SP = {start_sp:#0{4}x};')
 
 	# Generate a binary file from the source code
 	if generate_binary:
@@ -56,47 +53,26 @@ def create(start_binary=0x0200, source_file=None, start_pc=None, store_data={}, 
 		data = file.read()
 		i = start_binary
 		for byte in data:
-			if enable_load_program:
-				commands.append(f'write({i:#0{6}x}, {byte:#0{4}x});')
-			else:
-				commands.append(f'write({i:#0{6}x}, {byte:#0{4}x})')
-				commands.append(':run')
+			commands.append(f'write({i:#0{6}x}, {byte:#0{4}x});')
 			i += 1
 
-	# Create commands to put any extra data needed for test into memory
-	for location in store_data:
-		for i, byte in enumerate(store_data[location]):
-			if enable_load_program:
-				commands.append(f'write({location+i:#0{6}x}, {byte:#0{4}x});')
-			else:
-				commands.append(f'write({location+i:#0{6}x}, {byte:#0{4}x})')
-				commands.append(':run')
+	# Create hi and lo bytes from the start pc passed in (defaults to start of binary)
+	if overrided_start_pc:
+		pc_hi_byte = overrided_start_pc >> 8
+		pc_lo_byte = overrided_start_pc & 0xFF
+	else:
+		pc_hi_byte = start_binary >> 8
+		pc_lo_byte = start_binary & 0xFF
 
-	# Commands to run model main loop in repl
-	if not enable_load_program:
-		commands.append('main()')
-		commands.append(':run')
-
-	# Commands to look at contents of memory after we're done
-	for location in view_memory:
-		hi_byte = location >> 8
-		lo_byte = location & 0xFF
-		if enable_load_program:
-			read_commands.append(f'print_bits(\"{location:#0{6}x}: \", main_mem[{hi_byte}][{lo_byte}]);')
-		else:
-			commands.append(f'main_mem[{hi_byte}][{lo_byte}]')
-			commands.append(':run')
-
-	# Command to quit the interpreter at the end
-	if not enable_load_program:
-		commands.append(':quit')
-
-	# Write SAIL interpreter commands to file
-	with open('commands.txt', 'w') as file:
-		file.write('\n'.join(commands))
+	# Commands to directly overwrite the PC or rely on the program-stored one
+	if overrided_start_pc:
+		commands.append(f'reg_PC = {overrided_start_pc:#0{6}x};')
+	else:
+		commands.append(f'reg_PC[15..8] = read(RST_vec + 1);')
+		commands.append(f'reg_PC[7..0]  = read(RST_vec);')
 
 	# Make a Sail function to load the program when the compiled model is launched
-	with open('program.sail', 'w') as file:
+	with open('config.sail', 'w') as file:
 		if enable_print_dump:
 			file.write('register enable_print_dump   : bool = true\n')
 		else:
@@ -105,36 +81,23 @@ def create(start_binary=0x0200, source_file=None, start_pc=None, store_data={}, 
 			file.write('register enable_print_mem    : bool = true\n')
 		else:
 			file.write('register enable_print_mem    : bool = false\n')
-		if enable_load_program:
-			file.write('register enable_load_program : bool = true\n\n')
-			file.write('val print_memory : (unit) -> unit\n')
-			file.write('function print_memory() = {\n')
-			if read_commands:
-				file.write('\n'.join(read_commands))
-			else:
-				file.write('print_endline("");')
-			file.write('\n}')
-			file.write('\n\n')
-			file.write('val load_program : (unit) -> unit\n')
-			file.write('function load_program() = {\n')
-			file.write('\n'.join(commands))
-			file.write('\n}')
+
+		file.write('val print_memory : (unit) -> unit\n')
+		file.write('function print_memory() = {\n')
+		if read_commands:
+			file.write('\n'.join(read_commands))
 		else:
-			# Replace Sail function to load the program with a dummy
-			file.write('register enable_load_program : bool = false\n\n')
-			file.write('val print_memory : (unit) -> unit\n')
-			file.write('function print_memory() = {\n')
 			file.write('print_endline("");')
-			file.write('\n}')
-			file.write('\n\n')
-			file.write('val load_program : (unit) -> unit\n')
-			file.write('function load_program() = {\n')
-			file.write('print_endline("");')
-			file.write('\n}')
+		file.write('\n}')
+		file.write('\n\n')
+		file.write('val load_config : (unit) -> unit\n')
+		file.write('function load_config() = {\n')
+		file.write('\n'.join(commands))
+		file.write('\n}')
 
 
 	# Get the results
-	if enable_load_program:
+	if compile_c_target:
 		# Compile and run the model
 		subprocess.run(['make', 'clean'])
 		subprocess.run(['make'])
@@ -143,6 +106,10 @@ def create(start_binary=0x0200, source_file=None, start_pc=None, store_data={}, 
 		end= time.time()
 		print('execution time of C program', end - start)
 	else:
+		with open('commands.txt', 'w') as file:
+			file.write('main()')
+			file.write(':run')
+
 		# Run the model using the REPL
 		start = time.time()
 		result = subprocess.run(['sail', '-is', 'commands.txt','main.sail'], capture_output=True)

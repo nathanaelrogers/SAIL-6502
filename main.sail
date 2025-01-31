@@ -10,7 +10,7 @@ $include "addressing.sail"
 $include "decimal-mode.sail"
 $include "instructions.sail"
 $include "decode.sail"
-$include "program.sail"
+$include "config.sail"
 $include "assembly-print.sail"
 
 val print_state : (int) -> unit
@@ -19,7 +19,8 @@ function print_state(cycles_taken) = {
 	print_bits("X: ", reg_X);
 	print_bits("Y: ", reg_Y);
 	print_bits("SP: ", reg_SP);
-	print_bits("PC: ", reg_PC[15..8] @ reg_PC[7..0]);
+	// print_bits("PC: ", reg_PC[15..8] @ reg_PC[7..0]);
+	print_bits("PC: ", reg_PC);
 	print_bits("n: ", reg_SR[n]);
 	print_bits("v: ", reg_SR[v]);
 	print_bits("b: ", reg_SR[b]);
@@ -38,7 +39,9 @@ function print_state(cycles_taken) = {
 function fetch_decode_execute(last_execute) : bool -> unit = {
 	let cycles_before : int = cycles;
 
-	let PC : address = reg_PC[15..8] @ reg_PC[7..0];
+	// let PC : address = reg_PC[15..8] @ reg_PC[7..0];
+	let PC : address = reg_PC;
+
 	let instruction = read(PC);
 
 	incr_pc(1);
@@ -46,45 +49,45 @@ function fetch_decode_execute(last_execute) : bool -> unit = {
 	let decoded = decode(instruction);
 
 	let last_execute = execute(decoded);
-	if (last_execute) then instructions_done = instructions_done + 1;
+
+	if (last_execute) then
+		instructions_done = instructions_done + 1;
 
 	if enable_print_dump then {
 		let asm = assembly(PC, decoded);
 		print_endline(concat_str("\n", concat_str(bits_str(PC), concat_str(" ", asm))));
+
 		if (last_execute) then
 			print_state(cycles - cycles_before);
 	};
 
-	if (last_execute) then fetch_decode_execute(true);
+	if (instructions_done % 1000 == 0) then {
+		print_endline(concat_str("instructions completed so far: ", dec_str(instructions_done)));
+		print_endline(concat_str(print_bits("current PC: ", reg_PC), "\n"));
+	};
+
+	if (last_execute) then
+		fetch_decode_execute(true);
 }
 
 // PC is read from address provided in reset vector (16 bits at $FFFC).
 // All other initialization is left to the program loaded.
 function model_init() : unit -> unit = {
 	cycles = 0;
-	// Initialise the PC
-	reg_PC[15..8] = read(RST_vec + 1);
-	reg_PC[7..0]  = read(RST_vec);
 
 	// it seems like everything should be undefined to begin with...
 	reg_A  = undefined;
 	reg_X  = undefined;
 	reg_Y  = undefined;
-	reg_SR[n] = undefined;
-	reg_SR[v] = undefined;
-	reg_SR[b] = undefined;
-	reg_SR[d] = undefined;
-	reg_SR[i] = 0b1;
-	reg_SR[z] = undefined;
-	reg_SR[c] = undefined;
-	reg_SP = 0xFF;
+	reg_PC = undefined;
+	reg_SP = undefined;
+	reg_SR[all] = undefined;
 }
 
 function main() : unit -> unit = {
-	if enable_load_program then
-		load_program();
-
 	model_init();
+
+	load_config();
 
 	if enable_print_dump then
 		print_state(cycles);
