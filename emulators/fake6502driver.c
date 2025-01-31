@@ -27,5 +27,8 @@ int main() {
 	write6502(0x0000, 0x42);
 	printf("%x\n", read6502(0x0000));
 
+	push8(0x27);
+	printf("%x\n", pull8());
+
 	return 0;
 }
