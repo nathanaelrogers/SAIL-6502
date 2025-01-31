@@ -1,4 +1,0 @@
-declare C function in sail project using val
-declare function in C header file (include "sail.h")
-implement function in same-named C file (include "sail.h")
--c_include sail flag with your C header file
