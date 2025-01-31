@@ -21,6 +21,7 @@ $(SAIL_OUT): $(SAIL_SRC)
 
 # Clean up generated files
 clean:
+	rm -f code.bin
 	rm -f *.txt
 	rm -f out.c $(SAIL_OUT)
 	rm -f z3_problems
