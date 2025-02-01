@@ -56,14 +56,6 @@ def create(start_binary=0x0200, source_file=None, overrided_start_pc=None, start
 			commands.append(f'write({i:#0{6}x}, {byte:#0{4}x});')
 			i += 1
 
-	# Create hi and lo bytes from the start pc passed in (defaults to start of binary)
-	if overrided_start_pc:
-		pc_hi_byte = overrided_start_pc >> 8
-		pc_lo_byte = overrided_start_pc & 0xFF
-	else:
-		pc_hi_byte = start_binary >> 8
-		pc_lo_byte = start_binary & 0xFF
-
 	# Commands to directly overwrite the PC or rely on the program-stored one
 	if overrided_start_pc:
 		commands.append(f'reg_PC = {overrided_start_pc:#0{6}x};')
