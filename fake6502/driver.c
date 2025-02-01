@@ -21,13 +21,17 @@ int main() {
 	main_mem = (memory) calloc((0b1 << 16), sizeof(uint8_t));
 
 	// Open the code file
-	FILE *code = fopen("../code.bin", "rb");
+	FILE *code = fopen("code.bin", "rb");
 	if (!code) {
 		fprintf(stderr, "could not open code.bin!\n");
 		return 1;
 	}
 	// Read the code into memory
 	fread(main_mem, sizeof(uint8_t), (0b1 << 16), code);
+
+	while(1) {
+		step6502();
+	}
 
 	return 0;
 }
