@@ -36,6 +36,11 @@ function print_state(cycles_taken) = {
 }
 
 function fetch_decode_execute() : unit -> bool = {
+	if (reg_PC == 0x0446) then {
+		print_bits("starting loop Y=", reg_Y);
+		print_bits("contents of address 0x0446: ", read(0x0446));
+	};
+
 	let cycles_before : int = cycles;
 
 	let PC : address = reg_PC;
@@ -51,7 +56,7 @@ function fetch_decode_execute() : unit -> bool = {
 	if (execute_success) then
 		instructions_done = instructions_done + 1;
 
-	if enable_print_dump then {
+	if (enable_print_dump) then {
 		let asm = assembly(PC, decoded);
 		print_endline(concat_str("\n", concat_str(bits_str(PC), concat_str(" ", asm))));
 
