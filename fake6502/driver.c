@@ -31,7 +31,14 @@ int functional_test() {
 	pc = 0x0400;
 	status = 0x06;
 	while (1) {
+		uint16_t saved_pc = pc;
+
 		step6502();
+
+		if (saved_pc == pc) {
+			printf("cycles: %d, instructions: %d, pc: %x\n", clockticks6502, instructions, pc);
+			return 0;
+		}
 	}
 }
 
@@ -39,5 +46,5 @@ int main() {
 	// Initialise the main memory
 	main_mem = (memory) calloc((0b1 << 16), sizeof(uint8_t));
 
-	return 0;
+	return functional_test();
 }

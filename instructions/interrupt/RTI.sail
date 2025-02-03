@@ -4,12 +4,10 @@ function clause execute(RTI_IMP()) = {
 	let stored_sr = pull();
 	let PCL = pull();
 	let PCH = pull();
-	let stored_pc = PCH @ PCL;
 
 	reg_SR[all] = stored_sr;
 	reg_SR[b] = 0b0;
-	reg_PC = stored_pc;
-	incr_pc(2);
+	reg_PC = PCH @ PCL;
 
 	true
 }

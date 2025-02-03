@@ -38,6 +38,9 @@ function print_state(cycles_taken) = {
 function fetch_decode_execute() : unit -> bool = {
 	let PC : address = reg_PC;
 
+	// if (PC == 0x09C5) then
+	// 	enable_print_dump = true;
+
 	let cycles_before : int = cycles;
 
 	let instruction = read(PC);
