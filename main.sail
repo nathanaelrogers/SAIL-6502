@@ -36,17 +36,11 @@ function print_state(cycles_taken) = {
 }
 
 function fetch_decode_execute() : unit -> bool = {
-	if (reg_PC == 0x0446) then {
-		print_bits("starting loop Y=", reg_Y);
-		print_bits("contents of address 0x0446: ", read(0x0446));
-	};
+	let PC : address = reg_PC;
 
 	let cycles_before : int = cycles;
 
-	let PC : address = reg_PC;
-
 	let instruction = read(PC);
-
 	incr_pc(1);
 
 	let decoded = decode(instruction);
@@ -65,11 +59,17 @@ function fetch_decode_execute() : unit -> bool = {
 	};
 
 	if enable_print_at_interval then
-		if (instructions_done % 1000000 == 0) then {
+		if (instructions_done % 1000 == 0) then {
 			print_endline(concat_str("instructions completed so far: ", dec_str(instructions_done)));
-			print_bits("current PC: ", reg_PC);
+			print_bits("current PC: ", PC);
 			print_endline("");
 		};
+
+	// break if the PC hasn't moved forward after execution (jump trap)
+	if (PC == reg_PC) then {
+		print_bits("trapped at PC: ", reg_PC);
+		return false;
+	};
 
 	return execute_success;
 }

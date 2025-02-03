@@ -16,7 +16,7 @@ void write6502(uint16_t address, uint8_t value) {
 	return;
 }
 
-int functional_test_partone() {
+int functional_test() {
 	// Open the code file
 	FILE *code = fopen("test/sourcefiles/functional/6502_functional_test.bin", "rb");
 	if (!code) {
@@ -31,19 +31,7 @@ int functional_test_partone() {
 	pc = 0x0400;
 	status = 0x06;
 	while (1) {
-		if (pc == 0x0446) {
-			printf("loop started, Y: %x\n", y);
-		}
-
 		step6502();
-
-		if (pc == 0x0581) {
-			printf("DONE-ZO\n");
-			printf("instructions done: %d\n", instructions);
-			printf("cycles done: %d\n", clockticks6502);
-			printf("reached PC: %x\n", pc);
-			return 0;
-		}
 	}
 }
 
@@ -51,5 +39,5 @@ int main() {
 	// Initialise the main memory
 	main_mem = (memory) calloc((0b1 << 16), sizeof(uint8_t));
 
-	return functional_test_partone();
+	return 0;
 }

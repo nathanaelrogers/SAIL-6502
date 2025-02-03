@@ -6,8 +6,6 @@ out.c
 __pycache__/
 .pytest_cache/
 
-*.txt
-
 program.sail
 
 code.bin

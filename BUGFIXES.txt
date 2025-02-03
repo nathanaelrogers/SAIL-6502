@@ -1,0 +1,5 @@
+recursions causing C version to crash
+
+SBC not configged correctly
+
+branch targets SHOULD BE SIGNED LOL

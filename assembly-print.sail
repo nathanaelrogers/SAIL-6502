@@ -41,14 +41,14 @@ function clause assembly(PC, ASL_ZP_X(op))  = make_str(mode(zp_x),  "ASL ", my_h
 function clause assembly(PC, ASL_ABS(op))   = make_str(mode(abs),   "ASL ", my_hex_str(op))
 function clause assembly(PC, ASL_ABS_X(op)) = make_str(mode(abs_x), "ASL ", my_hex_str(op))
 
-function clause assembly(PC, BCC_REL(op))   = make_str(mode(rel),   "BCC ", my_hex_str(EXTZ(op) + PC + 2))
-function clause assembly(PC, BCS_REL(op))   = make_str(mode(rel),   "BCS ", my_hex_str(EXTZ(op) + PC + 2))
-function clause assembly(PC, BEQ_REL(op))   = make_str(mode(rel),   "BEQ ", my_hex_str(EXTZ(op) + PC + 2))
-function clause assembly(PC, BMI_REL(op))   = make_str(mode(rel),   "BMI ", my_hex_str(EXTZ(op) + PC + 2))
-function clause assembly(PC, BNE_REL(op))   = make_str(mode(rel),   "BNE ", my_hex_str(EXTZ(op) + PC + 2))
-function clause assembly(PC, BPL_REL(op))   = make_str(mode(rel),   "BPL ", my_hex_str(EXTZ(op) + PC + 2))
-function clause assembly(PC, BVC_REL(op))   = make_str(mode(rel),   "BVC ", my_hex_str(EXTZ(op) + PC + 2))
-function clause assembly(PC, BVS_REL(op))   = make_str(mode(rel),   "BVS ", my_hex_str(EXTZ(op) + PC + 2))
+function clause assembly(PC, BCC_REL(op))   = "BCC"
+function clause assembly(PC, BCS_REL(op))   = "BCS"
+function clause assembly(PC, BEQ_REL(op))   = "BEQ"
+function clause assembly(PC, BMI_REL(op))   = "BMI"
+function clause assembly(PC, BNE_REL(op))   = "BNE"
+function clause assembly(PC, BPL_REL(op))   = "BPL"
+function clause assembly(PC, BVC_REL(op))   = "BVC"
+function clause assembly(PC, BVS_REL(op))   = "BVS"
 
 function clause assembly(PC, BIT_ZP(op))    = make_str(mode(zp),    "BIT ", my_hex_str(op))
 function clause assembly(PC, BIT_ABS(op))   = make_str(mode(abs),   "BIT ", my_hex_str(op))
