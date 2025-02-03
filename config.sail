@@ -1,4 +1,4 @@
-register enable_print_at_interval : bool = true
+register enable_print_at_interval : bool = false
 register enable_print_dump   : bool = false
 register enable_print_mem    : bool = false
 val print_memory : (unit) -> unit

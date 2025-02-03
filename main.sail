@@ -38,9 +38,6 @@ function print_state(cycles_taken) = {
 function fetch_decode_execute() : unit -> bool = {
 	let PC : address = reg_PC;
 
-	// if (PC == 0x09C5) then
-	// 	enable_print_dump = true;
-
 	let cycles_before : int = cycles;
 
 	let instruction = read(PC);
@@ -70,7 +67,6 @@ function fetch_decode_execute() : unit -> bool = {
 
 	// break if the PC hasn't moved forward after execution (jump trap)
 	if (PC == reg_PC) then {
-		print_bits("trapped at PC: ", reg_PC);
 		return false;
 	};
 
@@ -82,7 +78,7 @@ function fetch_decode_execute() : unit -> bool = {
 function model_init() : unit -> unit = {
 	cycles = 0;
 
-	// it seems like everything should be undefined to begin with...
+	// it seems like everything should be undefined to begin with...?
 	reg_A  = undefined;
 	reg_X  = undefined;
 	reg_Y  = undefined;

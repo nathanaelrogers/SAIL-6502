@@ -14,7 +14,7 @@ bitfield flags : word = {
 	all : 7..0,
 	n : 7,
 	v : 6,
-	unused : 5,
+	X : 5,
 	b : 4,
 	d : 3,
 	i : 2,

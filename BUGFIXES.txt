@@ -1,5 +1,7 @@
 recursions causing C version to crash
 
-SBC not configged correctly
-
 branch targets SHOULD BE SIGNED LOL
+
+RTI returning to wrong address (+2)
+
+TODO: inspect behaviour of SBC flags
