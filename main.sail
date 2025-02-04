@@ -59,7 +59,7 @@ function fetch_decode_execute() : unit -> bool = {
 	};
 
 	if enable_print_at_interval then
-		if (instructions_done % 10000 == 0) then {
+		if (instructions_done % 100000 == 0) then {
 			print_endline(concat_str("instructions completed so far: ", dec_str(instructions_done)));
 			print_bits("current PC: ", PC);
 			print_endline("");
