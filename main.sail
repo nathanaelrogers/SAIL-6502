@@ -68,8 +68,6 @@ function fetch_decode_execute() : unit -> bool = {
 	// break if the PC hasn't moved forward after execution (jump trap)
 	if (PC == reg_PC) then {
 		print_bits("trapped at PC: ", PC);
-		print_bits("adrf: ", read(0x0011));
-		print_bits("flags pulled into acc: ", reg_A);
 		return false;
 	};
 

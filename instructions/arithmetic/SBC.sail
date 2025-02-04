@@ -4,7 +4,7 @@ function modify_flags_SBC(result, decimal_result, op1, op2) = {
 	reg_SR[n] = [result[7]];
 
 	// zero + BCD zero
-	if (reg_A == 0x00) then
+	if (result[7..0] == 0x00) then
 		reg_SR[z] = 0b1
 	else
 		reg_SR[z] = 0b0;
