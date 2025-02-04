@@ -25,34 +25,34 @@ function perform_logical_instr(result) = {
 // =======================================
 
 function clause execute(AND_IMM(op))   = {
-	incr_cycles(1);
+	incr_cycles(2);
 	let input = calc_word(mode(imm), op);
 	let result = input & reg_A;
 	perform_logical_instr(result)
 }
 function clause execute(AND_ZP(op))    = {
-	incr_cycles(1);
+	incr_cycles(3);
 	let word = calc_word(mode(zp), op);
 	let input = read_zp(word);
 	let result = input & reg_A;
 	perform_logical_instr(result)
 }
 function clause execute(AND_ZP_X(op))  = {
-	incr_cycles(1);
+	incr_cycles(4);
 	let word = calc_word(mode(zp_x), op);
 	let input = read_zp(word);
 	let result = input & reg_A;
 	perform_logical_instr(result)
 }
 function clause execute(AND_ABS(op))   = {
-	incr_cycles(1);
+	incr_cycles(4);
 	let addr = calc_addr(mode(abs), op);
 	let input = read(addr);
 	let result = input & reg_A;
 	perform_logical_instr(result)
 }
 function clause execute(AND_ABS_X(op)) = {
-	incr_cycles(1);
+	incr_cycles(4);
 	let addr = calc_addr(mode(abs_x), op);
 	if (op[15..8] != addr[15..8]) then incr_cycles(1);
 	let input = read(addr);
@@ -60,7 +60,7 @@ function clause execute(AND_ABS_X(op)) = {
 	perform_logical_instr(result)
 }
 function clause execute(AND_ABS_Y(op)) = {
-	incr_cycles(1);
+	incr_cycles(4);
 	let addr = calc_addr(mode(abs_y), op);
 	if (op[15..8] != addr[15..8]) then incr_cycles(1);
 	let input = read(addr);
@@ -68,15 +68,17 @@ function clause execute(AND_ABS_Y(op)) = {
 	perform_logical_instr(result)
 }
 function clause execute(AND_IND_X(op)) = {
-	incr_cycles(1);
+	incr_cycles(6);
 	let addr = calc_addr(mode(ind_x), op);
 	let input = read(addr);
 	let result = input & reg_A;
 	perform_logical_instr(result)
 }
 function clause execute(AND_IND_Y(op)) = {
-	incr_cycles(1);
+	incr_cycles(5);
 	let addr = calc_addr(mode(ind_y), op);
+	if (addr[15..8] != (read_zp(op + 1) @ read_zp(op))[15..8]) then
+		incr_cycles(1);
 	let input = read(addr);
 	let result = input & reg_A;
 	perform_logical_instr(result)
@@ -85,34 +87,34 @@ function clause execute(AND_IND_Y(op)) = {
 // =======================================
 
 function clause execute(EOR_IMM(op))   = {
-	incr_cycles(1);
+	incr_cycles(2);
 	let input = calc_word(mode(imm), op);
 	let result = input ^ reg_A;
 	perform_logical_instr(result)
 }
 function clause execute(EOR_ZP(op))    = {
-	incr_cycles(1);
+	incr_cycles(3);
 	let word = calc_word(mode(zp), op);
 	let input = read_zp(word);
 	let result = input ^ reg_A;
 	perform_logical_instr(result)
 }
 function clause execute(EOR_ZP_X(op))  = {
-	incr_cycles(1);
+	incr_cycles(4);
 	let word = calc_word(mode(zp_x), op);
 	let input = read_zp(word);
 	let result = input ^ reg_A;
 	perform_logical_instr(result)
 }
 function clause execute(EOR_ABS(op))   = {
-	incr_cycles(1);
+	incr_cycles(4);
 	let addr = calc_addr(mode(abs), op);
 	let input = read(addr);
 	let result = input ^ reg_A;
 	perform_logical_instr(result)
 }
 function clause execute(EOR_ABS_X(op)) = {
-	incr_cycles(1);
+	incr_cycles(4);
 	let addr = calc_addr(mode(abs_x), op);
 	if (op[15..8] != addr[15..8]) then incr_cycles(1);
 	let input = read(addr);
@@ -120,7 +122,7 @@ function clause execute(EOR_ABS_X(op)) = {
 	perform_logical_instr(result)
 }
 function clause execute(EOR_ABS_Y(op)) = {
-	incr_cycles(1);
+	incr_cycles(4);
 	let addr = calc_addr(mode(abs_y), op);
 	if (op[15..8] != addr[15..8]) then incr_cycles(1);
 	let input = read(addr);
@@ -128,15 +130,17 @@ function clause execute(EOR_ABS_Y(op)) = {
 	perform_logical_instr(result)
 }
 function clause execute(EOR_IND_X(op)) = {
-	incr_cycles(1);
+	incr_cycles(6);
 	let addr = calc_addr(mode(ind_x), op);
 	let input = read(addr);
 	let result = input ^ reg_A;
 	perform_logical_instr(result)
 }
 function clause execute(EOR_IND_Y(op)) = {
-	incr_cycles(1);
+	incr_cycles(5);
 	let addr = calc_addr(mode(ind_y), op);
+	if (addr[15..8] != (read_zp(op + 1) @ read_zp(op))[15..8]) then
+		incr_cycles(1);
 	let input = read(addr);
 	let result = input ^ reg_A;
 	perform_logical_instr(result)
@@ -145,34 +149,34 @@ function clause execute(EOR_IND_Y(op)) = {
 // =======================================
 
 function clause execute(ORA_IMM(op))   = {
-	incr_cycles(1);
+	incr_cycles(2);
 	let input = calc_word(mode(imm), op);
 	let result = input | reg_A;
 	perform_logical_instr(result)
 }
 function clause execute(ORA_ZP(op))    = {
-	incr_cycles(1);
+	incr_cycles(3);
 	let word = calc_word(mode(zp), op);
 	let input = read_zp(word);
 	let result = input | reg_A;
 	perform_logical_instr(result)
 }
 function clause execute(ORA_ZP_X(op))  = {
-	incr_cycles(1);
+	incr_cycles(4);
 	let word = calc_word(mode(zp_x), op);
 	let input = read_zp(word);
 	let result = input | reg_A;
 	perform_logical_instr(result)
 }
 function clause execute(ORA_ABS(op))   = {
-	incr_cycles(1);
+	incr_cycles(4);
 	let addr = calc_addr(mode(abs), op);
 	let input = read(addr);
 	let result = input | reg_A;
 	perform_logical_instr(result)
 }
 function clause execute(ORA_ABS_X(op)) = {
-	incr_cycles(1);
+	incr_cycles(4);
 	let addr = calc_addr(mode(abs_x), op);
 	if (op[15..8] != addr[15..8]) then incr_cycles(1);
 	let input = read(addr);
@@ -180,7 +184,7 @@ function clause execute(ORA_ABS_X(op)) = {
 	perform_logical_instr(result)
 }
 function clause execute(ORA_ABS_Y(op)) = {
-	incr_cycles(1);
+	incr_cycles(4);
 	let addr = calc_addr(mode(abs_y), op);
 	if (op[15..8] != addr[15..8]) then incr_cycles(1);
 	let input = read(addr);
@@ -188,15 +192,17 @@ function clause execute(ORA_ABS_Y(op)) = {
 	perform_logical_instr(result)
 }
 function clause execute(ORA_IND_X(op)) = {
-	incr_cycles(1);
+	incr_cycles(6);
 	let addr = calc_addr(mode(ind_x), op);
 	let input = read(addr);
 	let result = input | reg_A;
 	perform_logical_instr(result)
 }
 function clause execute(ORA_IND_Y(op)) = {
-	incr_cycles(1);
+	incr_cycles(5);
 	let addr = calc_addr(mode(ind_y), op);
+	if (addr[15..8] != (read_zp(op + 1) @ read_zp(op))[15..8]) then
+		incr_cycles(1);
 	let input = read(addr);
 	let result = input | reg_A;
 	perform_logical_instr(result)

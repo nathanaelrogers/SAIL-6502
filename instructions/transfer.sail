@@ -24,58 +24,60 @@ function complete_transfer_instruction(input) = {
 // =======================================
 
 function clause execute(LDA_IMM(op))   = {
-	incr_cycles(1);
+	incr_cycles(2);
 	let input = calc_word(mode(imm), op);
 	reg_A = input;
 	complete_transfer_instruction(input)
 }
 function clause execute(LDA_ZP(op))    = {
-	incr_cycles(1);
+	incr_cycles(3);
 	let addr = calc_word(mode(zp), op);
 	let input = read_zp(addr);
 	reg_A = input;
 	complete_transfer_instruction(input)
 }
 function clause execute(LDA_ZP_X(op))  = {
-	incr_cycles(1);
+	incr_cycles(4);
 	let addr = calc_word(mode(zp_x), op);
 	let input = read_zp(addr);
 	reg_A = input;
 	complete_transfer_instruction(input)
 }
 function clause execute(LDA_ABS(op))   = {
-	incr_cycles(1);
+	incr_cycles(4);
 	let addr = calc_addr(mode(abs), op);
 	let input = read(addr);
 	reg_A = input;
 	complete_transfer_instruction(input)
 }
 function clause execute(LDA_ABS_X(op)) = {
-	incr_cycles(1);
+	incr_cycles(4);
 	let addr = calc_addr(mode(abs_x), op);
-	let input = read(addr);
 	if (op[15..8] != addr[15..8]) then incr_cycles(1);
+	let input = read(addr);
 	reg_A = input;
 	complete_transfer_instruction(input)
 }
 function clause execute(LDA_ABS_Y(op)) = {
-	incr_cycles(1);
+	incr_cycles(4);
 	let addr = calc_addr(mode(abs_y), op);
-	let input = read(addr);
 	if (op[15..8] != addr[15..8]) then incr_cycles(1);
+	let input = read(addr);
 	reg_A = input;
 	complete_transfer_instruction(input)
 }
 function clause execute(LDA_IND_X(op)) = {
-	incr_cycles(1);
+	incr_cycles(6);
 	let addr = calc_addr(mode(ind_x), op);
 	let input = read(addr);
 	reg_A = input;
 	complete_transfer_instruction(input)
 }
 function clause execute(LDA_IND_Y(op)) = {
-	incr_cycles(1);
+	incr_cycles(5);
 	let addr = calc_addr(mode(ind_y), op);
+	if (addr[15..8] != (read_zp(op + 1) @ read_zp(op))[15..8]) then
+		incr_cycles(1);
 	let input = read(addr);
 	reg_A = input;
 	complete_transfer_instruction(input)
@@ -159,19 +161,19 @@ function clause execute(LDY_ABS_X(op)) = {
 
 // TODO : can we directly use to write in the stack??
 function clause execute(STA_ZP(op))    = {
-	incr_cycles(1);
+	incr_cycles(3);
 	let addr = calc_word(mode(zp), op);
 	write_zp(addr, reg_A);
 	true
 }
 function clause execute(STA_ZP_X(op))  = {
-	incr_cycles(1);
+	incr_cycles(4);
 	let addr = calc_word(mode(zp_x), op);
 	write_zp(addr, reg_A);
 	true
 }
 function clause execute(STA_ABS(op))   = {
-	incr_cycles(1);
+	incr_cycles(4);
 	let addr = calc_addr(mode(abs), op);
 	write(addr, reg_A);
 	true
@@ -180,7 +182,7 @@ function clause execute(STA_ABS(op))   = {
 	Always takes 5 cycles
 */
 function clause execute(STA_ABS_X(op)) = {
-	incr_cycles(2);
+	incr_cycles(5);
 	let addr = calc_addr(mode(abs_x), op);
 	write(addr, reg_A);
 	true
@@ -189,28 +191,24 @@ function clause execute(STA_ABS_X(op)) = {
 	Always takes 5 cycles
 */
 function clause execute(STA_ABS_Y(op)) = {
-	incr_cycles(2);
+	incr_cycles(5);
 	let addr = calc_addr(mode(abs_y), op);
 	write(addr, reg_A);
 	true
 }
 function clause execute(STA_IND_X(op)) = {
-	incr_cycles(1);
+	incr_cycles(6);
 	let addr = calc_addr(mode(ind_x), op);
 	write(addr, reg_A);
 	true
 }
 /*
-	Always takes 6 cycles so we must increment
-	the cycles manually whenever the addressing doesn't cross a
-	page boundary.
+	Always takes 6 cycles
 */
 function clause execute(STA_IND_Y(op)) = {
-	incr_cycles(1);
+	incr_cycles(6);
 	let addr = calc_addr(mode(ind_y), op);
 	let ptr = read_zp(op + 1) @ read_zp(op);
-	if (ptr[15..8] == addr[15..8]) then
-		incr_cycles(1);
 	write(addr, reg_A);
 	true
 }
