@@ -3,6 +3,9 @@ import re
 
 class TestFunctional:
 	def test_functional(self):
-		results = util.create(start_binary=0x000a, overrided_start_pc=0x0400, source_file='test/sourcefiles/functional/6502_functional_test.bin', generate_binary=False, compile_c_target=True, enable_print_dump=False, enable_print_at_interval=True)
+		results = util.create(start_binary=0x000a, overrided_start_pc=0x0400, source_file='test/sourcefiles/functional/6502_functional_test.bin', generate_binary=False, compile_c_target=True, enable_print_dump=False, enable_print_at_interval=True, enable_break_at_trap=True)
 		print(results)
-		assert False
+
+		result = re.search(r'trapped PC: (0x\d{4})', results)
+		assert result
+		assert int(result.group(1), 16) == 0x3469

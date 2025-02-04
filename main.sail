@@ -59,17 +59,17 @@ function fetch_decode_execute() : unit -> bool = {
 	};
 
 	if enable_print_at_interval then
-		if (instructions_done % 1000 == 0) then {
+		if (instructions_done % 10000 == 0) then {
 			print_endline(concat_str("instructions completed so far: ", dec_str(instructions_done)));
 			print_bits("current PC: ", PC);
 			print_endline("");
 		};
 
-	// break if the PC hasn't moved forward after execution (jump trap)
-	if (PC == reg_PC) then {
-		print_bits("trapped at PC: ", PC);
-		return false;
-	};
+	if enable_break_at_trap then
+		if (PC == reg_PC) then {
+			print_bits("trapped PC: ", PC);
+			return false;
+		};
 
 	return execute_success;
 }
