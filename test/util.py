@@ -109,6 +109,7 @@ def create(start_binary=0x0200, source_file=None, overrided_start_pc=None, start
 		with open('commands.txt', 'w') as file:
 			file.write('main()\n')
 			file.write(':run\n')
+			file.write(':quit')
 
 		# Run the model using the REPL
 		start = time.time()

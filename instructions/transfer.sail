@@ -176,14 +176,20 @@ function clause execute(STA_ABS(op))   = {
 	write(addr, reg_A);
 	true
 }
+/*
+	Always takes 5 cycles
+*/
 function clause execute(STA_ABS_X(op)) = {
-	incr_cycles(1);
+	incr_cycles(2);
 	let addr = calc_addr(mode(abs_x), op);
 	write(addr, reg_A);
 	true
 }
+/*
+	Always takes 5 cycles
+*/
 function clause execute(STA_ABS_Y(op)) = {
-	incr_cycles(1);
+	incr_cycles(2);
 	let addr = calc_addr(mode(abs_y), op);
 	write(addr, reg_A);
 	true
@@ -195,7 +201,7 @@ function clause execute(STA_IND_X(op)) = {
 	true
 }
 /*
-	This instructions always takes 6 cycles so we must increment
+	Always takes 6 cycles so we must increment
 	the cycles manually whenever the addressing doesn't cross a
 	page boundary.
 */
