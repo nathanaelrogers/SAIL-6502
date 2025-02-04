@@ -73,9 +73,6 @@ function fetch_decode_execute() : unit -> bool = {
 		return false;
 	};
 
-	if (instructions_done == 56397) then
-		print_bits("sub result: ", reg_A);
-
 	return execute_success;
 }
 

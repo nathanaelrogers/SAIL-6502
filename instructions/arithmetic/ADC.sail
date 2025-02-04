@@ -1,5 +1,5 @@
 val modify_flags_ADC : (bits(9), int, word, word) -> unit
-function modify_flags_ADC(result, decimal_result, accumulator, operand) = {
+function modify_flags_ADC(result, decimal_result, op1, op2) = {
 	// negative + BCD negative
 	reg_SR[n] = [result[7]];
 
@@ -11,7 +11,7 @@ function modify_flags_ADC(result, decimal_result, accumulator, operand) = {
 
 	// overflow
 	if (reg_SR[d] == 0b0) then {
-		if (([accumulator[7]] == [operand[7]]) & ([accumulator[7]] != [result[7]])) then
+		if (([op1[7]] == [op2[7]]) & ([op1[7]] != [result[7]])) then
 			reg_SR[v] = 0b1
 		else
 			reg_SR[v] = 0b0;
@@ -55,8 +55,8 @@ function ADC(op) = {
 		} else {
 			EXTZ(9, decimal_to_word(decimal_result))
 		};
-	reg_A = result[7..0];
 	modify_flags_ADC(result, decimal_result, reg_A, op);
+	reg_A = result[7..0];
 	true
 }
 

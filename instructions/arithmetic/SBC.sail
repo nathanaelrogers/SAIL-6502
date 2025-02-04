@@ -1,5 +1,5 @@
-val modify_flags_SBC : (bits(9), int) -> unit
-function modify_flags_SBC(result, decimal_result) = {
+val modify_flags_SBC : (bits(9), int, word, word) -> unit
+function modify_flags_SBC(result, decimal_result, op1, op2) = {
 	// negative + BCD negative
 	reg_SR[n] = [result[7]];
 
@@ -10,7 +10,7 @@ function modify_flags_SBC(result, decimal_result) = {
 		reg_SR[z] = 0b0;
 
 	// overflow + BCD overflow
-	if (signed(result) > 127 | signed(result) < -128) then
+	if (([op1[7]] != [op2[7]]) & ([op1[7]] != [result[7]])) then
 		reg_SR[v] = 0b1
 	else
 		reg_SR[v] = 0b0;
@@ -46,8 +46,8 @@ function SBC(op) = {
 		} else {
 			EXTZ(9, decimal_to_word(decimal_result))
 		};
+	modify_flags_SBC(result, decimal_result, reg_A, op);
 	reg_A = result[7..0];
-	modify_flags_SBC(result, decimal_result);
 	true
 }
 
