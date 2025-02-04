@@ -90,11 +90,7 @@ function model_init() : unit -> unit = {
 
 function main() : unit -> unit = {
 	model_init();
-
 	load_config();
-
-	if enable_print_dump then
-		print_state(cycles);
 
 	while (fetch_decode_execute()) do {()};
 
