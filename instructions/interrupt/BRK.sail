@@ -1,6 +1,7 @@
 // TODO : BRK should evaluate to true to allow for software interrupt handling, but the BRK opcode is null byte and this is what memory is filled with...
 
 function clause execute(BRK()) = {
+	incr_cycles(7);
 	/*
 		By the time this is executed, reg_PC = instruction PC + 1 (size of BRK instruction).
 		So to preserve instruction PC + 2, calculate reg_PC + 1.
@@ -22,6 +23,5 @@ function clause execute(BRK()) = {
 	let PCL = read(IRQ_vec);
 	reg_PC = PCH @ PCL;
 
-	incr_cycles(7);
 	true
 }

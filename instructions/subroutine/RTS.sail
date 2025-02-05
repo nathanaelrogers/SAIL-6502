@@ -1,5 +1,5 @@
 function clause execute(RTS_IMP()) = {
-	incr_cycles(4);
+	incr_cycles(6);
 
 	let PCL = pull();
 	let PCH = pull();

@@ -55,3 +55,5 @@ sta ($32),Y ; 6
 
 ldy #$10    ; (will cause page boundary crossing from $00F0)
 sta ($32),Y ; 6
+
+jmp *

@@ -28,8 +28,6 @@ function write_zp(addr, data) = {
 
 val push : word -> unit
 function push(data) = {
-	incr_cycles(1);
-
 	write(0x01 @ reg_SP, data);
 
 	if (unsigned(reg_SP) >= 0) then {
@@ -41,8 +39,6 @@ function push(data) = {
 
 val pull : unit -> word
 function pull() = {
-	incr_cycles(1);
-
 	if (unsigned(reg_SP) <= 255) then {
 		incr_sp(1)
 	} else {

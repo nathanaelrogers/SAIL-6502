@@ -61,3 +61,5 @@ sbc ($32),Y ; 5
 
 ldy #$10    ; (will cause page boundary crossing from $00F0)
 sbc ($32),Y ; 6
+
+jmp *

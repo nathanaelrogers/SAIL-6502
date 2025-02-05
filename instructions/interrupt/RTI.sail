@@ -1,5 +1,5 @@
 function clause execute(RTI_IMP()) = {
-	incr_cycles(4);
+	incr_cycles(6);
 
 	let stored_sr = pull();
 	let PCL = pull();

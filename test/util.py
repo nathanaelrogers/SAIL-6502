@@ -24,7 +24,7 @@ IRQ: (0b\d)
 .*cycles: (\d+)
 .*instructions: '''
 
-def create(start_binary=0x0200, source_file=None, overrided_start_pc=None, start_sp=0xFF, start_sr=0x06, store_data={}, view_memory=[], generate_binary=True, enable_print_dump=False, enable_print_at_interval=False, enable_break_at_trap=False, compile_c_target=False) -> str:
+def create(start_binary=0x0200, source_file=None, overrided_start_pc=None, start_sp=0xFF, start_sr=0x06, store_data={}, view_memory=[], generate_binary=True, enable_print_dump=False, enable_print_at_interval=False, enable_break_at_trap=True, compile_c_target=False) -> str:
 	# Generate list of SAIL REPL commands to store sary at start address
 	commands = []
 	read_commands = []
