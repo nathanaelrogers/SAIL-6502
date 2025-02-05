@@ -16,7 +16,7 @@ function modify_flags_ROL(input, result) = {
 	reg_SR[c] = [input[7]]
 }
 
-function clause execute(ROL_ACC()) = {
+function clause execute(ROL()) = {
 	let input = reg_A;
 
 	let result = input[6..0] @ reg_SR[c];

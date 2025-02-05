@@ -1,41 +1,34 @@
 union clause ast = INVALID : (bits(24))
 
 /* ============== 1 byte instructions ============== */
-
-// This seems to inappropriately make the constraint that we can't have multiple BRK instructions one after another...
-function clause decode08(0x00) = {
-	if (read(reg_PC) == 0x00) & (read(reg_PC + 1) == 0x00) then
-		INVALID(0x000000)
-	else
-		BRK();
-}
+function clause decode08(0x00) = BRK()
 function clause decode08(0xEA) = NOP()
 
-function clause decode08(0x18) = CLC_IMP()
-function clause decode08(0xD8) = CLD_IMP()
-function clause decode08(0x58) = CLI_IMP()
-function clause decode08(0xB8) = CLV_IMP()
-function clause decode08(0x38) = SEC_IMP()
-function clause decode08(0xF8) = SED_IMP()
-function clause decode08(0x78) = SEI_IMP()
+function clause decode08(0x18) = CLC()
+function clause decode08(0xD8) = CLD()
+function clause decode08(0x58) = CLI()
+function clause decode08(0xB8) = CLV()
+function clause decode08(0x38) = SEC()
+function clause decode08(0xF8) = SED()
+function clause decode08(0x78) = SEI()
 
-function clause decode08(0xCA) = DEX_IMP()
-function clause decode08(0x88) = DEY_IMP()
-function clause decode08(0xE8) = INX_IMP()
-function clause decode08(0xC8) = INY_IMP()
+function clause decode08(0xCA) = DEX()
+function clause decode08(0x88) = DEY()
+function clause decode08(0xE8) = INX()
+function clause decode08(0xC8) = INY()
 
-function clause decode08(0x0A) = ASL_ACC()
-function clause decode08(0x4A) = LSR_ACC()
-function clause decode08(0x2A) = ROL_ACC()
-function clause decode08(0x6A) = ROR_ACC()
+function clause decode08(0x0A) = ASL()
+function clause decode08(0x4A) = LSR()
+function clause decode08(0x2A) = ROL()
+function clause decode08(0x6A) = ROR()
 
-function clause decode08(0x48) = PHA_IMP()
-function clause decode08(0x08) = PHP_IMP()
-function clause decode08(0x68) = PLA_IMP()
-function clause decode08(0x28) = PLP_IMP()
+function clause decode08(0x48) = PHA()
+function clause decode08(0x08) = PHP()
+function clause decode08(0x68) = PLA()
+function clause decode08(0x28) = PLP()
 
-function clause decode08(0x40) = RTI_IMP()
-function clause decode08(0x60) = RTS_IMP()
+function clause decode08(0x40) = RTI()
+function clause decode08(0x60) = RTS()
 
 function clause decode08(0xAA) = TAX()
 function clause decode08(0xA8) = TAY()

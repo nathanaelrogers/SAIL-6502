@@ -1,5 +1,4 @@
-val PLA : (unit) -> bool
-function PLA() = {
+function clause execute(PLA()) = {
 	incr_cycles(3);
 	let result = pull();
 
@@ -17,5 +16,3 @@ function PLA() = {
 	reg_A = result;
 	true
 }
-
-function clause execute(PLA_IMP()) = PLA()

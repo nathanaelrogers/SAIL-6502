@@ -35,7 +35,7 @@ function clause assembly(PC, AND_ABS_Y(op)) = make_str(mode(abs_y), "AND ", my_h
 function clause assembly(PC, AND_IND_X(op)) = make_str(mode(ind_x), "AND ", my_hex_str(op))
 function clause assembly(PC, AND_IND_Y(op)) = make_str(mode(ind_y), "AND ", my_hex_str(op))
 
-function clause assembly(PC, ASL_ACC(op))   = "ASL A"
+function clause assembly(PC, ASL(op))   = "ASL A"
 function clause assembly(PC, ASL_ZP(op))    = make_str(mode(zp),    "ASL ", my_hex_str(op))
 function clause assembly(PC, ASL_ZP_X(op))  = make_str(mode(zp_x),  "ASL ", my_hex_str(op))
 function clause assembly(PC, ASL_ABS(op))   = make_str(mode(abs),   "ASL ", my_hex_str(op))
@@ -55,10 +55,10 @@ function clause assembly(PC, BIT_ABS(op))   = make_str(mode(abs),   "BIT ", my_h
 
 function clause assembly(PC, BRK())     = "BRK"
 
-function clause assembly(PC, CLC_IMP())     = "CLC"
-function clause assembly(PC, CLD_IMP())     = "CLD"
-function clause assembly(PC, CLI_IMP())     = "CLI"
-function clause assembly(PC, CLV_IMP())     = "CLV"
+function clause assembly(PC, CLC())     = "CLC"
+function clause assembly(PC, CLD())     = "CLD"
+function clause assembly(PC, CLI())     = "CLI"
+function clause assembly(PC, CLV())     = "CLV"
 
 function clause assembly(PC, CMP_IMM(op))   = make_str(mode(imm),   "CMP ", my_hex_str(op))
 function clause assembly(PC, CMP_ZP(op))    = make_str(mode(zp),    "CMP ", my_hex_str(op))
@@ -82,8 +82,8 @@ function clause assembly(PC, DEC_ZP_X(op))  = make_str(mode(zp_x),  "DEC ", my_h
 function clause assembly(PC, DEC_ABS(op))   = make_str(mode(abs),   "DEC ", my_hex_str(op))
 function clause assembly(PC, DEC_ABS_X(op)) = make_str(mode(abs_x), "DEC ", my_hex_str(op))
 
-function clause assembly(PC, DEX_IMP())     = "DEX"
-function clause assembly(PC, DEY_IMP())     = "DEY"
+function clause assembly(PC, DEX())     = "DEX"
+function clause assembly(PC, DEY())     = "DEY"
 
 function clause assembly(PC, EOR_IMM(op))   = make_str(mode(imm),   "EOR ", my_hex_str(op))
 function clause assembly(PC, EOR_ZP(op))    = make_str(mode(zp),    "EOR ", my_hex_str(op))
@@ -99,8 +99,8 @@ function clause assembly(PC, INC_ZP_X(op))  = make_str(mode(zp_x),  "INC ", my_h
 function clause assembly(PC, INC_ABS(op))   = make_str(mode(abs),   "INC ", my_hex_str(op))
 function clause assembly(PC, INC_ABS_X(op)) = make_str(mode(abs_x), "INC ", my_hex_str(op))
 
-function clause assembly(PC, INX_IMP())     = "INX"
-function clause assembly(PC, INY_IMP())     = "INY"
+function clause assembly(PC, INX())     = "INX"
+function clause assembly(PC, INY())     = "INY"
 
 function clause assembly(PC, JMP_ABS(op))   = make_str(mode(abs),   "JMP ", my_hex_str(op))
 function clause assembly(PC, JMP_IND(op))   = make_str(mode(ind),   "JMP ", my_hex_str(op))
@@ -145,7 +145,7 @@ function clause assembly(PC, TXA())     = "TXA"
 function clause assembly(PC, TXS())     = "TXS"
 function clause assembly(PC, TYA())     = "TYA"
 
-function clause assembly(PC, LSR_ACC(op))   = "LSR A"
+function clause assembly(PC, LSR(op))   = "LSR A"
 function clause assembly(PC, LSR_ZP(op))    = make_str(mode(zp),    "LSR ", my_hex_str(op))
 function clause assembly(PC, LSR_ZP_X(op))  = make_str(mode(zp_x),  "LSR ", my_hex_str(op))
 function clause assembly(PC, LSR_ABS(op))   = make_str(mode(abs),   "LSR ", my_hex_str(op))
@@ -162,26 +162,26 @@ function clause assembly(PC, ORA_IND_Y(op)) = make_str(mode(ind_y), "ORA ", my_h
 
 function clause assembly(PC, NOP())         = "NOP"
 
-function clause assembly(PC, PHA_IMP())     = "PHA"
-function clause assembly(PC, PHP_IMP())     = "PHP"
-function clause assembly(PC, PLA_IMP())     = "PLA"
-function clause assembly(PC, PLP_IMP())     = "PLP"
+function clause assembly(PC, PHA())     = "PHA"
+function clause assembly(PC, PHP())     = "PHP"
+function clause assembly(PC, PLA())     = "PLA"
+function clause assembly(PC, PLP())     = "PLP"
 
-function clause assembly(PC, ROL_ACC(op))   = "ROL A"
+function clause assembly(PC, ROL(op))   = "ROL A"
 function clause assembly(PC, ROL_ZP(op))    = make_str(mode(zp),    "ROL ", my_hex_str(op))
 function clause assembly(PC, ROL_ZP_X(op))  = make_str(mode(zp_x),  "ROL ", my_hex_str(op))
 function clause assembly(PC, ROL_ABS(op))   = make_str(mode(abs),   "ROL ", my_hex_str(op))
 function clause assembly(PC, ROL_ABS_X(op)) = make_str(mode(abs_x), "ROL ", my_hex_str(op))
 
-function clause assembly(PC, ROR_ACC(op))   = "ROR A"
+function clause assembly(PC, ROR(op))   = "ROR A"
 function clause assembly(PC, ROR_ZP(op))    = make_str(mode(zp),    "ROR ", my_hex_str(op))
 function clause assembly(PC, ROR_ZP_X(op))  = make_str(mode(zp_x),  "ROR ", my_hex_str(op))
 function clause assembly(PC, ROR_ABS(op))   = make_str(mode(abs),   "ROR ", my_hex_str(op))
 function clause assembly(PC, ROR_ABS_X(op)) = make_str(mode(abs_x), "ROR ", my_hex_str(op))
 
-function clause assembly(PC, RTI_IMP())     = "RTI"
+function clause assembly(PC, RTI())     = "RTI"
 
-function clause assembly(PC, RTS_IMP())     = "RTS"
+function clause assembly(PC, RTS())     = "RTS"
 
 function clause assembly(PC, SBC_IMM(op))   = make_str(mode(imm),   "SBC ", my_hex_str(op))
 function clause assembly(PC, SBC_ZP(op))    = make_str(mode(zp),    "SBC ", my_hex_str(op))
@@ -192,8 +192,8 @@ function clause assembly(PC, SBC_ABS_Y(op)) = make_str(mode(abs_y), "SBC ", my_h
 function clause assembly(PC, SBC_IND_X(op)) = make_str(mode(ind_x), "SBC ", my_hex_str(op))
 function clause assembly(PC, SBC_IND_Y(op)) = make_str(mode(ind_y), "SBC ", my_hex_str(op))
 
-function clause assembly(PC, SEC_IMP())     = "SEC"
-function clause assembly(PC, SED_IMP())     = "SED"
-function clause assembly(PC, SEI_IMP())     = "SEI"
+function clause assembly(PC, SEC())     = "SEC"
+function clause assembly(PC, SED())     = "SED"
+function clause assembly(PC, SEI())     = "SEI"
 
 function clause assembly(PC, INVALID(instruction)) = concat_str("Invalid instruction: ", bits_str(instruction))

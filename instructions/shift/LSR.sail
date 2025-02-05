@@ -13,7 +13,7 @@ function modify_flags_LSR(input, result) = {
 	reg_SR[c] = [input[0]]
 }
 
-function clause execute(LSR_ACC()) = {
+function clause execute(LSR()) = {
 	let input = reg_A;
 
 	let result = input >> 1;

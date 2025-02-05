@@ -1,5 +1,4 @@
-val PLP : (unit) -> bool
-function PLP() = {
+function clause execute(PLP()) = {
 	incr_cycles(3);
 
 	let stored_sr = pull();
@@ -8,5 +7,3 @@ function PLP() = {
 
 	true
 }
-
-function clause execute(PLP_IMP()) = PLP()

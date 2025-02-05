@@ -1,4 +1,4 @@
-function clause execute(PHP_IMP()) = {
+function clause execute(PHP()) = {
 	incr_cycles(2);
 
 	reg_SR[X] = 0b1;

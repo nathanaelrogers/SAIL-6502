@@ -75,11 +75,11 @@ function clause execute(DEC_ABS_X(op)) = {
 	incr_cycles(4);
 	increment_addr(calc_addr(mode(abs_x), op), -1)
 }
-function clause execute(DEX_IMP()) = {
+function clause execute(DEX()) = {
 	incr_cycles(1);
 	increment_reg_X(-1)
 }
-function clause execute(DEY_IMP()) = {
+function clause execute(DEY()) = {
 	incr_cycles(1);
 	increment_reg_Y(-1)
 }
@@ -102,11 +102,11 @@ function clause execute(INC_ABS_X(op)) = {
 	incr_cycles(4);
 	increment_addr(calc_addr(mode(abs_x), op), 1)
 }
-function clause execute(INX_IMP()) = {
+function clause execute(INX()) = {
 	incr_cycles(1);
 	increment_reg_X(1)
 }
-function clause execute(INY_IMP()) = {
+function clause execute(INY()) = {
 	incr_cycles(1);
 	increment_reg_Y(1)
 }

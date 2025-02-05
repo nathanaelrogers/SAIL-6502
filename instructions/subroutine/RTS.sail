@@ -1,4 +1,4 @@
-function clause execute(RTS_IMP()) = {
+function clause execute(RTS()) = {
 	incr_cycles(6);
 
 	let PCL = pull();

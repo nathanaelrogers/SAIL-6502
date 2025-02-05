@@ -1,4 +1,4 @@
-function clause execute(RTI_IMP()) = {
+function clause execute(RTI()) = {
 	incr_cycles(6);
 
 	let stored_sr = pull();

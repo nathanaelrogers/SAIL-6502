@@ -16,7 +16,7 @@ function modify_flags_ASL(input, result) = {
 	reg_SR[c] = [input[7]]
 }
 
-function clause execute(ASL_ACC()) = {
+function clause execute(ASL()) = {
 	let input = reg_A;
 
 	let result = input << 1;

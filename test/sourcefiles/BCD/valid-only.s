@@ -85,7 +85,7 @@ NEXT2   INC N2    ; [6] see text
         BPL LOOP1 ; loop through both values of the carry flag
         LDA #0    ; test passed, so store 0 in ERROR
         STA ERROR
-DONE    RTS
+DONE    jmp *
 
 ; Calculate the actual decimal mode accumulator and flags, the accumulator
 ; and flag results when N1 is added to N2 using binary arithmetic, the
