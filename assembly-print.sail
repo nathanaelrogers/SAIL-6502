@@ -13,7 +13,8 @@ function make_str(addrmode, name, op) = {
 		mode(ind_x) => concat_str(name, concat_str(concat_str("(", op), ",X)")),
 		mode(ind_y) => concat_str(name, concat_str(concat_str("(", op), "),Y")),
 		mode(zp)    => concat_str(name, op),
-		mode(zp_x)  => concat_str(name, concat_str(op, ",X"))
+		mode(zp_x)  => concat_str(name, concat_str(op, ",X")),
+		mode(zp_y)  => concat_str(name, concat_str(op, ",Y"))
 	}
 }
 

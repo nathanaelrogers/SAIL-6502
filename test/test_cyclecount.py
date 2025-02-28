@@ -370,6 +370,62 @@ class TestCycles:
 		assert result
 		assert int(result.group(14))    == 6
 
+	def test_ldx_cycle_count(self):
+		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/ldx.s', enable_print_dump=True)
+		print(results)
+
+		result = re.search(util.DUMP_PATTERN + r'1', results)
+		assert result
+		assert int(result.group(14))    == 2
+
+		result = re.search(util.DUMP_PATTERN + r'2', results)
+		assert result 
+		assert int(result.group(14))    == 3
+
+		result = re.search(util.DUMP_PATTERN + r'4', results)
+		assert result
+		assert int(result.group(14))    == 4
+
+		result = re.search(util.DUMP_PATTERN + r'5', results)
+		assert result
+		assert int(result.group(14))    == 4
+
+		result = re.search(util.DUMP_PATTERN + r'7', results)
+		assert result
+		assert int(result.group(14))    == 4
+
+		result = re.search(util.DUMP_PATTERN + r'8', results)
+		assert result
+		assert int(result.group(14))    == 5
+
+	def test_ldy_cycle_count(self):
+		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/ldy.s', enable_print_dump=True)
+		print(results)
+
+		result = re.search(util.DUMP_PATTERN + r'1', results)
+		assert result
+		assert int(result.group(14))    == 2
+
+		result = re.search(util.DUMP_PATTERN + r'2', results)
+		assert result 
+		assert int(result.group(14))    == 3
+
+		result = re.search(util.DUMP_PATTERN + r'4', results)
+		assert result
+		assert int(result.group(14))    == 4
+
+		result = re.search(util.DUMP_PATTERN + r'5', results)
+		assert result
+		assert int(result.group(14))    == 4
+
+		result = re.search(util.DUMP_PATTERN + r'7', results)
+		assert result
+		assert int(result.group(14))    == 4
+
+		result = re.search(util.DUMP_PATTERN + r'8', results)
+		assert result
+		assert int(result.group(14))    == 5
+
 	def test_sta_cycle_count(self):
 		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/sta.s', enable_print_dump=True)
 		print(results)

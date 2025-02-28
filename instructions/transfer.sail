@@ -86,35 +86,36 @@ function clause execute(LDA_IND_Y(op)) = {
 // =======================================
 
 function clause execute(LDX_IMM(op))   = {
-	incr_cycles(1);
+	incr_cycles(2);
 	let input = calc_word(mode(imm), op);
 	reg_X = input;
 	complete_transfer_instruction(input)
 }
 function clause execute(LDX_ZP(op))    = {
-	incr_cycles(1);
+	incr_cycles(3);
 	let addr = calc_word(mode(zp), op);
 	let input = read_zp(addr);
 	reg_X = input;
 	complete_transfer_instruction(input)
 }
 function clause execute(LDX_ZP_Y(op))  = {
-	incr_cycles(1);
+	incr_cycles(4);
 	let addr = calc_word(mode(zp_y), op);
 	let input = read_zp(addr);
 	reg_X = input;
 	complete_transfer_instruction(input)
 }
 function clause execute(LDX_ABS(op))   = {
-	incr_cycles(1);
+	incr_cycles(4);
 	let addr = calc_addr(mode(abs), op);
 	let input = read(addr);
 	reg_X = input;
 	complete_transfer_instruction(input)
 }
 function clause execute(LDX_ABS_Y(op)) = {
-	incr_cycles(1);
+	incr_cycles(4);
 	let addr = calc_addr(mode(abs_y), op);
+	if (op[15..8] != addr[15..8]) then incr_cycles(1);
 	let input = read(addr);
 	reg_X = input;
 	complete_transfer_instruction(input)
@@ -123,35 +124,36 @@ function clause execute(LDX_ABS_Y(op)) = {
 // =======================================
 
 function clause execute(LDY_IMM(op))   = {
-	incr_cycles(1);
+	incr_cycles(2);
 	let input = calc_word(mode(imm), op);
 	reg_Y = input;
 	complete_transfer_instruction(input)
 }
 function clause execute(LDY_ZP(op))    = {
-	incr_cycles(1);
+	incr_cycles(3);
 	let addr = calc_word(mode(zp), op);
 	let input = read_zp(addr);
 	reg_Y = input;
 	complete_transfer_instruction(input)
 }
 function clause execute(LDY_ZP_X(op))  = {
-	incr_cycles(1);
+	incr_cycles(4);
 	let addr = calc_word(mode(zp_x), op);
 	let input = read_zp(addr);
 	reg_Y = input;
 	complete_transfer_instruction(input)
 }
 function clause execute(LDY_ABS(op))   = {
-	incr_cycles(1);
+	incr_cycles(4);
 	let addr = calc_addr(mode(abs), op);
 	let input = read(addr);
 	reg_Y = input;
 	complete_transfer_instruction(input)
 }
 function clause execute(LDY_ABS_X(op)) = {
-	incr_cycles(1);
+	incr_cycles(4);
 	let addr = calc_addr(mode(abs_x), op);
+	if (op[15..8] != addr[15..8]) then incr_cycles(1);
 	let input = read(addr);
 	reg_Y = input;
 	complete_transfer_instruction(input)
