@@ -1,5 +1,5 @@
 function clause execute(PLA()) = {
-	incr_cycles(3);
+	incr_cycles(4);
 	let result = pull();
 
 	// negative

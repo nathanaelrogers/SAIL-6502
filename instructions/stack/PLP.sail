@@ -1,5 +1,5 @@
 function clause execute(PLP()) = {
-	incr_cycles(3);
+	incr_cycles(4);
 
 	let stored_sr = pull();
 	reg_SR[all] = stored_sr;

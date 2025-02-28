@@ -1,5 +1,5 @@
 function clause execute(PHP()) = {
-	incr_cycles(2);
+	incr_cycles(3);
 
 	reg_SR[X] = 0b1;
 	reg_SR[b] = 0b1;
