@@ -2,6 +2,7 @@
 SAIL = sail
 GCC = gcc
 CFLAGS = -lgmp -lz -I /home/nathanael/.opam/default/.opam-switch/sources/sail.0.18/lib/
+COVERAGE_LIB = /home/nathanael/.opam/default/.opam-switch/sources/sail.0.18/lib/coverage/libsail_coverage.a -lpthread -ldl
 
 # Source files
 SAIL_SRC = main.sail
@@ -18,6 +19,11 @@ $(SAIL_OUT): $(SAIL_SRC)
 	$(SAIL) -c $(SAIL_SRC) -o out -O
 	$(GCC) out.c -O3 -g $(LIB_PATH) $(CFLAGS) -o $(SAIL_OUT)
 
+gen-with-coverage:
+	$(SAIL) -c -c_coverage all_branches -c_include sail_coverage.h $(SAIL_SRC) -o out -O
+
+compile-with-coverage:
+	$(GCC) out.c -O3 -g $(LIB_PATH) $(CFLAGS) $(COVERAGE_LIB) -o $(SAIL_OUT)
 
 # Clean up generated files
 clean:

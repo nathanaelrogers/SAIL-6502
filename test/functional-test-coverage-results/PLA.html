@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PLA</title></head>
+<body>
+<h1>PLA.sail (3/3) 100%</h1>
+<code style="display: block">
+function&nbsp;clause&nbsp;execute(PLA())&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(3);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;result&nbsp;=&nbsp;pull();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;negative<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: hsl(120, 85%, 75%)">if&nbsp;(signed(result[7..0])&nbsp;&lt;&nbsp;0)&nbsp;then<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reg_SR[n]&nbsp;=&nbsp;0b1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;else<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reg_SR[n]&nbsp;=&nbsp;0b0</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;zero<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: hsl(120, 85%, 75%)">if&nbsp;(unsigned(result[7..0])&nbsp;==&nbsp;0)&nbsp;then<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reg_SR[z]&nbsp;=&nbsp;0b1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;else<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reg_SR[z]&nbsp;=&nbsp;0b0</span>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;reg_A&nbsp;=&nbsp;result;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;true<br>
+}</span><br>
+</code>
+</body>
+</html>

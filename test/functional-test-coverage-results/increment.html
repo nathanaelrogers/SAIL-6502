@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>increment</title></head>
+<body>
+<h1>increment.sail (19/19) 100%</h1>
+<code style="display: block">
+val&nbsp;modify_flags_increment&nbsp;:&nbsp;(word)&nbsp;-&gt;&nbsp;unit<br>
+function&nbsp;modify_flags_increment(result)&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;negative<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: hsl(120, 85%, 75%)">if&nbsp;(signed(result[7..0])&nbsp;&lt;&nbsp;0)&nbsp;then<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reg_SR[n]&nbsp;=&nbsp;0b1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;else<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reg_SR[n]&nbsp;=&nbsp;0b0</span>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;zero<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: hsl(120, 85%, 75%)">if&nbsp;(unsigned(result[7..0])&nbsp;==&nbsp;0)&nbsp;then<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reg_SR[z]&nbsp;=&nbsp;0b1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;else<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reg_SR[z]&nbsp;=&nbsp;0b0</span>;<br>
+}</span><br>
+<br>
+//&nbsp;=======================================<br>
+<br>
+val&nbsp;increment_word&nbsp;:&nbsp;(word,&nbsp;int)&nbsp;-&gt;&nbsp;bool<br>
+function&nbsp;increment_word(op,&nbsp;n)&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;result&nbsp;=&nbsp;read_zp(op)&nbsp;+&nbsp;n;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;modify_flags_increment(result);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;write_zp(op,&nbsp;result);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;true<br>
+}</span><br>
+<br>
+val&nbsp;increment_addr&nbsp;:&nbsp;(address,&nbsp;int)&nbsp;-&gt;&nbsp;bool<br>
+function&nbsp;increment_addr(op,&nbsp;n)&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;result&nbsp;=&nbsp;read(op)&nbsp;+&nbsp;n;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;modify_flags_increment(result);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;write(op,&nbsp;result);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;true<br>
+}</span><br>
+<br>
+val&nbsp;increment_reg_X&nbsp;:&nbsp;(int)&nbsp;-&gt;&nbsp;bool<br>
+function&nbsp;increment_reg_X(n)&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(1);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;result&nbsp;=&nbsp;reg_X&nbsp;+&nbsp;n;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;reg_X&nbsp;=&nbsp;result;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;modify_flags_increment(result);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;true<br>
+}</span><br>
+<br>
+val&nbsp;increment_reg_Y&nbsp;:&nbsp;(int)&nbsp;-&gt;&nbsp;bool<br>
+function&nbsp;increment_reg_Y(n)&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(1);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;result&nbsp;=&nbsp;reg_Y&nbsp;+&nbsp;n;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;reg_Y&nbsp;=&nbsp;result;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;modify_flags_increment(result);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;true<br>
+}</span><br>
+<br>
+//&nbsp;=======================================<br>
+<br>
+function&nbsp;clause&nbsp;execute(DEC_ZP(op))&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(3);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;increment_word(calc_word(mode(zp),&nbsp;op),&nbsp;-1)<br>
+}</span><br>
+function&nbsp;clause&nbsp;execute(DEC_ZP_X(op))&nbsp;&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(3);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;increment_word(calc_word(mode(zp_x),&nbsp;op),&nbsp;-1)<br>
+}</span><br>
+function&nbsp;clause&nbsp;execute(DEC_ABS(op))&nbsp;&nbsp;&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(3);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;increment_addr(calc_addr(mode(abs),&nbsp;op),&nbsp;-1)<br>
+}</span><br>
+function&nbsp;clause&nbsp;execute(DEC_ABS_X(op))&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(4);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;increment_addr(calc_addr(mode(abs_x),&nbsp;op),&nbsp;-1)<br>
+}</span><br>
+function&nbsp;clause&nbsp;execute(DEX())&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(1);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;increment_reg_X(-1)<br>
+}</span><br>
+function&nbsp;clause&nbsp;execute(DEY())&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(1);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;increment_reg_Y(-1)<br>
+}</span><br>
+<br>
+//&nbsp;=======================================<br>
+<br>
+function&nbsp;clause&nbsp;execute(INC_ZP(op))&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(3);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;increment_word(calc_word(mode(zp),&nbsp;op),&nbsp;1)<br>
+}</span><br>
+function&nbsp;clause&nbsp;execute(INC_ZP_X(op))&nbsp;&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(3);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;increment_word(calc_word(mode(zp_x),&nbsp;op),&nbsp;1)<br>
+}</span><br>
+function&nbsp;clause&nbsp;execute(INC_ABS(op))&nbsp;&nbsp;&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(3);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;increment_addr(calc_addr(mode(abs),&nbsp;op),&nbsp;1)<br>
+}</span><br>
+function&nbsp;clause&nbsp;execute(INC_ABS_X(op))&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(4);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;increment_addr(calc_addr(mode(abs_x),&nbsp;op),&nbsp;1)<br>
+}</span><br>
+function&nbsp;clause&nbsp;execute(INX())&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(1);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;increment_reg_X(1)<br>
+}</span><br>
+function&nbsp;clause&nbsp;execute(INY())&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(1);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;increment_reg_Y(1)<br>
+}</span><br>
+</code>
+</body>
+</html>

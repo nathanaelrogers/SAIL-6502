@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>registers</title></head>
+<body>
+<h1>registers.sail (2/2) 100%</h1>
+<code style="display: block">
+register&nbsp;reg_PC&nbsp;:&nbsp;address<br>
+register&nbsp;reg_A&nbsp;&nbsp;:&nbsp;word<br>
+register&nbsp;reg_X&nbsp;&nbsp;:&nbsp;word<br>
+register&nbsp;reg_Y&nbsp;&nbsp;:&nbsp;word<br>
+register&nbsp;reg_SR&nbsp;:&nbsp;flags<br>
+register&nbsp;reg_SP&nbsp;:&nbsp;word<br>
+<br>
+//&nbsp;Helper&nbsp;function&nbsp;to&nbsp;increment&nbsp;the&nbsp;PC.<br>
+val&nbsp;incr_pc&nbsp;:&nbsp;int&nbsp;-&gt;&nbsp;unit<br>
+function&nbsp;incr_pc(n)&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;reg_PC&nbsp;=&nbsp;reg_PC&nbsp;+&nbsp;n<br>
+}</span><br>
+<br>
+val&nbsp;incr_sp&nbsp;:&nbsp;int&nbsp;-&gt;&nbsp;unit<br>
+function&nbsp;incr_sp(n)&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;reg_SP&nbsp;=&nbsp;reg_SP&nbsp;+&nbsp;n<br>
+}</span><br>
+</code>
+</body>
+</html>
