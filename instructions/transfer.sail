@@ -261,7 +261,6 @@ function clause execute(STY_ABS(op))   = {
 
 function clause execute(TAX()) = {
 	incr_cycles(2);
-
 	let input = reg_A;
 	reg_X = input;
 	complete_transfer_instruction(input)
@@ -271,7 +270,6 @@ function clause execute(TAX()) = {
 
 function clause execute(TAY()) = {
 	incr_cycles(2);
-
 	let input = reg_A;
 	reg_Y = input;
 	complete_transfer_instruction(input)
@@ -281,7 +279,6 @@ function clause execute(TAY()) = {
 
 function clause execute(TSX()) = {
 	incr_cycles(2);
-
 	let input = reg_SP;
 	reg_X = input;
 	complete_transfer_instruction(input)
@@ -291,7 +288,6 @@ function clause execute(TSX()) = {
 
 function clause execute(TXA()) = {
 	incr_cycles(2);
-
 	let input = reg_X;
 	reg_A = input;
 	complete_transfer_instruction(input)
@@ -302,7 +298,6 @@ function clause execute(TXA()) = {
 
 function clause execute(TXS()) = {
 	incr_cycles(2);
-
 	let input = reg_X;
 	reg_SP = input;
 	true
@@ -312,7 +307,6 @@ function clause execute(TXS()) = {
 
 function clause execute(TYA()) = {
 	incr_cycles(2);
-
 	let input = reg_Y;
 	reg_A = input;
 	complete_transfer_instruction(input)
