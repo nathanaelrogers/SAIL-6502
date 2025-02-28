@@ -19,24 +19,25 @@ function modify_flags_CPY(result) = {
 		reg_SR[c] = 0b0
 }
 
-// THERE IS A BUG HERE...
 val CPY : (word) -> bool
 function CPY(op) = {
-	incr_cycles(1);
 	let result : bits(9) = EXTZ(9, reg_Y) - EXTZ(9, op);
 	modify_flags_CPY(result);
 	true
 }
 
 function clause execute(CPY_IMM(op))   = {
+	incr_cycles(2);
 	let word = calc_word(mode(imm), op);
 	CPY(word)
 }
 function clause execute(CPY_ZP(op))    = {
+	incr_cycles(3);
 	let word = calc_word(mode(zp), op);
 	CPY(read_zp(word))
 }
 function clause execute(CPY_ABS(op))   = {
+	incr_cycles(4);
 	let addr = calc_addr(mode(abs), op);
 	CPY(read(addr))
 }

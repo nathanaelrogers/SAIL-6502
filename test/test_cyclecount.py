@@ -290,6 +290,38 @@ class TestCycles:
 		assert result
 		assert int(result.group(14))    == 6
 
+	def test_cpx_cycle_count(self):
+		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/cpx.s', enable_print_dump=True)
+		print(results)
+
+		result = re.search(util.DUMP_PATTERN + r'1', results)
+		assert result
+		assert int(result.group(14))    == 2
+
+		result = re.search(util.DUMP_PATTERN + r'2', results)
+		assert result 
+		assert int(result.group(14))    == 3
+
+		result = re.search(util.DUMP_PATTERN + r'3', results)
+		assert result
+		assert int(result.group(14))    == 4
+
+	def test_cpy_cycle_count(self):
+		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/cpy.s', enable_print_dump=True)
+		print(results)
+
+		result = re.search(util.DUMP_PATTERN + r'1', results)
+		assert result
+		assert int(result.group(14))    == 2
+
+		result = re.search(util.DUMP_PATTERN + r'2', results)
+		assert result 
+		assert int(result.group(14))    == 3
+
+		result = re.search(util.DUMP_PATTERN + r'3', results)
+		assert result
+		assert int(result.group(14))    == 4
+
 	def test_lda_cycle_count(self):
 		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/lda.s', enable_print_dump=True)
 		print(results)
