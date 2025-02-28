@@ -470,6 +470,37 @@ class TestCycles:
 		assert result
 		assert int(result.group(14))    == 6
 
+	def test_stx_cycle_count(self):
+		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/stx.s', enable_print_dump=True)
+		print(results)
+
+		result = re.search(util.DUMP_PATTERN + r'1', results)
+		assert result 
+		assert int(result.group(14))    == 3
+
+		result = re.search(util.DUMP_PATTERN + r'3', results)
+		assert result
+		assert int(result.group(14))    == 4
+
+		result = re.search(util.DUMP_PATTERN + r'4', results)
+		assert result
+		assert int(result.group(14))    == 4
+
+	def test_sty_cycle_count(self):
+		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/sty.s', enable_print_dump=True)
+		print(results)
+
+		result = re.search(util.DUMP_PATTERN + r'1', results)
+		assert result 
+		assert int(result.group(14))    == 3
+
+		result = re.search(util.DUMP_PATTERN + r'3', results)
+		assert result
+		assert int(result.group(14))    == 4
+
+		result = re.search(util.DUMP_PATTERN + r'4', results)
+		assert result
+		assert int(result.group(14))    == 4
 
 	def test_jmp_cycle_count(self):
 		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/jmp.s', enable_print_dump=True)

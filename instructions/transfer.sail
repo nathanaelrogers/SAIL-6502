@@ -217,21 +217,20 @@ function clause execute(STA_IND_Y(op)) = {
 
 // =======================================
 
-// TODO : can we directly use to write in the stack??
 function clause execute(STX_ZP(op))    = {
-	incr_cycles(1);
+	incr_cycles(3);
 	let addr = calc_word(mode(zp), op);
 	write_zp(addr, reg_X);
 	true
 }
 function clause execute(STX_ZP_Y(op))  = {
-	incr_cycles(1);
+	incr_cycles(4);
 	let addr = calc_word(mode(zp_y), op);
 	write_zp(addr, reg_X);
 	true
 }
 function clause execute(STX_ABS(op))   = {
-	incr_cycles(1);
+	incr_cycles(4);
 	let addr = calc_addr(mode(abs), op);
 	write(addr, reg_X);
 	true
@@ -239,21 +238,20 @@ function clause execute(STX_ABS(op))   = {
 
 // =======================================
 
-// TODO : can we directly use to write in the stack??
 function clause execute(STY_ZP(op))    = {
-	incr_cycles(1);
+	incr_cycles(3);
 	let addr = calc_word(mode(zp), op);
 	write_zp(addr, reg_Y);
 	true
 }
 function clause execute(STY_ZP_X(op))  = {
-	incr_cycles(1);
+	incr_cycles(4);
 	let addr = calc_word(mode(zp_x), op);
 	write_zp(addr, reg_Y);
 	true
 }
 function clause execute(STY_ABS(op))   = {
-	incr_cycles(1);
+	incr_cycles(4);
 	let addr = calc_addr(mode(abs), op);
 	write(addr, reg_Y);
 	true
