@@ -4,3 +4,5 @@ tsx
 txa
 txs
 tya
+
+jmp *

@@ -726,6 +726,23 @@ class TestCycles:
 		assert result
 		assert int(result.group(14))    == 2
 
+	def test_branch_cycle_count(self):
+		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/branch.s', enable_print_dump=True)
+		print(results)
+
+		result = re.search(util.DUMP_PATTERN + r'247', results)
+		assert result
+		assert int(result.group(14))    == 2
+
+		result = re.search(util.DUMP_PATTERN + r'249', results)
+		assert result
+		assert int(result.group(14))    == 3
+
+		result = re.search(util.DUMP_PATTERN + r'250', results)
+		assert result
+		assert int(result.group(14))    == 4
+
+
 	def test_jmp_cycle_count(self):
 		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/jmp.s', enable_print_dump=True)
 		print(results)

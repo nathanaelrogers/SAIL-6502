@@ -1,17 +1,19 @@
 val branch : (word, bool) -> bool
 function branch(op, branch_condition) = {
-	let instr_PC = reg_PC;
+	incr_cycles(2);
+	let next_PC = reg_PC;
 
 	let word = calc_word(mode(rel), op);
-	let new_PC = instr_PC + signed(word);
+	let new_PC = next_PC + signed(word);
 
-	if (new_PC[15..8] == instr_PC[15..8]) then
-		incr_cycles(2)
-	else
-		incr_cycles(3);
-
-	if branch_condition then
+	if branch_condition then {
 		reg_PC = new_PC;
+
+		if (new_PC[15..8] == next_PC[15..8]) then
+			incr_cycles(1)
+		else
+			incr_cycles(2);
+	};
 
 	true
 }

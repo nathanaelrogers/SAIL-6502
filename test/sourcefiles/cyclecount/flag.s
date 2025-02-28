@@ -5,3 +5,5 @@ clv
 sec
 sed
 sei
+
+jmp *
