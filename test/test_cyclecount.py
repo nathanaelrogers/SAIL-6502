@@ -602,6 +602,102 @@ class TestCycles:
 		assert result
 		assert int(result.group(14))    == 2
 
+	def test_asl_cycle_count(self):
+		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/asl.s', enable_print_dump=True)
+		print(results)
+
+		result = re.search(util.DUMP_PATTERN + r'1', results)
+		assert result
+		assert int(result.group(14))    == 2
+
+		result = re.search(util.DUMP_PATTERN + r'2', results)
+		assert result
+		assert int(result.group(14))    == 5
+
+		result = re.search(util.DUMP_PATTERN + r'3', results)
+		assert result
+		assert int(result.group(14))    == 6
+
+		result = re.search(util.DUMP_PATTERN + r'4', results)
+		assert result
+		assert int(result.group(14))    == 6
+
+		result = re.search(util.DUMP_PATTERN + r'5', results)
+		assert result
+		assert int(result.group(14))    == 7
+
+	def test_lsr_cycle_count(self):
+		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/lsr.s', enable_print_dump=True)
+		print(results)
+
+		result = re.search(util.DUMP_PATTERN + r'1', results)
+		assert result
+		assert int(result.group(14))    == 2
+
+		result = re.search(util.DUMP_PATTERN + r'2', results)
+		assert result
+		assert int(result.group(14))    == 5
+
+		result = re.search(util.DUMP_PATTERN + r'3', results)
+		assert result
+		assert int(result.group(14))    == 6
+
+		result = re.search(util.DUMP_PATTERN + r'4', results)
+		assert result
+		assert int(result.group(14))    == 6
+
+		result = re.search(util.DUMP_PATTERN + r'5', results)
+		assert result
+		assert int(result.group(14))    == 7
+
+	def test_rol_cycle_count(self):
+		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/rol.s', enable_print_dump=True)
+		print(results)
+
+		result = re.search(util.DUMP_PATTERN + r'1', results)
+		assert result
+		assert int(result.group(14))    == 2
+
+		result = re.search(util.DUMP_PATTERN + r'2', results)
+		assert result
+		assert int(result.group(14))    == 5
+
+		result = re.search(util.DUMP_PATTERN + r'3', results)
+		assert result
+		assert int(result.group(14))    == 6
+
+		result = re.search(util.DUMP_PATTERN + r'4', results)
+		assert result
+		assert int(result.group(14))    == 6
+
+		result = re.search(util.DUMP_PATTERN + r'5', results)
+		assert result
+		assert int(result.group(14))    == 7
+
+	def test_ror_cycle_count(self):
+		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/ror.s', enable_print_dump=True)
+		print(results)
+
+		result = re.search(util.DUMP_PATTERN + r'1', results)
+		assert result
+		assert int(result.group(14))    == 2
+
+		result = re.search(util.DUMP_PATTERN + r'2', results)
+		assert result
+		assert int(result.group(14))    == 5
+
+		result = re.search(util.DUMP_PATTERN + r'3', results)
+		assert result
+		assert int(result.group(14))    == 6
+
+		result = re.search(util.DUMP_PATTERN + r'4', results)
+		assert result
+		assert int(result.group(14))    == 6
+
+		result = re.search(util.DUMP_PATTERN + r'5', results)
+		assert result
+		assert int(result.group(14))    == 7
+
 	def test_jmp_cycle_count(self):
 		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/jmp.s', enable_print_dump=True)
 		print(results)
