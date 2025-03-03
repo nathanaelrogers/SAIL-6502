@@ -1,784 +1,804 @@
-import util
+from util import check_cycles, match_instr, load_test
 import re
 
 class TestCycles:
 	def test_adc_cycle_count(self):
-		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/adc.s', enable_print_dump=True)
+		results = load_test(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/adc.s', enable_print_dump=True)
 		print(results)
 
-		result = re.search(util.DUMP_PATTERN + r'1', results)
+		result = match_instr(1, results)
 		assert result
-		assert int(result.group(14)) == 2
+		assert check_cycles(result, 2)
 
-		result = re.search(util.DUMP_PATTERN + r'2', results)
+		result = match_instr(2, results)
 		assert result 
-		assert int(result.group(14)) == 3
+		assert check_cycles(result, 3)
 
-		result = re.search(util.DUMP_PATTERN + r'4', results)
+		result = match_instr(4, results)
 		assert result
-		assert int(result.group(14)) == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'5', results)
+		result = match_instr(5, results)
 		assert result
-		assert int(result.group(14)) == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'7', results)
+		result = match_instr(7, results)
 		assert result
-		assert int(result.group(14)) == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'8', results)
+		result = match_instr(8, results)
 		assert result
-		assert int(result.group(14)) == 5
+		assert check_cycles(result, 5)
 
-		result = re.search(util.DUMP_PATTERN + r'10', results)
+		result = match_instr(10, results)
 		assert result
-		assert int(result.group(14)) == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'11', results)
+		result = match_instr(11, results)
 		assert result
-		assert int(result.group(14)) == 5
+		assert check_cycles(result, 5)
 
-		result = re.search(util.DUMP_PATTERN + r'17', results)
+		result = match_instr(17, results)
 		assert result
-		assert int(result.group(14)) == 6
+		assert check_cycles(result, 6)
 
-		result = re.search(util.DUMP_PATTERN + r'23', results)
+		result = match_instr(23, results)
 		assert result
-		assert int(result.group(14)) == 5
+		assert check_cycles(result, 5)
 
-		result = re.search(util.DUMP_PATTERN + r'25', results)
+		result = match_instr(25, results)
 		assert result
-		assert int(result.group(14)) == 6
+		assert check_cycles(result, 6)
 
 	def test_sbc_cycle_count(self):
-		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/sbc.s', enable_print_dump=True)
+		results = load_test(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/sbc.s', enable_print_dump=True)
 		print(results)
 
-		result = re.search(util.DUMP_PATTERN + r'1', results)
+		result = match_instr(1, results)
 		assert result
-		assert int(result.group(14))    == 2
+		assert check_cycles(result, 2)
 
-		result = re.search(util.DUMP_PATTERN + r'2', results)
+		result = match_instr(2, results)
 		assert result 
-		assert int(result.group(14))    == 3
+		assert check_cycles(result, 3)
 
-		result = re.search(util.DUMP_PATTERN + r'4', results)
+		result = match_instr(4, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'5', results)
+		result = match_instr(5, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'7', results)
+		result = match_instr(7, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'8', results)
+		result = match_instr(8, results)
 		assert result
-		assert int(result.group(14))    == 5
+		assert check_cycles(result, 5)
 
-		result = re.search(util.DUMP_PATTERN + r'10', results)
+		result = match_instr(10, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'11', results)
+		result = match_instr(11, results)
 		assert result
-		assert int(result.group(14))    == 5
+		assert check_cycles(result, 5)
 
-		result = re.search(util.DUMP_PATTERN + r'17', results)
+		result = match_instr(17, results)
 		assert result
-		assert int(result.group(14))    == 6
+		assert check_cycles(result, 6)
 
-		result = re.search(util.DUMP_PATTERN + r'23', results)
+		result = match_instr(23, results)
 		assert result
-		assert int(result.group(14))    == 5
+		assert check_cycles(result, 5)
 
-		result = re.search(util.DUMP_PATTERN + r'25', results)
+		result = match_instr(25, results)
 		assert result
-		assert int(result.group(14))    == 6
+		assert check_cycles(result, 6)
 
 	def test_and_cycle_count(self):
-		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/and.s', enable_print_dump=True)
+		results = load_test(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/and.s', enable_print_dump=True)
 		print(results)
 
-		result = re.search(util.DUMP_PATTERN + r'1', results)
+		result = match_instr(1, results)
 		assert result
-		assert int(result.group(14))    == 2
+		assert check_cycles(result, 2)
 
-		result = re.search(util.DUMP_PATTERN + r'2', results)
+		result = match_instr(2, results)
 		assert result 
-		assert int(result.group(14))    == 3
+		assert check_cycles(result, 3)
 
-		result = re.search(util.DUMP_PATTERN + r'4', results)
+		result = match_instr(4, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'5', results)
+		result = match_instr(5, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'7', results)
+		result = match_instr(7, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'8', results)
+		result = match_instr(8, results)
 		assert result
-		assert int(result.group(14))    == 5
+		assert check_cycles(result, 5)
 
-		result = re.search(util.DUMP_PATTERN + r'10', results)
+		result = match_instr(10, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'11', results)
+		result = match_instr(11, results)
 		assert result
-		assert int(result.group(14))    == 5
+		assert check_cycles(result, 5)
 
-		result = re.search(util.DUMP_PATTERN + r'17', results)
+		result = match_instr(17, results)
 		assert result
-		assert int(result.group(14))    == 6
+		assert check_cycles(result, 6)
 
-		result = re.search(util.DUMP_PATTERN + r'23', results)
+		result = match_instr(23, results)
 		assert result
-		assert int(result.group(14))    == 5
+		assert check_cycles(result, 5)
 
-		result = re.search(util.DUMP_PATTERN + r'25', results)
+		result = match_instr(25, results)
 		assert result
-		assert int(result.group(14))    == 6
+		assert check_cycles(result, 6)
 
 	def test_ora_cycle_count(self):
-		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/ora.s', enable_print_dump=True)
+		results = load_test(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/ora.s', enable_print_dump=True)
 		print(results)
 
-		result = re.search(util.DUMP_PATTERN + r'1', results)
+		result = match_instr(1, results)
 		assert result
-		assert int(result.group(14))    == 2
+		assert check_cycles(result, 2)
 
-		result = re.search(util.DUMP_PATTERN + r'2', results)
+		result = match_instr(2, results)
 		assert result 
-		assert int(result.group(14))    == 3
+		assert check_cycles(result, 3)
 
-		result = re.search(util.DUMP_PATTERN + r'4', results)
+		result = match_instr(4, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'5', results)
+		result = match_instr(5, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'7', results)
+		result = match_instr(7, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'8', results)
+		result = match_instr(8, results)
 		assert result
-		assert int(result.group(14))    == 5
+		assert check_cycles(result, 5)
 
-		result = re.search(util.DUMP_PATTERN + r'10', results)
+		result = match_instr(10, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'11', results)
+		result = match_instr(11, results)
 		assert result
-		assert int(result.group(14))    == 5
+		assert check_cycles(result, 5)
 
-		result = re.search(util.DUMP_PATTERN + r'17', results)
+		result = match_instr(17, results)
 		assert result
-		assert int(result.group(14))    == 6
+		assert check_cycles(result, 6)
 
-		result = re.search(util.DUMP_PATTERN + r'23', results)
+		result = match_instr(23, results)
 		assert result
-		assert int(result.group(14))    == 5
+		assert check_cycles(result, 5)
 
-		result = re.search(util.DUMP_PATTERN + r'25', results)
+		result = match_instr(25, results)
 		assert result
-		assert int(result.group(14))    == 6
+		assert check_cycles(result, 6)
 
 	def test_eor_cycle_count(self):
-		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/eor.s', enable_print_dump=True)
+		results = load_test(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/eor.s', enable_print_dump=True)
 		print(results)
 
-		result = re.search(util.DUMP_PATTERN + r'1', results)
+		result = match_instr(1, results)
 		assert result
-		assert int(result.group(14))    == 2
+		assert check_cycles(result, 2)
 
-		result = re.search(util.DUMP_PATTERN + r'2', results)
+		result = match_instr(2, results)
 		assert result 
-		assert int(result.group(14))    == 3
+		assert check_cycles(result, 3)
 
-		result = re.search(util.DUMP_PATTERN + r'4', results)
+		result = match_instr(4, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'5', results)
+		result = match_instr(5, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'7', results)
+		result = match_instr(7, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'8', results)
+		result = match_instr(8, results)
 		assert result
-		assert int(result.group(14))    == 5
+		assert check_cycles(result, 5)
 
-		result = re.search(util.DUMP_PATTERN + r'10', results)
+		result = match_instr(10, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'11', results)
+		result = match_instr(11, results)
 		assert result
-		assert int(result.group(14))    == 5
+		assert check_cycles(result, 5)
 
-		result = re.search(util.DUMP_PATTERN + r'17', results)
+		result = match_instr(17, results)
 		assert result
-		assert int(result.group(14))    == 6
+		assert check_cycles(result, 6)
 
-		result = re.search(util.DUMP_PATTERN + r'23', results)
+		result = match_instr(23, results)
 		assert result
-		assert int(result.group(14))    == 5
+		assert check_cycles(result, 5)
 
-		result = re.search(util.DUMP_PATTERN + r'25', results)
+		result = match_instr(25, results)
 		assert result
-		assert int(result.group(14))    == 6
+		assert check_cycles(result, 6)
 
 	def test_cmp_cycle_count(self):
-		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/cmp.s', enable_print_dump=True)
+		results = load_test(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/cmp.s', enable_print_dump=True)
 		print(results)
 
-		result = re.search(util.DUMP_PATTERN + r'1', results)
+		result = match_instr(1, results)
 		assert result
-		assert int(result.group(14))    == 2
+		assert check_cycles(result, 2)
 
-		result = re.search(util.DUMP_PATTERN + r'2', results)
+		result = match_instr(2, results)
 		assert result 
-		assert int(result.group(14))    == 3
+		assert check_cycles(result, 3)
 
-		result = re.search(util.DUMP_PATTERN + r'4', results)
+		result = match_instr(4, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'5', results)
+		result = match_instr(5, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'7', results)
+		result = match_instr(7, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'8', results)
+		result = match_instr(8, results)
 		assert result
-		assert int(result.group(14))    == 5
+		assert check_cycles(result, 5)
 
-		result = re.search(util.DUMP_PATTERN + r'10', results)
+		result = match_instr(10, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'11', results)
+		result = match_instr(11, results)
 		assert result
-		assert int(result.group(14))    == 5
+		assert check_cycles(result, 5)
 
-		result = re.search(util.DUMP_PATTERN + r'17', results)
+		result = match_instr(17, results)
 		assert result
-		assert int(result.group(14))    == 6
+		assert check_cycles(result, 6)
 
-		result = re.search(util.DUMP_PATTERN + r'23', results)
+		result = match_instr(23, results)
 		assert result
-		assert int(result.group(14))    == 5
+		assert check_cycles(result, 5)
 
-		result = re.search(util.DUMP_PATTERN + r'25', results)
+		result = match_instr(25, results)
 		assert result
-		assert int(result.group(14))    == 6
+		assert check_cycles(result, 6)
 
 	def test_cpx_cycle_count(self):
-		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/cpx.s', enable_print_dump=True)
+		results = load_test(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/cpx.s', enable_print_dump=True)
 		print(results)
 
-		result = re.search(util.DUMP_PATTERN + r'1', results)
+		result = match_instr(1, results)
 		assert result
-		assert int(result.group(14))    == 2
+		assert check_cycles(result, 2)
 
-		result = re.search(util.DUMP_PATTERN + r'2', results)
+		result = match_instr(2, results)
 		assert result 
-		assert int(result.group(14))    == 3
+		assert check_cycles(result, 3)
 
-		result = re.search(util.DUMP_PATTERN + r'3', results)
+		result = match_instr(3, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
 	def test_cpy_cycle_count(self):
-		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/cpy.s', enable_print_dump=True)
+		results = load_test(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/cpy.s', enable_print_dump=True)
 		print(results)
 
-		result = re.search(util.DUMP_PATTERN + r'1', results)
+		result = match_instr(1, results)
 		assert result
-		assert int(result.group(14))    == 2
+		assert check_cycles(result, 2)
 
-		result = re.search(util.DUMP_PATTERN + r'2', results)
+		result = match_instr(2, results)
 		assert result 
-		assert int(result.group(14))    == 3
+		assert check_cycles(result, 3)
 
-		result = re.search(util.DUMP_PATTERN + r'3', results)
+		result = match_instr(3, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
 	def test_lda_cycle_count(self):
-		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/lda.s', enable_print_dump=True)
+		results = load_test(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/lda.s', enable_print_dump=True)
 		print(results)
 
-		result = re.search(util.DUMP_PATTERN + r'1', results)
+		result = match_instr(1, results)
 		assert result
-		assert int(result.group(14))    == 2
+		assert check_cycles(result, 2)
 
-		result = re.search(util.DUMP_PATTERN + r'2', results)
+		result = match_instr(2, results)
 		assert result 
-		assert int(result.group(14))    == 3
+		assert check_cycles(result, 3)
 
-		result = re.search(util.DUMP_PATTERN + r'4', results)
+		result = match_instr(4, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'5', results)
+		result = match_instr(5, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'7', results)
+		result = match_instr(7, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'8', results)
+		result = match_instr(8, results)
 		assert result
-		assert int(result.group(14))    == 5
+		assert check_cycles(result, 5)
 
-		result = re.search(util.DUMP_PATTERN + r'10', results)
+		result = match_instr(10, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'11', results)
+		result = match_instr(11, results)
 		assert result
-		assert int(result.group(14))    == 5
+		assert check_cycles(result, 5)
 
-		result = re.search(util.DUMP_PATTERN + r'17', results)
+		result = match_instr(17, results)
 		assert result
-		assert int(result.group(14))    == 6
+		assert check_cycles(result, 6)
 
-		result = re.search(util.DUMP_PATTERN + r'23', results)
+		result = match_instr(23, results)
 		assert result
-		assert int(result.group(14))    == 5
+		assert check_cycles(result, 5)
 
-		result = re.search(util.DUMP_PATTERN + r'25', results)
+		result = match_instr(25, results)
 		assert result
-		assert int(result.group(14))    == 6
+		assert check_cycles(result, 6)
 
 	def test_ldx_cycle_count(self):
-		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/ldx.s', enable_print_dump=True)
+		results = load_test(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/ldx.s', enable_print_dump=True)
 		print(results)
 
-		result = re.search(util.DUMP_PATTERN + r'1', results)
+		result = match_instr(1, results)
 		assert result
-		assert int(result.group(14))    == 2
+		assert check_cycles(result, 2)
 
-		result = re.search(util.DUMP_PATTERN + r'2', results)
+		result = match_instr(2, results)
 		assert result 
-		assert int(result.group(14))    == 3
+		assert check_cycles(result, 3)
 
-		result = re.search(util.DUMP_PATTERN + r'4', results)
+		result = match_instr(4, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'5', results)
+		result = match_instr(5, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'7', results)
+		result = match_instr(7, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'8', results)
+		result = match_instr(8, results)
 		assert result
-		assert int(result.group(14))    == 5
+		assert check_cycles(result, 5)
 
 	def test_ldy_cycle_count(self):
-		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/ldy.s', enable_print_dump=True)
+		results = load_test(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/ldy.s', enable_print_dump=True)
 		print(results)
 
-		result = re.search(util.DUMP_PATTERN + r'1', results)
+		result = match_instr(1, results)
 		assert result
-		assert int(result.group(14))    == 2
+		assert check_cycles(result, 2)
 
-		result = re.search(util.DUMP_PATTERN + r'2', results)
+		result = match_instr(2, results)
 		assert result 
-		assert int(result.group(14))    == 3
+		assert check_cycles(result, 3)
 
-		result = re.search(util.DUMP_PATTERN + r'4', results)
+		result = match_instr(4, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'5', results)
+		result = match_instr(5, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'7', results)
+		result = match_instr(7, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'8', results)
+		result = match_instr(8, results)
 		assert result
-		assert int(result.group(14))    == 5
+		assert check_cycles(result, 5)
 
 	def test_sta_cycle_count(self):
-		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/sta.s', enable_print_dump=True)
+		results = load_test(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/sta.s', enable_print_dump=True)
 		print(results)
 
-		result = re.search(util.DUMP_PATTERN + r'1', results)
+		result = match_instr(1, results)
 		assert result 
-		assert int(result.group(14))    == 3
+		assert check_cycles(result, 3)
 
-		result = re.search(util.DUMP_PATTERN + r'3', results)
+		result = match_instr(3, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'4', results)
+		result = match_instr(4, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'6', results)
+		result = match_instr(6, results)
 		assert result
-		assert int(result.group(14))    == 5
+		assert check_cycles(result, 5)
 
-		result = re.search(util.DUMP_PATTERN + r'7', results)
+		result = match_instr(7, results)
 		assert result
-		assert int(result.group(14))    == 5
+		assert check_cycles(result, 5)
 
-		result = re.search(util.DUMP_PATTERN + r'9', results)
+		result = match_instr(9, results)
 		assert result
-		assert int(result.group(14))    == 5
+		assert check_cycles(result, 5)
 
-		result = re.search(util.DUMP_PATTERN + r'10', results)
+		result = match_instr(10, results)
 		assert result
-		assert int(result.group(14))    == 5
+		assert check_cycles(result, 5)
 
-		result = re.search(util.DUMP_PATTERN + r'16', results)
+		result = match_instr(16, results)
 		assert result
-		assert int(result.group(14))    == 6
+		assert check_cycles(result, 6)
 
-		result = re.search(util.DUMP_PATTERN + r'22', results)
+		result = match_instr(22, results)
 		assert result
-		assert int(result.group(14))    == 6
+		assert check_cycles(result, 6)
 
-		result = re.search(util.DUMP_PATTERN + r'24', results)
+		result = match_instr(24, results)
 		assert result
-		assert int(result.group(14))    == 6
+		assert check_cycles(result, 6)
 
 	def test_stx_cycle_count(self):
-		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/stx.s', enable_print_dump=True)
+		results = load_test(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/stx.s', enable_print_dump=True)
 		print(results)
 
-		result = re.search(util.DUMP_PATTERN + r'1', results)
+		result = match_instr(1, results)
 		assert result 
-		assert int(result.group(14))    == 3
+		assert check_cycles(result, 3)
 
-		result = re.search(util.DUMP_PATTERN + r'3', results)
+		result = match_instr(3, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'4', results)
+		result = match_instr(4, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
 	def test_sty_cycle_count(self):
-		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/sty.s', enable_print_dump=True)
+		results = load_test(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/sty.s', enable_print_dump=True)
 		print(results)
 
-		result = re.search(util.DUMP_PATTERN + r'1', results)
+		result = match_instr(1, results)
 		assert result 
-		assert int(result.group(14))    == 3
+		assert check_cycles(result, 3)
 
-		result = re.search(util.DUMP_PATTERN + r'3', results)
+		result = match_instr(3, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'4', results)
+		result = match_instr(4, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
 	def test_transfers_cycle_count(self):
-		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/transfers.s', enable_print_dump=True)
+		results = load_test(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/transfers.s', enable_print_dump=True)
 		print(results)
 
-		result = re.search(util.DUMP_PATTERN + r'1', results)
+		result = match_instr(1, results)
 		assert result
-		assert int(result.group(14))    == 2
+		assert check_cycles(result, 2)
 
-		result = re.search(util.DUMP_PATTERN + r'2', results)
+		result = match_instr(2, results)
 		assert result
-		assert int(result.group(14))    == 2
+		assert check_cycles(result, 2)
 
-		result = re.search(util.DUMP_PATTERN + r'3', results)
+		result = match_instr(3, results)
 		assert result
-		assert int(result.group(14))    == 2
+		assert check_cycles(result, 2)
 
-		result = re.search(util.DUMP_PATTERN + r'4', results)
+		result = match_instr(4, results)
 		assert result
-		assert int(result.group(14))    == 2
+		assert check_cycles(result, 2)
 
-		result = re.search(util.DUMP_PATTERN + r'5', results)
+		result = match_instr(5, results)
 		assert result
-		assert int(result.group(14))    == 2
+		assert check_cycles(result, 2)
 
-		result = re.search(util.DUMP_PATTERN + r'6', results)
+		result = match_instr(6, results)
 		assert result
-		assert int(result.group(14))    == 2
+		assert check_cycles(result, 2)
 
 	def test_stack_cycle_count(self):
-		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/stack.s', enable_print_dump=True)
+		results = load_test(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/stack.s', enable_print_dump=True)
 		print(results)
 
-		result = re.search(util.DUMP_PATTERN + r'1', results)
+		result = match_instr(1, results)
 		assert result
-		assert int(result.group(14))    == 3
+		assert check_cycles(result, 3)
 
-		result = re.search(util.DUMP_PATTERN + r'2', results)
+		result = match_instr(2, results)
 		assert result
-		assert int(result.group(14))    == 3
+		assert check_cycles(result, 3)
 
-		result = re.search(util.DUMP_PATTERN + r'3', results)
+		result = match_instr(3, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
-		result = re.search(util.DUMP_PATTERN + r'4', results)
+		result = match_instr(4, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
 	def test_increments_cycle_count(self):
-		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/increments.s', enable_print_dump=True)
+		results = load_test(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/increments.s', enable_print_dump=True)
 		print(results)
 
-		result = re.search(util.DUMP_PATTERN + r'1', results)
+		result = match_instr(1, results)
 		assert result
-		assert int(result.group(14))    == 5
+		assert check_cycles(result, 5)
 
-		result = re.search(util.DUMP_PATTERN + r'2', results)
+		result = match_instr(2, results)
 		assert result
-		assert int(result.group(14))    == 6
+		assert check_cycles(result, 6)
 
-		result = re.search(util.DUMP_PATTERN + r'3', results)
+		result = match_instr(3, results)
 		assert result
-		assert int(result.group(14))    == 6
+		assert check_cycles(result, 6)
 
-		result = re.search(util.DUMP_PATTERN + r'4', results)
+		result = match_instr(4, results)
 		assert result
-		assert int(result.group(14))    == 7
+		assert check_cycles(result, 7)
 
-		result = re.search(util.DUMP_PATTERN + r'5', results)
+		result = match_instr(5, results)
 		assert result
-		assert int(result.group(14))    == 2
+		assert check_cycles(result, 2)
 
-		result = re.search(util.DUMP_PATTERN + r'6', results)
+		result = match_instr(6, results)
 		assert result
-		assert int(result.group(14))    == 2
+		assert check_cycles(result, 2)
 
-		result = re.search(util.DUMP_PATTERN + r'7', results)
+		result = match_instr(7, results)
 		assert result
-		assert int(result.group(14))    == 5
+		assert check_cycles(result, 5)
 
-		result = re.search(util.DUMP_PATTERN + r'8', results)
+		result = match_instr(8, results)
 		assert result
-		assert int(result.group(14))    == 6
+		assert check_cycles(result, 6)
 
-		result = re.search(util.DUMP_PATTERN + r'9', results)
+		result = match_instr(9, results)
 		assert result
-		assert int(result.group(14))    == 6
+		assert check_cycles(result, 6)
 
-		result = re.search(util.DUMP_PATTERN + r'10', results)
+		result = match_instr(10, results)
 		assert result
-		assert int(result.group(14))    == 7
+		assert check_cycles(result, 7)
 
-		result = re.search(util.DUMP_PATTERN + r'11', results)
+		result = match_instr(11, results)
 		assert result
-		assert int(result.group(14))    == 2
+		assert check_cycles(result, 2)
 
-		result = re.search(util.DUMP_PATTERN + r'12', results)
+		result = match_instr(12, results)
 		assert result
-		assert int(result.group(14))    == 2
+		assert check_cycles(result, 2)
 
 	def test_asl_cycle_count(self):
-		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/asl.s', enable_print_dump=True)
+		results = load_test(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/asl.s', enable_print_dump=True)
 		print(results)
 
-		result = re.search(util.DUMP_PATTERN + r'1', results)
+		result = match_instr(1, results)
 		assert result
-		assert int(result.group(14))    == 2
+		assert check_cycles(result, 2)
 
-		result = re.search(util.DUMP_PATTERN + r'2', results)
+		result = match_instr(2, results)
 		assert result
-		assert int(result.group(14))    == 5
+		assert check_cycles(result, 5)
 
-		result = re.search(util.DUMP_PATTERN + r'3', results)
+		result = match_instr(3, results)
 		assert result
-		assert int(result.group(14))    == 6
+		assert check_cycles(result, 6)
 
-		result = re.search(util.DUMP_PATTERN + r'4', results)
+		result = match_instr(4, results)
 		assert result
-		assert int(result.group(14))    == 6
+		assert check_cycles(result, 6)
 
-		result = re.search(util.DUMP_PATTERN + r'5', results)
+		result = match_instr(5, results)
 		assert result
-		assert int(result.group(14))    == 7
+		assert check_cycles(result, 7)
 
 	def test_lsr_cycle_count(self):
-		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/lsr.s', enable_print_dump=True)
+		results = load_test(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/lsr.s', enable_print_dump=True)
 		print(results)
 
-		result = re.search(util.DUMP_PATTERN + r'1', results)
+		result = match_instr(1, results)
 		assert result
-		assert int(result.group(14))    == 2
+		assert check_cycles(result, 2)
 
-		result = re.search(util.DUMP_PATTERN + r'2', results)
+		result = match_instr(2, results)
 		assert result
-		assert int(result.group(14))    == 5
+		assert check_cycles(result, 5)
 
-		result = re.search(util.DUMP_PATTERN + r'3', results)
+		result = match_instr(3, results)
 		assert result
-		assert int(result.group(14))    == 6
+		assert check_cycles(result, 6)
 
-		result = re.search(util.DUMP_PATTERN + r'4', results)
+		result = match_instr(4, results)
 		assert result
-		assert int(result.group(14))    == 6
+		assert check_cycles(result, 6)
 
-		result = re.search(util.DUMP_PATTERN + r'5', results)
+		result = match_instr(5, results)
 		assert result
-		assert int(result.group(14))    == 7
+		assert check_cycles(result, 7)
 
 	def test_rol_cycle_count(self):
-		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/rol.s', enable_print_dump=True)
+		results = load_test(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/rol.s', enable_print_dump=True)
 		print(results)
 
-		result = re.search(util.DUMP_PATTERN + r'1', results)
+		result = match_instr(1, results)
 		assert result
-		assert int(result.group(14))    == 2
+		assert check_cycles(result, 2)
 
-		result = re.search(util.DUMP_PATTERN + r'2', results)
+		result = match_instr(2, results)
 		assert result
-		assert int(result.group(14))    == 5
+		assert check_cycles(result, 5)
 
-		result = re.search(util.DUMP_PATTERN + r'3', results)
+		result = match_instr(3, results)
 		assert result
-		assert int(result.group(14))    == 6
+		assert check_cycles(result, 6)
 
-		result = re.search(util.DUMP_PATTERN + r'4', results)
+		result = match_instr(4, results)
 		assert result
-		assert int(result.group(14))    == 6
+		assert check_cycles(result, 6)
 
-		result = re.search(util.DUMP_PATTERN + r'5', results)
+		result = match_instr(5, results)
 		assert result
-		assert int(result.group(14))    == 7
+		assert check_cycles(result, 7)
 
 	def test_ror_cycle_count(self):
-		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/ror.s', enable_print_dump=True)
+		results = load_test(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/ror.s', enable_print_dump=True)
 		print(results)
 
-		result = re.search(util.DUMP_PATTERN + r'1', results)
+		result = match_instr(1, results)
 		assert result
-		assert int(result.group(14))    == 2
+		assert check_cycles(result, 2)
 
-		result = re.search(util.DUMP_PATTERN + r'2', results)
+		result = match_instr(2, results)
 		assert result
-		assert int(result.group(14))    == 5
+		assert check_cycles(result, 5)
 
-		result = re.search(util.DUMP_PATTERN + r'3', results)
+		result = match_instr(3, results)
 		assert result
-		assert int(result.group(14))    == 6
+		assert check_cycles(result, 6)
 
-		result = re.search(util.DUMP_PATTERN + r'4', results)
+		result = match_instr(4, results)
 		assert result
-		assert int(result.group(14))    == 6
+		assert check_cycles(result, 6)
 
-		result = re.search(util.DUMP_PATTERN + r'5', results)
+		result = match_instr(5, results)
 		assert result
-		assert int(result.group(14))    == 7
+		assert check_cycles(result, 7)
 
 	def test_flag_cycle_count(self):
-		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/flag.s', enable_print_dump=True)
+		results = load_test(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/flag.s', enable_print_dump=True)
 		print(results)
 
-		result = re.search(util.DUMP_PATTERN + r'1', results)
+		result = match_instr(1, results)
 		assert result
-		assert int(result.group(14))    == 2
+		assert check_cycles(result, 2)
 
-		result = re.search(util.DUMP_PATTERN + r'2', results)
+		result = match_instr(2, results)
 		assert result
-		assert int(result.group(14))    == 2
+		assert check_cycles(result, 2)
 
-		result = re.search(util.DUMP_PATTERN + r'3', results)
+		result = match_instr(3, results)
 		assert result
-		assert int(result.group(14))    == 2
+		assert check_cycles(result, 2)
 
-		result = re.search(util.DUMP_PATTERN + r'4', results)
+		result = match_instr(4, results)
 		assert result
-		assert int(result.group(14))    == 2
+		assert check_cycles(result, 2)
 
-		result = re.search(util.DUMP_PATTERN + r'5', results)
+		result = match_instr(5, results)
 		assert result
-		assert int(result.group(14))    == 2
+		assert check_cycles(result, 2)
 
-		result = re.search(util.DUMP_PATTERN + r'6', results)
+		result = match_instr(6, results)
 		assert result
-		assert int(result.group(14))    == 2
+		assert check_cycles(result, 2)
 
 	def test_branch_cycle_count(self):
-		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/branch.s', enable_print_dump=True)
+		results = load_test(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/branch.s', enable_print_dump=True)
 		print(results)
 
-		result = re.search(util.DUMP_PATTERN + r'247', results)
+		result = match_instr(247, results)
 		assert result
-		assert int(result.group(14))    == 2
+		assert check_cycles(result, 2)
 
-		result = re.search(util.DUMP_PATTERN + r'249', results)
+		result = match_instr(249, results)
 		assert result
-		assert int(result.group(14))    == 3
+		assert check_cycles(result, 3)
 
-		result = re.search(util.DUMP_PATTERN + r'250', results)
+		result = match_instr(250, results)
 		assert result
-		assert int(result.group(14))    == 4
+		assert check_cycles(result, 4)
 
 
 	def test_jmp_cycle_count(self):
-		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/jmp.s', enable_print_dump=True)
+		results = load_test(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/jmp.s', enable_print_dump=True)
 		print(results)
 
-		result = re.search(util.DUMP_PATTERN + r'5', results)
+		result = match_instr(5, results)
 		assert result 
-		assert int(result.group(14))    == 3
+		assert check_cycles(result, 3)
 
-		result = re.search(util.DUMP_PATTERN + r'6', results)
+		result = match_instr(6, results)
 		assert result 
-		assert int(result.group(14))    == 5
+		assert check_cycles(result, 5)
 
 	def test_jsr_rts_cycle_count(self):
-		results = util.create(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/jsr-rts.s', enable_print_dump=True)
+		results = load_test(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/jsr-rts.s', enable_print_dump=True)
 		print(results)
 
-		result = re.search(util.DUMP_PATTERN + r'2', results)
+		result = match_instr(2, results)
 		assert result 
-		assert int(result.group(14))    == 6
+		assert check_cycles(result, 6)
 
-		result = re.search(util.DUMP_PATTERN + r'4', results)
+		result = match_instr(4, results)
 		assert result 
-		assert int(result.group(14))    == 6
+		assert check_cycles(result, 6)
 
 	def test_brk_rti_cycle_count(self):
-		results = util.create(start_binary=-0x0000, overrided_start_pc=0x0000, source_file='test/sourcefiles/cyclecount/brk-rti.s', enable_print_dump=True)
+		results = load_test(start_binary=0x0000, overrided_start_pc=0x0000, source_file='test/sourcefiles/cyclecount/brk-rti.s', enable_print_dump=True)
 		print(results)
 
-		result = re.search(util.DUMP_PATTERN + r'5', results)
+		result = match_instr(5, results)
 		assert result 
-		assert int(result.group(14))    == 7
+		assert check_cycles(result, 7)
 
-		result = re.search(util.DUMP_PATTERN + r'6', results)
+		result = match_instr(6, results)
 		assert result 
-		assert int(result.group(14))    == 6
+		assert check_cycles(result, 6)
 
-		result = re.search(util.DUMP_PATTERN + r'7', results)
+		result = match_instr(7, results)
 		assert result 
 		assert int(result.group(2), 16) == 0xFF
+
+	def test_bit_cycle_count(self):
+		results = load_test(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/bit.s', enable_print_dump=True)
+		print(results)
+
+		result = match_instr(1, results)
+		assert result
+		assert check_cycles(result, 3)
+
+		result = match_instr(2, results)
+		assert result
+		assert check_cycles(result, 4)
+
+	def test_nop_cycle_count(self):
+		results = load_test(overrided_start_pc=0x0200, source_file='test/sourcefiles/cyclecount/nop.s', enable_print_dump=True)
+		print(results)
+
+		result = match_instr(1, results)
+		assert result
+		assert check_cycles(result, 2)
