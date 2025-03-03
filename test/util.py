@@ -25,7 +25,7 @@ IRQ: (0b\d)
 .*cycles: (\d+)
 .*instructions: '''
 
-def match_instr(i: int, dump: str):
+def match_instr(dump: str, i: int) -> Match:
 	return re.search(DUMP_PATTERN + f'{i}', dump)
 
 def check_cycles(m: Match, x: int) -> bool:
