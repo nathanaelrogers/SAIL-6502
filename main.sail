@@ -36,11 +36,12 @@ function print_state(cycles_taken) = {
 }
 
 function fetch_decode_execute() : unit -> bool = {
-	let PC : address = reg_PC;
+	let start_PC : address = reg_PC;
 
 	let cycles_before : int = cycles;
 
-	let instruction = read(PC);
+	let instruction = read(start_PC);
+
 	incr_pc(1);
 
 	let decoded = decode(instruction);
@@ -51,8 +52,8 @@ function fetch_decode_execute() : unit -> bool = {
 		instructions_done = instructions_done + 1;
 
 	if (enable_print_dump) then {
-		let asm = assembly(PC, decoded);
-		print_endline(concat_str("\n", concat_str(bits_str(PC), concat_str(" ", asm))));
+		let asm = assembly(start_PC, decoded);
+		print_endline(concat_str("\n", concat_str(bits_str(start_PC), concat_str(" ", asm))));
 
 		if (execute_success) then
 			print_state(cycles - cycles_before);
@@ -61,13 +62,13 @@ function fetch_decode_execute() : unit -> bool = {
 	if enable_print_at_interval then
 		if (instructions_done % 100000 == 0) then {
 			print_endline(concat_str("instructions completed so far: ", dec_str(instructions_done)));
-			print_bits("current PC: ", PC);
+			print_bits("current PC: ", start_PC);
 			print_endline("");
 		};
 
 	if enable_break_at_trap then
-		if (PC == reg_PC) then {
-			print_bits("trapped PC: ", PC);
+		if (start_PC == reg_PC) then {
+			print_bits("trapped PC: ", start_PC);
 			return false;
 		};
 
@@ -79,6 +80,12 @@ function fetch_decode_execute() : unit -> bool = {
 function model_init() : unit -> unit = {
 	cycles = 0;
 
+	let PCH : word = read(RST_vec);
+	let PCL : word = read(RST_vec + 1);
+
+	reg_PC[15..8] = PCH;
+	reg_PC[7..0]  = PCL;
+
 	// it seems like everything should be undefined to begin with...?
 	reg_A  = undefined;
 	reg_X  = undefined;
@@ -86,6 +93,7 @@ function model_init() : unit -> unit = {
 	reg_PC = undefined;
 	reg_SP = undefined;
 	reg_SR[all] = undefined;
+	main_mem = undefined;
 }
 
 function main() : unit -> unit = {
