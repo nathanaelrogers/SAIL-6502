@@ -1,4 +1,13 @@
-union clause ast = INVALID : (bits(24))
+val decode08 : bits(8) -> ast
+scattered function decode08
+
+val decode16 : bits(16) -> ast
+scattered function decode16
+
+val decode24 : bits(24) -> ast
+scattered function decode24
+
+overload decode = {decode08, decode16, decode24}
 
 /* ============== 1 byte instructions ============== */
 function clause decode08(0x00) = BRK()
@@ -191,4 +200,4 @@ function clause decode16(this) = {
 
 // Catch an invalid instruction
 function clause decode24(instruction) = {incr_cycles(1); INVALID(instruction)}
-function clause execute(INVALID(instruction)) = false
+

@@ -1,0 +1,1 @@
+function clause execute(INVALID(instruction)) = false

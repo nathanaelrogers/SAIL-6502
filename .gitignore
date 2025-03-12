@@ -9,3 +9,5 @@ __pycache__/
 program.sail
 
 code.bin
+
+.python-version

@@ -3,17 +3,6 @@ scattered union ast
 val execute : ast -> bool
 scattered function execute
 
-val decode08 : bits(8) -> ast
-scattered function decode08
-
-val decode16 : bits(16) -> ast
-scattered function decode16
-
-val decode24 : bits(24) -> ast
-scattered function decode24
-
-overload decode = {decode08, decode16, decode24}
-
 union clause ast = ADC_IMM   : (word)
 union clause ast = ADC_ZP    : (word)
 union clause ast = ADC_ZP_X  : (word)
@@ -74,13 +63,13 @@ $include "./instructions/misc/BIT.sail"
 union clause ast = BRK       : (unit)
 $include "./instructions/interrupt/BRK.sail"
 
-union clause ast = CLC   : (unit)
-union clause ast = CLD   : (unit)
-union clause ast = CLI   : (unit)
-union clause ast = CLV   : (unit)
-union clause ast = SEC   : (unit)
-union clause ast = SED   : (unit)
-union clause ast = SEI   : (unit)
+union clause ast = CLC       : (unit)
+union clause ast = CLD       : (unit)
+union clause ast = CLI       : (unit)
+union clause ast = CLV       : (unit)
+union clause ast = SEC       : (unit)
+union clause ast = SED       : (unit)
+union clause ast = SEI       : (unit)
 $include "./instructions/flag.sail"
 
 union clause ast = CMP_IMM   : (word)
@@ -107,8 +96,8 @@ union clause ast = DEC_ZP    : (word)
 union clause ast = DEC_ZP_X  : (word)
 union clause ast = DEC_ABS   : (address)
 union clause ast = DEC_ABS_X : (address)
-union clause ast = DEX   : (unit)
-union clause ast = DEY   : (unit)
+union clause ast = DEX       : (unit)
+union clause ast = DEY       : (unit)
 union clause ast = INC_ZP    : (word)
 union clause ast = INC_ZP_X  : (word)
 union clause ast = INC_ABS   : (address)
@@ -173,23 +162,23 @@ $include "./instructions/shift/LSR.sail"
 union clause ast = NOP       : (unit)
 $include "./instructions/misc/NOP.sail"
 
-union clause ast = PHA   : (unit)
-union clause ast = PHP   : (unit)
-union clause ast = PLA   : (unit)
-union clause ast = PLP   : (unit)
+union clause ast = PHA       : (unit)
+union clause ast = PHP       : (unit)
+union clause ast = PLA       : (unit)
+union clause ast = PLP       : (unit)
 $include "./instructions/stack/PHA.sail"
 $include "./instructions/stack/PHP.sail"
 $include "./instructions/stack/PLA.sail"
 $include "./instructions/stack/PLP.sail"
 
-union clause ast = ROL   : (unit)
+union clause ast = ROL       : (unit)
 union clause ast = ROL_ZP    : (word)
 union clause ast = ROL_ZP_X  : (word)
 union clause ast = ROL_ABS   : (address)
 union clause ast = ROL_ABS_X : (address)
 $include "./instructions/shift/ROL.sail"
 
-union clause ast = ROR   : (unit)
+union clause ast = ROR       : (unit)
 union clause ast = ROR_ZP    : (word)
 union clause ast = ROR_ZP_X  : (word)
 union clause ast = ROR_ABS   : (address)
@@ -211,3 +200,6 @@ union clause ast = SBC_ABS_Y : (address)
 union clause ast = SBC_IND_X : (word)
 union clause ast = SBC_IND_Y : (word)
 $include "./instructions/arithmetic/SBC.sail"
+
+union clause ast = INVALID : (bits(24))
+$include "./instructions/invalid.sail"
