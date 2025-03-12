@@ -88,7 +88,8 @@ function model_init() : unit -> unit = {
 	reg_PC = undefined;
 	reg_SP = undefined;
 	reg_SR[all] = undefined;
-	main_mem = undefined;
+
+	main_mem = vector_init(256, vector_init(256, undefined));
 
 	cycles = 0;
 	instructions_done = 0;
