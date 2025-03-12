@@ -1,14 +1,6 @@
-type word_size : Int = 8
-type word = bits(word_size)
-
-type address_size : Int = 16
-type address = bits(address_size)
-
-type page_size_word : Int = 256
-type page_256B = vector(page_size_word, word)
-
-type mem_size_page : Int = 256
-type mem_64KB = vector(mem_size_page, page_256B)
+type word = bits(8)
+type address = bits(16)
+type mem_64KB = vector(256, vector(256, word))
 
 bitfield flags : word = {
 	all : 7..0,

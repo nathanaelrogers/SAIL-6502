@@ -1,11 +1,9 @@
 default Order dec
 $include <prelude.sail>
 $include "prelude.sail"
-$include "timing.sail"
 $include "types.sail"
-$include "interrupts.sail"
 $include "registers.sail"
-$include "memory.sail"
+$include "interrupts.sail"
 $include "addressing.sail"
 $include "decimal-mode.sail"
 $include "instruction-ast.sail"
@@ -78,15 +76,12 @@ function fetch_decode_execute() : unit -> bool = {
 // PC is read from address provided in reset vector (16 bits at $FFFC).
 // All other initialization is left to the program loaded.
 function model_init() : unit -> unit = {
-	cycles = 0;
-
 	let PCH : word = read(RST_vec);
 	let PCL : word = read(RST_vec + 1);
 
 	reg_PC[15..8] = PCH;
 	reg_PC[7..0]  = PCL;
 
-	// it seems like everything should be undefined to begin with...?
 	reg_A  = undefined;
 	reg_X  = undefined;
 	reg_Y  = undefined;
@@ -94,6 +89,9 @@ function model_init() : unit -> unit = {
 	reg_SP = undefined;
 	reg_SR[all] = undefined;
 	main_mem = undefined;
+
+	cycles = 0;
+	instructions_done = 0;
 }
 
 function main() : unit -> unit = {

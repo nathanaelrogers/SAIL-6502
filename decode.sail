@@ -183,19 +183,19 @@ function clause decode16(0x94 @ op : word)    = STY_ZP_X(op)
 function clause decode24(0x8C @ op : address) = STY_ABS(op[7..0] @ op[15..8])
 
 // If it's not a valid single byte instruction, read another byte and try decode.
-function clause decode08(this) = {
+function clause decode08(op) = {
 	let next_byte : word = read(reg_PC);
 	incr_pc(1);
 
-	decode16(EXTZ(this) << 8 | EXTZ(next_byte));
+	decode16(EXTZ(op) << 8 | EXTZ(next_byte));
 }
 
 // If it's not a valid instruction, read another byte and try decode.
-function clause decode16(this) = {
+function clause decode16(op) = {
 	let next_byte : word = read(reg_PC);
 	incr_pc(1);
 
-	decode24(EXTZ(this) << 8 | EXTZ(next_byte));
+	decode24(EXTZ(op) << 8 | EXTZ(next_byte));
 }
 
 // Catch an invalid instruction
