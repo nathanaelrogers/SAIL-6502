@@ -78,9 +78,9 @@ int bcd_test() {
 int tiny_bcd_test() {
 	main_mem[0x0000] = 0xF8;
 	main_mem[0x0001] = 0xA9;
-	main_mem[0x0002] = 0x09;
-	main_mem[0x0003] = 0x69;
-	main_mem[0x0004] = 0x02;
+	main_mem[0x0002] = 0x10;
+	main_mem[0x0003] = 0xE9;
+	main_mem[0x0004] = 0x03;
 
 	// run the code
 	reset6502();
@@ -92,7 +92,7 @@ int tiny_bcd_test() {
 		step6502();
 
 		if (saved_pc == 0x0005) {
-			printf("contents of accumulator: %x\n", a);
+			printf("contents of accumulator: 0x%x\n", a);
 			return 0;
 		}
 	}
@@ -102,5 +102,5 @@ int main() {
 	// Initialise the main memory
 	main_mem = (memory) calloc((0b1 << 16), sizeof(uint8_t));
 
-	return tiny_bcd_test();
+	return bcd_test();
 }

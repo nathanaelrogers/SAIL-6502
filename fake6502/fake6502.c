@@ -104,6 +104,7 @@
 
 #include <stdio.h>
 #include <stdint.h>
+#include <stdlib.h>
 
 //6502 defines
 // #define UNDOCUMENTED //when this is defined, undocumented opcodes are handled.
@@ -333,13 +334,30 @@ static void adc() {
         clearcarry();
         
         if ((a & 0x0F) > 0x09) {
-            a += 0x06;
+            exit(1);
         }
         if ((a & 0xF0) > 0x90) {
-            a += 0x60;
-            setcarry();
+            exit(1);
         }
-        
+
+        value = getvalue();
+
+        uint8_t a_upper = (a & 0xF0) >> 4;
+        uint8_t a_lower = a & 0x0F;
+        uint8_t a_dec = a_upper * 10 + a_lower;
+
+        uint8_t val_upper = (value & 0xF0) >> 4;
+        uint8_t val_lower = value & 0x0F;
+        uint8_t val_dec = val_upper * 10 + val_lower;
+
+        uint8_t result_dec = (a_dec + val_dec + (status & FLAG_CARRY)) % 100;
+        result = ((result_dec / 10) << 4) | (result_dec % 10);
+
+        carrycalc(result);
+        zerocalc(result);
+        overflowcalc(result, a, value);
+        signcalc(result);
+
         clockticks6502++;
     }
     #endif
@@ -705,15 +723,31 @@ static void sbc() {
     if (status & FLAG_DECIMAL) {
         clearcarry();
         
-        a -= 0x66;
         if ((a & 0x0F) > 0x09) {
-            a += 0x06;
+            exit(1);
         }
         if ((a & 0xF0) > 0x90) {
-            a += 0x60;
-            setcarry();
+            exit(1);
         }
-        
+
+        value = getvalue();
+
+        uint8_t a_upper = (a & 0xF0) >> 4;
+        uint8_t a_lower = a & 0x0F;
+        uint8_t a_dec = a_upper * 10 + a_lower;
+
+        uint8_t val_upper = (value & 0xF0) >> 4;
+        uint8_t val_lower = value & 0x0F;
+        uint8_t val_dec = val_upper * 10 + val_lower;
+
+        uint8_t result_dec = (a_dec - val_dec + (status & FLAG_CARRY) - 1) % 100;
+        result = ((result_dec / 10) << 4) | (result_dec % 10);
+
+        carrycalc(result);
+        zerocalc(result);
+        overflowcalc(result, a, getvalue() ^ 0x00FF);
+        signcalc(result);
+
         clockticks6502++;
     }
     #endif
