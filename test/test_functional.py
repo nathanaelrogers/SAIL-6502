@@ -2,7 +2,7 @@ from util import load_test
 import re
 
 class TestFunctional:
-	def test_functional(self):
+	def test_functional_with_bcd(self):
 		results = load_test(start_binary=0x000a, overrided_start_pc=0x0400, source_file='test/sourcefiles/functional/6502_functional_test.bin', generate_binary=False, compile_c_target=True)
 		print(results)
 

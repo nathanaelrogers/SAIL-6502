@@ -42,16 +42,21 @@ function modify_flags_ADC(result, decimal_result, op1, op2) = {
 
 val ADC : (word) -> bool
 function ADC(op) = {
-	let carry : int = if (reg_SR[c] == 0b1) then 1 else 0;
-	let decimal_result : int = decimal_add(reg_A, op) + carry;
+	let dec_carry  : int = if (reg_SR[c] == 0b1) then 1 else 0;
+
+	let dec_result : int = if (reg_SR[d] == 0b0) then {
+		0
+	} else {
+		word_to_dec(reg_A) + word_to_dec(op) + dec_carry
+	};
 
 	let result : bits(9) = if (reg_SR[d] == 0b0) then {
 		EXTZ(9, reg_A) + EXTZ(9, op) + EXTZ(9, reg_SR[c])
 	} else {
-		EXTZ(9, decimal_to_word(decimal_result))
+		EXTZ(9, dec_to_word(dec_result))
 	};
 
-	modify_flags_ADC(result, decimal_result, reg_A, op);
+	modify_flags_ADC(result, dec_result, reg_A, op);
 	reg_A = result[7..0];
 	true
 }

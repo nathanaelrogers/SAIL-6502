@@ -1,66 +1,22 @@
-val nibble_to_int : bits(4) -> int
-function nibble_to_int(nibble) = {
-	match nibble {
-		0x0 => 0,
-		0x1 => 1,
-		0x2 => 2,
-		0x3 => 3,
-		0x4 => 4,
-		0x5 => 5,
-		0x6 => 6,
-		0x7 => 7,
-		0x8 => 8,
-		0x9 => 9,
-		_   => undefined
-	}
+mapping nibbleint : int <-> bits(4) = {
+	0 <-> 0x0,
+	1 <-> 0x1,
+	2 <-> 0x2,
+	3 <-> 0x3,
+	4 <-> 0x4,
+	5 <-> 0x5,
+	6 <-> 0x6,
+	7 <-> 0x7,
+	8 <-> 0x8,
+	9 <-> 0x9
 }
 
-val int_to_nibble : int -> bits(4)
-function int_to_nibble(n) = {
-	match n {
-		0 => 0x0,
-		1 => 0x1,
-		2 => 0x2,
-		3 => 0x3,
-		4 => 0x4,
-		5 => 0x5,
-		6 => 0x6,
-		7 => 0x7,
-		8 => 0x8,
-		9 => 0x9,
-		_ => undefined
-	}
+val word_to_dec : word -> int
+function word_to_dec(word) = {
+	(nibbleint(word[7..4]) * 10) + nibbleint(word[3..0])
 }
 
-val word_to_decimal : word -> int
-function word_to_decimal(word) = {
-	(nibble_to_int(word[7..4]) * 10) + nibble_to_int(word[3..0])
-}
-
-/*
-	NOTE:
-	This will never capture the "carry" in a decimal number, but this is
-	not an issue because BCD mode instructions use the integer value of
-	addition/subtraction in logic for setting/clearing the carry. This
-	method simply preserves the lower 8 bits worth of information to store
-	in the accumulator
-*/
-val decimal_to_word : int -> word
-function decimal_to_word(op) = {
-	let n : int = op % 100;
-	if (n >= 0) then {
-		int_to_nibble(n / 10) @ int_to_nibble(n % 10)
-	} else {
-		int_to_nibble((100 - n) / 10) @ int_to_nibble((100 - n) % 10)
-	};
-}
-
-val decimal_add : (word, word) -> int
-function decimal_add(op1, op2) = {
-	word_to_decimal(op1) + word_to_decimal(op2)
-}
-
-val decimal_sub : (word, word) -> int
-function decimal_sub(op1, op2) = {
-	word_to_decimal(op1) - word_to_decimal(op2)
+val dec_to_word : int -> word
+function dec_to_word(op) = {
+	nibbleint((op % 100) / 10) @ nibbleint(op % 10)
 }
