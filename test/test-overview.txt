@@ -1,0 +1,17 @@
+> dormann suite - tests all 6502 instructions, available as plain 6502 assembly
+
+> lorenz C64 suite - tests for C64 based systems (not what I want but a good example)
+
+> baltissen test rom - 6502 test, written in plain assembler, potential candidate (designed to act with LED display but uses traps as errors, end L997, no source
+
+> horton NES test rom - designed to run inside an NES emulator, so not good for our purposes yet, comprehensive error codes! no source :(
+
+> AllSuiteA.asm - from a verilog 6502 project, potential candidate
+
+> bruce clark BCD tests - written in plain assembler, good!
+
+> rob finch tests - can't find a source
+
+> acid800 - written for Atari emulators, extensive but not for me
+
+> ASAP tests - again, written for Atari systems

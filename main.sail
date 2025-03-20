@@ -76,8 +76,8 @@ function fetch_decode_execute() : unit -> bool = {
 // PC is read from address provided in reset vector (16 bits at $FFFC).
 // All other initialization is left to the program loaded.
 function model_init() : unit -> unit = {
-	let PCH : word = read(RST_vec);
-	let PCL : word = read(RST_vec + 1);
+	let PCH : word = read(RST_vec + 1);
+	let PCL : word = read(RST_vec);
 
 	reg_PC[15..8] = PCH;
 	reg_PC[7..0]  = PCL;

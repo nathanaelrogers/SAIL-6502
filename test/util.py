@@ -69,9 +69,6 @@ def load_test(start_binary=0x0200, source_file=None, overrided_start_pc=None, st
 	# Commands to directly overwrite the PC or rely on the program-stored one
 	if overrided_start_pc:
 		commands.append(f'reg_PC = {overrided_start_pc:#0{6}x};')
-	else:
-		commands.append(f'reg_PC[15..8] = read(RST_vec + 1);')
-		commands.append(f'reg_PC[7..0]  = read(RST_vec);')
 
 	# Make a Sail function to load the program when the compiled model is launched
 	with open('config.sail', 'w') as file:
