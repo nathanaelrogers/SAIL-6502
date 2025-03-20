@@ -1,5 +1,5 @@
 val modify_flags_ADC : (bits(9), int, word, word) -> unit
-function modify_flags_ADC(result, decimal_result, op1, op2) = {
+function modify_flags_ADC(result, dec_result, op1, op2) = {
 	// negative + BCD negative
 	reg_SR[n] = [result[7]];
 
@@ -18,7 +18,7 @@ function modify_flags_ADC(result, decimal_result, op1, op2) = {
 	}
 	// BCD overflow (this is UNDOCUMENTED behaviour? see appendix A of 6502.org BCD tutorial)
 	else {
-		if (decimal_result > 127 | decimal_result < -128) then
+		if (dec_result > 127 | dec_result < -128) then
 			reg_SR[v] = 0b1
 		else
 			reg_SR[v] = 0b0
@@ -33,7 +33,7 @@ function modify_flags_ADC(result, decimal_result, op1, op2) = {
 	}
 	// BCD carry
 	else {
-		if (decimal_result >= 100) then
+		if (dec_result >= 100) then
 			reg_SR[c] = 0b1
 		else
 			reg_SR[c] = 0b0
@@ -47,7 +47,7 @@ function ADC(op) = {
 	let dec_result : int = if (reg_SR[d] == 0b0) then {
 		0
 	} else {
-		word_to_dec(reg_A) + word_to_dec(op) + dec_carry
+		dec_add(word_to_dec(reg_A), word_to_dec(op), dec_carry)
 	};
 
 	let result : bits(9) = if (reg_SR[d] == 0b0) then {

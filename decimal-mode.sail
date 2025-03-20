@@ -20,3 +20,13 @@ val dec_to_word : int -> word
 function dec_to_word(op) = {
 	nibbleint((op % 100) / 10) @ nibbleint(op % 10)
 }
+
+val dec_sub : (int, int, int) -> int
+function dec_sub(op1, op2, op3)	 = {
+	op1 - op2 - op3
+}
+
+val dec_add : (int, int, int) -> int
+function dec_add(op1, op2, op3)	 = {
+	op1 + op2 + op3
+}
