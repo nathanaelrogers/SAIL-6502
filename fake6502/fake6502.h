@@ -1030,7 +1030,7 @@ void (*loopexternal)();
 /*
     I made this function to dump the internal state out so I could compare it with the specification
 */
-void print_state(ushort saved_pc) {
+void print_state(ushort saved_pc, uint32 cycles) {
     printf("\n");
     printf("0x%x\n", saved_pc);
     printf("A: %x\n", a);
@@ -1045,7 +1045,7 @@ void print_state(ushort saved_pc) {
     printf("i: %d\n", (status & FLAG_INTERRUPT) >> 2);
     printf("z: %d\n", (status & FLAG_ZERO) >> 1);
     printf("c: %d\n", (status & FLAG_CARRY));
-    printf("cycles: %d\n", ticktable[opcode]);
+    printf("cycles: %d\n", cycles);
     printf("total cycles: %d\n", clockticks6502);
     printf("total instructions: %d\n", instructions);
     return;
@@ -1058,6 +1058,7 @@ uint32 exec6502_until_trap() {
     clockticks6502 = 0;
     while (1) {
         ushort saved_pc = pc;
+        uint32 saved_clockticks6502 = clockticks6502;
         opcode = read6502(pc++);
         status |= FLAG_CONSTANT;
         penaltyop = 0;
@@ -1068,8 +1069,8 @@ uint32 exec6502_until_trap() {
         if (penaltyop && penaltyaddr) {clockticks6502++;}
         instructions++;
         if (callexternal) (*loopexternal)();
-        if (instructions % 100000 == 0)
-            print_state(saved_pc);
+        if (instructions % 1000 == 0)
+            print_state(saved_pc, clockticks6502 - saved_clockticks6502);
         if (saved_pc == pc)
             break;
     }

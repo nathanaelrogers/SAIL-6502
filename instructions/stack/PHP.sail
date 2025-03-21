@@ -3,8 +3,8 @@ function clause execute(PHP()) = {
 
 	reg_SR[X] = 0b1;
 	reg_SR[b] = 0b1;
-	let stored_sr = reg_SR[all];
-	push(stored_sr);
+	push(reg_SR[all]);
+
 	reg_SR[X] = 0b0;
 	reg_SR[b] = 0b0;
 

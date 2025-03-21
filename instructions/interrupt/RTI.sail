@@ -1,12 +1,13 @@
 function clause execute(RTI()) = {
 	incr_cycles(6);
 
-	let stored_sr = pull();
+	reg_SR[all] = pull();
+
+	reg_SR[b] = 0b0;
+	reg_SR[X] = 0b0;
+
 	let PCL = pull();
 	let PCH = pull();
-
-	reg_SR[all] = stored_sr;
-	reg_SR[b] = 0b0;
 	reg_PC = PCH @ PCL;
 
 	true

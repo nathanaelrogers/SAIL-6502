@@ -56,7 +56,7 @@ function fetch_decode_execute() : unit -> bool = {
 	};
 
 	if enable_print_at_interval then
-		if (instructions_done % 100000 == 0) then {
+		if (instructions_done % 1000 == 0) then {
 			print_endline(concat_str("\n", concat_str(bits_str(start_PC), concat_str(" ", asm))));
 
 			if (execute_success) then

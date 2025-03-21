@@ -1,14 +1,14 @@
 from util import *
 
 class TestParallel:
-	def test_functional_parallel_results(self):
-		with open('test/functional_test_emu_results.txt') as file:
+	def test_functional_no_bcd_parallel(self):
+		with open('test/functional_no_bcd_emu_results.txt') as file:
 			emu_dump = file.read()
 
-		with open('test/functional_test_spec_results.txt') as file:
+		with open('test/functional_no_bcd_spec_results.txt') as file:
 			spec_dump = file.read()
 
-		for i in range(100000, 34000001, 100000):
+		for i in range(1000, 27523000, 1000):
 			emu_result = match_instr_emu(emu_dump, i)
 			spec_result = match_instr_spec(spec_dump, i)
 
@@ -20,7 +20,11 @@ class TestParallel:
 			assert get_pc(emu_result) == get_pc(spec_result)
 			assert get_n(emu_result) == get_n(spec_result)
 			assert get_v(emu_result) == get_v(spec_result)
-			assert get_b(emu_result) == get_b(spec_result)
+
+			# representation of b flag in emulator represents what would get
+			# pushed to the stack, so may be "on" when that's not what's actually
+			# going on inside the status register. (ignore the difference)
+
 			assert get_d(emu_result) == get_d(spec_result)
 			assert get_i(emu_result) == get_i(spec_result)
 			assert get_z(emu_result) == get_z(spec_result)

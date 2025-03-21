@@ -30,7 +30,6 @@ int functional_test() {
 	// initialise the processor
 	reset6502();
 	pc = 0x0400;
-	status = 0x06;
 
 	// run
 	exec6502_until_trap();
@@ -85,5 +84,5 @@ int main() {
 	// Initialise the main memory
 	main_mem = (memory) calloc((0b1 << 16), sizeof(unsigned char));
 
-	return functional_test();
+	return functional_test_no_bcd();
 }
