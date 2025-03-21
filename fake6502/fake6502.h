@@ -1028,6 +1028,30 @@ uint8 callexternal = 0;
 void (*loopexternal)();
 
 /*
+    I made this function to dump the internal state out so I could compare it with the specification
+*/
+void print_state(ushort saved_pc) {
+    printf("\n");
+    printf("0x%x\n", saved_pc);
+    printf("A: %x\n", a);
+    printf("X: %x\n", x);
+    printf("Y: %x\n", y);
+    printf("SP: %x\n", sp);
+    printf("PC: %x\n", pc);
+    printf("n: %d\n", (status & FLAG_SIGN) >> 7);
+    printf("v: %d\n", (status & FLAG_OVERFLOW) >> 6);
+    printf("b: %d\n", (status & FLAG_BREAK) >> 4);
+    printf("d: %d\n", (status & FLAG_DECIMAL) >> 3);
+    printf("i: %d\n", (status & FLAG_INTERRUPT) >> 2);
+    printf("z: %d\n", (status & FLAG_ZERO) >> 1);
+    printf("c: %d\n", (status & FLAG_CARRY));
+    printf("cycles: %d\n", ticktable[opcode]);
+    printf("total cycles: %d\n", clockticks6502);
+    printf("total instructions: %d\n", instructions);
+    return;
+}
+
+/*
     I added this version of exec 6502 so I could use this emulator with the 6502 functional tests which break on trap - NR (13.03.25)
 */
 uint32 exec6502_until_trap() {
@@ -1044,6 +1068,8 @@ uint32 exec6502_until_trap() {
         if (penaltyop && penaltyaddr) {clockticks6502++;}
         instructions++;
         if (callexternal) (*loopexternal)();
+        if (instructions % 100000 == 0)
+            print_state(saved_pc);
         if (saved_pc == pc)
             break;
     }

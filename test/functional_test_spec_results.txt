@@ -1,0 +1,5341 @@
+
+0x045A INC $0202
+A: 0x4F
+X: 0x4B
+Y: 0x92
+SP: 0xFF
+PC: 0x045D
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b1
+z: 0b0
+c: 0b1
+cycles: 6
+total cycles: 330299
+total instructions: 100000
+
+0x045A INC $0202
+A: 0x8B
+X: 0x8C
+Y: 0x97
+SP: 0xFF
+PC: 0x045D
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b1
+z: 0b0
+c: 0b1
+cycles: 6
+total cycles: 663329
+total instructions: 200000
+
+0x045A INC $0202
+A: 0xC7
+X: 0xCD
+Y: 0x9C
+SP: 0xFF
+PC: 0x045D
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b1
+z: 0b0
+c: 0b1
+cycles: 6
+total cycles: 996359
+total instructions: 300000
+
+0x0545 DEX
+A: 0x00
+X: 0x53
+Y: 0xA1
+SP: 0xFF
+PC: 0x0546
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b1
+z: 0b0
+c: 0b0
+cycles: 2
+total cycles: 1300092
+total instructions: 400000
+
+0x36C0 AND #$C3
+A: 0x80
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36C2
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 1593472
+total instructions: 500000
+
+0x3738 LDA $0D
+A: 0x98
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x373A
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 1907744
+total instructions: 600000
+
+0x364E LDA $0D
+A: 0x8E
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3650
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 2222018
+total instructions: 700000
+
+0x36B0 CMP $11
+A: 0x80
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36B2
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 2536288
+total instructions: 800000
+
+0x3615 PHA
+A: 0x00
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3616
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b0
+cycles: 3
+total cycles: 2850585
+total instructions: 900000
+
+0x36D5 CMP $11
+A: 0x00
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36D7
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 3164872
+total instructions: 1000000
+
+0x362E PHP
+A: 0x6E
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x362F
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 3479168
+total instructions: 1100000
+
+0x36D5 CMP $11
+A: 0x00
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36D7
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 3793451
+total instructions: 1200000
+
+0x3626 PLA
+A: 0x00
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x3627
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b0
+cycles: 4
+total cycles: 4107742
+total instructions: 1300000
+
+0x36B8 SBC $04,X
+A: 0x53
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36BA
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 4
+total cycles: 4422021
+total instructions: 1400000
+
+0x3744 CMP $11
+A: 0x00
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3746
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 4736298
+total instructions: 1500000
+
+0x366B PLA
+A: 0x30
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x366C
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 5050574
+total instructions: 1600000
+
+0x36E0 PHP
+A: 0x39
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x36E1
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 5364850
+total instructions: 1700000
+
+0x374C SBC ($5A),Y
+A: 0x30
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x374E
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 6
+total cycles: 5679122
+total instructions: 1800000
+
+0x3660 PHP
+A: 0x00
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3661
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b0
+cycles: 3
+total cycles: 5993387
+total instructions: 1900000
+
+0x36B6 LDA $0D
+A: 0x0F
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36B8
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 6307655
+total instructions: 2000000
+
+0x3707 CMP $0F
+A: 0x15
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x3709
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 6621916
+total instructions: 2100000
+
+0x3734 BNE
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3736
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 6936155
+total instructions: 2200000
+
+0x370B PLA
+A: 0x31
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x370C
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 7250385
+total instructions: 2300000
+
+0x36D7 BNE
+A: 0x80
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36D9
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 7564609
+total instructions: 2400000
+
+0x3699 BNE
+A: 0xF0
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x369B
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 7878837
+total instructions: 2500000
+
+0x3653 PHP
+A: 0xE7
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x3654
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 8193054
+total instructions: 2600000
+
+0x374A LDA $0D
+A: 0xC8
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x374C
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 8507268
+total instructions: 2700000
+
+0x36EE LDA $0D
+A: 0xBE
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36F0
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 8821482
+total instructions: 2800000
+
+0x368A PLP
+A: 0x80
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x368B
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 9135695
+total instructions: 2900000
+
+0x3371 JSR $3611
+A: 0x80
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x3611
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 6
+total cycles: 9449910
+total instructions: 3000000
+
+0x36F6 BNE
+A: 0xB9
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x36F8
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 9764107
+total instructions: 3100000
+
+0x3673 PHP
+A: 0x80
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3674
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 10078308
+total instructions: 3200000
+
+0x372F PLA
+A: 0xB0
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3730
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 10392510
+total instructions: 3300000
+
+0x3696 PHP
+A: 0x9E
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x3697
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 10706712
+total instructions: 3400000
+
+0x0217 RTS
+A: 0x95
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3696
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 6
+total cycles: 11020952
+total instructions: 3500000
+
+0x36B0 CMP $11
+A: 0xC0
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36B2
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 11335197
+total instructions: 3600000
+
+0x36C2 CMP $11
+A: 0xC0
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36C4
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 11649441
+total instructions: 3700000
+
+0x0217 RTS
+A: 0x7A
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3696
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 6
+total cycles: 11963673
+total instructions: 3800000
+
+0x363A PLP
+A: 0x00
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x363B
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 4
+total cycles: 12277885
+total instructions: 3900000
+
+0x372F PLA
+A: 0x30
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3730
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 12592094
+total instructions: 4000000
+
+0x36BD BNE
+A: 0x5E
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x36BF
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 12906303
+total instructions: 4100000
+
+0x3645 PLA
+A: 0x30
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3646
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 13220510
+total instructions: 4200000
+
+0x3712 PLP
+A: 0x00
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x3713
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 4
+total cycles: 13534709
+total instructions: 4300000
+
+0x3683 PLA
+A: 0x30
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3684
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 13848913
+total instructions: 4400000
+
+0x3746 BNE
+A: 0x00
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3748
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 14163107
+total instructions: 4500000
+
+0x36A3 PHP
+A: 0x00
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36A4
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b0
+cycles: 3
+total cycles: 14477306
+total instructions: 4600000
+
+0x3749 PHP
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x374A
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 14791482
+total instructions: 4700000
+
+0x362F CMP $0F
+A: 0x1D
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x3631
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 15105648
+total instructions: 4800000
+
+0x3661 LDA $0D
+A: 0xE9
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3663
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 15419798
+total instructions: 4900000
+
+0x367E PHP
+A: 0x0A
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x367F
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 15733955
+total instructions: 5000000
+
+0x369B PLA
+A: 0x33
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x369C
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 16048108
+total instructions: 5100000
+
+0x36A4 LDA $0D
+A: 0xC9
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36A6
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 16362253
+total instructions: 5200000
+
+0x36AE AND #$C3
+A: 0x80
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36B0
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 16676397
+total instructions: 5300000
+
+0x36A3 PHP
+A: 0x80
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36A4
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 16990540
+total instructions: 5400000
+
+0x3699 BNE
+A: 0xDA
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x369B
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 17304680
+total instructions: 5500000
+
+0x0212 ADC #$31
+A: 0xD1
+X: 0x0E
+Y: 0xFF
+SP: 0xFA
+PC: 0x0214
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 2
+total cycles: 17618812
+total instructions: 5600000
+
+0x365D BNE
+A: 0x80
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x365F
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 17932944
+total instructions: 5700000
+
+0x3629 PHP
+A: 0x80
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x362A
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 18247082
+total instructions: 5800000
+
+0x3741 PLA
+A: 0xF0
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3742
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 18561204
+total instructions: 5900000
+
+0x3679 LDA $0D
+A: 0x75
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x367B
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 18875384
+total instructions: 6000000
+
+0x3703 SBC $0105,Y
+A: 0xA1
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3706
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 5
+total cycles: 19189568
+total instructions: 6100000
+
+0x3626 PLA
+A: 0xC0
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x3627
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 4
+total cycles: 19503751
+total instructions: 6200000
+
+0x3693 JSR $0215
+A: 0x56
+X: 0x0E
+Y: 0xFF
+SP: 0xFA
+PC: 0x0215
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 6
+total cycles: 19817925
+total instructions: 6300000
+
+0x3700 PHP
+A: 0xC0
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3701
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 20132093
+total instructions: 6400000
+
+0x3736 PLP
+A: 0x00
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x3737
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 4
+total cycles: 20446254
+total instructions: 6500000
+
+0x3730 AND #$C3
+A: 0x00
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3732
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 20760395
+total instructions: 6600000
+
+0x3716 ADC ($46,X)
+A: 0x69
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3718
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 6
+total cycles: 21074534
+total instructions: 6700000
+
+0x36FD BNE
+A: 0x00
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36FF
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 21388666
+total instructions: 6800000
+
+0x36CD PHP
+A: 0x56
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x36CE
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 21702802
+total instructions: 6900000
+
+0x36A0 BNE
+A: 0x00
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36A2
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 22016932
+total instructions: 7000000
+
+0x365F PLP
+A: 0x00
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x3660
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 4
+total cycles: 22331055
+total instructions: 7100000
+
+0x3732 CMP $11
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3734
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 22645150
+total instructions: 7200000
+
+0x367E PHP
+A: 0x2E
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x367F
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 22959244
+total instructions: 7300000
+
+0x370B PLA
+A: 0x31
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x370C
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 23273328
+total instructions: 7400000
+
+0x3636 CMP $11
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3638
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 23587417
+total instructions: 7500000
+
+0x36AD PLA
+A: 0x31
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36AE
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 23901498
+total instructions: 7600000
+
+0x371D PLA
+A: 0x31
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x371E
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 24215573
+total instructions: 7700000
+
+0x3638 BNE
+A: 0x80
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x363A
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 24529651
+total instructions: 7800000
+
+0x3693 JSR $0215
+A: 0xAC
+X: 0x0E
+Y: 0xFF
+SP: 0xFA
+PC: 0x0215
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 6
+total cycles: 24843725
+total instructions: 7900000
+
+0x36E1 CMP $0F
+A: 0xE9
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x36E3
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 25157792
+total instructions: 8000000
+
+0x3728 SBC ($48,X)
+A: 0xDF
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x372A
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 6
+total cycles: 25471859
+total instructions: 8100000
+
+0x3364 PLA
+A: 0xF0
+X: 0x0E
+Y: 0xFF
+SP: 0xFE
+PC: 0x3365
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 4
+total cycles: 25785929
+total instructions: 8200000
+
+0x3640 PHP
+A: 0xCC
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x3641
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 26099987
+total instructions: 8300000
+
+0x3730 AND #$C3
+A: 0xC0
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3732
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 26414099
+total instructions: 8400000
+
+0x36D5 CMP $11
+A: 0xC0
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36D7
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 26728216
+total instructions: 8500000
+
+0x3667 CMP $0F
+A: 0xAF
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x3669
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 27042329
+total instructions: 8600000
+
+0x374C SBC ($5A),Y
+A: 0xA5
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x374E
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 6
+total cycles: 27356444
+total instructions: 8700000
+
+0x36D3 AND #$C3
+A: 0xC0
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36D5
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 27670550
+total instructions: 8800000
+
+0x3646 AND #$C3
+A: 0xC0
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3648
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 27984656
+total instructions: 8900000
+
+0x3710 BNE
+A: 0xC0
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3712
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 28298756
+total instructions: 9000000
+
+0x3670 BNE
+A: 0x00
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3672
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 28612852
+total instructions: 9100000
+
+0x36BD BNE
+A: 0x74
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x36BF
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 28926926
+total instructions: 9200000
+
+0x3706 PHP
+A: 0x6A
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x3707
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 29240992
+total instructions: 9300000
+
+0x3741 PLA
+A: 0x30
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3742
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 29555057
+total instructions: 9400000
+
+0x362E PHP
+A: 0x56
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x362F
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 29869116
+total instructions: 9500000
+
+0x373D CMP $0F
+A: 0x4B
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x373F
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 30183138
+total instructions: 9600000
+
+0x36ED PHP
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36EE
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 30497160
+total instructions: 9700000
+
+0x0215 SBC #$A6
+A: 0x37
+X: 0x0E
+Y: 0xFF
+SP: 0xFA
+PC: 0x0217
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 30811185
+total instructions: 9800000
+
+0x362F CMP $0F
+A: 0x2D
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x3631
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 31125206
+total instructions: 9900000
+
+0x370C AND #$C3
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x370E
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 31439214
+total instructions: 10000000
+
+0x0215 SBC #$A3
+A: 0x19
+X: 0x0E
+Y: 0xFF
+SP: 0xFA
+PC: 0x0217
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 31753231
+total instructions: 10100000
+
+0x3367 PLP
+A: 0x00
+X: 0x0E
+Y: 0xFF
+SP: 0xFF
+PC: 0x3368
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 4
+total cycles: 32067244
+total instructions: 10200000
+
+0x36DA PHP
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36DB
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 32381244
+total instructions: 10300000
+
+0x3646 AND #$C3
+A: 0x80
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3648
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 32695249
+total instructions: 10400000
+
+0x36F0 ADC $0104,Y
+A: 0xF0
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36F3
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 5
+total cycles: 33009249
+total instructions: 10500000
+
+0x3646 AND #$C3
+A: 0x80
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3648
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 33323248
+total instructions: 10600000
+
+0x336C ORA $10
+A: 0x80
+X: 0x0E
+Y: 0xFF
+SP: 0xFF
+PC: 0x336E
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 33637285
+total instructions: 10700000
+
+0x3629 PHP
+A: 0xC0
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x362A
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 33951338
+total instructions: 10800000
+
+0x363C LDA $0D
+A: 0x63
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x363E
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 34265388
+total instructions: 10900000
+
+0x3646 AND #$C3
+A: 0xC0
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3648
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 34579436
+total instructions: 11000000
+
+0x3646 AND #$C3
+A: 0xC0
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3648
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 34893483
+total instructions: 11100000
+
+0x363C LDA $0D
+A: 0x42
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x363E
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 35207529
+total instructions: 11200000
+
+0x3629 PHP
+A: 0xC0
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x362A
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 35521573
+total instructions: 11300000
+
+0x336C ORA $10
+A: 0x80
+X: 0x0E
+Y: 0xFF
+SP: 0xFF
+PC: 0x336E
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 35835614
+total instructions: 11400000
+
+0x3742 AND #$C3
+A: 0xC0
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3744
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 36149643
+total instructions: 11500000
+
+0x3712 PLP
+A: 0xC0
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x3713
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 4
+total cycles: 36463674
+total instructions: 11600000
+
+0x3684 AND #$C3
+A: 0x00
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3686
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 36777684
+total instructions: 11700000
+
+0x373F BNE
+A: 0x6C
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x3741
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 37091676
+total instructions: 11800000
+
+0x3613 AND #$83
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x3615
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 37405646
+total instructions: 11900000
+
+0x3646 AND #$C3
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3648
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 37719602
+total instructions: 12000000
+
+0x365B CMP $11
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x365D
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 38033558
+total instructions: 12100000
+
+0x3672 PLP
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x3673
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 4
+total cycles: 38347511
+total instructions: 12200000
+
+0x3672 PLP
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x3673
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 38661463
+total instructions: 12300000
+
+0x3673 PHP
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3674
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 38975412
+total instructions: 12400000
+
+0x365F PLP
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x3660
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 39289360
+total instructions: 12500000
+
+0x364C PLP
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x364D
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 4
+total cycles: 39603305
+total instructions: 12600000
+
+0x361A BMI
+A: 0xED
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3626
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 39917250
+total instructions: 12700000
+
+0x3748 PLP
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x3749
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 40231181
+total instructions: 12800000
+
+0x3719 CMP $0F
+A: 0xF8
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x371B
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 40545116
+total instructions: 12900000
+
+0x3646 AND #$C3
+A: 0xC0
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3648
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 40859104
+total instructions: 13000000
+
+0x36DB LDA $0D
+A: 0x6A
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36DD
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 41173097
+total instructions: 13100000
+
+0x3615 PHA
+A: 0x80
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3616
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 41487096
+total instructions: 13200000
+
+0x36A2 PLP
+A: 0xC0
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x36A3
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 4
+total cycles: 41801080
+total instructions: 13300000
+
+0x371B BNE
+A: 0xC5
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x371D
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 42115062
+total instructions: 13400000
+
+0x3634 AND #$C3
+A: 0xC0
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3636
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 42429048
+total instructions: 13500000
+
+0x36A3 PHP
+A: 0xC0
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36A4
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 42743028
+total instructions: 13600000
+
+0x36FF PLP
+A: 0xC0
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x3700
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 43057001
+total instructions: 13700000
+
+0x36E5 PLA
+A: 0xB0
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36E6
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 43371138
+total instructions: 13800000
+
+0x3659 AND #$C3
+A: 0x80
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x365B
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 43685049
+total instructions: 13900000
+
+0x372D BNE
+A: 0x87
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x372F
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 43998963
+total instructions: 14000000
+
+0x373F BNE
+A: 0x7B
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x3741
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 44312905
+total instructions: 14100000
+
+0x3659 AND #$C3
+A: 0x41
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x365B
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 44626886
+total instructions: 14200000
+
+0x36D0 BNE
+A: 0x67
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x36D2
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 44940873
+total instructions: 14300000
+
+0x3360 INC $0F
+A: 0x41
+X: 0x0E
+Y: 0xFF
+SP: 0xFF
+PC: 0x3362
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 5
+total cycles: 45254868
+total instructions: 14400000
+
+0x3696 PHP
+A: 0x52
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x3697
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 45568857
+total instructions: 14500000
+
+0x372D BNE
+A: 0x48
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x372F
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 45882846
+total instructions: 14600000
+
+0x367B JSR $0212
+A: 0xB5
+X: 0x0E
+Y: 0xFF
+SP: 0xFA
+PC: 0x0212
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 6
+total cycles: 46196843
+total instructions: 14700000
+
+0x372F PLA
+A: 0x71
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3730
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 46510843
+total instructions: 14800000
+
+0x368E STA $0216
+A: 0x75
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3691
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 4
+total cycles: 46824845
+total instructions: 14900000
+
+0x374C SBC ($5A),Y
+A: 0x1F
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x374E
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 6
+total cycles: 47138852
+total instructions: 15000000
+
+0x36BF PLA
+A: 0x71
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36C0
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 47452859
+total instructions: 15100000
+
+0x336E STA $11
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFF
+PC: 0x3370
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 47766861
+total instructions: 15200000
+
+0x335A CLC
+A: 0x03
+X: 0x0E
+Y: 0xFF
+SP: 0xFF
+PC: 0x335B
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 2
+total cycles: 48080809
+total instructions: 15300000
+
+0x3371 JSR $3611
+A: 0x80
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x3611
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 6
+total cycles: 48394763
+total instructions: 15400000
+
+0x362F CMP $0F
+A: 0xEB
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x3631
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 48708716
+total instructions: 15500000
+
+0x3643 BNE
+A: 0xE1
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x3645
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 49022670
+total instructions: 15600000
+
+0x366E CMP $11
+A: 0x80
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3670
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 49336627
+total instructions: 15700000
+
+0x0217 RTS
+A: 0xCC
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3696
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 6
+total cycles: 49650598
+total instructions: 15800000
+
+0x36D2 PLA
+A: 0xB0
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36D3
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 49964560
+total instructions: 15900000
+
+0x3710 BNE
+A: 0x80
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3712
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 50278525
+total instructions: 16000000
+
+0x3362 PHP
+A: 0x80
+X: 0x0E
+Y: 0xFF
+SP: 0xFE
+PC: 0x3363
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 50592506
+total instructions: 16100000
+
+0x3667 CMP $0F
+A: 0xA2
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x3669
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 50906475
+total instructions: 16200000
+
+0x36D5 CMP $11
+A: 0x81
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36D7
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 51220447
+total instructions: 16300000
+
+0x365F PLP
+A: 0x81
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x3660
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 51534459
+total instructions: 16400000
+
+0x374A LDA $0D
+A: 0xE9
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x374C
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 51848475
+total instructions: 16500000
+
+0x372D BNE
+A: 0x78
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x372F
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 52162514
+total instructions: 16600000
+
+0x3737 PHP
+A: 0x41
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3738
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 52476563
+total instructions: 16700000
+
+0x374A LDA $0D
+A: 0xC8
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x374C
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 52790616
+total instructions: 16800000
+
+0x3368 BNE
+A: 0x00
+X: 0x0E
+Y: 0xFF
+SP: 0xFF
+PC: 0x336C
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 53104679
+total instructions: 16900000
+
+0x3631 BNE
+A: 0x51
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x3633
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 53418733
+total instructions: 17000000
+
+0x3663 SBC $0204
+A: 0x47
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3666
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 53732790
+total instructions: 17100000
+
+0x369E CMP $11
+A: 0x41
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36A0
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 54046858
+total instructions: 17200000
+
+0x36E5 PLA
+A: 0x71
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36E6
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 54360922
+total instructions: 17300000
+
+0x3736 PLP
+A: 0x41
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x3737
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 54674990
+total instructions: 17400000
+
+0x373F BNE
+A: 0x1F
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x3741
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 54989041
+total instructions: 17500000
+
+0x36C6 PLP
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x36C7
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 55303054
+total instructions: 17600000
+
+0x3659 AND #$C3
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x365B
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 55617069
+total instructions: 17700000
+
+0x374A LDA $0D
+A: 0x5A
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x374C
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 55931086
+total instructions: 17800000
+
+0x36F3 PHP
+A: 0xF6
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x36F4
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 56245108
+total instructions: 17900000
+
+0x36A2 PLP
+A: 0x80
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x36A3
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 4
+total cycles: 56559135
+total instructions: 18000000
+
+0x365D BNE
+A: 0x80
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x365F
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 56873157
+total instructions: 18100000
+
+0x3616 LDA $0D
+A: 0x2E
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3618
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 57187194
+total instructions: 18200000
+
+0x3738 LDA $0D
+A: 0x22
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x373A
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 57501219
+total instructions: 18300000
+
+0x3712 PLP
+A: 0x80
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x3713
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 57815254
+total instructions: 18400000
+
+0x36F3 PHP
+A: 0xBA
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x36F4
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 58129295
+total instructions: 18500000
+
+0x36DD SBC $01F6,X
+A: 0xB0
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36E0
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 5
+total cycles: 58443337
+total instructions: 18600000
+
+0x3744 CMP $11
+A: 0x81
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3746
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 58757399
+total instructions: 18700000
+
+0x3663 SBC $0204
+A: 0x9B
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3666
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 59071477
+total instructions: 18800000
+
+0x36DA PHP
+A: 0x81
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36DB
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 59385558
+total instructions: 18900000
+
+0x335E INC $0C
+A: 0x81
+X: 0x0E
+Y: 0xFF
+SP: 0xFF
+PC: 0x3360
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 5
+total cycles: 59699647
+total instructions: 19000000
+
+0x369C AND #$C3
+A: 0x41
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x369E
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 60013737
+total instructions: 19100000
+
+0x3643 BNE
+A: 0x74
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x3645
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 60327851
+total instructions: 19200000
+
+0x3748 PLP
+A: 0x41
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x3749
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 4
+total cycles: 60641970
+total instructions: 19300000
+
+0x36F6 BNE
+A: 0x61
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x36F8
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 60956092
+total instructions: 19400000
+
+0x36B8 SBC $04,X
+A: 0x57
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36BA
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 61270220
+total instructions: 19500000
+
+0x0214 RTS
+A: 0x4E
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x367E
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 6
+total cycles: 61584348
+total instructions: 19600000
+
+0x3654 CMP $0F
+A: 0x44
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x3656
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 61898477
+total instructions: 19700000
+
+0x362A LDA $0D
+A: 0x81
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x362C
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 62212615
+total instructions: 19800000
+
+0x36B5 PHP
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36B6
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 62526698
+total instructions: 19900000
+
+0x3725 PHP
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3726
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 62840773
+total instructions: 20000000
+
+0x3653 PHP
+A: 0x1D
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x3654
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 63154858
+total instructions: 20100000
+
+0x36D3 AND #$C3
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36D5
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 63468941
+total instructions: 20200000
+
+0x3362 PHP
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFE
+PC: 0x3363
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 63783034
+total instructions: 20300000
+
+0x36A0 BNE
+A: 0x03
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36A2
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 64097121
+total instructions: 20400000
+
+0x3742 AND #$C3
+A: 0x80
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3744
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 64411210
+total instructions: 20500000
+
+0x36A2 PLP
+A: 0x80
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x36A3
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 4
+total cycles: 64725310
+total instructions: 20600000
+
+0x3756 CMP $11
+A: 0x80
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3758
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 65039405
+total instructions: 20700000
+
+0x36BD BNE
+A: 0xD9
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x36BF
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 65353508
+total instructions: 20800000
+
+0x363C LDA $0D
+A: 0x0B
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x363E
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 65667615
+total instructions: 20900000
+
+0x3710 BNE
+A: 0x80
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3712
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 65981716
+total instructions: 21000000
+
+0x3710 BNE
+A: 0x81
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3712
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 66295849
+total instructions: 21100000
+
+0x3714 LDA $0D
+A: 0xEB
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3716
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 66609993
+total instructions: 21200000
+
+0x3718 PHP
+A: 0xA8
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x3719
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 66924142
+total instructions: 21300000
+
+0x3730 AND #$C3
+A: 0x81
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3732
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 67238290
+total instructions: 21400000
+
+0x3748 PLP
+A: 0x81
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x3749
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 67552442
+total instructions: 21500000
+
+0x3615 PHA
+A: 0x81
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3616
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 67866604
+total instructions: 21600000
+
+0x3650 ADC $0203
+A: 0x82
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3653
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 68180756
+total instructions: 21700000
+
+0x36C6 PLP
+A: 0x41
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x36C7
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 68494934
+total instructions: 21800000
+
+0x3611 LDA $11
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x3613
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 68809132
+total instructions: 21900000
+
+0x36C4 BNE
+A: 0x41
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36C6
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 69123315
+total instructions: 22000000
+
+0x3625 PHA
+A: 0x41
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3626
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 69437515
+total instructions: 22100000
+
+0x36E0 PHP
+A: 0x54
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x36E1
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 69751710
+total instructions: 22200000
+
+0x3730 AND #$C3
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3732
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 70065873
+total instructions: 22300000
+
+0x372F PLA
+A: 0x31
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3730
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 70380019
+total instructions: 22400000
+
+0x3742 AND #$C3
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3744
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 70694166
+total instructions: 22500000
+
+0x3754 AND #$C3
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3756
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 71008317
+total instructions: 22600000
+
+0x3627 STA $11
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x3629
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 71322477
+total instructions: 22700000
+
+0x3659 AND #$C3
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x365B
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 71636627
+total instructions: 22800000
+
+0x368A PLP
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x368B
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 71950787
+total instructions: 22900000
+
+0x36CE CMP $0F
+A: 0x08
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x36D0
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 72264950
+total instructions: 23000000
+
+0x3716 ADC ($46,X)
+A: 0xFF
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3718
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 6
+total cycles: 72579113
+total instructions: 23100000
+
+0x3371 JSR $3611
+A: 0x80
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x3611
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 6
+total cycles: 72893288
+total instructions: 23200000
+
+0x367E PHP
+A: 0xEC
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x367F
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 73207454
+total instructions: 23300000
+
+0x36E0 PHP
+A: 0xE3
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x36E1
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 73521626
+total instructions: 23400000
+
+0x3636 CMP $11
+A: 0x81
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3638
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 73835808
+total instructions: 23500000
+
+0x3722 BNE
+A: 0x81
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3724
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 74150011
+total instructions: 23600000
+
+0x36BA PHP
+A: 0xC6
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x36BB
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 74464227
+total instructions: 23700000
+
+0x3660 PHP
+A: 0x81
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3661
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 74778438
+total instructions: 23800000
+
+0x3374 DEC $0C
+A: 0x81
+X: 0x0E
+Y: 0xFF
+SP: 0xFF
+PC: 0x3376
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 5
+total cycles: 75092661
+total instructions: 23900000
+
+0x3716 ADC ($46,X)
+A: 0xAB
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3718
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 6
+total cycles: 75406877
+total instructions: 24000000
+
+0x36D7 BNE
+A: 0x81
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36D9
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 75721098
+total instructions: 24100000
+
+0x36A3 PHP
+A: 0x81
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36A4
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 76035328
+total instructions: 24200000
+
+0x0212 ADC #$E4
+A: 0x90
+X: 0x0E
+Y: 0xFF
+SP: 0xFA
+PC: 0x0214
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 76349553
+total instructions: 24300000
+
+0x365B CMP $11
+A: 0x81
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x365D
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 76663784
+total instructions: 24400000
+
+0x3654 CMP $0F
+A: 0x7E
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x3656
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 76978024
+total instructions: 24500000
+
+0x36A2 PLP
+A: 0x41
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x36A3
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 77292289
+total instructions: 24600000
+
+0x36FB CMP $11
+A: 0x41
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36FD
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 77606550
+total instructions: 24700000
+
+0x36E5 PLA
+A: 0x31
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36E6
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 77920786
+total instructions: 24800000
+
+0x368A PLP
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x368B
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 78235000
+total instructions: 24900000
+
+0x3638 BNE
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x363A
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 78549219
+total instructions: 25000000
+
+0x3746 BNE
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3748
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 78863434
+total instructions: 25100000
+
+0x3709 BNE
+A: 0x3E
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x370B
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 79177657
+total instructions: 25200000
+
+0x36D3 AND #$C3
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36D5
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 79491884
+total instructions: 25300000
+
+0x36A9 CMP $0F
+A: 0x2C
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x36AB
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 79806116
+total instructions: 25400000
+
+0x368B PHP
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x368C
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 80120344
+total instructions: 25500000
+
+0x3676 STA $0213
+A: 0xF1
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3679
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 4
+total cycles: 80434576
+total instructions: 25600000
+
+0x366B PLA
+A: 0x31
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x366C
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 80748814
+total instructions: 25700000
+
+0x3669 BNE
+A: 0x08
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x366B
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 81063053
+total instructions: 25800000
+
+0x3673 PHP
+A: 0x80
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3674
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 81377294
+total instructions: 25900000
+
+0x3684 AND #$C3
+A: 0x80
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3686
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 81691543
+total instructions: 26000000
+
+0x370C AND #$C3
+A: 0x81
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x370E
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 82005807
+total instructions: 26100000
+
+0x363B PHP
+A: 0x81
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x363C
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 82320091
+total instructions: 26200000
+
+0x36CE CMP $0F
+A: 0xDB
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x36D0
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 82634372
+total instructions: 26300000
+
+0x361A BMI
+A: 0x22
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x361C
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 2
+total cycles: 82948661
+total instructions: 26400000
+
+0x36C6 PLP
+A: 0x81
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x36C7
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 4
+total cycles: 83262944
+total instructions: 26500000
+
+0x361A BMI
+A: 0x3C
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x361C
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 83577240
+total instructions: 26600000
+
+0x36DA PHP
+A: 0x81
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x36DB
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 83891528
+total instructions: 26700000
+
+0x3653 PHP
+A: 0xAF
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x3654
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 84205826
+total instructions: 26800000
+
+0x3724 PLP
+A: 0x81
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x3725
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 4
+total cycles: 84520123
+total instructions: 26900000
+
+0x36A2 PLP
+A: 0x81
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x36A3
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 84834430
+total instructions: 27000000
+
+0x3638 BNE
+A: 0x81
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x363A
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 85148734
+total instructions: 27100000
+
+0x35E5 AND #$01
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x35E7
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 85463092
+total instructions: 27200000
+
+0x34DE PHP
+A: 0x02
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x34DF
+n: 0b1
+v: 0b1
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 85777790
+total instructions: 27300000
+
+0x3518 SBC $0204
+A: 0x32
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x351B
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 86092491
+total instructions: 27400000
+
+0x355D PHP
+A: 0x71
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x355E
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 86407177
+total instructions: 27500000
+
+0x358E PLP
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x358F
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 86721891
+total instructions: 27600000
+
+0x35CB ADC ($46,X)
+A: 0x51
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x35CD
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 6
+total cycles: 87036584
+total instructions: 27700000
+
+0x360D BNE
+A: 0x00
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x360F
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 87351278
+total instructions: 27800000
+
+0x3508 PHP
+A: 0x31
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x3509
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 87665973
+total instructions: 27900000
+
+0x3539 AND #$01
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x353B
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 2
+total cycles: 87980676
+total instructions: 28000000
+
+0x3572 BNE
+A: 0x11
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x3574
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 88295383
+total instructions: 28100000
+
+0x35B0 CMP $10
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x35B2
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 88610073
+total instructions: 28200000
+
+0x35FD PLP
+A: 0x00
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x35FE
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 88924759
+total instructions: 28300000
+
+0x34E3 PHP
+A: 0x30
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x34E4
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 89239479
+total instructions: 28400000
+
+0x3528 PHP
+A: 0x00
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3529
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 89554168
+total instructions: 28500000
+
+0x3558 PHP
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3559
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 89868876
+total instructions: 28600000
+
+0x358A CMP $10
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x358C
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 90183576
+total instructions: 28700000
+
+0x35D9 PLP
+A: 0x00
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x35DA
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 90498260
+total instructions: 28800000
+
+0x3601 SBC ($5A),Y
+A: 0x29
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3603
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 6
+total cycles: 90812977
+total instructions: 28900000
+
+0x3502 PHP
+A: 0x00
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3503
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 91127672
+total instructions: 29000000
+
+0x352B STA $0213
+A: 0x49
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x352E
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 91442383
+total instructions: 29100000
+
+0x3577 CMP $10
+A: 0x00
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3579
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 91757072
+total instructions: 29200000
+
+0x35B4 PLP
+A: 0x00
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x35B5
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 92071761
+total instructions: 29300000
+
+0x35E7 CMP $10
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x35E9
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 92386465
+total instructions: 29400000
+
+0x34DE PHP
+A: 0x09
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x34DF
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 92701179
+total instructions: 29500000
+
+0x351B PHP
+A: 0x08
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x351C
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 93015865
+total instructions: 29600000
+
+0x355D PHP
+A: 0x48
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x355E
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 93330566
+total instructions: 29700000
+
+0x3598 BNE
+A: 0x88
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x359A
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 93645253
+total instructions: 29800000
+
+0x35C3 CMP $10
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x35C5
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 93959966
+total instructions: 29900000
+
+0x360F PLP
+A: 0x00
+X: 0x0E
+Y: 0xFF
+SP: 0xFD
+PC: 0x3610
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 94274653
+total instructions: 30000000
+
+0x34FF BNE
+A: 0x01
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3501
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 94589356
+total instructions: 30100000
+
+0x3543 STA $0216
+A: 0x78
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3546
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 4
+total cycles: 94904054
+total instructions: 30200000
+
+0x3572 BNE
+A: 0x87
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x3574
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 95218756
+total instructions: 30300000
+
+0x35BB PHP
+A: 0x27
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x35BC
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 95533453
+total instructions: 30400000
+
+0x35F4 BNE
+A: 0x67
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x35F6
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 95848144
+total instructions: 30500000
+
+0x34E4 CMP $0F
+A: 0x06
+X: 0x0E
+Y: 0xFF
+SP: 0xFB
+PC: 0x34E6
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 3
+total cycles: 96162852
+total instructions: 30600000
+
+0x3520 PLA
+A: 0x38
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3521
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 96477554
+total instructions: 30700000
+
+0x3562 PLA
+A: 0xB8
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x3563
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 4
+total cycles: 96792239
+total instructions: 30800000
+
+0x359F BNE
+A: 0x00
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x35A1
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b1
+c: 0b1
+cycles: 2
+total cycles: 97106942
+total instructions: 30900000
+
+0x35DA PHP
+A: 0x00
+X: 0x0E
+Y: 0xFF
+SP: 0xFC
+PC: 0x35DB
+n: 0b0
+v: 0b1
+b: 0b0
+d: 0b1
+i: 0b0
+z: 0b0
+c: 0b1
+cycles: 3
+total cycles: 97421633
+total instructions: 31000000
+
+0x34C1 BNE
+A: 0xD2
+X: 0x3A
+Y: 0xFF
+SP: 0xFF
+PC: 0x34B9
+n: 0b1
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 97739742
+total instructions: 31100000
+
+0x34C1 BNE
+A: 0x10
+X: 0x7C
+Y: 0x03
+SP: 0xFF
+PC: 0x34B9
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 98056188
+total instructions: 31200000
+
+0x34C1 BNE
+A: 0x4C
+X: 0xBD
+Y: 0x08
+SP: 0xFF
+PC: 0x34B9
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 98372638
+total instructions: 31300000
+
+0x34C1 BNE
+A: 0x88
+X: 0xFE
+Y: 0x0D
+SP: 0xFF
+PC: 0x34B9
+n: 0b0
+v: 0b0
+b: 0b0
+d: 0b0
+i: 0b0
+z: 0b0
+c: 0b0
+cycles: 3
+total cycles: 98689088
+total instructions: 31400000
+trapped PC: 0x34D8
+total cycle count: 98698565
+total instructions: 31402995

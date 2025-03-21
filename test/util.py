@@ -3,8 +3,8 @@ import time
 import re
 from re import Match
 
-# GROUPS: 1=PC (THIS), 2=A, 3=X, 4=Y, 5=SP, 6=PC (NEXT), 7=n, 8=v, 9=b, 10=d, 11=i, 12=z, 13=c, 14=cycles, 15=NMI, 16=RST, 17=IRQ, 18=total cycles
-DUMP_PATTERN = r'''
+# GROUPS: 1=PC (THIS), 2=A, 3=X, 4=Y, 5=SP, 6=PC (NEXT), 7=n, 8=v, 9=b, 10=d, 11=i, 12=z, 13=c, 14=cycles, 15=total cycles
+SPEC_PATTERN = r'''
 (0x\w{4}).*
 A: (0x\w\w)
 X: (0x\w\w)
@@ -19,20 +19,122 @@ i: (0b\d)
 z: (0b\d)
 c: (0b\d)
 cycles: (\d+)
-NMI: (0b\d)
-RST: (0b\d)
-IRQ: (0b\d)
 .*cycles: (\d+)
 .*instructions: '''
 
-def match_instr(dump: str, i: int) -> Match:
-	return re.search(DUMP_PATTERN + f'{i}', dump)
+EMU_PATTERN = r'''
+(0x\w+)
+A: (\w+)
+X: (\w+)
+Y: (\w+)
+SP: (\w+)
+PC: (\w+)
+n: (\d)
+v: (\d)
+b: (\d)
+d: (\d)
+i: (\d)
+z: (\d)
+c: (\d)
+cycles: (\d+)
+.*cycles: (\d+)
+.*instructions: '''
+
+def match_instr_spec(dump: str, i: int) -> Match:
+	return re.search(SPEC_PATTERN + f'{i}', dump)
+
+def match_instr_emu(dump: str, i: int) -> Match:
+	return re.search(EMU_PATTERN + f'{i}', dump)
+
+def check_start_pc(m: Match, x: int) -> bool:
+	return int(m.group(1), 16) == x
+
+def get_start_pc(m: Match):
+	return int(m.group(1), 16)
+
+def check_acc(m: Match, x: int) -> bool:
+	return int(m.group(2), 16) == x
+
+def get_acc(m: Match):
+	return int(m.group(2), 16)
+
+def check_x(m: Match, x: int) -> bool:
+	return int(m.group(3), 16) == x
+
+def get_x(m: Match):
+	return int(m.group(3), 16)
+
+def check_y(m: Match, x: int) -> bool:
+	return int(m.group(4), 16) == x
+
+def get_y(m: Match):
+	return int(m.group(4), 16)
+
+def check_sp(m: Match, x: int) -> bool:
+	return int(m.group(5), 16) == x
+
+def get_sp(m: Match):
+	return int(m.group(5), 16)
+
+def check_pc(m: Match, x: int) -> bool:
+	return int(m.group(6), 16) == x
+
+def get_pc(m: Match):
+	return int(m.group(6), 16)
+
+def check_n(m: Match, x: int) -> bool:
+	return int(m.group(7), 2) == x
+
+def get_n(m: Match):
+	return int(m.group(7), 2)
+
+def check_v(m: Match, x: int) -> bool:
+	return int(m.group(8), 2) == x
+
+def get_v(m: Match):
+	return int(m.group(8), 2)
+
+def check_b(m: Match, x: int) -> bool:
+	return int(m.group(9), 2) == x
+
+def get_b(m: Match):
+	return int(m.group(9), 2)
+
+def check_d(m: Match, x: int) -> bool:
+	return int(m.group(10), 2) == x
+
+def get_d(m: Match):
+	return int(m.group(10), 2)
+
+def check_i(m: Match, x: int) -> bool:
+	return int(m.group(11), 2) == x
+
+def get_i(m: Match):
+	return int(m.group(11), 2)
+
+def check_z(m: Match, x: int) -> bool:
+	return int(m.group(12), 2) == x
+
+def get_z(m: Match):
+	return int(m.group(12), 2)
+
+def check_c(m: Match, x: int) -> bool:
+	return int(m.group(13), 2) == x
+
+def get_c(m: Match):
+	return int(m.group(13), 2)
 
 def check_cycles(m: Match, x: int) -> bool:
 	return int(m.group(14)) == x
 
-def check_acc(m: Match, x: int) -> bool:
-	return int(m.group(1), 16) == x
+def get_cycles(m: Match):
+	return int(m.group(14))
+
+def check_total_cycles(m: Match, x: int) -> bool:
+	return int(m.group(15)) == x
+
+def get_total_cycles(m: Match):
+	return int(m.group(15))
 
 def load_test(start_binary=0x0200, source_file=None, overrided_start_pc=None, start_sp=0xFF, start_sr=0x06, store_data={}, view_memory=[], generate_binary=True, enable_print_dump=False, enable_print_at_interval=False, enable_break_at_trap=True, compile_c_target=False) -> str:
 	# Generate list of SAIL REPL commands to store sary at start address
@@ -103,26 +205,29 @@ def load_test(start_binary=0x0200, source_file=None, overrided_start_pc=None, st
 		file.write('\n}')
 
 
-	# Get the results
+	# Compile the model / write the commands to file
 	if compile_c_target:
-		# Compile and run the model
 		subprocess.run(['make', 'clean'])
 		subprocess.run(['make'])
-		start = time.time()
-		result = subprocess.run(['./out'], capture_output=True)
-		end= time.time()
-		print('execution time of C program', end - start)
 	else:
 		with open('commands.txt', 'w') as file:
 			file.write('main()\n')
 			file.write(':run\n')
 			file.write(':quit')
 
-		# Run the model using the REPL
+	# Done
+	return
+
+def run_model(use_repl=False):
+	if use_repl:
 		start = time.time()
 		result = subprocess.run(['sail', '-is', 'commands.txt','main.sail'], capture_output=True)
 		end = time.time()
 		print('execution time of REPL', end - start)
-
-	# Get the results
-	return result.stdout.decode('UTF-8')
+		return result.stdout.decode('UTF-8')
+	else:
+		start = time.time()
+		result = subprocess.run(['./out'], capture_output=True)
+		end= time.time()
+		print('execution time of C program', end - start)
+		return result.stdout.decode('UTF-8')

@@ -1,3 +1,0 @@
-functional test with bcd included - 24.981s, 25.837s (laptop, C); 98,698,565 cycles; 31,402,995 instructions
-
-bcd test with valid ops only - 2.766s, 2.651s, 2.672s, 2.741s, 2.883s (laptop, C); 8,923,552 cycles; 2,519,284 instructions

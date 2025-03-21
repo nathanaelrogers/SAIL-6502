@@ -34,7 +34,7 @@ int functional_test() {
 
 	// run
 	exec6502_until_trap();
-	printf("cycles: %d, instructions: %d, pc: %x\n", clockticks6502, instructions, pc);
+	printf("total cycles: %d, total instructions: %d, pc: %x\n", clockticks6502, instructions, pc);
 	return 0;
 }
 
@@ -85,5 +85,5 @@ int main() {
 	// Initialise the main memory
 	main_mem = (memory) calloc((0b1 << 16), sizeof(unsigned char));
 
-	return bcd_test();
+	return functional_test();
 }
