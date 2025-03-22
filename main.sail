@@ -84,7 +84,6 @@ function model_init() : unit -> unit = {
 	reg_A  = undefined;
 	reg_X  = undefined;
 	reg_Y  = undefined;
-	reg_PC = undefined;
 	reg_SP = undefined;
 	reg_SR[all] = undefined;
 

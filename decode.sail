@@ -199,5 +199,5 @@ function clause decode16(op) = {
 }
 
 // Catch an invalid instruction
-function clause decode24(instruction) = {incr_cycles(1); INVALID(instruction)}
+function clause decode24(instruction) = {INVALID(instruction)}
 
