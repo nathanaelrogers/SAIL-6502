@@ -1,15 +1,15 @@
 default Order dec
 $include <prelude.sail>
-$include "prelude.sail"
-$include "types.sail"
-$include "registers.sail"
-$include "interrupts.sail"
-$include "addressing.sail"
-$include "decimal-mode.sail"
-$include "instruction-ast.sail"
-$include "decode.sail"
-$include "config.sail"
-$include "assembly-print.sail"
+$include "sail_src/prelude.sail"
+$include "sail_src/types.sail"
+$include "sail_src/registers.sail"
+$include "sail_src/interrupts.sail"
+$include "sail_src/addressing.sail"
+$include "sail_src/decimal-mode.sail"
+$include "sail_src/instruction-ast.sail"
+$include "sail_src/decode.sail"
+$include "sail_src/config.sail"
+$include "sail_src/assembly-print.sail"
 
 val print_state : (int) -> unit
 function print_state(cycles_taken) = {
@@ -94,6 +94,7 @@ function model_init() : unit -> unit = {
 }
 
 function main() : unit -> unit = {
+	hello_world();
 	model_init();
 	load_config();
 

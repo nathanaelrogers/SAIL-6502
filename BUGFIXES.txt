@@ -1,9 +1,0 @@
-recursions causing C version to crash
-
-branch targets SHOULD BE SIGNED LOL
-
-RTI returning to wrong address (+2)
-
-fixed SBC setting of overflow flag for normal binary operations
-
-removed lookahead break condition for BRK instructions
