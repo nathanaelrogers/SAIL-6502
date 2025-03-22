@@ -173,7 +173,7 @@ def load_test(start_binary=0x0200, source_file=None, overrided_start_pc=None, st
 		commands.append(f'reg_PC = {overrided_start_pc:#0{6}x};')
 
 	# Make a Sail function to load the program when the compiled model is launched
-	with open('config.sail', 'w') as file:
+	with open('sail_src/config.sail', 'w') as file:
 		if enable_print_at_interval:
 			file.write('register enable_print_at_interval : bool = true\n')
 		else:

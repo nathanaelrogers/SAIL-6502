@@ -55,7 +55,3 @@ function my_hex_str_imm16(bits) = {
 overload my_hex_str = {my_hex_str_imm8, my_hex_str_imm16}
 
 /* External C Functions */
-
-val hello_world = pure {
-	c: "hello_world"
-} : (unit) -> unit

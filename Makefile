@@ -1,7 +1,7 @@
 # Compiler and flags
 SAIL = sail
 GCC = gcc
-SAIL_DIR = /home/nathanael/.opam/default/share/sail/lib/
+SAIL_DIR = /home/nathanael/.opam/default/share/sail/lib
 CFLAGS = -lgmp -lz -I $(SAIL_DIR)
 COVERAGE_FLAGS = $(SAIL_DIR)/coverage/libsail_coverage.a -lpthread -ldl
 
@@ -16,7 +16,7 @@ all: $(SAIL_OUT)
 
 # Compile Sail source and C code
 $(SAIL_OUT): $(SAIL_SRC)
-	$(SAIL) -c $(SAIL_SRC) -o $(SAIL_OUT) -O -c_include *.h
+	$(SAIL) -c $(SAIL_SRC) -o $(SAIL_OUT) -O -c_include mmio.h
 	$(GCC) *.c -O3 -g $(LIB_PATH) $(CFLAGS) -o $(SAIL_OUT)
 
 gen-with-coverage:

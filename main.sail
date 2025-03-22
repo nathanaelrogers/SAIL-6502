@@ -89,12 +89,13 @@ function model_init() : unit -> unit = {
 
 	main_mem = vector_init(256, vector_init(256, undefined));
 
+	buffered_char = 0x69;
+
 	cycles = 0;
 	instructions_done = 0;
 }
 
 function main() : unit -> unit = {
-	hello_world();
 	model_init();
 	load_config();
 
@@ -105,4 +106,5 @@ function main() : unit -> unit = {
 
 	print_endline(concat_str("total cycle count: ", dec_str(cycles)));
 	print_endline(concat_str("total instructions: ", dec_str(instructions_done)));
+	print_bits("", buffered_char);
 }

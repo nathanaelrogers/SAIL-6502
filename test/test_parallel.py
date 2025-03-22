@@ -1,7 +1,7 @@
 from util import *
 
 class TestParallel:
-	def test_functional_no_bcd_parallel(self):
+	def test_functional_parallel_no_bcd(self):
 		with open('test/functional_no_bcd_emu_results.txt') as file:
 			emu_dump = file.read()
 
