@@ -106,5 +106,4 @@ function main() : unit -> unit = {
 
 	print_endline(concat_str("total cycle count: ", dec_str(cycles)));
 	print_endline(concat_str("total instructions: ", dec_str(instructions_done)));
-	print_bits("", buffered_char);
 }

@@ -1,7 +1,7 @@
 /*==============================================================================*/
 // I/O STUFF
 
-register buffered_char : word
+register input_buffer : word
 
 /*==============================================================================*/
 // PROCESSOR REGISTERS
@@ -28,10 +28,10 @@ function incr_sp(n) = {
 
 register main_mem : mem_64KB
 
-val read : address -> word
+val read : (address) -> word
 function read(addr) = match addr {
 	x if (x == 0x8400) => {
-		buffered_char;
+		input_buffer;
 	},
 	x => {
 		page_index = unsigned(addr[15..8]);
@@ -42,11 +42,16 @@ function read(addr) = match addr {
 }
 
 val write : (address, word) -> unit
-function write(addr, data) = {
-	page_index = unsigned(addr[15..8]);
-	word_index = unsigned(addr[7..0]);
+function write(addr, data) =  match addr {
+	x if (x == 0x8400) => {
+		print_char(unsigned(data));
+	},
+	x => {
+		page_index = unsigned(addr[15..8]);
+		word_index = unsigned(addr[7..0]);
 
-	main_mem[page_index][word_index] = data
+		main_mem[page_index][word_index] = data;
+	}
 }
 
 val read_zp : word -> word
