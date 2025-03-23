@@ -59,3 +59,7 @@ overload my_hex_str = {my_hex_str_imm8, my_hex_str_imm16}
 val print_char = pure {
 	c : "print_char"
 } : (int) -> unit
+
+val try_read_char = pure {
+	c : "try_read_char"
+} : (unit) -> int

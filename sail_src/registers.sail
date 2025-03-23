@@ -1,7 +1,8 @@
 /*==============================================================================*/
 // I/O STUFF
 
-register input_buffer : word
+register input_buffer : int
+register control_reg  : int
 
 /*==============================================================================*/
 // PROCESSOR REGISTERS
@@ -31,7 +32,7 @@ register main_mem : mem_64KB
 val read : (address) -> word
 function read(addr) = match addr {
 	x if (x == 0x8400) => {
-		input_buffer;
+		dec_to_word(input_buffer);
 	},
 	x => {
 		page_index = unsigned(addr[15..8]);

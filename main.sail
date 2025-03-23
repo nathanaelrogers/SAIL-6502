@@ -2,10 +2,10 @@ default Order dec
 $include <prelude.sail>
 $include "sail_src/prelude.sail"
 $include "sail_src/types.sail"
+$include "sail_src/decimal-mode.sail"
 $include "sail_src/registers.sail"
 $include "sail_src/interrupts.sail"
 $include "sail_src/addressing.sail"
-$include "sail_src/decimal-mode.sail"
 $include "sail_src/instruction-ast.sail"
 $include "sail_src/decode.sail"
 $include "sail_src/config.sail"
@@ -69,6 +69,13 @@ function fetch_decode_execute() : unit -> bool = {
 			return false;
 		};
 
+	// let saved_inp_buffer : int = input_buffer;
+	// // only changes writes to input buffer if there's a char to read on stdin
+	// input_buffer = try_read_char();
+	// // if a character was read into the buffer then set the bit indicating it's ready
+	// if (saved_inp_buffer != input_buffer) then
+	// 	control_reg = unsigned(dec_to_word(control_reg) & 0x08);
+
 	return execute_success;
 }
 
@@ -106,4 +113,7 @@ function main() : unit -> unit = {
 
 	print_endline(concat_str("total cycle count: ", dec_str(cycles)));
 	print_endline(concat_str("total instructions: ", dec_str(instructions_done)));
+
+	// print_endline(concat_str("input buffer: ", dec_str(input_buffer)));
+	// print_endline(concat_str("control reg: ", dec_str(control_reg)));
 }
