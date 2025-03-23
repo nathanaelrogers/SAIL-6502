@@ -165,7 +165,9 @@ def load_test(start_binary=0x0200, source_file=None, overrided_start_pc=None, st
 		data = file.read()
 		i = start_binary
 		for byte in data:
-			commands.append(f'write({i:#0{6}x}, {byte:#0{4}x});')
+			hi = (i & 0xFF00) >> 8
+			lo = i & 0x00FF
+			commands.append(f'main_mem[{hi}][{lo}] = {byte:#0{4}x};')
 			i += 1
 
 	# Commands to directly overwrite the PC or rely on the program-stored one
