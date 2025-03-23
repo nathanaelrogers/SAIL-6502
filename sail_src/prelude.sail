@@ -9,7 +9,7 @@ infix 7 >>
 infix 7 <<
 infix 7 >>>
 
-// Use sail backend for operators on bit vectors
+// Use sail backend for operators
 overload operator <<  = {sail_shiftleft}
 overload operator >>  = {sail_shiftright}
 overload operator >>> = {sail_arith_shiftright}
@@ -56,10 +56,14 @@ overload my_hex_str = {my_hex_str_imm8, my_hex_str_imm16}
 
 /* External C Functions */
 
+val setup_terminal = pure {
+	c : "setup_terminal"
+} : (unit) -> unit
+
 val print_char = pure {
 	c : "print_char"
 } : (int) -> unit
 
 val try_read_char = pure {
 	c : "try_read_char"
-} : (unit) -> int
+} : (unit) -> word

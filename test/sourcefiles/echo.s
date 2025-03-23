@@ -1,15 +1,32 @@
-loop:
+control = $8401
+readwrite = $8400
 
-lda $8401 ; load the value in the control register
+cr = $0d
+lf = $0a
 
-and $08   ; mask out bit 3
+start:
 
-cmp #$08  ; compare with bit 3
+lda control   ; load the control reg
+and #$08      ; mask the ready bit
+cmp #$08      ; check it
 
-bne loop  ; if bit 3 isn't set there's nothing to read
+beq print     ; go to printout if a character is ready
 
-lda $8400 ; load from the input register
+jmp start     ; loop back
 
-sta $8400 ; output it back
+print:
 
-jmp loop  ; go to the start
+lda readwrite ; load the buffered input char
+sta readwrite ; print out the buffered input char
+
+lda cr
+sta cr
+
+lda lf
+sta lf
+
+lda control   ; load the control reg
+and #$F7      ; unset the ready bit
+sta control   ; store the control reg
+
+jmp start

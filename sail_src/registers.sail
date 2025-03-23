@@ -1,8 +1,8 @@
 /*==============================================================================*/
 // I/O STUFF
 
-register input_buffer : int
-register control_reg  : int
+register input_buffer : word
+register control_reg  : word
 
 /*==============================================================================*/
 // PROCESSOR REGISTERS
@@ -32,7 +32,10 @@ register main_mem : mem_64KB
 val read : (address) -> word
 function read(addr) = match addr {
 	x if (x == 0x8400) => {
-		dec_to_word(input_buffer);
+		input_buffer;
+	},
+	x if (x == 0x8401) => {
+		control_reg;
 	},
 	x => {
 		page_index = unsigned(addr[15..8]);
@@ -46,6 +49,9 @@ val write : (address, word) -> unit
 function write(addr, data) =  match addr {
 	x if (x == 0x8400) => {
 		print_char(unsigned(data));
+	},
+	x if (x == 0x8401) => {
+		control_reg = data;
 	},
 	x => {
 		page_index = unsigned(addr[15..8]);
