@@ -71,16 +71,10 @@ function fetch_decode_execute() : unit -> bool = {
 
 	let next : word = try_read_char();
 	if (next != 0x00) then {
-		control_reg  = control_reg | 0x08;
 		input_buffer = next;
 	};
 
-	print_bits("input now: ", next);
-	print_bits("buffered input: ", input_buffer);
-	print_bits("control reg: ", control_reg);
-	print_endline("");
-
-	return execute_success;
+	if halt then halt else execute_success;
 }
 
 // PC is read from address provided in reset vector (16 bits at $FFFC).
@@ -102,10 +96,14 @@ function model_init() : unit -> unit = {
 
 	cycles = 0;
 	instructions_done = 0;
+
+	halt = false;
+	test_assert = false;
 }
 
 function main() : unit -> unit = {
-	setup_terminal();
+	terminal_init();
+	memory_init();
 	model_init();
 	load_config();
 

@@ -56,8 +56,12 @@ overload my_hex_str = {my_hex_str_imm8, my_hex_str_imm16}
 
 /* External C Functions */
 
-val setup_terminal = pure {
-	c : "setup_terminal"
+val terminal_init = pure {
+	c : "terminal_init"
+} : (unit) -> unit
+
+val memory_init = pure {
+	c : "memory_init"
 } : (unit) -> unit
 
 val print_char = pure {
@@ -67,3 +71,15 @@ val print_char = pure {
 val try_read_char = pure {
 	c : "try_read_char"
 } : (unit) -> word
+
+val mem_read = pure {
+	c : "mem_read"
+} : (int) -> word
+
+val mem_write = pure {
+	c : "mem_write"
+} : (int, int) -> unit
+
+val load_binary = pure {
+	c : "load_binary"
+} : (string, int) -> unit

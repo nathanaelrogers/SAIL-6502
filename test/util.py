@@ -161,14 +161,7 @@ def load_test(start_binary=0x0200, source_file=None, overrided_start_pc=None, st
 		subprocess.run(['acme', '-o', 'code.bin', '-f', 'plain', '--cpu', '6502', '--setpc', f'{start_binary:#0{6}x}', source_file])
 
 	# Create commands to write from the binary file the program data at the given start address
-	with open(f'{"code.bin" if generate_binary else source_file}', 'rb') as file:
-		data = file.read()
-		i = start_binary
-		for byte in data:
-			hi = (i & 0xFF00) >> 8
-			lo = i & 0x00FF
-			commands.append(f'main_mem[{hi}][{lo}] = {byte:#0{4}x};')
-			i += 1
+	commands.append(f'load_binary(\"{"code.bin" if generate_binary else source_file}\", unsigned({start_binary:#0{6}x}));')
 
 	# Commands to directly overwrite the PC or rely on the program-stored one
 	if overrided_start_pc:

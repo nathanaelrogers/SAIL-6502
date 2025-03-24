@@ -1,6 +1,8 @@
 /*==============================================================================*/
 // I/O STUFF
 
+register halt         : bool
+register test_assert  : bool
 register input_buffer : word
 register control_reg  : word
 
@@ -31,33 +33,33 @@ register main_mem : mem_64KB
 
 val read : (address) -> word
 function read(addr) = match addr {
-	x if (x == 0x8400) => {
-		input_buffer;
-	},
-	x if (x == 0x8401) => {
-		control_reg;
-	},
+	// x if (x == 0x8400) => {
+	// 	input_buffer;
+	// },
+	// x if (x == 0x8401) => {
+	// 	if (input_buffer == 0x00) then 0x00 else 0x08;
+	// },
 	x => {
-		page_index = unsigned(addr[15..8]);
-		word_index = unsigned(addr[7..0]);
-
-		main_mem[page_index][word_index];
+		mem_read(unsigned(addr));
 	}
 }
 
 val write : (address, word) -> unit
 function write(addr, data) =  match addr {
-	x if (x == 0x8400) => {
-		print_char(unsigned(data));
-	},
-	x if (x == 0x8401) => {
-		control_reg = data;
-	},
+	// x if (x == 0x8400) => {
+	// 	print_char(unsigned(data));
+	// },
+	// x if (x == 0x8401 | x == 0x8402 | x == 0x8403) => {
+	// 	();
+	// },
+	// x if (x == 0x8040) => {
+	// 	halt = true;
+	// },
+	// x if (x == 0x8010) => {
+	// 	test_assert = true;
+	// },
 	x => {
-		page_index = unsigned(addr[15..8]);
-		word_index = unsigned(addr[7..0]);
-
-		main_mem[page_index][word_index] = data;
+		mem_write(unsigned(addr), unsigned(data));
 	}
 }
 
