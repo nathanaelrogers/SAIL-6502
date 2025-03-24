@@ -33,12 +33,18 @@ register main_mem : mem_64KB
 
 val read : (address) -> word
 function read(addr) = match addr {
-	// x if (x == 0x8400) => {
-	// 	input_buffer;
-	// },
-	// x if (x == 0x8401) => {
-	// 	if (input_buffer == 0x00) then 0x00 else 0x08;
-	// },
+	x if (x == 0x8400) => {
+		if (input_buffer == 0x00) then {
+			0x00;
+		} else {
+			let next : word = input_buffer;
+			input_buffer = 0x00;
+			next;
+		};
+	},
+	x if (x == 0x8401) => {
+		if (input_buffer == 0x00) then 0x00 else 0x08;
+	},
 	x => {
 		mem_read(unsigned(addr));
 	}
@@ -46,18 +52,18 @@ function read(addr) = match addr {
 
 val write : (address, word) -> unit
 function write(addr, data) =  match addr {
-	// x if (x == 0x8400) => {
-	// 	print_char(unsigned(data));
-	// },
-	// x if (x == 0x8401 | x == 0x8402 | x == 0x8403) => {
-	// 	();
-	// },
-	// x if (x == 0x8040) => {
-	// 	halt = true;
-	// },
-	// x if (x == 0x8010) => {
-	// 	test_assert = true;
-	// },
+	x if (x == 0x8400) => {
+		print_char(unsigned(data));
+	},
+	x if (x == 0x8401 | x == 0x8402 | x == 0x8403) => {
+		();
+	},
+	x if (x == 0x8040) => {
+		halt = true;
+	},
+	x if (x == 0x8010) => {
+		test_assert = true;
+	},
 	x => {
 		mem_write(unsigned(addr), unsigned(data));
 	}

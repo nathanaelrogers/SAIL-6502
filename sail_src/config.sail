@@ -11,6 +11,5 @@ val load_config : (unit) -> unit
 function load_config() = {
 reg_SR[all] = 0x06;
 reg_SP = 0xff;
-load_binary("test/sourcefiles/functional/6502_functional_test_no_bcd.bin", unsigned(0x000a));
-reg_PC = 0x0400;
+load_binary("code.bin", unsigned(0x0000));
 }
