@@ -29,8 +29,6 @@ function incr_sp(n) = {
 /*==============================================================================*/
 // MAIN MEMORY
 
-register main_mem : mem_64KB
-
 val read : (address) -> word
 function read(addr) = match addr {
 	x if (x == 0x8400) => {

@@ -1,6 +1,5 @@
 type word = bits(8)
 type address = bits(16)
-type mem_64KB = vector(256, vector(256, word))
 
 bitfield flags : word = {
 	all : 7..0,
