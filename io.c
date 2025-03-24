@@ -39,9 +39,6 @@ unit terminal_init(const unit u)
 	timeout.tv_sec = 0;
 	timeout.tv_usec = 0;
 
-	FD_ZERO(&input_set);
-	FD_SET(STDIN_FILENO, &input_set);
-
 	return UNIT;
 }
 
@@ -64,6 +61,9 @@ uint64_t try_read_char(const unit u)
 	char nxt;
 	int ready = 0;
 	int num_read = 0;
+
+	FD_ZERO(&input_set);
+	FD_SET(STDIN_FILENO, &input_set);
 
 	ready = select(1, &input_set, NULL, NULL, &timeout);
 
