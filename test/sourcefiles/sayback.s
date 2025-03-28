@@ -14,10 +14,10 @@ print:
 lda rw     ; load the buffered input
 sta rw     ; print
 
-lda #$0d   ; carriage return
-sta rw     ; print
+;lda #$0d   ; carriage return
+;sta rw     ; print
 
-lda #$0a   ; line feed
-sta rw     ; print
+;lda #$0a   ; line feed
+;sta rw     ; print
 
 jmp start

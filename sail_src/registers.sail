@@ -1,12 +1,4 @@
 /*==============================================================================*/
-// I/O STUFF
-
-register halt         : bool
-register test_assert  : bool
-register input_buffer : word
-register control_reg  : word
-
-/*==============================================================================*/
 // PROCESSOR REGISTERS
 
 register reg_PC : address
@@ -30,41 +22,13 @@ function incr_sp(n) = {
 // MAIN MEMORY
 
 val read : (address) -> word
-function read(addr) = match addr {
-	x if (x == 0x8400) => {
-		if (input_buffer == 0x00) then {
-			0x00;
-		} else {
-			let next : word = input_buffer;
-			input_buffer = 0x00;
-			next;
-		};
-	},
-	x if (x == 0x8401) => {
-		if (input_buffer == 0x00) then 0x00 else 0x08;
-	},
-	x => {
-		mem_read(unsigned(addr));
-	}
+function read(addr) = {
+	mem_read(unsigned(addr));
 }
 
 val write : (address, word) -> unit
-function write(addr, data) =  match addr {
-	x if (x == 0x8400) => {
-		print_char(unsigned(data));
-	},
-	x if (x == 0x8401 | x == 0x8402 | x == 0x8403) => {
-		();
-	},
-	x if (x == 0x8040) => {
-		halt = true;
-	},
-	x if (x == 0x8010) => {
-		test_assert = true;
-	},
-	x => {
-		mem_write(unsigned(addr), unsigned(data));
-	}
+function write(addr, data) = {
+	mem_write(unsigned(addr), unsigned(data));
 }
 
 val read_zp : word -> word
@@ -80,22 +44,13 @@ function write_zp(addr, data) = {
 val push : word -> unit
 function push(data) = {
 	write(0x01 @ reg_SP, data);
+	incr_sp(-1);
 
-	if (unsigned(reg_SP) >= 0) then {
-		incr_sp(-1)
-	} else {
-		reg_SP = 0xFF
-	}
 }
 
 val pull : unit -> word
 function pull() = {
-	if (unsigned(reg_SP) <= 255) then {
-		incr_sp(1)
-	} else {
-		reg_SP = 0x00
-	};
-
+	incr_sp(1);
 	read(0x01 @ reg_SP);
 }
 

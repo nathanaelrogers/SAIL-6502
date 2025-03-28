@@ -64,14 +64,6 @@ val memory_init = pure {
 	c : "memory_init"
 } : (unit) -> unit
 
-val print_char = pure {
-	c : "print_char"
-} : (int) -> unit
-
-val try_read_char = pure {
-	c : "try_read_char"
-} : (unit) -> word
-
 val mem_read = pure {
 	c : "mem_read"
 } : (int) -> word

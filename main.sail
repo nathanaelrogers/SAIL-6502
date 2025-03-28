@@ -69,12 +69,7 @@ function fetch_decode_execute() : unit -> bool = {
 			return false;
 		};
 
-	let next : word = try_read_char();
-	if (next != 0x00) then {
-		input_buffer = next;
-	};
-
-	if halt then halt else execute_success;
+	return execute_success;
 }
 
 // PC is read from address provided in reset vector (16 bits at $FFFC).
@@ -94,9 +89,6 @@ function model_init() : unit -> unit = {
 
 	cycles = 0;
 	instructions_done = 0;
-
-	halt = false;
-	test_assert = false;
 }
 
 function main() : unit -> unit = {

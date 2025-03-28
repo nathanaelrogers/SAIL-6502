@@ -14,6 +14,7 @@ fd_set input_set;
 struct timeval timeout;
 
 unsigned char *memory;
+unsigned char buf;
 
 void disableRawMode()
 {
@@ -49,16 +50,10 @@ unit memory_init(const unit u)
 	return UNIT;
 }
 
-unit print_char(const sail_int c)
+// Returns 0 (null byte) if it cannot read a character from terminal
+uint8_t try_read_char()
 {
-	printf("%c", (unsigned char) mpz_get_ui(c));
-
-	return UNIT;
-}
-
-uint64_t try_read_char(const unit u)
-{
-	char nxt;
+	unsigned char nxt;
 	int ready = 0;
 	int num_read = 0;
 
@@ -79,14 +74,56 @@ uint64_t try_read_char(const unit u)
 	return 0;
 }
 
-uint64_t mem_read(const sail_int addr)
+uint8_t mem_read(const sail_int addr)
 {
-	return memory[mpz_get_ui(addr)];
+	unsigned char nxt;
+	int loc = mpz_get_ui(addr);
+
+	if (buf == 0)
+		buf = try_read_char();
+
+	switch (loc)
+	{
+		case 0x8400:
+			if (buf == 0)
+			{
+				return buf;
+			}
+			else
+			{
+				nxt = buf;
+				buf = 0;
+				return nxt;
+			}
+		case 0x8401:
+			if (buf == 0)
+			{
+				return buf;
+			}
+			else
+			{
+				return 0x08;
+			}
+		default:
+			return memory[loc];
+	}
 }
 
 unit mem_write(const sail_int addr, const sail_int data)
 {
-	memory[mpz_get_ui(addr)] = mpz_get_ui(data);
+	int loc = mpz_get_ui(addr);
+	int ch = mpz_get_ui(data);
+
+	switch (loc)
+	{
+		case 0x8400:
+			printf("%c", ch);
+			fflush(stdout);
+			break;
+		default:
+			memory[loc] = ch;
+			break;
+	}
 
 	return UNIT;
 }
