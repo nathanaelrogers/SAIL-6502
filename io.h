@@ -12,4 +12,10 @@ unit mem_write(const sail_int addr, const sail_int data);
 
 unit load_binary(const sail_string path, const sail_int start_addr);
 
+unit consume_input(const unit u);
+
+uint8_t get_nmi(const unit u);
+uint8_t get_rst(const unit u);
+uint8_t get_irq(const unit u);
+
 #endif

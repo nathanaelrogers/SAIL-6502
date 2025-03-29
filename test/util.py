@@ -136,7 +136,7 @@ def check_total_cycles(m: Match, x: int) -> bool:
 def get_total_cycles(m: Match):
 	return int(m.group(15))
 
-def load_test(start_binary=0x0200, source_file=None, overrided_start_pc=None, start_sp=0xFF, start_sr=0x06, store_data={}, view_memory=[], generate_binary=True, enable_print_dump=False, enable_print_at_interval=False, enable_break_at_trap=True, compile_c_target=False) -> str:
+def load_test(start_binary=0x0200, source_file=None, overrided_start_pc=None, store_data={}, view_memory=[], generate_binary=True, enable_print_dump=False, enable_print_at_interval=False, enable_break_at_trap=True, compile_c_target=False) -> str:
 	# Generate list of SAIL REPL commands to store sary at start address
 	commands = []
 	read_commands = []
@@ -148,13 +148,7 @@ def load_test(start_binary=0x0200, source_file=None, overrided_start_pc=None, st
 
 	# Commands to look at contents of memory after we're done
 	for location in view_memory:
-		hi_byte = location >> 8
-		lo_byte = location & 0xFF
-		read_commands.append(f'print_bits(\"{location:#0{6}x}: \", main_mem[{hi_byte}][{lo_byte}]);')
-
-	# Commands to initialise registers
-	commands.append(f'reg_SR[all] = {start_sr:#0{4}x};')
-	commands.append(f'reg_SP = {start_sp:#0{4}x};')
+		read_commands.append(f'print_bits(\"{location:#0{6}x}: \", read({location:#0{6}x}));')
 
 	# Generate a binary file from the source code
 	if generate_binary:

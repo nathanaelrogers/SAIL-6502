@@ -75,3 +75,19 @@ val mem_write = pure {
 val load_binary = pure {
 	c : "load_binary"
 } : (string, int) -> unit
+
+val consume_input = pure {
+	c : "consume_input"
+} : (unit) -> unit
+
+val get_nmi = pure {
+	c : "get_nmi"
+} : (unit) -> bits(1)
+
+val get_rst = pure {
+	c : "get_rst"
+} : (unit) -> bits(1)
+
+val get_irq = pure {
+	c : "get_irq"
+} : (unit) -> bits(1)

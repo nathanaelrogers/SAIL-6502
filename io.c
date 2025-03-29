@@ -14,7 +14,12 @@ fd_set input_set;
 struct timeval timeout;
 
 unsigned char *memory;
-unsigned char buf;
+unsigned char buf[2048];
+int i = -1;
+
+uint8_t nmi = 1;
+uint8_t rst = 1;
+uint8_t irq = 1;
 
 void disableRawMode()
 {
@@ -79,26 +84,21 @@ uint8_t mem_read(const sail_int addr)
 	unsigned char nxt;
 	int loc = mpz_get_ui(addr);
 
-	if (buf == 0)
-		buf = try_read_char();
-
 	switch (loc)
 	{
 		case 0x8400:
-			if (buf == 0)
+			if (i < 0)
 			{
-				return buf;
+				return 0;
 			}
 			else
 			{
-				nxt = buf;
-				buf = 0;
-				return nxt;
+				return buf[i--];
 			}
 		case 0x8401:
-			if (buf == 0)
+			if (i < 0)
 			{
-				return buf;
+				return 0;
 			}
 			else
 			{
@@ -143,4 +143,75 @@ unit load_binary(const sail_string path, const sail_int start_addr)
 	int read = fread(memory + mpz_get_ui(start_addr), sizeof(unsigned char), (0b1 << 16), code);
 
 	return UNIT;
+}
+
+unit consume_input(const unit u)
+{
+	unsigned char nxt = 0;
+
+	do
+	{
+		nxt = try_read_char();
+		if (nxt == 0x0C) // ctrl + L
+		{
+			nmi = 0;
+			break;
+		}
+		if (nxt == 0x12) // ctrl + R
+		{
+			rst = 0;
+			break;
+		}
+		if (nxt == 0x14) // ctrl + T
+		{
+			irq = 0;
+			break;
+		}
+		if (nxt)
+		{
+			buf[++i] = nxt;
+		}
+	} while (nxt);
+	
+
+	return UNIT;
+}
+
+uint8_t get_nmi(const unit u)
+{
+	if (nmi == 0)
+	{
+		nmi = 1;
+		return 0;
+	}
+	else
+	{
+		return nmi;
+	}
+}
+
+uint8_t get_rst(const unit u)
+{
+	if (rst == 0)
+	{
+		rst = 1;
+		return 0;
+	}
+	else
+	{
+		return rst;
+	}
+}
+
+uint8_t get_irq(const unit u)
+{
+	if (irq == 0)
+	{
+		irq = 1;
+		return 0;
+	}
+	else
+	{
+		return irq;
+	}
 }

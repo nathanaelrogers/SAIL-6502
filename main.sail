@@ -31,6 +31,10 @@ function print_state(cycles_taken) = {
 }
 
 function fetch_decode_execute() : unit -> bool = {
+	consume_input();
+
+	check_for_interrupt();
+
 	let start_PC : address = reg_PC;
 
 	let cycles_before : int = cycles;
@@ -104,5 +108,4 @@ function main() : unit -> unit = {
 
 	print_endline(concat_str("total cycle count: ", dec_str(cycles)));
 	print_endline(concat_str("total instructions: ", dec_str(instructions_done)));
-	print_bits("", read(0xFFFA));
 }
