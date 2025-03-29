@@ -1,46 +1,48 @@
+ACIA_DATA = $5000
+
 lda #$48
-sta $8400
+sta ACIA_DATA
 
 lda #$65
-sta $8400
+sta ACIA_DATA
 
 lda #$6c
-sta $8400
+sta ACIA_DATA
 
 lda #$6c
-sta $8400
+sta ACIA_DATA
 
 lda #$6f
-sta $8400
+sta ACIA_DATA
 
 lda #$2c
-sta $8400
+sta ACIA_DATA
 
 lda #$20
-sta $8400
+sta ACIA_DATA
 
 lda #$77
-sta $8400
+sta ACIA_DATA
 
 lda #$6f
-sta $8400
+sta ACIA_DATA
 
 lda #$72
-sta $8400
+sta ACIA_DATA
 
 lda #$6c
-sta $8400
+sta ACIA_DATA
 
 lda #$64
-sta $8400
+sta ACIA_DATA
 
 lda #$21
-sta $8400
+sta ACIA_DATA
 
 lda #$0d
-sta $8400
+sta ACIA_DATA
 
 lda #$0a
-sta $8400
+sta ACIA_DATA
 
 jmp *

@@ -1,5 +1,5 @@
-rw     = $8400
-status = $8401
+rw     = $5000
+status = $5001
 
 start:
 
