@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>BIT</title></head>
+<body>
+<h1>BIT.sail (5/5) 100%</h1>
+<code style="display: block">
+val&nbsp;modify_flags_bit&nbsp;:&nbsp;(word,&nbsp;word)&nbsp;-&gt;&nbsp;unit<br>
+function&nbsp;modify_flags_bit(input,&nbsp;result)&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;negative<br>
+&nbsp;&nbsp;&nbsp;&nbsp;reg_SR[n]&nbsp;=&nbsp;[input[7]];<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;zero<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: hsl(120, 85%, 75%)">if&nbsp;(unsigned(result)&nbsp;==&nbsp;0)&nbsp;then<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reg_SR[z]&nbsp;=&nbsp;0b1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;else<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reg_SR[z]&nbsp;=&nbsp;0b0</span>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;overflow<br>
+&nbsp;&nbsp;&nbsp;&nbsp;reg_SR[v]&nbsp;=&nbsp;[input[6]]<br>
+}</span><br>
+<br>
+val&nbsp;BIT&nbsp;:&nbsp;(word)&nbsp;-&gt;&nbsp;bool<br>
+function&nbsp;BIT(input)&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;result&nbsp;=&nbsp;reg_A&nbsp;&&nbsp;input;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;modify_flags_bit(input,&nbsp;result);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;true<br>
+}</span><br>
+<br>
+function&nbsp;clause&nbsp;execute(BIT_ZP(op))&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(3);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;addr&nbsp;=&nbsp;calc_word(mode(zp),&nbsp;op);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;input&nbsp;=&nbsp;read_zp(addr);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;BIT(input)<br>
+}</span><br>
+function&nbsp;clause&nbsp;execute(BIT_ABS(op))&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(4);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;addr&nbsp;=&nbsp;calc_addr(mode(abs),&nbsp;op);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;input&nbsp;=&nbsp;read(addr);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;BIT(input)<br>
+}</span><br>
+</code>
+</body>
+</html>

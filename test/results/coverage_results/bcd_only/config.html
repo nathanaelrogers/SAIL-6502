@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>config</title></head>
+<body>
+<h1>config.sail (3/3) 100%</h1>
+<code style="display: block">
+register&nbsp;enable_print_at_interval&nbsp;:&nbsp;bool&nbsp;=&nbsp;false<br>
+register&nbsp;enable_print_dump&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;bool&nbsp;=&nbsp;false<br>
+register&nbsp;enable_break_at_trap&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;bool&nbsp;=&nbsp;true<br>
+register&nbsp;enable_print_mem&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;bool&nbsp;=&nbsp;true<br>
+<br>
+val&nbsp;print_memory&nbsp;:&nbsp;(unit)&nbsp;-&gt;&nbsp;unit<br>
+function&nbsp;print_memory()&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+print_bits(&quot;0x08ff:&nbsp;&quot;,&nbsp;read(0x08ff));<br>
+}</span><br>
+<br>
+val&nbsp;load_config&nbsp;:&nbsp;(unit)&nbsp;-&gt;&nbsp;unit<br>
+function&nbsp;load_config()&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+reg_SR[all]&nbsp;=&nbsp;0x06;<br>
+reg_SP&nbsp;=&nbsp;0xff;<br>
+}</span><br>
+<br>
+val&nbsp;load_binary&nbsp;:&nbsp;(unit)&nbsp;-&gt;&nbsp;unit<br>
+function&nbsp;load_binary()&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+mem_load(&quot;code.bin&quot;,&nbsp;unsigned(0x0000));<br>
+}</span><br>
+</code>
+</body>
+</html>

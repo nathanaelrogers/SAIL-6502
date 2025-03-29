@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SBC</title></head>
+<body>
+<h1>SBC.sail (30/37) 81%</h1>
+<code style="display: block">
+val&nbsp;modify_flags_SBC&nbsp;:&nbsp;(bits(9),&nbsp;int,&nbsp;word,&nbsp;word)&nbsp;-&gt;&nbsp;unit<br>
+function&nbsp;modify_flags_SBC(result,&nbsp;dec_result,&nbsp;op1,&nbsp;op2)&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;negative&nbsp;+&nbsp;BCD&nbsp;negative<br>
+&nbsp;&nbsp;&nbsp;&nbsp;reg_SR[n]&nbsp;=&nbsp;[result[7]];<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;zero&nbsp;+&nbsp;BCD&nbsp;zero<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: hsl(120, 85%, 75%)">if&nbsp;(result[7..0]&nbsp;==&nbsp;0x00)&nbsp;then<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reg_SR[z]&nbsp;=&nbsp;0b1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;else<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reg_SR[z]&nbsp;=&nbsp;0b0</span>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;overflow&nbsp;+&nbsp;BCD&nbsp;overflow<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: hsl(120, 85%, 75%)">if&nbsp;(<span style="background-color: hsl(120, 85%, 70%)">([op1[7]]&nbsp;!=&nbsp;[op2[7]])&nbsp;&&nbsp;(<span style="background-color: hsl(120, 85%, 65%)">[op1[7]]&nbsp;!=&nbsp;[result[7]]</span>)</span>)&nbsp;then<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reg_SR[v]&nbsp;=&nbsp;0b1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;else<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reg_SR[v]&nbsp;=&nbsp;0b0</span>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;carry<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: hsl(120, 85%, 75%)">if&nbsp;(reg_SR[d]&nbsp;==&nbsp;0b0)&nbsp;then&nbsp;<span style="background-color: hsl(120, 85%, 70%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: hsl(120, 85%, 65%)">if&nbsp;(signed(result)&nbsp;&gt;=&nbsp;0)&nbsp;then<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reg_SR[c]&nbsp;=&nbsp;0b1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reg_SR[c]&nbsp;=&nbsp;0b0</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;}</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;BCD&nbsp;carry<br>
+&nbsp;&nbsp;&nbsp;&nbsp;else&nbsp;<span style="background-color: hsl(0, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: hsl(0, 85%, 75%)">if&nbsp;(dec_result&nbsp;&gt;=&nbsp;0)&nbsp;then<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reg_SR[c]&nbsp;=&nbsp;0b1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reg_SR[c]&nbsp;=&nbsp;0b0</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;}</span></span>;<br>
+}</span><br>
+<br>
+val&nbsp;SBC&nbsp;:&nbsp;(word)&nbsp;-&gt;&nbsp;bool<br>
+function&nbsp;SBC(op)&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;dec_carry&nbsp;&nbsp;:&nbsp;int&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 75%)">if&nbsp;(reg_SR[c]&nbsp;==&nbsp;0b1)&nbsp;then&nbsp;0&nbsp;else&nbsp;1</span>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;dec_result&nbsp;:&nbsp;int&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 75%)">if&nbsp;(reg_SR[d]&nbsp;==&nbsp;0b0)&nbsp;then&nbsp;<span style="background-color: hsl(120, 85%, 70%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}</span>&nbsp;else&nbsp;<span style="background-color: hsl(0, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dec_sub(word_to_dec(reg_A),&nbsp;word_to_dec(op),&nbsp;dec_carry)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}</span></span>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;result&nbsp;:&nbsp;bits(9)&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 75%)">if&nbsp;(reg_SR[d]&nbsp;==&nbsp;0b0)&nbsp;then&nbsp;<span style="background-color: hsl(120, 85%, 70%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXTZ(9,&nbsp;reg_A)&nbsp;-&nbsp;EXTZ(9,&nbsp;op)&nbsp;-&nbsp;EXTZ(9,&nbsp;not_vec(reg_SR[c]))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}</span>&nbsp;else&nbsp;<span style="background-color: hsl(0, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXTZ(9,&nbsp;dec_to_word(dec_result))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}</span></span>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;modify_flags_SBC(result,&nbsp;dec_result,&nbsp;reg_A,&nbsp;op);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;reg_A&nbsp;=&nbsp;result[7..0];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;true<br>
+}</span><br>
+<br>
+function&nbsp;clause&nbsp;execute(SBC_IMM(op))&nbsp;&nbsp;&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(2);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;word&nbsp;=&nbsp;calc_word(mode(imm),&nbsp;op);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SBC(word)<br>
+}</span><br>
+function&nbsp;clause&nbsp;execute(SBC_ZP(op))&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(3);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;word&nbsp;=&nbsp;calc_word(mode(zp),&nbsp;op);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SBC(read_zp(word))<br>
+}</span><br>
+function&nbsp;clause&nbsp;execute(SBC_ZP_X(op))&nbsp;&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(4);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;word&nbsp;=&nbsp;calc_word(mode(zp_x),&nbsp;op);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SBC(read_zp(word))<br>
+}</span><br>
+function&nbsp;clause&nbsp;execute(SBC_ABS(op))&nbsp;&nbsp;&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(4);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;addr&nbsp;=&nbsp;calc_addr(mode(abs),&nbsp;op);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SBC(read(addr))<br>
+}</span><br>
+function&nbsp;clause&nbsp;execute(SBC_ABS_X(op))&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(4);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;addr&nbsp;=&nbsp;calc_addr(mode(abs_x),&nbsp;op);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: hsl(120, 85%, 75%)">if&nbsp;(op[15..8]&nbsp;!=&nbsp;addr[15..8])&nbsp;then&nbsp;<span style="background-color: hsl(120, 85%, 70%)">incr_cycles(1)</span></span><span style="background-color: hsl(0, 85%, 80%)">&#171;Invisible branch not taken here&#187</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SBC(read(addr))<br>
+}</span><br>
+function&nbsp;clause&nbsp;execute(SBC_ABS_Y(op))&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(4);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;addr&nbsp;=&nbsp;calc_addr(mode(abs_y),&nbsp;op);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: hsl(120, 85%, 75%)">if&nbsp;(op[15..8]&nbsp;!=&nbsp;addr[15..8])&nbsp;then&nbsp;<span style="background-color: hsl(120, 85%, 70%)">incr_cycles(1)</span></span><span style="background-color: hsl(0, 85%, 80%)">&#171;Invisible branch not taken here&#187</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SBC(read(addr))<br>
+}</span><br>
+function&nbsp;clause&nbsp;execute(SBC_IND_X(op))&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(6);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;addr&nbsp;=&nbsp;calc_addr(mode(ind_x),&nbsp;op);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SBC(read(addr))<br>
+}</span><br>
+function&nbsp;clause&nbsp;execute(SBC_IND_Y(op))&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(5);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;addr&nbsp;=&nbsp;calc_addr(mode(ind_y),&nbsp;op);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: hsl(120, 85%, 75%)">if&nbsp;(addr[15..8]&nbsp;!=&nbsp;(read_zp(op&nbsp;+&nbsp;1)&nbsp;@&nbsp;read_zp(op))[15..8])&nbsp;then<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: hsl(120, 85%, 70%)">incr_cycles(1)</span></span><span style="background-color: hsl(0, 85%, 80%)">&#171;Invisible branch not taken here&#187</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SBC(read(addr))<br>
+}</span><br>
+</code>
+</body>
+</html>

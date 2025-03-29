@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>JSR</title></head>
+<body>
+<h1>JSR.sail (1/1) 100%</h1>
+<code style="display: block">
+function&nbsp;clause&nbsp;execute(JSR_ABS(op))&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(6);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;addr&nbsp;=&nbsp;calc_addr(mode(abs),&nbsp;op);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;/*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By&nbsp;the&nbsp;time&nbsp;we&nbsp;execute&nbsp;this,&nbsp;reg_PC&nbsp;=&nbsp;instruction&nbsp;PC&nbsp;+&nbsp;3&nbsp;(due&nbsp;to&nbsp;size&nbsp;of<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JSR&nbsp;instruction&nbsp;and&nbsp;pc&nbsp;getting&nbsp;incremented&nbsp;during&nbsp;decode).&nbsp;So&nbsp;to<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;preserve&nbsp;(instruction&nbsp;PC&nbsp;+&nbsp;2)&nbsp;on&nbsp;the&nbsp;stack,&nbsp;we&nbsp;calculate&nbsp;reg_PC&nbsp;-&nbsp;1.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;*/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;stored_pc&nbsp;=&nbsp;reg_PC&nbsp;+&nbsp;(-1);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;push(stored_pc[15..8]);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;push(stored_pc[7..0]);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;reg_PC&nbsp;=&nbsp;addr;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;true<br>
+}</span><br>
+</code>
+</body>
+</html>

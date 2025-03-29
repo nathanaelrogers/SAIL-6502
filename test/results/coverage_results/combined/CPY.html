@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CPY</title></head>
+<body>
+<h1>CPY.sail (8/8) 100%</h1>
+<code style="display: block">
+val&nbsp;modify_flags_CPY&nbsp;:&nbsp;(bits(9))&nbsp;-&gt;&nbsp;unit<br>
+function&nbsp;modify_flags_CPY(result)&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;negative<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: hsl(120, 85%, 75%)">if&nbsp;(signed(result[7..0])&nbsp;&lt;&nbsp;0)&nbsp;then<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reg_SR[n]&nbsp;=&nbsp;0b1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;else<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reg_SR[n]&nbsp;=&nbsp;0b0</span>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;zero<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: hsl(120, 85%, 75%)">if&nbsp;(unsigned(result[7..0])&nbsp;==&nbsp;0)&nbsp;then<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reg_SR[z]&nbsp;=&nbsp;0b1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;else<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reg_SR[z]&nbsp;=&nbsp;0b0</span>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;carry<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: hsl(120, 85%, 75%)">if&nbsp;(signed(result)&nbsp;&gt;=&nbsp;0)&nbsp;then<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reg_SR[c]&nbsp;=&nbsp;0b1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;else<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reg_SR[c]&nbsp;=&nbsp;0b0</span><br>
+}</span><br>
+<br>
+val&nbsp;CPY&nbsp;:&nbsp;(word)&nbsp;-&gt;&nbsp;bool<br>
+function&nbsp;CPY(op)&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;result&nbsp;:&nbsp;bits(9)&nbsp;=&nbsp;EXTZ(9,&nbsp;reg_Y)&nbsp;-&nbsp;EXTZ(9,&nbsp;op);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;modify_flags_CPY(result);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;true<br>
+}</span><br>
+<br>
+function&nbsp;clause&nbsp;execute(CPY_IMM(op))&nbsp;&nbsp;&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(2);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;word&nbsp;=&nbsp;calc_word(mode(imm),&nbsp;op);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;CPY(word)<br>
+}</span><br>
+function&nbsp;clause&nbsp;execute(CPY_ZP(op))&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(3);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;word&nbsp;=&nbsp;calc_word(mode(zp),&nbsp;op);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;CPY(read_zp(word))<br>
+}</span><br>
+function&nbsp;clause&nbsp;execute(CPY_ABS(op))&nbsp;&nbsp;&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(4);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;addr&nbsp;=&nbsp;calc_addr(mode(abs),&nbsp;op);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;CPY(read(addr))<br>
+}</span><br>
+</code>
+</body>
+</html>

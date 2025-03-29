@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>BRK</title></head>
+<body>
+<h1>BRK.sail (0/1) 0%</h1>
+<code style="display: block">
+function&nbsp;clause&nbsp;execute(BRK())&nbsp;=&nbsp;<span style="background-color: hsl(0, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(7);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;/*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By&nbsp;the&nbsp;time&nbsp;this&nbsp;is&nbsp;executed,&nbsp;reg_PC&nbsp;=&nbsp;instruction&nbsp;PC&nbsp;+&nbsp;1&nbsp;(size&nbsp;of&nbsp;BRK&nbsp;instruction).<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;So&nbsp;to&nbsp;preserve&nbsp;instruction&nbsp;PC&nbsp;+&nbsp;2,&nbsp;calculate&nbsp;reg_PC&nbsp;+&nbsp;1.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;*/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;stored_pc&nbsp;=&nbsp;reg_PC&nbsp;+&nbsp;1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;push(stored_pc[15..8]);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;push(stored_pc[7..0]);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;set&nbsp;the&nbsp;unused&nbsp;and&nbsp;B&nbsp;flag&nbsp;in&nbsp;the&nbsp;value&nbsp;put&nbsp;on&nbsp;the&nbsp;stack<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;stored_SR&nbsp;=&nbsp;reg_SR[all]&nbsp;|&nbsp;0x30;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;push(stored_SR);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;set&nbsp;the&nbsp;interrupt&nbsp;mask&nbsp;flag&nbsp;since&nbsp;we&nbsp;are&nbsp;in&nbsp;an&nbsp;interrupt&nbsp;sequence&nbsp;(manual&nbsp;page&nbsp;135)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;reg_SR[i]&nbsp;=&nbsp;0b1;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;transfer&nbsp;control<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;PCH&nbsp;=&nbsp;read(IRQ_vec&nbsp;+&nbsp;1);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;PCL&nbsp;=&nbsp;read(IRQ_vec);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;reg_PC&nbsp;=&nbsp;PCH&nbsp;@&nbsp;PCL;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;true;<br>
+}</span><br>
+</code>
+</body>
+</html>

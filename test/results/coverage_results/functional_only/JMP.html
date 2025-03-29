@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>JMP</title></head>
+<body>
+<h1>JMP.sail (3/3) 100%</h1>
+<code style="display: block">
+val&nbsp;JMP&nbsp;:&nbsp;(address)&nbsp;-&gt;&nbsp;bool<br>
+function&nbsp;JMP(address)&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;reg_PC&nbsp;=&nbsp;address;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;true<br>
+}</span><br>
+<br>
+function&nbsp;clause&nbsp;execute(JMP_ABS(op))&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(3);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;addr&nbsp;=&nbsp;calc_addr(mode(abs),&nbsp;op);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;JMP(addr)<br>
+}</span><br>
+function&nbsp;clause&nbsp;execute(JMP_IND(op))&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_cycles(5);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;addr&nbsp;=&nbsp;calc_addr(mode(ind),&nbsp;op);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;JMP(addr)<br>
+}</span><br>
+</code>
+</body>
+</html>

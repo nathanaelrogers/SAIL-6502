@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>decimal-mode</title></head>
+<body>
+<h1>decimal-mode.sail (0/34) 0%</h1>
+<code style="display: block">
+mapping&nbsp;bcd_pack&nbsp;:&nbsp;int&nbsp;&lt;-&gt;&nbsp;bits(4)&nbsp;=&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&lt;-&gt;&nbsp;<span style="background-color: hsl(0, 85%, 80%)">0x0</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&lt;-&gt;&nbsp;<span style="background-color: hsl(0, 85%, 80%)">0x1</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&lt;-&gt;&nbsp;<span style="background-color: hsl(0, 85%, 80%)">0x2</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;&lt;-&gt;&nbsp;<span style="background-color: hsl(0, 85%, 80%)">0x3</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;4&nbsp;&lt;-&gt;&nbsp;<span style="background-color: hsl(0, 85%, 80%)">0x4</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;5&nbsp;&lt;-&gt;&nbsp;<span style="background-color: hsl(0, 85%, 80%)">0x5</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;6&nbsp;&lt;-&gt;&nbsp;<span style="background-color: hsl(0, 85%, 80%)">0x6</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;7&nbsp;&lt;-&gt;&nbsp;<span style="background-color: hsl(0, 85%, 80%)">0x7</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;8&nbsp;&lt;-&gt;&nbsp;<span style="background-color: hsl(0, 85%, 80%)">0x8</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;9&nbsp;&lt;-&gt;&nbsp;<span style="background-color: hsl(0, 85%, 80%)">0x9</span><br>
+}<br>
+<br>
+val&nbsp;nibble_to_int&nbsp;:&nbsp;(bits(4))&nbsp;-&gt;&nbsp;int<br>
+function&nbsp;nibble_to_int(nibble)&nbsp;=&nbsp;<span style="background-color: hsl(0, 85%, 80%)">match&nbsp;unsigned(nibble)&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;x&nbsp;if&nbsp;(<span style="background-color: hsl(0, 85%, 75%)">(x&nbsp;&gt;=&nbsp;0)&nbsp;&&nbsp;(<span style="background-color: hsl(0, 85%, 70%)">x&nbsp;&lt;=&nbsp;9</span>)</span>)&nbsp;=&gt;&nbsp;<span style="background-color: hsl(0, 85%, 75%)">bcd_pack(nibble)</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&gt;&nbsp;<span style="background-color: hsl(0, 85%, 75%)">undefined</span><br>
+}</span><br>
+<br>
+val&nbsp;int_to_nibble&nbsp;:&nbsp;(int)&nbsp;-&gt;&nbsp;bits(4)<br>
+function&nbsp;int_to_nibble(num)&nbsp;=&nbsp;<span style="background-color: hsl(0, 85%, 80%)">match&nbsp;num&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;x&nbsp;if&nbsp;(<span style="background-color: hsl(0, 85%, 75%)">(x&nbsp;&gt;=&nbsp;0)&nbsp;&&nbsp;(<span style="background-color: hsl(0, 85%, 70%)">x&nbsp;&lt;=&nbsp;9</span>)</span>)&nbsp;=&gt;&nbsp;<span style="background-color: hsl(0, 85%, 75%)">bcd_pack(num)</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&gt;&nbsp;<span style="background-color: hsl(0, 85%, 75%)">undefined</span><br>
+}</span><br>
+<br>
+val&nbsp;word_to_dec&nbsp;:&nbsp;word&nbsp;-&gt;&nbsp;int<br>
+function&nbsp;word_to_dec(word)&nbsp;=&nbsp;<span style="background-color: hsl(0, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(nibble_to_int(word[7..4])&nbsp;*&nbsp;10)&nbsp;+&nbsp;nibble_to_int(word[3..0])<br>
+}</span><br>
+<br>
+val&nbsp;dec_to_word&nbsp;:&nbsp;int&nbsp;-&gt;&nbsp;word<br>
+function&nbsp;dec_to_word(op)&nbsp;=&nbsp;<span style="background-color: hsl(0, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int_to_nibble((op&nbsp;%&nbsp;100)&nbsp;/&nbsp;10)&nbsp;@&nbsp;int_to_nibble(op&nbsp;%&nbsp;10)<br>
+}</span><br>
+<br>
+val&nbsp;dec_sub&nbsp;:&nbsp;(int,&nbsp;int,&nbsp;int)&nbsp;-&gt;&nbsp;int<br>
+function&nbsp;dec_sub(op1,&nbsp;op2,&nbsp;op3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;<span style="background-color: hsl(0, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;op1&nbsp;-&nbsp;op2&nbsp;-&nbsp;op3<br>
+}</span><br>
+<br>
+val&nbsp;dec_add&nbsp;:&nbsp;(int,&nbsp;int,&nbsp;int)&nbsp;-&gt;&nbsp;int<br>
+function&nbsp;dec_add(op1,&nbsp;op2,&nbsp;op3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;<span style="background-color: hsl(0, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;op1&nbsp;+&nbsp;op2&nbsp;+&nbsp;op3<br>
+}</span><br>
+</code>
+</body>
+</html>
