@@ -120,6 +120,12 @@ unit mem_write(const sail_int addr, const sail_int data)
 			printf("%c", ch);
 			fflush(stdout);
 			break;
+		case 0x8401:
+			break;
+		case 0x8402:
+			break;
+		case 0x8403:
+			break;
 		default:
 			memory[loc] = ch;
 			break;
