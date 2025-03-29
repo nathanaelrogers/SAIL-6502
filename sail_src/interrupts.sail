@@ -28,8 +28,8 @@ function perform_interrupt() = {
 	reg_PC = PCH @ PCL;
 }
 
-val reset_model : (unit) -> unit
-function reset_model() = {
+val model_init : (unit) -> unit
+function model_init() = {
 	let PCH : word = read(RST_vec + 1);
 	let PCL : word = read(RST_vec);
 
@@ -41,6 +41,7 @@ function reset_model() = {
 	reg_Y  = undefined;
 	reg_SP = undefined;
 	reg_SR[all] = undefined;
+	reg_SR[i] = 0b1;
 
 	cycles = 0;
 	instructions_done = 0;
@@ -57,7 +58,7 @@ function check_for_interrupt() = {
     IRQ = get_irq();
 
     if (RST == 0b0) then {
-        reset_model();
+        model_init();
         print_bits("performed reset, now at pc: ", reg_PC);
         RST = 0b1;
     };

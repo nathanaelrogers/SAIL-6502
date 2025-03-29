@@ -76,30 +76,11 @@ function fetch_decode_execute() : unit -> bool = {
 	return execute_success;
 }
 
-// PC is read from address provided in reset vector (16 bits at $FFFC).
-// All other initialization is left to the program loaded.
-function model_init() : unit -> unit = {
-	let PCH : word = read(RST_vec + 1);
-	let PCL : word = read(RST_vec);
-
-	reg_PC[15..8] = PCH;
-	reg_PC[7..0]  = PCL;
-
-	reg_A  = undefined;
-	reg_X  = undefined;
-	reg_Y  = undefined;
-	reg_SP = undefined;
-	reg_SR[all] = undefined;
-
-	cycles = 0;
-	instructions_done = 0;
-}
-
 function main() : unit -> unit = {
-	terminal_init();
-	memory_init();
-	model_init();
-	load_config();
+	terminal_init(); // defined in io.c
+	memory_init();   // defined in io.c
+	model_init();    // defined in interrupts.sail
+	load_config();   // defined in config.sail
 
 	while (fetch_decode_execute()) do {()};
 
