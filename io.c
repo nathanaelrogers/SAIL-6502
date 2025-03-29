@@ -86,7 +86,7 @@ uint8_t mem_read(const sail_int addr)
 
 	switch (loc)
 	{
-		case 0x8400:
+		case 0x5000:
 			if (i < 0)
 			{
 				return 0;
@@ -95,7 +95,7 @@ uint8_t mem_read(const sail_int addr)
 			{
 				return buf[i--];
 			}
-		case 0x8401:
+		case 0x5001:
 			if (i < 0)
 			{
 				return 0;
@@ -116,15 +116,15 @@ unit mem_write(const sail_int addr, const sail_int data)
 
 	switch (loc)
 	{
-		case 0x8400:
+		case 0x5000:
 			printf("%c", ch);
 			fflush(stdout);
 			break;
-		case 0x8401:
+		case 0x5001:
 			break;
-		case 0x8402:
+		case 0x5002:
 			break;
-		case 0x8403:
+		case 0x5003:
 			break;
 		default:
 			memory[loc] = ch;
