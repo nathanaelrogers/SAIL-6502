@@ -9,5 +9,5 @@ print_endline("");
 
 val load_config : (unit) -> unit
 function load_config() = {
-load_binary("test/msbasic/tmp/eater.bin", unsigned(0x8000));
+load_binary("test/enhancedbasic/basic.bin", unsigned(0xc000));
 }

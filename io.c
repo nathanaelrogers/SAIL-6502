@@ -9,17 +9,48 @@
 #include <sys/time.h>
 #include <sys/types.h>
 
+#define MAX_QUEUE_SIZE 2048
+
 struct termios orig_termios;
 fd_set input_set;
 struct timeval timeout;
 
 unsigned char *memory;
-unsigned char buf[2048];
-int i = -1;
 
 uint8_t nmi = 1;
 uint8_t rst = 1;
 uint8_t irq = 1;
+
+typedef struct {
+	unsigned char buf[MAX_QUEUE_SIZE];
+	int tail;
+	int head;
+} Queue;
+Queue inp_buffer = {.head = -1, .tail = 0};
+
+void enqueue(unsigned char ch)
+{
+	inp_buffer.buf[inp_buffer.tail] = ch;
+	inp_buffer.tail = (inp_buffer.tail + 1) % MAX_QUEUE_SIZE;
+}
+
+unsigned char dequeue()
+{
+	inp_buffer.head = (inp_buffer.head + 1) % MAX_QUEUE_SIZE;
+	return inp_buffer.buf[inp_buffer.head];
+}
+
+int inp_buffer_empty()
+{
+	if (inp_buffer.tail - inp_buffer.head == 1)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
 
 void disableRawMode()
 {
@@ -86,17 +117,17 @@ uint8_t mem_read(const sail_int addr)
 
 	switch (loc)
 	{
-		case 0x5000:
-			if (i < 0)
+		case 0x8400:
+			if (inp_buffer_empty())
 			{
 				return 0;
 			}
 			else
 			{
-				return buf[i--];
+				return dequeue();
 			}
-		case 0x5001:
-			if (i < 0)
+		case 0x8401:
+			if (inp_buffer_empty())
 			{
 				return 0;
 			}
@@ -116,15 +147,15 @@ unit mem_write(const sail_int addr, const sail_int data)
 
 	switch (loc)
 	{
-		case 0x5000:
+		case 0x8400:
 			printf("%c", ch);
 			fflush(stdout);
 			break;
-		case 0x5001:
+		case 0x8401:
 			break;
-		case 0x5002:
+		case 0x8402:
 			break;
-		case 0x5003:
+		case 0x8403:
 			break;
 		default:
 			memory[loc] = ch;
@@ -169,7 +200,11 @@ unit consume_input(const unit u)
 		}
 		if (nxt)
 		{
-			buf[++i] = nxt;
+			// convert terminal '\n' chars to carriage returns
+			if (nxt == 0xA)
+				nxt = 0xD;
+
+			enqueue(nxt);
 		}
 	} while (nxt);
 	
