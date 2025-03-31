@@ -10,6 +10,7 @@
 #include <sys/types.h>
 
 #define MAX_QUEUE_SIZE 2048
+#define SERIAL_PORT_ENB
 
 struct termios orig_termios;
 fd_set input_set;
@@ -20,6 +21,16 @@ unsigned char *memory;
 uint8_t nmi = 1;
 uint8_t rst = 1;
 uint8_t irq = 1;
+
+/*
+================================================================================
+Type definition and methods for a ring buffer to hold terminal input before the
+specification actually tries to read from the serial port. This should probably
+be made "safer" in future since right now there are no protections against
+overflow but I'm pretty sure no one is able to input >2K chars before BASIC
+reads some...
+================================================================================
+*/
 
 typedef struct {
 	unsigned char buf[MAX_QUEUE_SIZE];
@@ -52,6 +63,15 @@ int inp_buffer_empty()
 	}
 }
 
+/*
+================================================================================
+Helper methods for initialising the terminal into "raw" mode. This is required
+for disabling buffered input and terminal echoing so that the specification can
+munch chars off of the stdin whenever they are made available (ie. when the key
+gets pressed) rather than waiting for a newline
+================================================================================
+*/
+
 void disableRawMode()
 {
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &orig_termios);
@@ -79,14 +99,15 @@ unit terminal_init(const unit u)
 	return UNIT;
 }
 
-unit memory_init(const unit u)
-{
-	memory = calloc((0b1 << 16), sizeof(unsigned char));
+/*
+================================================================================
+Helper methods for polling for user input from the terminal. try_read_char gets
+a single char from stdin and returns a null (0) when it can't find anything.
+consume_input loops getting chars using try_read_char until there's nothing left
+to read and stores characters in the input buffer.
+================================================================================
+*/
 
-	return UNIT;
-}
-
-// Returns 0 (null byte) if it cannot read a character from terminal
 uint8_t try_read_char()
 {
 	unsigned char nxt;
@@ -108,72 +129,6 @@ uint8_t try_read_char()
 	}
 
 	return 0;
-}
-
-uint8_t mem_read(const sail_int addr)
-{
-	unsigned char nxt;
-	int loc = mpz_get_ui(addr);
-
-	switch (loc)
-	{
-		case 0x8400:
-			if (inp_buffer_empty())
-			{
-				return 0;
-			}
-			else
-			{
-				return dequeue();
-			}
-		case 0x8401:
-			if (inp_buffer_empty())
-			{
-				return 0;
-			}
-			else
-			{
-				return 0x08;
-			}
-		default:
-			return memory[loc];
-	}
-}
-
-unit mem_write(const sail_int addr, const sail_int data)
-{
-	int loc = mpz_get_ui(addr);
-	int ch = mpz_get_ui(data);
-
-	switch (loc)
-	{
-		case 0x8400:
-			printf("%c", ch);
-			fflush(stdout);
-			break;
-		case 0x8401:
-			break;
-		case 0x8402:
-			break;
-		case 0x8403:
-			break;
-		default:
-			memory[loc] = ch;
-			break;
-	}
-
-	return UNIT;
-}
-
-unit load_binary(const sail_string path, const sail_int start_addr)
-{
-	FILE *code = fopen(path, "rb");
-	if (!code) {
-		return 1;
-	}
-	int read = fread(memory + mpz_get_ui(start_addr), sizeof(unsigned char), (0b1 << 16), code);
-
-	return UNIT;
 }
 
 unit consume_input(const unit u)
@@ -200,14 +155,15 @@ unit consume_input(const unit u)
 		}
 		if (nxt)
 		{
+		#ifdef SERIAL_PORT_ENB
 			// convert '\n' chars to carriage returns
 			if (nxt == 0xA)
 				nxt = 0xD;
 
-			// convert backspaces (is this even meant to be a feature?)
+			// convert backspaces
 			if (nxt == 0x7F)
 				nxt = 0x08;
-
+		#endif
 			enqueue(nxt);
 		}
 	} while (nxt);
@@ -215,6 +171,99 @@ unit consume_input(const unit u)
 
 	return UNIT;
 }
+
+/*
+================================================================================
+Memory methods for the specification to use, does pretty much what it says on
+the tin. memory_init is just a memory allocation that initializes to zero,
+mem_read and mem_write do what they're meant to and load_binary is a helper
+to read bytes from a file into the "memory" data structure.
+================================================================================
+*/
+
+
+unit memory_init(const unit u)
+{
+	memory = calloc((0b1 << 16), sizeof(unsigned char));
+
+	return UNIT;
+}
+
+uint8_t mem_read(const sail_int addr)
+{
+	unsigned char nxt;
+	int loc = mpz_get_ui(addr);
+
+	switch (loc)
+	{
+	#ifdef SERIAL_PORT_ENB
+		case 0x8400:
+			if (inp_buffer_empty())
+			{
+				return 0;
+			}
+			else
+			{
+				return dequeue();
+			}
+		case 0x8401:
+			if (inp_buffer_empty())
+			{
+				return 0;
+			}
+			else
+			{
+				return 0x08;
+			}
+	#endif
+		default:
+			return memory[loc];
+	}
+}
+
+unit mem_write(const sail_int addr, const sail_int data)
+{
+	int loc = mpz_get_ui(addr);
+	int ch = mpz_get_ui(data);
+
+	switch (loc)
+	{
+	#ifdef SERIAL_PORT_ENB
+		case 0x8400:
+			printf("%c", ch);
+			fflush(stdout);
+			break;
+		case 0x8401:
+			break;
+		case 0x8402:
+			break;
+		case 0x8403:
+			break;
+	#endif
+		default:
+			memory[loc] = ch;
+			break;
+	}
+
+	return UNIT;
+}
+
+unit load_binary(const sail_string path, const sail_int start_addr)
+{
+	FILE *code = fopen(path, "rb");
+	if (!code) {
+		return 1;
+	}
+	int read = fread(memory + mpz_get_ui(start_addr), sizeof(unsigned char), (0b1 << 16), code);
+
+	return UNIT;
+}
+
+/*
+================================================================================
+Helpers to get (and accordingly reset) the nmi, rst, and irq variables
+================================================================================
+*/
 
 uint8_t get_nmi(const unit u)
 {
