@@ -20,10 +20,10 @@ $(SAIL_OUT): $(SAIL_SRC)
 	$(GCC) *.c -O3 -g $(LIB_PATH) $(CFLAGS) -o $(SAIL_OUT)
 
 gen-with-coverage:
-	$(SAIL) -c -c_coverage all_branches -c_include sail_coverage.h $(SAIL_SRC) -o out -O
+	$(SAIL) -c -c_coverage all_branches -c_include sail_coverage.h -c_include io.h $(SAIL_SRC) -o out -O
 
 compile-with-coverage:
-	$(GCC) out.c -O3 -g $(LIB_PATH) $(CFLAGS) $(COVERAGE_FLAGS) -o $(SAIL_OUT)
+	$(GCC) *.c -O3 -g $(LIB_PATH) $(CFLAGS) $(COVERAGE_FLAGS) -o $(SAIL_OUT)
 
 # Clean up generated files
 clean:

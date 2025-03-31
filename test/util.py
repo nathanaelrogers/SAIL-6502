@@ -157,6 +157,9 @@ def load_test(start_binary=0x0200, source_file=None, overrided_start_pc=None, st
 	# Create commands to write from the binary file the program data at the given start address
 	commands.append(f'load_binary(\"{"code.bin" if generate_binary else source_file}\", unsigned({start_binary:#0{6}x}));')
 
+	# Call the model_init function
+	commands.append('model_init();')
+
 	# Commands to directly overwrite the PC or rely on the program-stored one
 	if overrided_start_pc:
 		commands.append(f'reg_PC = {overrided_start_pc:#0{6}x};')

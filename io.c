@@ -200,9 +200,13 @@ unit consume_input(const unit u)
 		}
 		if (nxt)
 		{
-			// convert terminal '\n' chars to carriage returns
+			// convert '\n' chars to carriage returns
 			if (nxt == 0xA)
 				nxt = 0xD;
+
+			// convert backspaces (is this even meant to be a feature?)
+			if (nxt == 0x7F)
+				nxt = 0x08;
 
 			enqueue(nxt);
 		}

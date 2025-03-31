@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>interrupts</title></head>
+<body>
+<h1>interrupts.sail (10/14) 71%</h1>
+<code style="display: block">
+register&nbsp;NMI&nbsp;:&nbsp;bits(1)<br>
+register&nbsp;RST&nbsp;:&nbsp;bits(1)<br>
+register&nbsp;IRQ&nbsp;:&nbsp;bits(1)<br>
+<br>
+let&nbsp;NMI_vec&nbsp;:&nbsp;address&nbsp;=&nbsp;0xFFFA<br>
+let&nbsp;RST_vec&nbsp;:&nbsp;address&nbsp;=&nbsp;0xFFFC<br>
+let&nbsp;IRQ_vec&nbsp;:&nbsp;address&nbsp;=&nbsp;0xFFFE<br>
+<br>
+val&nbsp;perform_interrupt&nbsp;:&nbsp;(unit)&nbsp;-&gt;&nbsp;unit<br>
+function&nbsp;perform_interrupt()&nbsp;=&nbsp;<span style="background-color: hsl(0, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;/*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By&nbsp;the&nbsp;time&nbsp;this&nbsp;is&nbsp;executed,&nbsp;reg_PC&nbsp;=&nbsp;instruction&nbsp;PC<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;So&nbsp;to&nbsp;preserve&nbsp;instruction&nbsp;PC&nbsp;+&nbsp;2,&nbsp;calculate&nbsp;reg_PC&nbsp;+&nbsp;2.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;*/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;stored_pc&nbsp;=&nbsp;reg_PC&nbsp;+&nbsp;2;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;push(stored_pc[15..8]);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;push(stored_pc[7..0]);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;set&nbsp;the&nbsp;unused&nbsp;flag&nbsp;but&nbsp;not&nbsp;the&nbsp;B&nbsp;flag&nbsp;on&nbsp;the&nbsp;stack&nbsp;(hardware&nbsp;interrupt)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;stored_SR&nbsp;=&nbsp;reg_SR[all]&nbsp;|&nbsp;0x20;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;push(stored_SR);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;set&nbsp;the&nbsp;interrupt&nbsp;mask&nbsp;flag&nbsp;since&nbsp;we&nbsp;are&nbsp;in&nbsp;an&nbsp;interrupt&nbsp;sequence<br>
+&nbsp;&nbsp;&nbsp;&nbsp;reg_SR[i]&nbsp;=&nbsp;0b1;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;PCH&nbsp;=&nbsp;read(IRQ_vec&nbsp;+&nbsp;1);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;PCL&nbsp;=&nbsp;read(IRQ_vec);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;reg_PC&nbsp;=&nbsp;PCH&nbsp;@&nbsp;PCL;<br>
+}</span><br>
+<br>
+val&nbsp;model_init&nbsp;:&nbsp;(unit)&nbsp;-&gt;&nbsp;unit<br>
+function&nbsp;model_init()&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;PCH&nbsp;:&nbsp;word&nbsp;=&nbsp;read(RST_vec&nbsp;+&nbsp;1);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let&nbsp;PCL&nbsp;:&nbsp;word&nbsp;=&nbsp;read(RST_vec);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;reg_PC[15..8]&nbsp;=&nbsp;PCH;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;reg_PC[7..0]&nbsp;&nbsp;=&nbsp;PCL;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;reg_A&nbsp;&nbsp;=&nbsp;undefined;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;reg_X&nbsp;&nbsp;=&nbsp;undefined;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;reg_Y&nbsp;&nbsp;=&nbsp;undefined;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;reg_SP&nbsp;=&nbsp;undefined;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;reg_SR[all]&nbsp;=&nbsp;undefined;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;reg_SR[i]&nbsp;=&nbsp;0b1;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cycles&nbsp;=&nbsp;0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;instructions_done&nbsp;=&nbsp;0;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;NMI&nbsp;=&nbsp;0b1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;RST&nbsp;=&nbsp;0b1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;IRQ&nbsp;=&nbsp;0b1;<br>
+}</span><br>
+<br>
+val&nbsp;check_for_interrupt&nbsp;:&nbsp;(unit)&nbsp;-&gt;&nbsp;unit<br>
+function&nbsp;check_for_interrupt()&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;NMI&nbsp;=&nbsp;get_nmi();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;RST&nbsp;=&nbsp;get_rst();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;IRQ&nbsp;=&nbsp;get_irq();<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: hsl(120, 85%, 75%)">if&nbsp;(RST&nbsp;==&nbsp;0b0)&nbsp;then&nbsp;<span style="background-color: hsl(0, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;model_init();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_bits(&quot;performed&nbsp;reset,&nbsp;now&nbsp;at&nbsp;pc:&nbsp;&quot;,&nbsp;reg_PC);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RST&nbsp;=&nbsp;0b1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}</span></span>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: hsl(120, 85%, 75%)">if&nbsp;(<span style="background-color: hsl(120, 85%, 70%)">reg_SR[i]&nbsp;==&nbsp;0b0&nbsp;&&nbsp;<span style="background-color: hsl(120, 85%, 65%)">IRQ&nbsp;==&nbsp;0b0</span></span>)&nbsp;then&nbsp;<span style="background-color: hsl(0, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perform_interrupt();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IRQ&nbsp;=&nbsp;0b1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}</span></span>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: hsl(120, 85%, 75%)">if&nbsp;(NMI&nbsp;==&nbsp;0b0)&nbsp;then&nbsp;<span style="background-color: hsl(0, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perform_interrupt();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NMI&nbsp;=&nbsp;0b1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}</span></span>;<br>
+}</span><br>
+</code>
+</body>
+</html>

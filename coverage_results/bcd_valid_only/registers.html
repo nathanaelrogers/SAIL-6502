@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>registers</title></head>
+<body>
+<h1>registers.sail (7/9) 78%</h1>
+<code style="display: block">
+/*==============================================================================*/<br>
+//&nbsp;PROCESSOR&nbsp;REGISTERS<br>
+<br>
+register&nbsp;reg_PC&nbsp;:&nbsp;address<br>
+register&nbsp;reg_A&nbsp;&nbsp;:&nbsp;word<br>
+register&nbsp;reg_X&nbsp;&nbsp;:&nbsp;word<br>
+register&nbsp;reg_Y&nbsp;&nbsp;:&nbsp;word<br>
+register&nbsp;reg_SR&nbsp;:&nbsp;flags<br>
+register&nbsp;reg_SP&nbsp;:&nbsp;word<br>
+<br>
+val&nbsp;incr_pc&nbsp;:&nbsp;int&nbsp;-&gt;&nbsp;unit<br>
+function&nbsp;incr_pc(n)&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;reg_PC&nbsp;=&nbsp;reg_PC&nbsp;+&nbsp;n<br>
+}</span><br>
+<br>
+val&nbsp;incr_sp&nbsp;:&nbsp;int&nbsp;-&gt;&nbsp;unit<br>
+function&nbsp;incr_sp(n)&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;reg_SP&nbsp;=&nbsp;reg_SP&nbsp;+&nbsp;n<br>
+}</span><br>
+<br>
+/*==============================================================================*/<br>
+//&nbsp;MAIN&nbsp;MEMORY<br>
+<br>
+val&nbsp;read&nbsp;:&nbsp;(address)&nbsp;-&gt;&nbsp;word<br>
+function&nbsp;read(addr)&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;mem_read(unsigned(addr));<br>
+}</span><br>
+<br>
+val&nbsp;write&nbsp;:&nbsp;(address,&nbsp;word)&nbsp;-&gt;&nbsp;unit<br>
+function&nbsp;write(addr,&nbsp;data)&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;mem_write(unsigned(addr),&nbsp;unsigned(data));<br>
+}</span><br>
+<br>
+val&nbsp;read_zp&nbsp;:&nbsp;word&nbsp;-&gt;&nbsp;word<br>
+function&nbsp;read_zp(addr)&nbsp;=&nbsp;<span style="background-color: hsl(0, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;read(0x00&nbsp;@&nbsp;addr);<br>
+}</span><br>
+<br>
+val&nbsp;write_zp&nbsp;:&nbsp;(word,&nbsp;word)&nbsp;-&gt;&nbsp;unit<br>
+function&nbsp;write_zp(addr,&nbsp;data)&nbsp;=&nbsp;<span style="background-color: hsl(0, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;write(0x00&nbsp;@&nbsp;addr,&nbsp;data);<br>
+}</span><br>
+<br>
+val&nbsp;push&nbsp;:&nbsp;word&nbsp;-&gt;&nbsp;unit<br>
+function&nbsp;push(data)&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;write(0x01&nbsp;@&nbsp;reg_SP,&nbsp;data);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_sp(-1);<br>
+<br>
+}</span><br>
+<br>
+val&nbsp;pull&nbsp;:&nbsp;unit&nbsp;-&gt;&nbsp;word<br>
+function&nbsp;pull()&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incr_sp(1);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;read(0x01&nbsp;@&nbsp;reg_SP);<br>
+}</span><br>
+<br>
+/*==============================================================================*/<br>
+//&nbsp;CYCLE&nbsp;AND&nbsp;INSTRUCTION&nbsp;COUNT<br>
+<br>
+register&nbsp;cycles&nbsp;:&nbsp;int<br>
+register&nbsp;instructions_done&nbsp;:&nbsp;int<br>
+<br>
+val&nbsp;incr_cycles&nbsp;:&nbsp;int&nbsp;-&gt;&nbsp;unit<br>
+function&nbsp;incr_cycles(n)&nbsp;=&nbsp;<span style="background-color: hsl(120, 85%, 80%)">{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cycles&nbsp;=&nbsp;cycles&nbsp;+&nbsp;n;<br>
+}</span><br>
+</code>
+</body>
+</html>
