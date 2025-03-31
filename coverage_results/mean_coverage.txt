@@ -1,0 +1,19 @@
+bcd_combined_functional_no_bcd
+total taken: 573
+total possible: 600
+percentage: 0.955
+
+bcd_valid_only
+total taken: 247
+total possible: 600
+percentage: 0.4116666666666667
+
+functional_no_bcd
+total taken: 527
+total possible: 600
+percentage: 0.8783333333333333
+
+functional_with_bcd
+total taken: 571
+total possible: 600
+percentage: 0.9516666666666667

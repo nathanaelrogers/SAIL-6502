@@ -79,7 +79,6 @@ function fetch_decode_execute() : unit -> bool = {
 function main() : unit -> unit = {
 	terminal_init(); // defined in io.c
 	memory_init();   // defined in io.c
-	model_init();    // defined in interrupts.sail
 	load_config();   // defined in config.sail
 
 	while (fetch_decode_execute()) do {()};
